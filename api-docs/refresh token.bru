@@ -1,0 +1,29 @@
+meta {
+  name: refresh token
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{apiURL}}/auth/v1/token?grant_type=refresh_token
+  body: json
+  auth: inherit
+}
+
+params:query {
+  grant_type: refresh_token
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "refresh_token": "<YOUR_REFRESH_TOKEN>"
+  }
+}
+
+settings {
+  encodeUrl: false
+}

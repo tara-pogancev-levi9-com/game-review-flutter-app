@@ -1,0 +1,30 @@
+meta {
+  name: signin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{apiURL}}/auth/v1/token?grant_type=password
+  body: json
+  auth: inherit
+}
+
+params:query {
+  grant_type: password
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "",
+    "password": ""
+  }
+}
+
+settings {
+  encodeUrl: false
+}

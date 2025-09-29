@@ -1,0 +1,15 @@
+headers {
+  apiKey: {{process.env.API_KEY}}
+}
+
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{process.env.BEARER_TOKEN}}
+}
+
+vars:pre-request {
+  apiURL: {{process.env.API_URL}}
+}
