@@ -1,0 +1,19 @@
+meta {
+  name: get platforms
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{apiURL}}/rest/v1/gaming_platforms?name=like.*eam
+  body: none
+  auth: inherit
+}
+
+params:query {
+  name: like.*eam
+}
+
+settings {
+  encodeUrl: true
+}
