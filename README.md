@@ -50,3 +50,43 @@ flutter run
 - Do not commit any sensitive information or secrets
 - Keep the codebase clean and follow Flutter best practices
 - Run tests before submitting PRs
+
+# 🛠️ Developer Notes: Dependency Injection
+
+This project uses the **`get_it`** package for Dependency Injection.
+
+## **Setting and Getting Dependencies**
+
+All dependencies must be **registered** inside the `setup()` method in `common/injection_container.dart`. You'll use the `get_it` instance, typically named **`locator`**, to perform the registration.
+
+To **retrieve** a dependency from anywhere in your code, use `GetIt.instance<Example>()`.
+
+---
+
+### **1. Singleton**
+A **Singleton** instance is created **once** when the application starts and is reused globally.
+
+| Action | Code Example |
+| :--- | :--- |
+| **Register** (in `setup()`) | `locator.registerSingleton<Example>(Example());` |
+| **Retrieve** (where needed) | `var myAppModel = GetIt.instance<Example>();` |
+
+---
+
+### **2. Factory**
+A **Factory** creates a **new instance** every single time you request it.
+
+| Action | Code Example |
+| :--- | :--- |
+| **Register** (in `setup()`) | `locator.registerFactory<Example>(() => Example());` |
+| **Retrieve** (where needed) | `var myAppModel = GetIt.instance<Example>();` |
+
+---
+
+### **3. Lazy Singleton**
+A **Lazy Singleton** instance is created **only on the first request** and is then reused globally.
+
+| Action | Code Example |
+| :--- | :--- |
+| **Register** (in `setup()`) | `locator.registerLazySingleton<Example>(() => Example());` |
+| **Retrieve** (where needed) | `var myAppModel = GetIt.instance<Example>();` |

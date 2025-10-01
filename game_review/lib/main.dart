@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 void main() {
+  setup();
   runApp(const MyApp());
 }
 
