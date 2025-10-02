@@ -10,6 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.setLocaleSync(AppLocale.en);
   runApp(TranslationProvider(child: MyApp()));
+  setupDependencies();
 }
 
 class MyApp extends StatelessWidget {

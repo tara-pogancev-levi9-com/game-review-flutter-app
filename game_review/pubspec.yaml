@@ -21,8 +21,12 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   get_it: ^8.2.0
+
+  flutter_launcher_icons: ^0.14.4
+
   flutter_localizations:
     sdk: flutter
+
 
 
 dev_dependencies:
@@ -32,6 +36,20 @@ dev_dependencies:
   slang_build_runner: ^4.8.1
   slang_gpt: ^0.11.0
 
+
+
+flutter_launcher_icons:
+  android: true # Set to true to generate Android icons
+  ios: true     # Set to true to generate iOS icons
+  image_path: "lib/common/assets/icons/LogoApp.png" # Path to your icon image
+  adaptive_icon_background: "#2A0144"  # Or an image path like "assets/icon/background.png"
+  adaptive_icon_foreground: "lib/common/assets/icons/SizedForegroundLogo.png"
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
 
   flutter_lints: ^5.0.0
 
