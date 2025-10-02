@@ -6,6 +6,9 @@
 *.swp
 .buildlog/
 .history
+.env
+.env.local
+*.env
 .idea/
 .vscode/
 
