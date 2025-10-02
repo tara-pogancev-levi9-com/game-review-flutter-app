@@ -90,3 +90,5 @@ A **Lazy Singleton** instance is created **only on the first request** and is th
 | :--- | :--- |
 | **Register** (in `setup()`) | `locator.registerLazySingleton<Example>(() => Example());` |
 | **Retrieve** (where needed) | `var myAppModel = GetIt.instance<Example>();` |
+
+
