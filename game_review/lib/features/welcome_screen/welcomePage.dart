@@ -64,14 +64,13 @@ class WelcomePage extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: FilledButton(
+                      child: OutlinedButton(
                         onPressed: () {
                           //TODO: Implement on pressed navigation to login page
                         },
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.transparent,
+                        style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          side: BorderSide(color: Colors.white),
+                          side: BorderSide(color: Colors.white, width: 2),
                           padding: EdgeInsets.symmetric(vertical: 10),
                           textStyle: TextStyle(
                             fontSize:
