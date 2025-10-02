@@ -19,7 +19,6 @@ class AuthTestingScreen extends StatelessWidget {
   }
 
   void _testSignup() async {
-    Logger.info('--- Testing Signup ---');
     try {
       final authService = locator<AuthService>();
       bool success = await authService.signup('newuser@example.com', 'password123');
@@ -34,7 +33,6 @@ class AuthTestingScreen extends StatelessWidget {
   }
 
   void _testLogin() async {
-    Logger.info('--- Testing Login ---');
     try {
       final authService = locator<AuthService>();
       bool success = await authService.login('newuser@example.com', 'password123');
@@ -49,7 +47,6 @@ class AuthTestingScreen extends StatelessWidget {
   }
 
   void _testLogout() async {
-    Logger.info('--- Testing Logout ---');
     try {
       final authService = locator<AuthService>();
       await authService.logout();

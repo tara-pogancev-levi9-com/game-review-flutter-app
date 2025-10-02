@@ -50,7 +50,7 @@ class AuthService {
   Future<void> logout() async {
     try {
       await apiClient.post('auth/v1/logout');
-            Logger.info('Server session ended');
+      Logger.info('Server session ended');
     } catch (e) {
       Logger.error('Server logout failed (but continuing)', e);
     }
