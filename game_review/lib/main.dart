@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/strings.g.dart';
 
-import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/welcome_screen/welcomePage.dart';
+import 'package:game_review/features/welcome_screen/welcome_page.dart';
+
+import 'package:game_review/common/theme/app_theme.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.setLocaleSync(AppLocale.en);
@@ -11,6 +13,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,13 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
-            brightness: Brightness.dark
-        ),
-      ),
+      theme: AppTheme.dark,
       home: const WelcomePage(),
     );
   }
