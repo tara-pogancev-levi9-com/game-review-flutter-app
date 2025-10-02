@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:encrypt_shared_preferences/provider.dart'; 
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/auth/auth_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   try {
@@ -13,19 +13,8 @@ Future<void> main() async {
     await dotenv.load(fileName: ".env");
     print(".env file loaded successfully.");
 
-    final supabaseUrl = dotenv.env['SUPABASE_URL']!;
-    final supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'];
-
-    if (supabaseUrl == null || supabaseAnonKey == null) {
-      throw Exception(
-        "Error: SUPABASE_URL or SUPABASE_ANON_KEY is not set in the .env file."
-      );
-    }
-
-    await Supabase.initialize(
-      url: supabaseUrl,
-      anonKey: supabaseAnonKey,
-    );
+    final String encryptionKey = dotenv.env['ENCRYPTION_KEY']!; 
+    EncryptedSharedPreferences.initialize(encryptionKey);
 
     print("ApiClient initialized successfully.");
     setup();
@@ -34,11 +23,10 @@ Future<void> main() async {
   } catch (e) {
     print("AN ERROR OCCURRED DURING APP STARTUP");
     print(e.toString());
+
     runApp(ErrorScreen(error: e.toString()));
   }
 }
-
-final supabase = Supabase.instance.client;
 
 class ErrorScreen extends StatelessWidget {
   final String error;
@@ -83,44 +71,44 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
-  // void _testApiCall() async {
-  //   print('--- Triggering Test API Call ---');
-  //   try {
-  //     final apiClient = locator<ApiClient>();
+  void _testApiCall() async {
+    print('--- Triggering Test API Call ---');
+    try {
+      final apiClient = locator<ApiClient>();
 
-  //     final response = await apiClient.dio.get('/');
-  //     print('API Call Success:');
-  //     print(response.data);
-  //   } catch (e) {
-  //     print('API Call Failed:');
-  //     print(e.toString());
-  //   }
-  // }
+      final response = await apiClient.dio.get('/');
+      print('API Call Success:');
+      print(response.data);
+    } catch (e) {
+      print('API Call Failed:');
+      print(e.toString());
+    }
+  }
 
   void _testSignup() async {
     print('--- Testing Signup ---');
     try {
       final authService = locator<AuthService>();
-      // The SDK's signup function returns a more detailed AuthResponse object
-      final response = await authService.signup('newuser@example.com', 'password123');
-      if (response.user != null) {
-        print('Signup successful! User ID: ${response.user!.id}');
+      
+      bool success = await authService.signup('newuser@example.com', 'password123');
+      if (success) {
+        print('Signup successful!');
       } else {
-        print('Signup failed or user already exists.');
+        print('Signup failed!');
       }
     } catch (e) {
       print('Signup error: $e');
     }
   }
 
-  void _testLogin() async {
+    void _testLogin() async {
     print('--- Testing Login ---');
     try {
       final authService = locator<AuthService>();
-      final response = await authService.login('newuser@example.com', 'password123');
-      if (response.user != null) {
-        print('Login successful! User ID: ${response.user!.id}');
-        print('Access Token will be managed automatically by the SDK.');
+
+      bool success = await authService.login('newuser@example.com', 'password123');
+      if (success) {
+        print('Login successful!');
       } else {
         print('Login failed!');
       }
