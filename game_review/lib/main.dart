@@ -9,7 +9,6 @@ void main() {
   LocaleSettings.setLocaleSync(AppLocale.en);
   runApp(TranslationProvider(child: MyApp()));
   setupDependencies();
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
