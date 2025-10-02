@@ -1,0 +1,17 @@
+{
+  "welcome": "Dobrodošao!",
+  "greeting": "Zdravo, {name}!",
+  "changeLanguage": "Promeni jezik",
+  "appTitle": "Aplikacija za Recenzije Igara",
+  "home": "Početna",
+  "settings": "Podešavanja",
+  "searchGames": "Pretraži igre",
+  "favoriteGames": "Omiljene Igre",
+  "recentReviews": "Nedavne Recenzije",
+  "addReview": "Додај рецензију",
+  "myProfile": "Мој профил",
+  "logout": "Одјави се",
+  "login": "Prijava",
+  "goodbye": "Doviđenja!",
+  "king": "Kralj"
+}
