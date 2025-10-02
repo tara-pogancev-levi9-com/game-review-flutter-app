@@ -5,55 +5,49 @@ import 'package:game_review/core/storage/secure_storage.dart';
 class ApiClient {
   final Dio dio;
 
-  ApiClient({String? baseUrl})
+  ApiClient({required String baseUrl})
       : dio = Dio(BaseOptions(
-          baseUrl: _getEnvOrThrow('API_URL', baseUrl),
+          baseUrl: baseUrl,
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
           headers: {
             'Content-Type': 'application/json',
-            'apiKey': _getEnvOrThrow('API_KEY'),
+            'apiKey': dotenv.env['API_KEY']!,
           },
         )) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          print('--- Interceptor: onRequest ---');
-          String? token = await SecureStorage.getToken();
+          final token = await SecureStorage.getToken();
 
           if (token != null) {
-            print('Found token in SecureStorage.');
-          } else {
-            print('No token in SecureStorage. Checking .env file.');
-            token = dotenv.env['BEARER_TOKEN'];
-          }
-
-          if (token != null && token.isNotEmpty) {
-            print('Attaching token to headers: Bearer $token');
             options.headers['Authorization'] = 'Bearer $token';
-          } else {
-            print('No token found. Sending request without Authorization header.');
           }
 
-          return handler.next(options); 
+          return handler.next(options);
         },
         onResponse: (response, handler) {
-          print('--- Interceptor: onResponse (${response.statusCode}) ---');
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          print('--- Interceptor: onError (${e.response?.statusCode}) ---');
+          if (e.response?.statusCode == 401) {
+            // TODO: Handle unauthorized error
+          }
           return handler.next(e);
         },
       ),
     );
   }
-}
-
-String _getEnvOrThrow(String key, [String? override]) {
-  final value = override ?? dotenv.env[key];
-  if (value == null || value.isEmpty) {
-    throw Exception('$key is not set in .env file');
+  Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
+    return dio.get(path, queryParameters: queryParameters);
   }
-  return value;
+  Future<Response> post(String path, {dynamic data}) {
+    return dio.post(path, data: data);
+  }
+  Future<Response> put(String path, {dynamic data}) {
+    return dio.put(path, data: data);
+  }
+  Future<Response> delete(String path, {dynamic data}) {
+    return dio.delete(path, data: data);
+  }
 }
