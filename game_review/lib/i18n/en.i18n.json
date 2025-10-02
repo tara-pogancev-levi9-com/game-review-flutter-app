@@ -1,0 +1,17 @@
+{
+  "welcome": "Welcome!",
+  "greeting": "Hello, {name}!",
+  "changeLanguage": "Change Language",
+  "appTitle": "Game Review App",
+  "home": "Home",
+  "settings": "Settings",
+  "searchGames": "Search for games",
+  "favoriteGames": "Favorite Games",
+  "recentReviews": "Recent Reviews",
+  "addReview": "Add Review",
+  "myProfile": "My Profile",
+  "logout": "Logout",
+  "login": "Login",
+  "goodbye": "Goodbye!",
+  "king": "King"
+}
