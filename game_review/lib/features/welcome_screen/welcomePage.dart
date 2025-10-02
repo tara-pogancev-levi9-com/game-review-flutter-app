@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final t = Translations.of(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -49,7 +52,7 @@ class WelcomePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: Text("Login"),
+                        child: Text(t.login),
                       ),
                     ),
                   ),
@@ -82,11 +85,25 @@ class WelcomePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        child: Text("Register"),
+                        child: Text(t.register),
                       ),
                     ),
                   ),
                 ],
+              ),
+
+              SizedBox(height: 8.0),
+
+              ElevatedButton(
+                onPressed: () {
+                  if (LocaleSettings.currentLocale == AppLocale.en) {
+                    LocaleSettings.setLocale(AppLocale.sr);
+                  } else {
+                    LocaleSettings.setLocale(AppLocale.en);
+                  }
+                  // nema više notifyListeners, sam se refresha
+                },
+                child: Text("Change Language"),
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'i18n/strings.g.dart';
 
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/welcome_screen/welcomePage.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.setLocaleSync(AppLocale.en);
@@ -24,10 +25,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
-            brightness: Brightness.dark
+          seedColor: Colors.deepPurple,
+          brightness: Brightness.dark,
         ),
       ),
       home: const WelcomePage(),
