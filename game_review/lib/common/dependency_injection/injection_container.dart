@@ -5,12 +5,13 @@ import 'package:game_review/features/auth/auth_service.dart';
 
 final locator = GetIt.instance;
 
-void setup() {
+void setupDependencies() {
   locator.registerLazySingleton<ApiClient>(
     () => ApiClient(
       baseUrl: dotenv.env['API_URL']!,
     ),
   );
+
 
   locator.registerLazySingleton<AuthService>(
     () => AuthService(
