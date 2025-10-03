@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:encrypt_shared_preferences/provider.dart';
+import 'package:game_review/features/registration_screen/bloc/registerCubit.dart';
 
 import 'i18n/strings.g.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
@@ -21,7 +23,7 @@ Future<void> main() async {
     if (encryptionKey != null && encryptionKey.isNotEmpty) {
       EncryptedSharedPreferences.initialize(encryptionKey);
     } else {
-      Logger.warn('ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.');
+      Logger.warning('ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.');
     }
 
     setupDependencies();
@@ -40,7 +42,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return
+      MultiBlocProvider(
+          providers: [
+            BlocProvider<RegistrationCubit>(
+              create: (context) => RegistrationCubit(),
+            ),
+          ],
+       child: MaterialApp(
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: const [
@@ -53,6 +62,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.dark,
       home: const WelcomePage(),
       // home: const AuthTestingScreen(),
-    );
+    )
+      );
   }
 }

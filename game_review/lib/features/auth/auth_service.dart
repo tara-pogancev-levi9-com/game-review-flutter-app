@@ -9,6 +9,7 @@ class AuthService {
 
   Future<bool> signup(String email, String password) async {
     try {
+
       final response = await apiClient.post(
         'auth/v1/signup',
         data: {
@@ -25,7 +26,8 @@ class AuthService {
         return true;
       }
     } catch (e) {
-      Logger.error('Signup error', e); 
+      Logger.error('Signup error', e);
+      throw e;
     }
     return false;
   }
