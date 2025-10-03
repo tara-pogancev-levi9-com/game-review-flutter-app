@@ -21,7 +21,9 @@ Future<void> main() async {
     if (encryptionKey != null && encryptionKey.isNotEmpty) {
       EncryptedSharedPreferences.initialize(encryptionKey);
     } else {
-      Logger.warn('ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.');
+      Logger.warning(
+        'ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.',
+      );
     }
 
     setupDependencies();

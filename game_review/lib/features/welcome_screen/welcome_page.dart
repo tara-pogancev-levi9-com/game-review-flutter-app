@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {

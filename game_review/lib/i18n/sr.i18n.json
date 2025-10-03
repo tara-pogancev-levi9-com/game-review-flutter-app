@@ -41,5 +41,11 @@
   "save": "Sačuvaj",
   "edit": "Izmeni",
   "delete": "Obriši",
-  "update": "Ažuriraj"
+  "update": "Ažuriraj",
+  "navigation": {
+    "home": "Početna",
+    "search": "Pretraživanje",
+    "library": "Biblioteka",
+    "profile": "Profil"
+  }
 }

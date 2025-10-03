@@ -41,6 +41,12 @@
   "save": "Save",
   "edit": "Edit",
   "delete": "Delete",
-  "update": "Update"
+  "update": "Update",
+  "navigation": {
+    "home": "Home",
+    "search": "Search",
+    "library": "Library",
+    "profile": "Profile"
+  }
 
 }
