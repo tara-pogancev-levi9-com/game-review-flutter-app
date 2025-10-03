@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -43,7 +44,7 @@ class WelcomePage extends StatelessWidget {
                             //TODO: Implement on pressed navigation to login page
                           },
                           child: Text(
-                            "Login",
+                            t.login,
                           ),
                         ),
                       ),
@@ -64,8 +65,31 @@ class WelcomePage extends StatelessWidget {
                             //TODO: Implement on pressed navigation to login page
                           },
                           child: Text(
-                            "Register",
+                            t.register,
                           ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 45.0),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                        child: OutlinedButton(
+                          onPressed: () {
+                            if (LocaleSettings.currentLocale == AppLocale.en) {
+                              LocaleSettings.setLocale(AppLocale.sr);
+                            } else {
+                              LocaleSettings.setLocale(AppLocale.en);
+                            }
+                          },
+                          child: Text(t.changeLanguage),
                         ),
                       ),
                     ),

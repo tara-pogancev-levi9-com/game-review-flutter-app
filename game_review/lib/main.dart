@@ -7,7 +7,6 @@ import 'i18n/strings.g.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
-
 import 'package:game_review/screens/error_screen.dart';
 import 'package:game_review/screens/auth_testing_screen.dart';
 import 'package:game_review/common/utils/logger.dart';
