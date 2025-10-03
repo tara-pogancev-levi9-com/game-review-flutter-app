@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/auth/auth_service.dart';
 import 'auth_state.dart';
@@ -10,16 +11,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
-      // TEMPORARY: Added a delay to ensure the check has time to finish.
-      await Future.delayed(const Duration(seconds: 1));
-
       final token = await SecureStorage.getToken();
       if (token != null) {
         emit(Authenticated());
       } else {
         emit(Unauthenticated());
       }
-    } catch (e) {
+    } catch (e, stackTrace) { 
+      Logger.error('CRITICAL: checkAuthStatus failed!', '$e\n$stackTrace');
       emit(Unauthenticated());
     }
   }

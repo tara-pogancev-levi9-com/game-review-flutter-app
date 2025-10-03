@@ -24,11 +24,10 @@ Future<void> main() async {
       throw Exception('ENCRYPTION_KEY not found in .env file.');
     }
 
-    EncryptedSharedPreferences.initialize(encryptionKey);
+    await EncryptedSharedPreferences.initialize(encryptionKey);
     di.setupDependencies();
 
     LocaleSettings.setLocaleSync(AppLocale.en);
-    await di.locator<AuthCubit>().checkAuthStatus();
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, st) {
     Logger.error('App start failed: $e\n$st');
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.locator<AuthCubit>(),
+      create: (context) => di.locator<AuthCubit>()..checkAuthStatus(),
       child: MaterialApp(
         locale: TranslationProvider.of(context).flutterLocale,
         supportedLocales: AppLocaleUtils.supportedLocales,
