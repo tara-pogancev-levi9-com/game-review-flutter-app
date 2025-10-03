@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
