@@ -1,4 +1,3 @@
-import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
@@ -7,9 +6,7 @@ import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 
 final locator = GetIt.instance;
 
-Future<void> init(String encryptionKey) async {
-  EncryptedSharedPreferences.initialize(encryptionKey);
-
+void setupDependencies() {
   locator.registerLazySingleton<ApiClient>(
     () => ApiClient(
       baseUrl: dotenv.env['API_URL']!,

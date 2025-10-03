@@ -10,6 +10,9 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
+      // TEMPORARY: Added a delay to ensure the check has time to finish.
+      await Future.delayed(const Duration(seconds: 1));
+
       final token = await SecureStorage.getToken();
       if (token != null) {
         emit(Authenticated());

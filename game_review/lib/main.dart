@@ -1,3 +1,4 @@
+import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -22,11 +23,12 @@ Future<void> main() async {
     if (encryptionKey == null || encryptionKey.isEmpty) {
       throw Exception('ENCRYPTION_KEY not found in .env file.');
     }
-    
-    await di.init(encryptionKey);
+
+    EncryptedSharedPreferences.initialize(encryptionKey);
+    di.setupDependencies();
 
     LocaleSettings.setLocaleSync(AppLocale.en);
-
+    await di.locator<AuthCubit>().checkAuthStatus();
     runApp(TranslationProvider(child: const MyApp()));
   } catch (e, st) {
     Logger.error('App start failed: $e\n$st');
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.locator<AuthCubit>()..checkAuthStatus(),
+      create: (context) => di.locator<AuthCubit>(),
       child: MaterialApp(
         locale: TranslationProvider.of(context).flutterLocale,
         supportedLocales: AppLocaleUtils.supportedLocales,
