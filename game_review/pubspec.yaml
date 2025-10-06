@@ -15,7 +15,6 @@ dependencies:
   encrypt_shared_preferences: ^0.9.10
   slang: ^4.8.1
   slang_flutter: ^4.8.0
-  google_fonts: ^6.2.1
 
 
 
@@ -30,7 +29,6 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  supabase_flutter: ^2.10.2
 
 
 

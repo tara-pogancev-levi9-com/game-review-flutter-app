@@ -39,8 +39,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l = t;
-
     final topInset = MediaQuery.of(context).padding.top;
 
     return Scaffold(
@@ -54,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         titleSpacing: 0,
         leading: const BackButton(color: Colors.white),
         title: Text(
-          l.back,
+          t.back,
           style: TextStyle(
             fontFamily: AppFonts.josefinSans,
             fontWeight: FontWeight.w400,
@@ -111,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            hintText: l.email,
+                            hintText: t.email,
                             prefixIcon: const Icon(
                               Icons.alternate_email,
                               color: AppColors.lilacSelected,
@@ -125,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           autofillHints: const [AutofillHints.password],
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                            hintText: l.password,
+                            hintText: t.password,
                             prefixIcon: const Icon(
                               Icons.password,
                               color: AppColors.lilacSelected,
@@ -155,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                              : Text(l.login),
+                              : Text(t.login),
                         ),
                       ],
                     ),
