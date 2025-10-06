@@ -61,7 +61,7 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
+                            //TODO: Implement on pressed navigation to register page
                           },
                           child: Text(
                             t.register,
