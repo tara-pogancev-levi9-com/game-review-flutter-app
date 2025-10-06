@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 import 'auth_service.dart';
 
@@ -42,7 +43,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (ok) {
         emit(const AuthSuccess());
       } else {
-        emit(const AuthError('Invalid credentials'));
+        emit(AuthError(t.errors.invalidCredentials));
       }
     } catch (e, s) {
       print(s);

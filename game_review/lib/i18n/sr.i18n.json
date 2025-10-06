@@ -47,5 +47,11 @@
     "search": "Pretraživanje",
     "library": "Biblioteka",
     "profile": "Profil"
+  },
+  "errors": {
+    "requiredField": "{field} je obavezno",
+    "invalidEmail": "Neispravan email",
+    "minLength": "Minimum {n} karaktera",
+    "invalidCredentials": "Neispravni podaci za prijavu"
   }
 }

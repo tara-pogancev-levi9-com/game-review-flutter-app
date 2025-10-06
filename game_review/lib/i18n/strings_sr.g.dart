@@ -76,6 +76,7 @@ class TranslationsSr extends Translations {
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 }
 
 // Path: navigation
@@ -89,4 +90,17 @@ class TranslationsNavigationSr extends TranslationsNavigationEn {
 	@override String get search => 'Pretraživanje';
 	@override String get library => 'Biblioteka';
 	@override String get profile => 'Profil';
+}
+
+// Path: errors
+class TranslationsErrorsSr extends TranslationsErrorsEn {
+	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get requiredField => '{field} je obavezno';
+	@override String get invalidEmail => 'Neispravan email';
+	@override String get minLength => 'Minimum {n} karaktera';
+	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 }

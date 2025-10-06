@@ -47,6 +47,11 @@
     "search": "Search",
     "library": "Library",
     "profile": "Profile"
+  },
+  "errors": {
+    "requiredField": "{field} required",
+    "invalidEmail": "Invalid email",
+    "minLength": "Min {n} char",
+    "invalidCredentials": "Invalid credentials"
   }
-
 }

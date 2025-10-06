@@ -90,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                                 Icons.arrow_back_ios_new,
                                 size: 22,
                               ),
-                              label: const Text(
-                                'Back',
+                              label: Text(
+                                l.back,
                                 style: TextStyle(
                                   fontFamily: AppFonts.josefinSans,
                                   fontWeight: FontWeight.w400,
@@ -119,12 +119,16 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             validator: (value) {
                               final text = value?.trim() ?? '';
-                              if (text.isEmpty) return '${l.email} required';
+                              if (text.isEmpty)
+                                return l.errors.requiredField.replaceAll(
+                                  '{field}',
+                                  l.email,
+                                );
                               final emailRegex = RegExp(
                                 r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
                               );
                               if (!emailRegex.hasMatch(text)) {
-                                return 'Invalid email';
+                                return l.errors.invalidEmail;
                               }
                               return null;
                             },
@@ -153,11 +157,18 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             validator: (value) {
-                              if ((value ?? '').isEmpty) {
-                                return '${l.password} required';
+                              final text = value ?? '';
+                              if (text.isEmpty) {
+                                return l.errors.requiredField.replaceAll(
+                                  '{field}',
+                                  l.password,
+                                );
                               }
-                              if ((value ?? '').length < 6) {
-                                return 'Min 6 characters';
+                              if (text.length < 6) {
+                                return l.errors.minLength.replaceAll(
+                                  '{n}',
+                                  '6',
+                                );
                               }
                               return null;
                             },

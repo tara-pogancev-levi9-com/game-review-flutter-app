@@ -165,6 +165,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get update => 'Update';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 }
 
 // Path: navigation
@@ -186,4 +187,25 @@ class TranslationsNavigationEn {
 
 	/// en: 'Profile'
 	String get profile => 'Profile';
+}
+
+// Path: errors
+class TranslationsErrorsEn {
+	TranslationsErrorsEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: '{field} required'
+	String get requiredField => '{field} required';
+
+	/// en: 'Invalid email'
+	String get invalidEmail => 'Invalid email';
+
+	/// en: 'Min {n} char'
+	String get minLength => 'Min {n} char';
+
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
 }
