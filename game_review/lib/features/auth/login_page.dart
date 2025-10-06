@@ -40,160 +40,158 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final l = t;
 
+    final topInset = MediaQuery.of(context).padding.top;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: false,
+        titleSpacing: 0,
+        leading: const BackButton(color: Colors.white),
+        title: Text(
+          l.back,
+          style: TextStyle(
+            fontFamily: AppFonts.josefinSans,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: Theme.of(context).extension<AppGradients>()?.background,
         ),
-        child: SafeArea(
-          child: BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is AuthError) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
-              if (state is AuthSuccess) {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const MainScreen()),
-                  (route) => false,
-                );
-              }
-            },
-            builder: (context, state) {
-              final bool isLoading = state is AuthLoading;
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: AutofillGroup(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: TextButton.icon(
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 6,
-                                ),
-                                minimumSize: const Size(0, 0),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              onPressed: () => Navigator.of(context).maybePop(),
-                              icon: const Icon(
-                                Icons.arrow_back_ios_new,
-                                size: 22,
-                              ),
-                              label: Text(
-                                l.back,
-                                style: TextStyle(
-                                  fontFamily: AppFonts.josefinSans,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+            if (state is AuthSuccess) {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const MainScreen()),
+                (route) => false,
+              );
+            }
+          },
+          builder: (context, state) {
+            final bool isLoading = state is AuthLoading;
+            return SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
+                16,
+                topInset + kToolbarHeight + 16,
+                16,
+                16,
+              ),
+
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: AutofillGroup(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 60),
+                        AppLogo(),
+                        const SizedBox(height: 70),
+                        TextFormField(
+                          controller: _emailController,
+                          autofillHints: const [
+                            AutofillHints.username,
+                            AutofillHints.email,
+                          ],
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: l.email,
+                            prefixIcon: const Icon(
+                              Icons.alternate_email,
+                              color: AppColors.lilacSelected,
                             ),
                           ),
-                          const SizedBox(height: 60),
-                          AppLogo(),
-                          const SizedBox(height: 70),
-                          TextFormField(
-                            controller: _emailController,
-                            autofillHints: const [
-                              AutofillHints.username,
-                              AutofillHints.email,
-                            ],
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: l.email,
-                              prefixIcon: const Icon(
-                                Icons.alternate_email,
-                                color: AppColors.lilacSelected,
-                              ),
-                            ),
-                            validator: (value) {
-                              final text = value?.trim() ?? '';
-                              if (text.isEmpty)
-                                return l.errors.requiredField.replaceAll(
-                                  '{field}',
-                                  l.email,
-                                );
-                              final emailRegex = RegExp(
-                                r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                          validator: (value) {
+                            final text = value?.trim() ?? '';
+                            if (text.isEmpty)
+                              return l.errors.requiredField.replaceAll(
+                                '{field}',
+                                l.email,
                               );
-                              if (!emailRegex.hasMatch(text)) {
-                                return l.errors.invalidEmail;
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            controller: _passwordController,
-                            autofillHints: const [AutofillHints.password],
-                            obscureText: _obscurePassword,
-                            decoration: InputDecoration(
-                              hintText: l.password,
-                              prefixIcon: const Icon(
-                                Icons.password,
+                            final emailRegex = RegExp(
+                              r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
+                            );
+                            if (!emailRegex.hasMatch(text)) {
+                              return l.errors.invalidEmail;
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          controller: _passwordController,
+                          autofillHints: const [AutofillHints.password],
+                          obscureText: _obscurePassword,
+                          decoration: InputDecoration(
+                            hintText: l.password,
+                            prefixIcon: const Icon(
+                              Icons.password,
+                              color: AppColors.lilacSelected,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                                 color: AppColors.lilacSelected,
                               ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: AppColors.lilacSelected,
-                                ),
-                                onPressed: () => setState(
-                                  () => _obscurePassword = !_obscurePassword,
-                                ),
+                              onPressed: () => setState(
+                                () => _obscurePassword = !_obscurePassword,
                               ),
                             ),
-                            validator: (value) {
-                              final text = value ?? '';
-                              if (text.isEmpty) {
-                                return l.errors.requiredField.replaceAll(
-                                  '{field}',
-                                  l.password,
-                                );
-                              }
-                              if (text.length < 6) {
-                                return l.errors.minLength.replaceAll(
-                                  '{n}',
-                                  '6',
-                                );
-                              }
-                              return null;
-                            },
                           ),
-                          const SizedBox(height: 180),
-                          ElevatedButton(
-                            onPressed: isLoading ? null : _onSubmit,
-                            child: isLoading
-                                ? const SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                    ),
-                                  )
-                                : Text(l.login),
-                          ),
-                        ],
-                      ),
+                          validator: (value) {
+                            final text = value ?? '';
+                            if (text.isEmpty) {
+                              return l.errors.requiredField.replaceAll(
+                                '{field}',
+                                l.password,
+                              );
+                            }
+                            if (text.length < 6) {
+                              return l.errors.minLength.replaceAll(
+                                '{n}',
+                                '6',
+                              );
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 180),
+                        ElevatedButton(
+                          onPressed: isLoading ? null : _onSubmit,
+                          child: isLoading
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Text(l.login),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
