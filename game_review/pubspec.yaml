@@ -65,6 +65,7 @@ flutter:
     - .env
     - lib/common/assets/icons/
     - lib/common/assets/images/
+    - lib/common/assets/icons/
   #   - images/a_dot_ham.jpeg
 
   fonts:
