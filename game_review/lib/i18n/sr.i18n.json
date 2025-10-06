@@ -48,5 +48,9 @@
     "library": "Biblioteka",
     "profile": "Profil"
   },
+  "errors": {
+    "invalidCredentials": "Neispravni podaci za prijavu",
+    "loginFailed": "Prijava neuspešna. Pokušajte ponovo."
+  },
   "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}"
   }

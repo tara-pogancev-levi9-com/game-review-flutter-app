@@ -165,6 +165,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get update => 'Update';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 
 	/// en: 'App failed to start:\n\n@{error}'
 	String get appFailedToStart => 'App failed to start:\n\n@{error}';
@@ -189,4 +190,19 @@ class TranslationsNavigationEn {
 
 	/// en: 'Profile'
 	String get profile => 'Profile';
+}
+
+// Path: errors
+class TranslationsErrorsEn {
+	TranslationsErrorsEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed. Please try again.'
+	String get loginFailed => 'Login failed. Please try again.';
 }

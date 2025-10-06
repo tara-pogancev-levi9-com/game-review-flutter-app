@@ -48,5 +48,9 @@
     "library": "Library",
     "profile": "Profile"
   },
+  "errors": {
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed. Please try again."
+  },
   "appFailedToStart": "App failed to start:\\n\\n@{error}"
 }

@@ -24,7 +24,8 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gradients = Theme.of(context).extension<AppGradients>()!;
+    final gradients = Theme.of(context).extension<AppGradients>() ?? 
+                     AppGradients.dark;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
