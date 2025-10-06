@@ -9,6 +9,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._authService) : super(AuthInitial());
 
+// TODO: Maybe loading state
+
   Future<void> checkAuthStatus() async {
     try {
       final token = await SecureStorage.getToken();

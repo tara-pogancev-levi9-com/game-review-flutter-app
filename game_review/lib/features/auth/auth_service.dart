@@ -2,6 +2,8 @@ import '../../core/api/api_client.dart';
 import '../../core/storage/secure_storage.dart';
 import '../../common/utils/logger.dart';
 
+// TODO: Clean up endpoints
+
 class AuthService {
   final ApiClient apiClient;
 

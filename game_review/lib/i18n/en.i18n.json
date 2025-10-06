@@ -41,6 +41,6 @@
   "save": "Save",
   "edit": "Edit",
   "delete": "Delete",
-  "update": "Update"
-
+  "update": "Update",
+  "appFailedToStart": "App failed to start:\\n\\n@{error}"
 }

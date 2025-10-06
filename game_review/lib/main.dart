@@ -10,7 +10,6 @@ import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/screens/error_screen.dart';
 import 'package:game_review/common/utils/logger.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 
 Future<void> main() async {
@@ -26,6 +25,7 @@ Future<void> main() async {
 
     await EncryptedSharedPreferences.initialize(encryptionKey);
     di.setupDependencies();
+    di.locator<AuthCubit>().checkAuthStatus();
 
     LocaleSettings.setLocaleSync(AppLocale.en);
     runApp(TranslationProvider(child: const MyApp()));
@@ -40,21 +40,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => di.locator<AuthCubit>()..checkAuthStatus(),
-      child: MaterialApp(
-        locale: TranslationProvider.of(context).flutterLocale,
-        supportedLocales: AppLocaleUtils.supportedLocales,
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        title: 'Game Review App',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.dark,
-        home: const AuthGate(),
-      ),
+    return MaterialApp(
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      title: 'Game Review App',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.dark,
+      home: const AuthGate(),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-              context.read<AuthCubit>().logout();
+              locator<AuthCubit>().logout();
             }
           )
         ]

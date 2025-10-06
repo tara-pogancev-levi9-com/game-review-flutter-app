@@ -75,4 +75,5 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene:\n\n@{error}';
 }

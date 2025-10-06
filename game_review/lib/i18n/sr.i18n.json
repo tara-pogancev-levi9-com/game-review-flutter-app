@@ -41,5 +41,6 @@
   "save": "Sačuvaj",
   "edit": "Izmeni",
   "delete": "Obriši",
-  "update": "Ažuriraj"
-}
+  "update": "Ažuriraj",
+  "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}"
+  }
