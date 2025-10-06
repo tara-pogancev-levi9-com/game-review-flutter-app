@@ -42,5 +42,11 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "navigation": {
+    "home": "Početna",
+    "search": "Pretraživanje",
+    "library": "Biblioteka",
+    "profile": "Profil"
+  },
   "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}"
   }

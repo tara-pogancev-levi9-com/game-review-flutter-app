@@ -164,6 +164,29 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+
 	/// en: 'App failed to start:\n\n@{error}'
 	String get appFailedToStart => 'App failed to start:\n\n@{error}';
+}
+
+// Path: navigation
+class TranslationsNavigationEn {
+	TranslationsNavigationEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Home'
+	String get home => 'Home';
+
+	/// en: 'Search'
+	String get search => 'Search';
+
+	/// en: 'Library'
+	String get library => 'Library';
+
+	/// en: 'Profile'
+	String get profile => 'Profile';
 }

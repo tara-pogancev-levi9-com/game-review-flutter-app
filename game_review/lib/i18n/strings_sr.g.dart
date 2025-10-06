@@ -75,5 +75,19 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene:\n\n@{error}';
+}
+
+// Path: navigation
+class TranslationsNavigationSr extends TranslationsNavigationEn {
+	TranslationsNavigationSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get home => 'Početna';
+	@override String get search => 'Pretraživanje';
+	@override String get library => 'Biblioteka';
+	@override String get profile => 'Profil';
 }
