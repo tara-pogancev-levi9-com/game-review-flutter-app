@@ -177,4 +177,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
   /// en: 'Update'
   String get update => 'Update';
+
+  String get registrationError => "Error occurred. Try again later";
+  String get passwordMismatch => "Passwords do not match!";
+  String get passwordLength => "Password must be at least 8 characters long!!";
+  String get emailInvalid => "Email address is not valid!";
+  String get registrationSuccessful => "Registration successful!";
 }

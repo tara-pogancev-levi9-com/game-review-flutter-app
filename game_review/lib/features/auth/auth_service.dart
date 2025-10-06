@@ -9,7 +9,6 @@ class AuthService {
 
   Future<bool> signup(String email, String password) async {
     try {
-
       final response = await apiClient.post(
         'auth/v1/signup',
         data: {
