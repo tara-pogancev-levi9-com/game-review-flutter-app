@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/features/auth/auth_cubit.dart';
+import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -32,7 +37,7 @@ class WelcomePage extends StatelessWidget {
 
               children: [
                 SizedBox(height: 250),
-                Image(image: AssetImage('lib/common/assets/images/Logo.png')),
+                AppLogo(),
                 SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,6 +48,15 @@ class WelcomePage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             //TODO: Implement on pressed navigation to login page
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => BlocProvider(
+                                  create: (_) =>
+                                      AuthCubit(authService: locator()),
+                                  child: const LoginPage(),
+                                ),
+                              ),
+                            );
                           },
                           child: Text(
                             t.login,
