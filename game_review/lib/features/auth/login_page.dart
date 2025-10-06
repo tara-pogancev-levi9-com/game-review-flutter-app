@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/theme/app_colors.dart';
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                               label: const Text(
                                 'Back',
                                 style: TextStyle(
-                                  fontFamily: 'JosefinSans',
+                                  fontFamily: AppFonts.josefinSans,
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
                                 ),

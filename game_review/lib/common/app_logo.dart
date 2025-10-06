@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key});
@@ -26,25 +26,13 @@ class AppLogo extends StatelessWidget {
         Text(
           'PAW GAMES',
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'PixelifySans',
-            color: AppColors.softWhite,
-            fontSize: 36,
-            fontWeight: FontWeight.w700,
-            height: 1.0,
-          ),
+          style: AppTypography.logoTitle,
         ),
         const SizedBox(height: 8),
         Text(
           'Discover. Rate. Share.',
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'JosefinSans',
-            color: AppColors.textTertiary,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            height: 1.0,
-          ),
+          style: AppTypography.logoTagline,
         ),
       ],
     );

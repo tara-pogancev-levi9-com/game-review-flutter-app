@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 
 import 'app_colors.dart';
 
@@ -28,7 +30,7 @@ class AppTheme {
       extensions: const <ThemeExtension<dynamic>>[
         AppGradients.dark,
       ],
-      fontFamily: 'Roboto',
+      fontFamily: AppFonts.roboto,
     );
 
     return base.copyWith(
@@ -97,11 +99,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
-          textStyle: const TextStyle(
-            fontFamily: 'JosefinSans',
-            fontWeight: FontWeight.w500,
-            fontSize: 28,
-          ),
+          textStyle: AppTypography.buttonLarge,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -112,11 +110,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
-          textStyle: const TextStyle(
-            fontFamily: 'JosefinSans',
-            fontWeight: FontWeight.w500,
-            fontSize: 28,
-          ),
+          textStyle: AppTypography.buttonLarge,
         ),
       ),
       chipTheme: base.chipTheme.copyWith(
