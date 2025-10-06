@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: DecoratedBox(
         decoration: BoxDecoration(
-          gradient: Theme.of(context).extension<AppGradients>()!.background,
+          gradient: Theme.of(context).extension<AppGradients>()?.background,
         ),
         child: SafeArea(
           child: BlocConsumer<AuthCubit, AuthState>(
