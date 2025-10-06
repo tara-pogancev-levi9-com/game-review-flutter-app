@@ -166,6 +166,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
+	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 }
 
 // Path: navigation
@@ -208,4 +209,22 @@ class TranslationsErrorsEn {
 
 	/// en: 'Invalid credentials'
 	String get invalidCredentials => 'Invalid credentials';
+}
+
+// Path: branding
+class TranslationsBrandingEn {
+	TranslationsBrandingEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'PAW GAMES'
+	String get title => 'PAW GAMES';
+
+	/// en: 'Discover. Rate. Share.'
+	String get tagline => 'Discover. Rate. Share.';
+
+	/// en: 'App logo'
+	String get logoLabel => 'App logo';
 }

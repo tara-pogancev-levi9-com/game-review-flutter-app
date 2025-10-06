@@ -53,5 +53,10 @@
     "invalidEmail": "Neispravan email",
     "minLength": "Minimum {n} karaktera",
     "invalidCredentials": "Neispravni podaci za prijavu"
+  },
+  "branding": {
+    "title": "PAW IGRE",
+    "tagline": "Istraži. Oceni. Deli.",
+    "logoLabel": "Logo aplikacije"
   }
 }

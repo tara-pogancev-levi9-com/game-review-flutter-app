@@ -77,6 +77,7 @@ class TranslationsSr extends Translations {
 	@override String get update => 'Ažuriraj';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
+	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
 }
 
 // Path: navigation
@@ -103,4 +104,16 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get invalidEmail => 'Neispravan email';
 	@override String get minLength => 'Minimum {n} karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
+}
+
+// Path: branding
+class TranslationsBrandingSr extends TranslationsBrandingEn {
+	TranslationsBrandingSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PAW IGRE';
+	@override String get tagline => 'Istraži. Oceni. Deli.';
+	@override String get logoLabel => 'Logo aplikacije';
 }

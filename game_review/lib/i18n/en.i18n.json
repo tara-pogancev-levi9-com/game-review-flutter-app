@@ -53,5 +53,10 @@
     "invalidEmail": "Invalid email",
     "minLength": "Min {n} char",
     "invalidCredentials": "Invalid credentials"
+  },
+  "branding": {
+    "title": "PAW GAMES",
+    "tagline": "Discover. Rate. Share.",
+    "logoLabel": "App logo"
   }
 }
