@@ -9,8 +9,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this._authService) : super(AuthInitial());
 
-// TODO: Maybe loading state
-
   Future<void> checkAuthStatus() async {
     try {
       final token = await SecureStorage.getToken();
@@ -26,11 +24,18 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> login(String email, String password) async {
-    final success = await _authService.login(email, password);
-    if (success) {
-      emit(Authenticated());
+    emit(AuthLoading());
+    try {
+      final success = await _authService.login(email, password);
+      if (success) {
+        emit(Authenticated());
+      } else {
+        emit(Unauthenticated('Invalid credentials'));
+      }
+    } catch (e) {
+      Logger.error('Login error', e);
+      emit(Unauthenticated('Login failed. Please try again.'));
     }
-    // TODO: Handle login failure
   }
 
   Future<void> logout() async {

@@ -9,8 +9,14 @@ sealed class AuthState extends Equatable {
 
 class AuthInitial extends AuthState {}
 
+class AuthLoading extends AuthState {} 
+
 class Authenticated extends AuthState {}
 
-class Unauthenticated extends AuthState {}
-
-// TODO: Error handling
+class Unauthenticated extends AuthState {
+  final String? errorMessage;  
+  const Unauthenticated([this.errorMessage]);
+  
+  @override
+  List<Object> get props => [errorMessage ?? ''];
+}

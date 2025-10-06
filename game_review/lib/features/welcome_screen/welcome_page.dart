@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/auth/bloc/auth_cubit.dart';
+import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -41,8 +40,9 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: ElevatedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
-                            locator<AuthCubit>().login('newuser@example.com', 'password123');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                            );
                           },
                           child: Text(
                             t.login,
