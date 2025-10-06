@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
+import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/theme/app_colors.dart';
@@ -116,21 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: AppColors.lilacSelected,
                             ),
                           ),
-                          validator: (value) {
-                            final text = value?.trim() ?? '';
-                            if (text.isEmpty)
-                              return l.errors.requiredField.replaceAll(
-                                '{field}',
-                                l.email,
-                              );
-                            final emailRegex = RegExp(
-                              r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                            );
-                            if (!emailRegex.hasMatch(text)) {
-                              return l.errors.invalidEmail;
-                            }
-                            return null;
-                          },
+                          validator: Validators.email(context),
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
@@ -155,22 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          validator: (value) {
-                            final text = value ?? '';
-                            if (text.isEmpty) {
-                              return l.errors.requiredField.replaceAll(
-                                '{field}',
-                                l.password,
-                              );
-                            }
-                            if (text.length < 6) {
-                              return l.errors.minLength.replaceAll(
-                                '{n}',
-                                '6',
-                              );
-                            }
-                            return null;
-                          },
+                          validator: Validators.password(context, minLength: 6),
                         ),
                         const SizedBox(height: 180),
                         ElevatedButton(
