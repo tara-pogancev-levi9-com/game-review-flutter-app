@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/validation/validators.dart';
+import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/theme/app_colors.dart';
@@ -126,7 +127,6 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: t.password,
                             prefixIcon: const Icon(
                               Icons.password,
-                              color: AppColors.lilacSelected,
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -143,17 +143,10 @@ class _LoginPageState extends State<LoginPage> {
                           validator: Validators.password(context, minLength: 6),
                         ),
                         const SizedBox(height: 180),
-                        ElevatedButton(
-                          onPressed: isLoading ? null : _onSubmit,
-                          child: isLoading
-                              ? const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : Text(t.login),
+                        LoadingButton(
+                          isLoading: isLoading,
+                          onPressed: _onSubmit,
+                          text: t.login,
                         ),
                       ],
                     ),

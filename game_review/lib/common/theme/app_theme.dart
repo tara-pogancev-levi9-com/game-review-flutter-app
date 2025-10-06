@@ -68,6 +68,14 @@ class AppTheme {
               letterSpacing: 0.5,
             ),
           ),
+
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.outline,
+
+        selectionColor: AppColors.primaryPurple,
+        selectionHandleColor: AppColors.primaryPurple,
+      ),
+
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -79,6 +87,8 @@ class AppTheme {
         filled: true,
         fillColor: AppColors.surfaceVariant,
         hintStyle: const TextStyle(color: AppColors.textSecondary),
+        prefixIconColor: AppColors.lilacSelected,
+        suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
@@ -86,8 +96,8 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(
-            color: AppColors.primaryPurple,
-            width: 1.2,
+            color: AppColors.lilacSelected,
+            width: 1.8,
           ),
         ),
       ),

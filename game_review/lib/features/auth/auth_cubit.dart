@@ -1,8 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:logger/logger.dart';
 
 import 'auth_service.dart';
+
+final logger = Logger();
 
 sealed class AuthState extends Equatable {
   const AuthState();
@@ -46,7 +49,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(t.errors.invalidCredentials));
       }
     } catch (e, s) {
-      print(s);
+      logger.e('Login failed', error: e, stackTrace: s);
       emit(AuthError(e.toString()));
     }
   }
