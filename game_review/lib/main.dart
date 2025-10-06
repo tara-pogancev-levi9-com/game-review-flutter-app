@@ -23,7 +23,9 @@ Future<void> main() async {
     if (encryptionKey != null && encryptionKey.isNotEmpty) {
       EncryptedSharedPreferences.initialize(encryptionKey);
     } else {
-      Logger.warning('ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.');
+      Logger.warning(
+        'ENCRYPTION_KEY not found in .env; EncryptedSharedPreferences not initialized.',
+      );
     }
 
     setupDependencies();
@@ -42,14 +44,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      MultiBlocProvider(
-          providers: [
-            BlocProvider<RegistrationCubit>(
-              create: (context) => RegistrationCubit(),
-            ),
-          ],
-       child: MaterialApp(
+    return MaterialApp(
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: const [
@@ -62,7 +57,6 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.dark,
       home: const WelcomePage(),
       // home: const AuthTestingScreen(),
-    )
-      );
+    );
   }
 }

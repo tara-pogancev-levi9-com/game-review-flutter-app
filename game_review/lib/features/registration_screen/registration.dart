@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/registration_screen/bloc/registerCubit.dart';
 import 'package:game_review/features/registration_screen/models/loginModel.dart';
@@ -31,7 +32,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
-    final registrationCubit = context.read<RegistrationCubit>();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -55,18 +55,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
       body: BlocConsumer<RegistrationCubit, RegistrationState>(
+        bloc: locator<RegistrationCubit>(),
         listener: (context, state) {
           if (state is RegistrationSuccess) {
-            context.read<RegistrationCubit>().login(
+            locator<RegistrationCubit>().login(
               LoginModel(
                 email: _emailController.text,
                 password: _passwordController.text,
               ),
             );
-          } else if (state is RegistrationFailure) {
+          } else if(state is RegistrationInitial){
+
+          }
+          else if (state is RegistrationFailure) {
             Future.delayed(const Duration(seconds: 3), () {
-              context.read<RegistrationCubit>().clearFailure();
-              context.read<RegistrationCubit>().formValidityChanged(
+              locator<RegistrationCubit>().clearFailure();
+              locator<RegistrationCubit>().formValidityChanged(
                 isFormValid: _formKey.currentState?.validate() ?? false,
               );
             });
@@ -89,7 +93,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         builder: (context, state) {
           final isLoading = state is RegistrationLoading;
           final isFailure = state is RegistrationFailure;
-          final isFormValid = state is RegistrationInitial && state.isFormValid;
 
           return Stack(
             children: [
@@ -116,13 +119,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         Form(
                           key: _formKey,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          autovalidateMode: state is RegistrationInitial ? AutovalidateMode.onUserInteraction :
+                          AutovalidateMode.disabled,
                           onChanged: () {
-                            final isValid =
-                                _formKey.currentState?.validate() ?? false;
-                            context
-                                .read<RegistrationCubit>()
-                                .formValidityChanged(isFormValid: isValid);
+                            print("VALIDITY: " + (state is RegistrationInitial).toString());
+                            if(state is RegistrationInitial) {
+                              final isValid =
+                                  _formKey.currentState?.validate() ?? false;
+                              locator<RegistrationCubit>()
+                                  .formValidityChanged(isFormValid: isValid);
+                            }
                           },
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -132,6 +138,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   key: _emailKey,
                                   controller: _emailController,
                                   onChanged: (value) {
+                                    if(state is RegistrationInitial)
                                     _emailKey.currentState?.validate();
                                   },
                                   validator: (value) {
@@ -139,6 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         !_emailRegex.hasMatch(value)) {
                                       return t.emailInvalid;
                                     }
+                                    return null;
                                   },
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.email_outlined),
@@ -171,9 +179,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   controller: _passwordController,
                                   obscureText: !showPassword,
                                   onChanged: (value) {
-                                    _passwordKey.currentState?.validate();
-                                    _confirmPasswordKey.currentState
-                                        ?.validate();
+                                    if(state is RegistrationInitial) {
+                                      _passwordKey.currentState?.validate();
+                                      _confirmPasswordKey.currentState
+                                          ?.validate();
+                                    }
                                   },
                                   validator: (value) {
                                     if (value == null ||
@@ -210,8 +220,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   keyboardType: TextInputType.text,
                                   obscureText: !showConfirmPassword,
                                   onChanged: (value) {
-                                    _confirmPasswordKey.currentState
-                                        ?.validate();
+                                    if(state is RegistrationInitial) {
+                                      _confirmPasswordKey.currentState
+                                          ?.validate();
+                                    }
                                   },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -253,8 +265,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                           horizontal: 40,
                                         ),
 
-                                        child: isFormValid
-                                            ? ElevatedButton(
+                                        child: ElevatedButton(
                                                 onPressed: () {
                                                   if (_formKey.currentState!
                                                       .validate()) {
@@ -270,22 +281,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                               _passwordController
                                                                   .text,
                                                         );
-                                                    registrationCubit.signup(
-                                                      registrationData,
-                                                    );
+
+                                                      locator<
+                                                          RegistrationCubit>()
+                                                          .signup(
+                                                        registrationData,
+                                                      );
+
+                                                  }else{
+                                                    print("INVALID");
+                                                    locator<RegistrationCubit>().formValidationFailed();
                                                   }
                                                 },
                                                 child: Text(
                                                   t.register,
                                                 ),
                                               )
-                                            : OutlinedButton(
-                                                onPressed: null,
 
-                                                child: Text(
-                                                  t.register,
-                                                ),
-                                              ),
                                       ),
                                     ),
                                   ],

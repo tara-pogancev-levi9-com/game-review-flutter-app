@@ -14,6 +14,7 @@ class RegistrationInitial extends RegistrationState {
   @override
   List<Object?> get props => [isFormValid];
 }
+class RegistrationFirstTime extends RegistrationState {}
 class RegistrationLoading extends RegistrationState {}
 
 class RegistrationSuccess extends RegistrationState {}

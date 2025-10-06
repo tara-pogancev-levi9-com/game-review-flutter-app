@@ -8,7 +8,7 @@ import 'package:game_review/features/registration_screen/models/registrationMode
 class RegistrationCubit extends Cubit<RegistrationState> {
   final AuthService _authService = locator<AuthService>();
 
-  RegistrationCubit() : super(RegistrationInitial());
+  RegistrationCubit() : super(RegistrationFirstTime());
 
   Future<void> signup(RegistrationModel data) async {
     emit(RegistrationLoading());
@@ -27,6 +27,11 @@ class RegistrationCubit extends Cubit<RegistrationState> {
     } catch (e){
       emit(LoginFailure(e.toString()));
     }
+  }
+
+  void formValidationFailed (){
+    print("EMIT INITIAL");
+    emit(RegistrationInitial(isFormValid: false));
   }
   void clearFailure() {
     emit(RegistrationInitial());
