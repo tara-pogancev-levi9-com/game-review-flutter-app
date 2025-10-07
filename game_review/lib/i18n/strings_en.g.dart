@@ -111,7 +111,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get next => 'Next';
 
 	/// en: 'Discover'
-	String get dicsover => 'Discover';
+	String get discover => 'Discover';
 
 	/// en: 'Details'
 	String get details => 'Details';
@@ -215,6 +215,12 @@ class TranslationsErrorsEn {
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
+
+	/// en: 'Game not found'
+	String get gameNotFound => 'Game not found';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
 }
 
 // Path: branding

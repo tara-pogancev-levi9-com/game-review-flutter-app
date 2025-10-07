@@ -57,7 +57,7 @@ class TranslationsSr extends Translations {
 	@override String get notifications => 'Obaveštenja';
 	@override String get back => 'Nazad';
 	@override String get next => 'Dalje';
-	@override String get dicsover => 'Istraži';
+	@override String get discover => 'Istraži';
 	@override String get details => 'Detalji';
 	@override String get ratings => 'Ocene';
 	@override String get evaluation => 'Evaluacija';
@@ -106,6 +106,8 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
+	@override String get gameNotFound => 'Igra nije pronađena';
+	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
 }
 
 // Path: branding

@@ -24,7 +24,7 @@
   "notifications": "Notifications",
   "back": "Back",
   "next": "Next",
-  "dicsover": "Discover",
+  "discover": "Discover",
   "details": "Details",
   "ratings": "Ratings",
   "evaluation": "Evaluation",
@@ -54,8 +54,9 @@
     "minLength": "Min {n} char",
     "invalidCredentials": "Invalid credentials",
     "loginFailed": "Login failed, please try again",
-    "appFailedToStart": "The app failed to start. Please restart and try again."
-
+    "appFailedToStart": "The app failed to start. Please restart and try again.",
+    "gameNotFound": "Game not found",
+    "reviewsNotFound": "Reviews not found"
   },
   "branding": {
     "title": "PAW GAMES",
