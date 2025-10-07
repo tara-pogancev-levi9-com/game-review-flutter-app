@@ -50,6 +50,11 @@ class _MainScreenState extends State<MainScreen> {
     final translations = context.t;
 
     return AppScaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+
+      },
+      child: Icon(Icons.edit),),
       body: SafeArea(
         child: Column(
           children: [
