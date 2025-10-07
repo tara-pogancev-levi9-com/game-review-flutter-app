@@ -52,5 +52,11 @@
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava neuspešna. Pokušajte ponovo."
   },
-  "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}"
-  }
+  "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}",
+  "library": {
+    "latest": "Najnovije",
+    "popular": "Popularno",
+    "userLibrary": "Tvoja biblioteka",
+    "wishlist": "Lista želja"
+    }
+}

@@ -10,7 +10,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSr implements Translations {
+class TranslationsSr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -20,15 +20,11 @@ class TranslationsSr implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <sr>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
-
-	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsSr _root = this; // ignore: unused_field
 
@@ -79,14 +75,15 @@ class TranslationsSr implements Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
-	@override late final _TranslationsNavigationSr navigation = _TranslationsNavigationSr._(_root);
-	@override late final _TranslationsErrorsSr errors = _TranslationsErrorsSr._(_root);
+	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene:\n\n@{error}';
+	@override late final TranslationsLibrarySr library = TranslationsLibrarySr._(_root);
 }
 
 // Path: navigation
-class _TranslationsNavigationSr implements TranslationsNavigationEn {
-	_TranslationsNavigationSr._(this._root);
+class TranslationsNavigationSr extends TranslationsNavigationEn {
+	TranslationsNavigationSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -98,8 +95,8 @@ class _TranslationsNavigationSr implements TranslationsNavigationEn {
 }
 
 // Path: errors
-class _TranslationsErrorsSr implements TranslationsErrorsEn {
-	_TranslationsErrorsSr._(this._root);
+class TranslationsErrorsSr extends TranslationsErrorsEn {
+	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -108,63 +105,15 @@ class _TranslationsErrorsSr implements TranslationsErrorsEn {
 	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
 }
 
-/// Flat map(s) containing all translations.
-/// Only for edge cases! For simple maps, use the map function of this library.
-extension on TranslationsSr {
-	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'welcome': return 'Dobrodošao!';
-			case 'greeting': return 'Zdravo, {name}!';
-			case 'changeLanguage': return 'Promeni jezik';
-			case 'appTitle': return 'Aplikacija za Recenzije Igara';
-			case 'home': return 'Početna';
-			case 'settings': return 'Podešavanja';
-			case 'searchGames': return 'Pretraži igre';
-			case 'favoriteGames': return 'Omiljene Igre';
-			case 'recentReviews': return 'Nedavne Recenzije';
-			case 'addReview': return 'Dodaj Recenziju';
-			case 'myProfile': return 'Moj Profil';
-			case 'logout': return 'Odjavi se';
-			case 'login': return 'Prijava';
-			case 'goodbye': return 'Doviđenja!';
-			case 'king': return 'Kralj';
-			case 'register': return 'Registruj se';
-			case 'email': return 'Email';
-			case 'password': return 'Lozinka';
-			case 'confirmPassword': return 'Potvrdi Lozinku';
-			case 'submit': return 'Pošalji';
-			case 'username': return 'Korisničko Ime';
-			case 'profileSettings': return 'Podešavanja Profila';
-			case 'notifications': return 'Obaveštenja';
-			case 'back': return 'Nazad';
-			case 'next': return 'Dalje';
-			case 'dicsover': return 'Istraži';
-			case 'details': return 'Detalji';
-			case 'ratings': return 'Ocene';
-			case 'evaluation': return 'Evaluacija';
-			case 'overall': return 'Sveukupno';
-			case 'gameplay': return 'Igra';
-			case 'graphics': return 'Grafika';
-			case 'sound': return 'Zvuk';
-			case 'story': return 'Priča';
-			case 'value': return 'Vrednost';
-			case 'pros': return 'Prednosti';
-			case 'cons': return 'Nedostaci';
-			case 'media': return 'Mediji';
-			case 'discussions': return 'Diskusije';
-			case 'save': return 'Sačuvaj';
-			case 'edit': return 'Izmeni';
-			case 'delete': return 'Obriši';
-			case 'update': return 'Ažuriraj';
-			case 'navigation.home': return 'Početna';
-			case 'navigation.search': return 'Pretraživanje';
-			case 'navigation.library': return 'Biblioteka';
-			case 'navigation.profile': return 'Profil';
-			case 'errors.invalidCredentials': return 'Neispravni podaci za prijavu';
-			case 'errors.loginFailed': return 'Prijava neuspešna. Pokušajte ponovo.';
-			case 'appFailedToStart': return 'Aplikacija nije uspela da se pokrene:\n\n@{error}';
-			default: return null;
-		}
-	}
-}
+// Path: library
+class TranslationsLibrarySr extends TranslationsLibraryEn {
+	TranslationsLibrarySr._(TranslationsSr root) : this._root = root, super.internal(root);
 
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get latest => 'Najnovije';
+	@override String get popular => 'Popularno';
+	@override String get userLibrary => 'Tvoja biblioteka';
+	@override String get wishlist => 'Lista želja';
+}

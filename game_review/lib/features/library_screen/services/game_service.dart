@@ -7,22 +7,21 @@ class GameService {
 
   GameService(this._apiClient);
 
+
   Future<List<Game>> getLatestGames({int limit = 15}) async {
     try {
       final response = await _apiClient.get(
-        '/rest/v1/games',
+        'rest/v1/games',
         queryParameters: {
           'select': '*',
           'order': 'release_date.desc',
           'limit': limit,
         },
       );
-
       if (response.statusCode == 200 && response.data is List) {
-        final games = (response.data as List)
+        return (response.data as List)
             .map((gameJson) => Game.fromJson(gameJson))
             .toList();
-        return games;
       }
       return [];
     } catch (e) {
@@ -34,19 +33,17 @@ class GameService {
   Future<List<Game>> getPopularGames({int limit = 15}) async {
     try {
       final response = await _apiClient.get(
-        '/rest/v1/games',
+        'rest/v1/games',
         queryParameters: {
           'select': '*',
           'order': 'title.asc',
           'limit': limit,
         },
       );
-
       if (response.statusCode == 200 && response.data is List) {
-        final games = (response.data as List)
+        return (response.data as List)
             .map((gameJson) => Game.fromJson(gameJson))
             .toList();
-        return games;
       }
       return [];
     } catch (e) {

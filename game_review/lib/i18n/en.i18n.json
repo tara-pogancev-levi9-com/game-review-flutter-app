@@ -52,5 +52,11 @@
     "invalidCredentials": "Invalid credentials",
     "loginFailed": "Login failed. Please try again."
   },
-  "appFailedToStart": "App failed to start:\\n\\n@{error}"
+  "appFailedToStart": "App failed to start:\\n\\n@{error}",
+  "library": {
+    "latest": "Latest",
+    "popular": "Popular",
+    "userLibrary": "Your Library",
+    "wishlist": "Wishlist"
+  }
 }
