@@ -24,7 +24,6 @@ class AuthService {
           'password': password,
         },
       );
-      print("RESPONSE: " + response.data.toString());
       if (response.statusCode == 200) {
         ('Signup successful! User created.');
         if (response.data['access_token'] != null) {
@@ -64,9 +63,10 @@ class AuthService {
         Logger.info('Login successful, token saved.');
         return true;
       }
-      Logger.warning('Login failed with status: ${response.statusCode}. Response: ${response.data}');
+      Logger.warning(
+        'Login failed with status: ${response.statusCode}. Response: ${response.data}',
+      );
       return false;
-
     } catch (e) {
       Logger.error('Login error', e);
       return false;
