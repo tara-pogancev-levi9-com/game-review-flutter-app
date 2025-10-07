@@ -209,6 +209,12 @@ class TranslationsErrorsEn {
 
 	/// en: 'Invalid credentials'
 	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed, please try again'
+	String get loginFailed => 'Login failed, please try again';
+
+	/// en: 'The app failed to start. Please restart and try again.'
+	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 }
 
 // Path: branding

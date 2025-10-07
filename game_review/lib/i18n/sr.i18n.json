@@ -52,7 +52,9 @@
     "requiredField": "{field} je obavezno",
     "invalidEmail": "Neispravan email",
     "minLength": "Minimum {n} karaktera",
-    "invalidCredentials": "Neispravni podaci za prijavu"
+    "invalidCredentials": "Neispravni podaci za prijavu",
+    "loginFailed": "Prijava nije uspela, pokušaj ponovo",
+    "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet."
   },
   "branding": {
     "title": "PAW IGRE",

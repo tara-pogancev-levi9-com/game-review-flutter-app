@@ -52,7 +52,10 @@
     "requiredField": "{field} required",
     "invalidEmail": "Invalid email",
     "minLength": "Min {n} char",
-    "invalidCredentials": "Invalid credentials"
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed, please try again",
+    "appFailedToStart": "The app failed to start. Please restart and try again."
+
   },
   "branding": {
     "title": "PAW GAMES",

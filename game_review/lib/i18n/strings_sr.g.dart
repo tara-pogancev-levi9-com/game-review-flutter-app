@@ -104,6 +104,8 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get invalidEmail => 'Neispravan email';
 	@override String get minLength => 'Minimum {n} karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
+	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
+	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
 }
 
 // Path: branding

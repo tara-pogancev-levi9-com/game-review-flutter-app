@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
