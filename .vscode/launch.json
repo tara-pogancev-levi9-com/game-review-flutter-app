@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "game_review",
+            "name": "game_review (debug mode)",
             "cwd": "game_review",
             "request": "launch",
             "type": "dart"
