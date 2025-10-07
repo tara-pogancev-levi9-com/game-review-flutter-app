@@ -57,7 +57,7 @@ class TranslationsSr extends Translations {
 	@override String get notifications => 'Obaveštenja';
 	@override String get back => 'Nazad';
 	@override String get next => 'Dalje';
-	@override String get dicsover => 'Istraži';
+	@override String get discover => 'Istraži';
 	@override String get details => 'Detalji';
 	@override String get ratings => 'Ocene';
 	@override String get evaluation => 'Evaluacija';
@@ -76,6 +76,8 @@ class TranslationsSr extends Translations {
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
+	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
 }
 
 // Path: navigation
@@ -89,4 +91,33 @@ class TranslationsNavigationSr extends TranslationsNavigationEn {
 	@override String get search => 'Pretraživanje';
 	@override String get library => 'Biblioteka';
 	@override String get profile => 'Profil';
+}
+
+// Path: errors
+class TranslationsErrorsSr extends TranslationsErrorsEn {
+	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get requiredField => '{field} je obavezno';
+	@override String get invalidEmail => 'Neispravan email';
+	@override String get minLength => 'Minimum {n} karaktera';
+	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
+	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
+	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
+	@override String get gameNotFound => 'Igra nije pronađena';
+	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
+}
+
+// Path: branding
+class TranslationsBrandingSr extends TranslationsBrandingEn {
+	TranslationsBrandingSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PAW IGRE';
+	@override String get tagline => 'Istraži. Oceni. Deli.';
+	@override String get logoLabel => 'Logo aplikacije';
 }
