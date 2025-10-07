@@ -81,4 +81,18 @@ class TranslationsSr extends Translations {
 	@override String get emailInvalid => 'Email adresa nije validna!.';
 	@override String get registrationSuccessful => 'Registracija uspešna.';
 	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
+	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+}
+
+// Path: navigation
+class TranslationsNavigationSr extends TranslationsNavigationEn {
+	TranslationsNavigationSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get home => 'Početna';
+	@override String get search => 'Pretraživanje';
+	@override String get library => 'Biblioteka';
+	@override String get profile => 'Profil';
 }

@@ -8,172 +8,158 @@ part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-
 class Translations implements BaseTranslations<AppLocale, Translations> {
-  /// Returns the current translations of the given [context].
-  ///
-  /// Usage:
-  /// final t = Translations.of(context);
-  static Translations of(BuildContext context) =>
-      InheritedLocaleData.of<AppLocale, Translations>(context).translations;
+	/// Returns the current translations of the given [context].
+	///
+	/// Usage:
+	/// final t = Translations.of(context);
+	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
-  /// You can call this constructor and build your own translation instance of this locale.
-  /// Constructing via the enum [AppLocale.build] is preferred.
-  Translations({
-    Map<String, Node>? overrides,
-    PluralResolver? cardinalResolver,
-    PluralResolver? ordinalResolver,
-    TranslationMetadata<AppLocale, Translations>? meta,
-  }) : assert(
-         overrides == null,
-         'Set "translation_overrides: true" in order to enable this feature.',
-       ),
-       $meta =
-           meta ??
-           TranslationMetadata(
-             locale: AppLocale.en,
-             overrides: overrides ?? {},
-             cardinalResolver: cardinalResolver,
-             ordinalResolver: ordinalResolver,
-           );
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  );
 
-  /// Metadata for the translations of <en>.
-  @override
-  final TranslationMetadata<AppLocale, Translations> $meta;
+	/// Metadata for the translations of <en>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
-  late final Translations _root = this; // ignore: unused_field
+	late final Translations _root = this; // ignore: unused_field
 
-  Translations $copyWith({
-    TranslationMetadata<AppLocale, Translations>? meta,
-  }) => Translations(meta: meta ?? this.$meta);
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
-  // Translations
+	// Translations
 
-  /// en: 'Welcome!'
-  String get welcome => 'Welcome!';
+	/// en: 'Welcome!'
+	String get welcome => 'Welcome!';
 
-  /// en: 'Hello, {name}!'
-  String get greeting => 'Hello, {name}!';
+	/// en: 'Hello, {name}!'
+	String get greeting => 'Hello, {name}!';
 
-  /// en: 'Change Language'
-  String get changeLanguage => 'Change Language';
+	/// en: 'Change Language'
+	String get changeLanguage => 'Change Language';
 
-  /// en: 'Game Review App'
-  String get appTitle => 'Game Review App';
+	/// en: 'Game Review App'
+	String get appTitle => 'Game Review App';
 
-  /// en: 'Home'
-  String get home => 'Home';
+	/// en: 'Home'
+	String get home => 'Home';
 
-  /// en: 'Settings'
-  String get settings => 'Settings';
+	/// en: 'Settings'
+	String get settings => 'Settings';
 
-  /// en: 'Search for games'
-  String get searchGames => 'Search for games';
+	/// en: 'Search for games'
+	String get searchGames => 'Search for games';
 
-  /// en: 'Favorite Games'
-  String get favoriteGames => 'Favorite Games';
+	/// en: 'Favorite Games'
+	String get favoriteGames => 'Favorite Games';
 
-  /// en: 'Recent Reviews'
-  String get recentReviews => 'Recent Reviews';
+	/// en: 'Recent Reviews'
+	String get recentReviews => 'Recent Reviews';
 
-  /// en: 'Add Review'
-  String get addReview => 'Add Review';
+	/// en: 'Add Review'
+	String get addReview => 'Add Review';
 
-  /// en: 'My Profile'
-  String get myProfile => 'My Profile';
+	/// en: 'My Profile'
+	String get myProfile => 'My Profile';
 
-  /// en: 'Logout'
-  String get logout => 'Logout';
+	/// en: 'Logout'
+	String get logout => 'Logout';
 
-  /// en: 'Login'
-  String get login => 'Login';
+	/// en: 'Login'
+	String get login => 'Login';
 
-  /// en: 'Goodbye!'
-  String get goodbye => 'Goodbye!';
+	/// en: 'Goodbye!'
+	String get goodbye => 'Goodbye!';
 
-  /// en: 'King'
-  String get king => 'King';
+	/// en: 'King'
+	String get king => 'King';
 
-  /// en: 'Register'
-  String get register => 'Register';
+	/// en: 'Register'
+	String get register => 'Register';
 
-  /// en: 'Email'
-  String get email => 'Email';
+	/// en: 'Email'
+	String get email => 'Email';
 
-  /// en: 'Password'
-  String get password => 'Password';
+	/// en: 'Password'
+	String get password => 'Password';
 
-  /// en: 'Confirm Password'
-  String get confirmPassword => 'Confirm Password';
+	/// en: 'Confirm Password'
+	String get confirmPassword => 'Confirm Password';
 
-  /// en: 'Submit'
-  String get submit => 'Submit';
+	/// en: 'Submit'
+	String get submit => 'Submit';
 
-  /// en: 'Username'
-  String get username => 'Username';
+	/// en: 'Username'
+	String get username => 'Username';
 
-  /// en: 'Profile Settings'
-  String get profileSettings => 'Profile Settings';
+	/// en: 'Profile Settings'
+	String get profileSettings => 'Profile Settings';
 
-  /// en: 'Notifications'
-  String get notifications => 'Notifications';
+	/// en: 'Notifications'
+	String get notifications => 'Notifications';
 
-  /// en: 'Back'
-  String get back => 'Back';
+	/// en: 'Back'
+	String get back => 'Back';
 
-  /// en: 'Next'
-  String get next => 'Next';
+	/// en: 'Next'
+	String get next => 'Next';
 
-  /// en: 'Discover'
-  String get dicsover => 'Discover';
+	/// en: 'Discover'
+	String get dicsover => 'Discover';
 
-  /// en: 'Details'
-  String get details => 'Details';
+	/// en: 'Details'
+	String get details => 'Details';
 
-  /// en: 'Ratings'
-  String get ratings => 'Ratings';
+	/// en: 'Ratings'
+	String get ratings => 'Ratings';
 
-  /// en: 'Evaluation'
-  String get evaluation => 'Evaluation';
+	/// en: 'Evaluation'
+	String get evaluation => 'Evaluation';
 
-  /// en: 'Overall'
-  String get overall => 'Overall';
+	/// en: 'Overall'
+	String get overall => 'Overall';
 
-  /// en: 'Gameplay'
-  String get gameplay => 'Gameplay';
+	/// en: 'Gameplay'
+	String get gameplay => 'Gameplay';
 
-  /// en: 'Graphics'
-  String get graphics => 'Graphics';
+	/// en: 'Graphics'
+	String get graphics => 'Graphics';
 
-  /// en: 'Sound'
-  String get sound => 'Sound';
+	/// en: 'Sound'
+	String get sound => 'Sound';
 
-  /// en: 'Story'
-  String get story => 'Story';
+	/// en: 'Story'
+	String get story => 'Story';
 
-  /// en: 'Value'
-  String get value => 'Value';
+	/// en: 'Value'
+	String get value => 'Value';
 
-  /// en: 'Pros'
-  String get pros => 'Pros';
+	/// en: 'Pros'
+	String get pros => 'Pros';
 
-  /// en: 'Cons'
-  String get cons => 'Cons';
+	/// en: 'Cons'
+	String get cons => 'Cons';
 
-  /// en: 'Media'
-  String get media => 'Media';
+	/// en: 'Media'
+	String get media => 'Media';
 
-  /// en: 'Discussions'
-  String get discussions => 'Discussions';
+	/// en: 'Discussions'
+	String get discussions => 'Discussions';
 
-  /// en: 'Save'
-  String get save => 'Save';
+	/// en: 'Save'
+	String get save => 'Save';
 
-  /// en: 'Edit'
-  String get edit => 'Edit';
+	/// en: 'Edit'
+	String get edit => 'Edit';
 
-  /// en: 'Delete'
-  String get delete => 'Delete';
+	/// en: 'Delete'
+	String get delete => 'Delete';
 
   /// en: 'Update'
   String get update => 'Update';
@@ -184,4 +170,27 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   String get emailInvalid => "Email address is not valid!";
   String get registrationSuccessful => "Registration successful!";
   String get registrationEmailExistsError => "The provided email is already registered.!";
+
+	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+}
+
+// Path: navigation
+class TranslationsNavigationEn {
+	TranslationsNavigationEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Home'
+	String get home => 'Home';
+
+	/// en: 'Search'
+	String get search => 'Search';
+
+	/// en: 'Library'
+	String get library => 'Library';
+
+	/// en: 'Profile'
+	String get profile => 'Profile';
 }

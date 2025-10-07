@@ -3,6 +3,7 @@ import 'package:game_review/features/registration_screen/bloc/registerCubit.dart
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/auth/auth_service.dart';
+import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -13,7 +14,6 @@ void setupDependencies() {
     ),
   );
 
-
   locator.registerLazySingleton<AuthService>(
     () => AuthService(
       locator<ApiClient>(),
@@ -22,5 +22,11 @@ void setupDependencies() {
 
   locator.registerLazySingleton<RegistrationCubit>(
     () => RegistrationCubit(),
+  );
+
+  locator.registerLazySingleton<AuthCubit>(
+    () => AuthCubit(
+      locator<AuthService>(),
+    ),
   );
 }
