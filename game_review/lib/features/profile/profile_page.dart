@@ -7,46 +7,20 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.person_rounded,
-            size: 80,
-            color: Theme
-                .of(context)
-                .colorScheme
-                .primary,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            context.t.navigation.profile,
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleLarge,
-          ),
-          const SizedBox(height: 32),
-          ElevatedButton.icon(
-            onPressed: () {
-              locator<AuthCubit>().logout();
-            },
-            icon: const Icon(Icons.logout),
-            label: Text(context.t.logout),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .error,
-              foregroundColor: Theme
-                  .of(context)
-                  .colorScheme
-                  .onError,
-            ),
-          ),
-        ],
-      ),
+    return Stack(
+      children: [
+        Positioned(
+          top: 30,
+          left: 30,
+          right: 30,
+
+          child: CircleAvatar(
+            //borderRadius: BorderRadiusGeometry.circular(100),
+              radius: 100,
+              backgroundImage: AssetImage('lib/common/assets/images/tempAvatar.jpg'),),
+        ),
+
+      ],
     );
   }
 }
