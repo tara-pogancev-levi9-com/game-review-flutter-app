@@ -1,4 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:game_review/common/blocs/games_cubit.dart';
+import 'package:game_review/common/services/games_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/auth/auth_service.dart';
@@ -12,10 +14,17 @@ void setupDependencies() {
     ),
   );
 
-
   locator.registerLazySingleton<AuthService>(
     () => AuthService(
       locator<ApiClient>(),
     ),
+  );
+
+  locator.registerLazySingleton<GamesService>(
+    () => GamesService(locator<ApiClient>()),
+  );
+
+  locator.registerFactory<GamesCubit>(
+    () => GamesCubit(locator<GamesService>()),
   );
 }
