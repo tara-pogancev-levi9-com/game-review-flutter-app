@@ -13,37 +13,22 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   Future<void> signup(RegistrationModel data) async {
     emit(RegistrationLoading());
-      try {
-        await _authService.signup(data.email, data.password, data.username);
-        emit(RegistrationSuccess());
-      }
-      on EmailAlreadyExistsException catch (e) {
-        emit(RegistrationDuplicateEmail(e.message));
-      }
-      catch (e) {
-        emit(RegistrationFailure(e.toString()));
-      }
-
-  }
-  Future<void> login(LoginModel data) async{
-    try{
-      await _authService.login(data.email, data.password);
-      emit(LoginSuccess());
-    } catch (e){
-      emit(LoginFailure(e.toString()));
+    try {
+      await _authService.signup(data.email, data.password, data.username);
+      emit(RegistrationSuccess());
+    } on EmailAlreadyExistsException catch (e) {
+      emit(RegistrationDuplicateEmail(e.message));
+    } catch (e) {
+      emit(RegistrationFailure(e.toString()));
     }
   }
 
-  void formValidationFailed (){
-    emit(RegistrationInitial(isFormValid: false));
-  }
-  void clearFailure() {
-    emit(RegistrationInitial());
-  }
-
-  void formValidityChanged({required bool isFormValid}) {
-    if (state is RegistrationInitial) {
-      emit(RegistrationInitial(isFormValid: isFormValid));
+  Future<void> login(LoginModel data) async {
+    try {
+      await _authService.login(data.email, data.password);
+      emit(LoginAfterRegistrationSuccess());
+    } catch (e) {
+      emit(LoginAfterRegistrationFailure(e.toString()));
     }
   }
 }

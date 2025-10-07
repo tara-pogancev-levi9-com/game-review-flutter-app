@@ -28,7 +28,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _passwordKey = GlobalKey<FormFieldState>();
   final _emailKey = GlobalKey<FormFieldState>();
 
-  RegExp get _emailRegex => RegExp(r'^\S+@\S+$');
+  bool firstInput = true;
+
+  RegExp get _emailRegex => RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
@@ -73,18 +75,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
-            locator<RegistrationCubit>().clearFailure();
-            locator<RegistrationCubit>().formValidityChanged(
+            //locator<RegistrationCubit>().clearFailure();
+            /*locator<RegistrationCubit>().formValidityChanged(
               isFormValid: _formKey.currentState?.validate() ?? false,
-            );
-          } else if (state is LoginSuccess) {
+            );*/
+          } else if (state is LoginAfterRegistrationSuccess) {
             //TODO: implement navigation
             /*Future.delayed(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (_) => const HomePage()),
               );
             });*/
-          } else if (state is LoginFailure) {
+          } else if (state is LoginAfterRegistrationFailure) {
             //TODO: implement navigation
             /*Future.delayed(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacement(
@@ -121,18 +123,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         Form(
                           key: _formKey,
-                          autovalidateMode: state is RegistrationInitial
+                          autovalidateMode: !firstInput
                               ? AutovalidateMode.onUserInteraction
                               : AutovalidateMode.disabled,
-                          onChanged: () {
-                            if (state is RegistrationInitial) {
-                              final isValid =
-                                  _formKey.currentState?.validate() ?? false;
-                              locator<RegistrationCubit>().formValidityChanged(
-                                isFormValid: isValid,
-                              );
-                            }
-                          },
+
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                             child: Column(
@@ -142,18 +136,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autocorrect: false,
                                   autofillHints: null,
                                   enableSuggestions: false,
+                                  keyboardType: TextInputType.emailAddress,
                                   controller: _emailController,
                                   onChanged: (value) {
-                                    if (state is RegistrationInitial)
+                                    if (!firstInput)
                                       _emailKey.currentState?.validate();
                                   },
-                                  validator: (value) {
-                                    if (value == null ||
-                                        !_emailRegex.hasMatch(value)) {
-                                      return t.emailInvalid;
-                                    }
-                                    return null;
-                                  },
+                                  validator: (value) => emailValidator(value),
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.email_outlined),
                                     labelText: t.email,
@@ -191,7 +180,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   enableSuggestions: false,
                                   obscureText: !showPassword,
                                   onChanged: (value) {
-                                    if (state is RegistrationInitial) {
+                                    if (!firstInput) {
                                       _passwordKey.currentState?.validate();
                                       _confirmPasswordKey.currentState
                                           ?.validate();
@@ -235,7 +224,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   keyboardType: TextInputType.text,
                                   obscureText: !showConfirmPassword,
                                   onChanged: (value) {
-                                    if (state is RegistrationInitial) {
+                                    if (!firstInput) {
                                       _confirmPasswordKey.currentState
                                           ?.validate();
                                     }
@@ -301,8 +290,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                     registrationData,
                                                   );
                                             } else {
-                                              locator<RegistrationCubit>()
-                                                  .formValidationFailed();
+                                              //locator<RegistrationCubit>()
+                                              //  .formValidationFailed();
+                                              setState(() {
+                                                firstInput = false;
+                                              });
                                             }
                                           },
                                           child: Text(
@@ -339,5 +331,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
         },
       ),
     );
+  }
+
+  String? emailValidator(value) {
+    if (value == null || !_emailRegex.hasMatch(value)) {
+      return t.emailInvalid;
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _usernameController.dispose();
+    super.dispose();
   }
 }

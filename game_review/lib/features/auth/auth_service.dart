@@ -27,29 +27,20 @@ class AuthService {
         ('Signup successful! User created.');
         if (response.data['access_token'] != null) {
           await SecureStorage.saveToken(response.data['access_token']);
-          final userData = await apiClient.get(
-            'auth/v1/user'
-          );
+          final userData = await apiClient.get('auth/v1/user');
           final val = jsonDecode(userData.toString());
           await apiClient.post(
-              'rest/v1/users',
-              data: {
-                'id': val['id'],
-                'username': username,
-                'email': email
-
-              }
+            'rest/v1/users',
+            data: {'id': val['id'], 'username': username, 'email': email},
           );
-
         }
         return true;
       }
-    } on DioException catch (e){
-      if(e.response?.statusCode != null && e.response?.statusCode == 422){
+    } on DioException catch (e) {
+      if (e.response?.statusCode != null && e.response?.statusCode == 422) {
         throw EmailAlreadyExistsException(t.registrationEmailExistsError);
       }
-    }
-    catch (e) {
+    } catch (e) {
       Logger.error('Signup error', e);
       throw e;
     }
