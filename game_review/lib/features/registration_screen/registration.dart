@@ -64,16 +64,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 password: _passwordController.text,
               ),
             );
-          } else if(state is RegistrationInitial){
-
-          }
-          else if (state is RegistrationFailure) {
-            Future.delayed(const Duration(seconds: 3), () {
-              locator<RegistrationCubit>().clearFailure();
-              locator<RegistrationCubit>().formValidityChanged(
-                isFormValid: _formKey.currentState?.validate() ?? false,
-              );
-            });
+          } else if (state is RegistrationInitial) {
+          } else if (state is RegistrationDuplicateEmail) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          } else if (state is RegistrationFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+            locator<RegistrationCubit>().clearFailure();
+            locator<RegistrationCubit>().formValidityChanged(
+              isFormValid: _formKey.currentState?.validate() ?? false,
+            );
           } else if (state is LoginSuccess) {
             //TODO: implement navigation
             /*Future.delayed(const Duration(seconds: 1), () {
@@ -92,7 +95,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         },
         builder: (context, state) {
           final isLoading = state is RegistrationLoading;
-          final isFailure = state is RegistrationFailure;
 
           return Stack(
             children: [
@@ -119,15 +121,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         Form(
                           key: _formKey,
-                          autovalidateMode: state is RegistrationInitial ? AutovalidateMode.onUserInteraction :
-                          AutovalidateMode.disabled,
+                          autovalidateMode: state is RegistrationInitial
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
                           onChanged: () {
-                            print("VALIDITY: " + (state is RegistrationInitial).toString());
-                            if(state is RegistrationInitial) {
+                            if (state is RegistrationInitial) {
                               final isValid =
                                   _formKey.currentState?.validate() ?? false;
-                              locator<RegistrationCubit>()
-                                  .formValidityChanged(isFormValid: isValid);
+                              locator<RegistrationCubit>().formValidityChanged(
+                                isFormValid: isValid,
+                              );
                             }
                           },
                           child: Padding(
@@ -136,10 +139,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               children: [
                                 TextFormField(
                                   key: _emailKey,
+                                  autocorrect: false,
+                                  autofillHints: null,
+                                  enableSuggestions: false,
                                   controller: _emailController,
                                   onChanged: (value) {
-                                    if(state is RegistrationInitial)
-                                    _emailKey.currentState?.validate();
+                                    if (state is RegistrationInitial)
+                                      _emailKey.currentState?.validate();
                                   },
                                   validator: (value) {
                                     if (value == null ||
@@ -162,6 +168,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                                 TextFormField(
                                   controller: _usernameController,
+                                  autocorrect: false,
+                                  autofillHints: null,
+                                  enableSuggestions: false,
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.person_2_outlined),
                                     labelText: t.username,
@@ -177,9 +186,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 TextFormField(
                                   key: _passwordKey,
                                   controller: _passwordController,
+                                  autocorrect: false,
+                                  autofillHints: null,
+                                  enableSuggestions: false,
                                   obscureText: !showPassword,
                                   onChanged: (value) {
-                                    if(state is RegistrationInitial) {
+                                    if (state is RegistrationInitial) {
                                       _passwordKey.currentState?.validate();
                                       _confirmPasswordKey.currentState
                                           ?.validate();
@@ -216,11 +228,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                                 TextFormField(
                                   key: _confirmPasswordKey,
+                                  autocorrect: false,
+                                  autofillHints: null,
+                                  enableSuggestions: false,
                                   controller: _confirmPasswordController,
                                   keyboardType: TextInputType.text,
                                   obscureText: !showConfirmPassword,
                                   onChanged: (value) {
-                                    if(state is RegistrationInitial) {
+                                    if (state is RegistrationInitial) {
                                       _confirmPasswordKey.currentState
                                           ?.validate();
                                     }
@@ -266,38 +281,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         ),
 
                                         child: ElevatedButton(
-                                                onPressed: () {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    final registrationData =
-                                                        RegistrationModel(
-                                                          email:
-                                                              _emailController
-                                                                  .text,
-                                                          username:
-                                                              _usernameController
-                                                                  .text,
-                                                          password:
-                                                              _passwordController
-                                                                  .text,
-                                                        );
+                                          onPressed: () {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              final registrationData =
+                                                  RegistrationModel(
+                                                    email:
+                                                        _emailController.text,
+                                                    username:
+                                                        _usernameController
+                                                            .text,
+                                                    password:
+                                                        _passwordController
+                                                            .text,
+                                                  );
 
-                                                      locator<
-                                                          RegistrationCubit>()
-                                                          .signup(
-                                                        registrationData,
-                                                      );
-
-                                                  }else{
-                                                    print("INVALID");
-                                                    locator<RegistrationCubit>().formValidationFailed();
-                                                  }
-                                                },
-                                                child: Text(
-                                                  t.register,
-                                                ),
-                                              )
-
+                                              locator<RegistrationCubit>()
+                                                  .signup(
+                                                    registrationData,
+                                                  );
+                                            } else {
+                                              locator<RegistrationCubit>()
+                                                  .formValidationFailed();
+                                            }
+                                          },
+                                          child: Text(
+                                            t.register,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -311,7 +322,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
               ),
-              if (isLoading || isFailure)
+              if (isLoading)
                 const Opacity(
                   opacity: 0.3,
                   child: ModalBarrier(
@@ -322,21 +333,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               if (isLoading)
                 const Center(
                   child: CircularProgressIndicator(),
-                ),
-              if (isFailure)
-                Center(
-                  child: Container(
-                    width: 200,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Text(t.registrationError),
-                    ),
-                  ),
                 ),
             ],
           );

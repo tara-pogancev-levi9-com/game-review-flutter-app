@@ -35,4 +35,8 @@ class RegistrationFailure extends RegistrationState {
   List<Object?> get props => [error];
 }
 
+class RegistrationDuplicateEmail extends RegistrationFailure {
+  RegistrationDuplicateEmail(String error) : super(error);
+}
+
 class RegistrationFailureCleared extends RegistrationState {}

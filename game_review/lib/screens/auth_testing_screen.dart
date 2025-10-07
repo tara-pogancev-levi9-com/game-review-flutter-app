@@ -21,7 +21,7 @@ class AuthTestingScreen extends StatelessWidget {
   void _testSignup() async {
     try {
       final authService = locator<AuthService>();
-      bool success = await authService.signup('newuser@example.com', 'password123');
+      bool success = await authService.signup('newuser@example.com', 'password123', 'username');
       if (success) {
         Logger.info('Signup successful!');
       } else {

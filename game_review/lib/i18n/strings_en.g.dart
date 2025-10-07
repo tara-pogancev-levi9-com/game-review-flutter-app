@@ -183,4 +183,5 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   String get passwordLength => "Password must be at least 8 characters long!!";
   String get emailInvalid => "Email address is not valid!";
   String get registrationSuccessful => "Registration successful!";
+  String get registrationEmailExistsError => "The provided email is already registered.!";
 }

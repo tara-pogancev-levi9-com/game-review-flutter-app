@@ -80,4 +80,5 @@ class TranslationsSr extends Translations {
 	@override String get passwordLength => 'Lozinka mora imati minimum 8 karaktera!.';
 	@override String get emailInvalid => 'Email adresa nije validna!.';
 	@override String get registrationSuccessful => 'Registracija uspešna.';
+	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
 }

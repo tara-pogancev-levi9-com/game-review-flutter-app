@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/features/registration_screen/bloc/registrationState.dart';
+import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
 import 'package:game_review/features/registration_screen/models/loginModel.dart';
 import 'package:game_review/features/registration_screen/models/registrationModel.dart';
 
@@ -13,9 +14,13 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   Future<void> signup(RegistrationModel data) async {
     emit(RegistrationLoading());
       try {
-        await _authService.signup(data.email, data.password);
+        await _authService.signup(data.email, data.password, data.username);
         emit(RegistrationSuccess());
-      } catch (e) {
+      }
+      on EmailAlreadyExistsException catch (e) {
+        emit(RegistrationDuplicateEmail(e.message));
+      }
+      catch (e) {
         emit(RegistrationFailure(e.toString()));
       }
 
@@ -30,7 +35,6 @@ class RegistrationCubit extends Cubit<RegistrationState> {
   }
 
   void formValidationFailed (){
-    print("EMIT INITIAL");
     emit(RegistrationInitial(isFormValid: false));
   }
   void clearFailure() {
