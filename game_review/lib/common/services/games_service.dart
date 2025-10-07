@@ -6,12 +6,16 @@ class GamesService {
 
   GamesService(this._apiClient);
 
-  Future<List<GameModel>> fetchGames({int limit = 10}) async {
+  Future<List<GameModel>> fetchGames({
+    int limit = 10,
+    int offset = 0,
+  }) async {
     final response = await _apiClient.get(
       '/rest/v1/games',
       queryParameters: {
         'select': '*',
         'limit': limit,
+        'offset': offset,
         'order': 'release_date.desc',
       },
     );

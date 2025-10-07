@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> games)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> games,  bool hasMore,  bool isLoadingMore)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.games);case _Error() when error != null:
+return loaded(_that.games,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> games)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> games,  bool hasMore,  bool isLoadingMore)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.games);case _Error():
+return loaded(_that.games,_that.hasMore,_that.isLoadingMore);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> games)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> games,  bool hasMore,  bool isLoadingMore)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.games);case _Error() when error != null:
+return loaded(_that.games,_that.hasMore,_that.isLoadingMore);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -257,7 +257,7 @@ String toString() {
 
 
 class _Loaded implements GamesState {
-  const _Loaded(final  List<GameModel> games): _games = games;
+  const _Loaded(final  List<GameModel> games, {this.hasMore = false, this.isLoadingMore = false}): _games = games;
   
 
  final  List<GameModel> _games;
@@ -267,6 +267,8 @@ class _Loaded implements GamesState {
   return EqualUnmodifiableListView(_games);
 }
 
+@JsonKey() final  bool hasMore;
+@JsonKey() final  bool isLoadingMore;
 
 /// Create a copy of GamesState
 /// with the given fields replaced by the non-null parameter values.
@@ -278,16 +280,16 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._games, _games));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._games, _games)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_games));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_games),hasMore,isLoadingMore);
 
 @override
 String toString() {
-  return 'GamesState.loaded(games: $games)';
+  return 'GamesState.loaded(games: $games, hasMore: $hasMore, isLoadingMore: $isLoadingMore)';
 }
 
 
@@ -298,7 +300,7 @@ abstract mixin class _$LoadedCopyWith<$Res> implements $GamesStateCopyWith<$Res>
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<GameModel> games
+ List<GameModel> games, bool hasMore, bool isLoadingMore
 });
 
 
@@ -315,10 +317,12 @@ class __$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of GamesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? games = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? games = null,Object? hasMore = null,Object? isLoadingMore = null,}) {
   return _then(_Loaded(
 null == games ? _self._games : games // ignore: cast_nullable_to_non_nullable
-as List<GameModel>,
+as List<GameModel>,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
