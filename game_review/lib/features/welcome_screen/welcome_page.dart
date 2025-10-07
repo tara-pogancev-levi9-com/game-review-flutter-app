@@ -8,12 +8,12 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gradients = Theme.of(context).extension<AppGradients>()!;
+    final gradients = Theme.of(context).extension<AppGradients>() ?? 
+                     AppGradients.dark;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
-
       body: DecoratedBox(
         decoration: BoxDecoration(gradient: gradients.background),
         child: Stack(
@@ -29,7 +29,6 @@ class WelcomePage extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-
               children: [
                 SizedBox(height: 250),
                 Image(image: AssetImage('lib/common/assets/images/Logo.png')),
@@ -42,7 +41,9 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: ElevatedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                            );
                           },
                           child: Text(
                             t.login,
@@ -52,9 +53,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 8.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -63,7 +62,7 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
+                            //TODO: Implement on pressed navigation to register page
                           },
                           child: Text(
                             t.register,
@@ -73,9 +72,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 45.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -96,6 +93,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+
               ],
             ),
           ],
