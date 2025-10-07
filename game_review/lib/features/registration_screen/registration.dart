@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/features/registration_screen/bloc/registerCubit.dart';
 import 'package:game_review/features/registration_screen/models/loginModel.dart';
 import 'package:game_review/features/registration_screen/models/registrationModel.dart';
@@ -75,24 +77,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
-            //locator<RegistrationCubit>().clearFailure();
-            /*locator<RegistrationCubit>().formValidityChanged(
-              isFormValid: _formKey.currentState?.validate() ?? false,
-            );*/
           } else if (state is LoginAfterRegistrationSuccess) {
-            //TODO: implement navigation
-            /*Future.delayed(const Duration(seconds: 1), () {
+            Future.delayed(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => const HomePage()),
+                MaterialPageRoute(builder: (_) => const MainScreen()),
               );
-            });*/
+            });
           } else if (state is LoginAfterRegistrationFailure) {
-            //TODO: implement navigation
-            /*Future.delayed(const Duration(seconds: 1), () {
+            Future.delayed(const Duration(seconds: 1), () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (_) => const LoginPage()),
               );
-            });*/
+            });
           }
         },
         builder: (context, state) {

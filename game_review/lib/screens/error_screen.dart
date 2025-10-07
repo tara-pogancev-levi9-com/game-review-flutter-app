@@ -16,7 +16,7 @@ class ErrorScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Center(
             child: Text(
-              '${t.appFailedToStart}\n\n$error',
+              '${t.errors.appFailedToStart}\n\n$error',
               style: TextStyle(
                 color: colorScheme.error,
                 fontSize: 16,
