@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 
 import 'app_colors.dart';
 
@@ -28,7 +30,7 @@ class AppTheme {
       extensions: const <ThemeExtension<dynamic>>[
         AppGradients.dark,
       ],
-      fontFamily: 'Roboto',
+      fontFamily: AppFonts.roboto,
     );
 
     return base.copyWith(
@@ -66,6 +68,14 @@ class AppTheme {
               letterSpacing: 0.5,
             ),
           ),
+
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.outline,
+
+        selectionColor: AppColors.primaryPurple,
+        selectionHandleColor: AppColors.primaryPurple,
+      ),
+
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -80,6 +90,8 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         hintStyle: const TextStyle(color: AppColors.textSecondary),
+        prefixIconColor: AppColors.lilacSelected,
+        suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
@@ -87,8 +99,8 @@ class AppTheme {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(
-            color: AppColors.primaryPurple,
-            width: 1.2,
+            color: AppColors.lilacSelected,
+            width: 1.8,
           ),
         ),
       ),
@@ -100,11 +112,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
-          textStyle: const TextStyle(
-            fontFamily: 'JosefinSans',
-            fontWeight: FontWeight.w500,
-            fontSize: 28,
-          ),
+          textStyle: AppTypography.buttonLarge,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -115,11 +123,7 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(999),
           ),
-          textStyle: const TextStyle(
-            fontFamily: 'JosefinSans',
-            fontWeight: FontWeight.w500,
-            fontSize: 28,
-          ),
+          textStyle: AppTypography.buttonLarge,
         ),
       ),
       chipTheme: base.chipTheme.copyWith(

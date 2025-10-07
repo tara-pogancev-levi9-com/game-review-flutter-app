@@ -111,6 +111,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get next => 'Next';
 
 	/// en: 'Discover'
+	String get discover => 'Discover';
 	String get discver => 'Discover';
 
 	/// en: 'Details'

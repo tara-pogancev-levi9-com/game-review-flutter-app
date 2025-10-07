@@ -25,6 +25,7 @@
   "back": "Back",
   "next": "Next",
   "discver": "Discover",
+  "discover": "Discover",
   "details": "Details",
   "ratings": "Ratings",
   "evaluation": "Evaluation",
@@ -69,4 +70,5 @@
     "tagline": "Discover. Rate. Share.",
     "logoLabel": "App logo"
   }
+
 }
