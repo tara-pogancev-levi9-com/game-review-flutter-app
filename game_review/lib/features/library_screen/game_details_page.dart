@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 
 class GameDetailsPage extends StatelessWidget {
@@ -31,24 +33,76 @@ class GameDetailsPage extends StatelessWidget {
                 ? const Center(child: Icon(Icons.image, size: 64, color: Colors.white70))
                 : null,
           ),
-          // Title and genres
+          // Title + actions row
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
-            child: Text(
-              game.title,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    game.title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                PopupMenuButton<String>(
+                  onSelected: (value) async {
+                    final cubit = locator<LibraryCubit>();
+                    switch (value) {
+                      case 'wishlist':
+                        final result = await cubit.addGameToWishlist(game);
+                        if (result == AddResult.added) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Added to Wishlist')),
+                          );
+                        } else if (result == AddResult.alreadyExists) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Game already in Wishlist')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Failed to add to Wishlist')),
+                          );
+                        }
+                        break;
+                      case 'library':
+                        final result = await cubit.addGameToLibrary(game);
+                        if (result == AddResult.added) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Added to My Library')),
+                          );
+                        } else if (result == AddResult.alreadyExists) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Game already in Library')),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Failed to add to Library')),
+                          );
+                        }
+                        break;
+                      case 'review':
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Add review feature coming soon!')),
+                        );
+                        break;
+                    }
+                  },
+                  itemBuilder: (context) => const [
+                    PopupMenuItem(value: 'wishlist', child: Text('Add to Wishlist')),
+                    PopupMenuItem(value: 'library', child: Text('Add to My Library')),
+                    PopupMenuItem(value: 'review', child: Text('Add Review')),
+                  ],
+                  icon: const Icon(Icons.more_vert),
+                ),
+              ],
             ),
           ),
-          if (game.genres != null && game.genres!.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Wrap(
-                spacing: 8,
-                children: game.genres!
-                    .map((genre) => Chip(label: Text(genre)))
-                    .toList(),
-              ),
-            ),
           // TODO: Recommendation %
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
