@@ -223,9 +223,12 @@ class TranslationsLibraryEn {
 	/// en: 'Popular'
 	String get popular => 'Popular';
 
-	/// en: 'Your Library'
-	String get userLibrary => 'Your Library';
+	/// en: 'Owned Games'
+	String get ownedGames => 'Owned Games';
 
 	/// en: 'Wishlist'
 	String get wishlist => 'Wishlist';
+
+	/// en: 'My Library'
+	String get myLibrary => 'My Library';
 }

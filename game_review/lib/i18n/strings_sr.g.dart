@@ -114,6 +114,7 @@ class TranslationsLibrarySr extends TranslationsLibraryEn {
 	// Translations
 	@override String get latest => 'Najnovije';
 	@override String get popular => 'Popularno';
-	@override String get userLibrary => 'Tvoja biblioteka';
+	@override String get ownedGames => 'Moje igre';
 	@override String get wishlist => 'Lista želja';
+	@override String get myLibrary => 'Moja Biblioteka';
 }

@@ -56,7 +56,8 @@
   "library": {
     "latest": "Latest",
     "popular": "Popular",
-    "userLibrary": "Your Library",
-    "wishlist": "Wishlist"
+    "ownedGames": "Owned Games",
+    "wishlist": "Wishlist",
+    "myLibrary": "My Library"
   }
 }

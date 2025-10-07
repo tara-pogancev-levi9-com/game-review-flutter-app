@@ -56,7 +56,8 @@
   "library": {
     "latest": "Najnovije",
     "popular": "Popularno",
-    "userLibrary": "Tvoja biblioteka",
-    "wishlist": "Lista želja"
+    "ownedGames": "Moje igre",
+    "wishlist": "Lista želja",
+    "myLibrary": "Moja Biblioteka"
     }
 }

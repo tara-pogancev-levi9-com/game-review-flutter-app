@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/features/library_screen/game_details_page.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 
 class GameCard extends StatelessWidget {
@@ -10,7 +11,13 @@ class GameCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => GameDetailsPage(game: game),
+          ),
+        );
+      },
       child: SizedBox(
         width: 140,
         child: Card(

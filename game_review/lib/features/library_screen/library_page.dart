@@ -45,9 +45,30 @@ class _LibraryPageState extends State<LibraryPage> {
                 onRefresh: () => locator<LibraryCubit>().fetchGames(), // Q: Is this good? Or should there be a mechanism that does this only once (or every 30, 60, 90 ... minutes, seconds, ...) instead of doing it every time when we open the page?
                 child: ListView(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 28,
+                            backgroundImage: NetworkImage(
+                              // Replace with actual user profile image if available
+                              'https://i.pravatar.cc/150?img=8',
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Text(
+                            l.library.myLibrary,
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     GameSection(title: l.library.latest, games: latest),
                     GameSection(title: l.library.popular, games: popular),
-                    GameSection(title: l.library.userLibrary, games: userLib),
+                    GameSection(title: l.library.ownedGames, games: userLib),
                     GameSection(title: l.library.wishlist, games: wishlist),
                   ],
                 ),
