@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 
+// TODO: Error handling, generic responses
+
 class ApiClient {
   final Dio dio;
 

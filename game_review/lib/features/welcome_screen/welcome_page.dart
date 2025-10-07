@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_review/features/auth/auth_cubit.dart';
 import 'package:game_review/features/auth/login_page.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final gradients = Theme.of(context).extension<AppGradients>()!;
+    final gradients =
+        Theme.of(context).extension<AppGradients>() ?? AppGradients.dark;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
-
       body: DecoratedBox(
         decoration: BoxDecoration(gradient: gradients.background),
         child: Stack(
@@ -34,7 +30,6 @@ class WelcomePage extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-
               children: [
                 SizedBox(height: 250),
                 AppLogo(),
@@ -47,14 +42,9 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: ElevatedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (_) => BlocProvider(
-                                  create: (_) =>
-                                      AuthCubit(authService: locator()),
-                                  child: const LoginPage(),
-                                ),
+                                builder: (context) => const LoginPage(),
                               ),
                             );
                           },
@@ -66,9 +56,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 8.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -77,7 +65,7 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to login page
+                            //TODO: Implement on pressed navigation to register page
                           },
                           child: Text(
                             t.register,
@@ -87,9 +75,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 SizedBox(height: 45.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

@@ -2,6 +2,8 @@ import '../../core/api/api_client.dart';
 import '../../core/storage/secure_storage.dart';
 import '../../common/utils/logger.dart';
 
+// TODO: Clean up endpoints
+
 class AuthService {
   final ApiClient apiClient;
 
@@ -31,20 +33,27 @@ class AuthService {
   }
 
   Future<bool> login(String email, String password) async {
-    final response = await apiClient.post(
-      'auth/v1/token?grant_type=password',
-      data: {
-        'email': email,
-        'password': password,
-      },
-    );
+    try {
+      final response = await apiClient.post(
+        'auth/v1/token?grant_type=password',
+        data: {
+          'email': email,
+          'password': password,
+        },
+      );
 
-    if (response.statusCode == 200 && response.data['access_token'] != null) {
-      await SecureStorage.saveToken(response.data['access_token']);
-      Logger.info('Login successful, token saved.');
-      return true;
+      if (response.statusCode == 200 && response.data['access_token'] != null) {
+        await SecureStorage.saveToken(response.data['access_token']);
+        Logger.info('Login successful, token saved.');
+        return true;
+      }
+      Logger.warning('Login failed with status: ${response.statusCode}. Response: ${response.data}');
+      return false;
+
+    } catch (e) {
+      Logger.error('Login error', e);
+      return false;
     }
-    return false;
   }
 
   Future<void> logout() async {
