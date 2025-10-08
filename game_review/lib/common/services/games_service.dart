@@ -21,6 +21,8 @@ class GamesService {
     );
 
     final List<dynamic> data = response.data as List<dynamic>;
+    print('📦 Response data: ${response.data}');
+
     return data.map((json) => GameModel.fromJson(json)).toList();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;
@@ -63,11 +64,7 @@ class GameCard extends StatelessWidget {
           Expanded(
             child: Text(
               game.title,
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w500,
-                fontSize: 13,
-              ),
+              style: AppTypography.gameTitle,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

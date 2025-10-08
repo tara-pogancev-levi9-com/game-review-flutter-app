@@ -4,6 +4,7 @@ import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/home_screen/widgets/games_list_view.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 
 class GamesListWidget extends StatelessWidget {
   final String title;
@@ -47,7 +48,7 @@ class GamesListWidget extends StatelessWidget {
               error: (msg) => Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Text(msg, style: const TextStyle(color: Colors.red)),
+                  child: Text(msg, style: AppTypography.errorText),
                 ),
               ),
             ),
