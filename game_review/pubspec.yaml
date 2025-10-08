@@ -15,6 +15,9 @@ dependencies:
   encrypt_shared_preferences: ^0.9.10
   slang: ^4.8.1
   slang_flutter: ^4.8.0
+  logger: ^2.6.2 
+
+
   bloc: ^9.0.1
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
@@ -53,6 +56,8 @@ flutter:
     - .env
     - lib/common/assets/icons/
     - lib/common/assets/images/
+  #   - images/a_dot_ham.jpeg
+
   fonts:
     - family: Roboto
       fonts:
@@ -75,4 +80,8 @@ flutter:
         - asset: fonts/JosefinSans-SemiBold.ttf
           weight: 600
         - asset: fonts/JosefinSans-Bold.ttf
+          weight: 700
+    - family: PixelifySans
+      fonts:
+        - asset: fonts/PixelifySans-Bold.ttf
           weight: 700

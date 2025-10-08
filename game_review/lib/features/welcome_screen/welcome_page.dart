@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/registration_screen/registration.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -8,8 +11,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gradients = Theme.of(context).extension<AppGradients>() ?? 
-                     AppGradients.dark;
+    final gradients =
+        Theme.of(context).extension<AppGradients>() ?? AppGradients.dark;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -31,7 +34,7 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 250),
-                Image(image: AssetImage('lib/common/assets/images/Logo.png')),
+                AppLogo(),
                 SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +45,9 @@ class WelcomePage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
                             );
                           },
                           child: Text(
@@ -62,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to register page
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage(),));
                           },
                           child: Text(
                             t.register,

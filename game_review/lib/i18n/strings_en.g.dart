@@ -111,7 +111,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get next => 'Next';
 
 	/// en: 'Discover'
-	String get dicsover => 'Discover';
+	String get discver => 'Discover';
+
+	/// en: 'Discover'
+	String get discover => 'Discover';
 
 	/// en: 'Details'
 	String get details => 'Details';
@@ -167,13 +170,54 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Missing API_URL environment variable'
 	String get missingApiUrl => 'Missing API_URL environment variable';
 
+	/// en: 'Error occurred. Try again later'
+	String get registrationError => 'Error occurred. Try again later';
+
+	/// en: 'Passwords do not match!'
+	String get passwordMismatch => 'Passwords do not match!';
+
+	/// en: 'Password must be at least 8 characters long!'
+	String get passwordLength => 'Password must be at least 8 characters long!';
+
+	/// en: 'Email address is not valid!'
+	String get emailInvalid => 'Email address is not valid!';
+
+	/// en: 'Registration successful!'
+	String get registrationSuccessful => 'Registration successful!';
+
+	/// en: 'The provided email is already registered.!'
+	String get registrationEmailExistsError => 'The provided email is already registered.!';
+
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 
-	/// en: 'App failed to start:\n\n@{error}'
-	String get appFailedToStart => 'App failed to start:\n\n@{error}';
+	/// en: 'The app failed to start. Please restart and try again.'
+	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 
 	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
+
+	/// en: '{field} required'
+	String get requiredField => '{field} required';
+
+	/// en: 'Invalid email'
+	String get invalidEmail => 'Invalid email';
+
+	/// en: 'Min {n} char'
+	String get minLength => 'Min {n} char';
+
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed, please try again'
+	String get loginFailed => 'Login failed, please try again';
+
+	/// en: 'Game not found'
+	String get gameNotFound => 'Game not found';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
+
+	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
 	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
 }
@@ -269,6 +313,24 @@ class TranslationsLibraryEn {
 
 	/// en: 'Failed to fetch games'
 	String get failedToFetchGames => 'Failed to fetch games';
+}
+
+// Path: branding
+class TranslationsBrandingEn {
+	TranslationsBrandingEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'PAW GAMES'
+	String get title => 'PAW GAMES';
+
+	/// en: 'Discover. Rate. Share.'
+	String get tagline => 'Discover. Rate. Share.';
+
+	/// en: 'App logo'
+	String get logoLabel => 'App logo';
 }
 
 // Path: gameService
