@@ -48,7 +48,7 @@ class _LibraryPageState extends State<LibraryPage> {
                       padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
                       child: Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             radius: 28,
                             backgroundImage: NetworkImage(
                               // Replace with actual user profile image if available (Temporary placeholder for now)

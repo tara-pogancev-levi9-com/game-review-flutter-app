@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/models/game_model.dart';
-import 'package:game_review/common/services/game_service.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/services/game_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'library_state.dart';
@@ -61,38 +61,6 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<void> _fetchUserLists() async {
-    try {
-      final results = await Future.wait([
-        _gameService.getUserLibraryGames(),
-        _gameService.getUserWishlistGames(),
-      ]);
-
-      if (state is LibrarySuccess) {
-        final current = state as LibrarySuccess;
-
-        emit(
-          current.copyWith(
-            userLibraryGames: results[0],
-            userWishlistGames: results[1],
-          ),
-        );
-      } else {
-        emit(
-          LibraryState.success(
-            latestGames: const [],
-            popularGames: const [],
-            userLibraryGames: results[0],
-            userWishlistGames: results[1],
-          ),
-        );
-      }
-    } catch (e) {
-      Logger.error(t.library.failedToFetchGames, e);
-      emit(LibraryState.error(e.toString()));
-    }
-  }
-
   Future<AddResult> addGameToWishlist(GameModel game) async {
     final currentState = state;
 
@@ -103,7 +71,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       }
 
       try {
-        final success = await _gameService.addToWishlist(game.id);
+        final success = await _gameService.addToWishlistSimple(game.id);
         if (success) {
           Logger.info(t.library.gameAddedToWishlist);
           emit(
@@ -123,7 +91,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
 
     try {
-      final success = await _gameService.addToWishlist(game.id);
+      final success = await _gameService.addToWishlistSimple(game.id);
       if (success) {
         Logger.info(t.library.gameAddedToWishlist);
         await _fetchAll();
@@ -149,7 +117,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       }
 
       try {
-        final success = await _gameService.addToLibrary(game.id);
+        final success = await _gameService.addToLibrarySimple(game.id);
         if (success) {
           Logger.info(t.library.gameAddedToLibrary);
           emit(
@@ -169,7 +137,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
 
     try {
-      final success = await _gameService.addToLibrary(game.id);
+      final success = await _gameService.addToLibrarySimple(game.id);
       if (success) {
         Logger.info(t.library.gameAddedToLibrary);
         await _fetchAll();
@@ -193,7 +161,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         return false;
       }
 
-      final success = await _gameService.removeFromWishlist(game.id);
+      final success = await _gameService.removeFromWishlistSimple(game.id);
       if (success) {
         emit(
           currentState.copyWith(
@@ -206,7 +174,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       }
       return false;
     } else {
-      final success = await _gameService.removeFromWishlist(game.id);
+      final success = await _gameService.removeFromWishlistSimple(game.id);
       if (success) await fetchGames();
       return success;
     }
@@ -220,7 +188,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         return false;
       }
 
-      final success = await _gameService.removeFromLibrary(game.id);
+      final success = await _gameService.removeFromLibrarySimple(game.id);
       if (success) {
         emit(
           currentState.copyWith(
@@ -233,7 +201,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       }
       return false;
     } else {
-      final success = await _gameService.removeFromLibrary(game.id);
+      final success = await _gameService.removeFromLibrarySimple(game.id);
       if (success) await fetchGames();
       return success;
     }

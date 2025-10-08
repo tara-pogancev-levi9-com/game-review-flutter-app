@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:game_review/features/registration_screen/models/login_model.dart';
 import 'package:game_review/features/registration_screen/models/registration_model.dart';
-import 'package:game_review/common/validation/validators.dart';
+
 import '../../i18n/strings.g.dart';
 import 'bloc/registration_state.dart';
 
@@ -32,7 +33,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailKey = GlobalKey<FormFieldState>();
 
   bool firstInput = true;
-
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
@@ -53,7 +53,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             Text(
               t.back,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           ],
         ),
@@ -74,14 +74,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SnackBar(content: Text(state.error)),
             );
           } else if (state is LoginAfterRegistrationSuccess) {
+            final navigator = Navigator.of(context);
             Future.delayed(const Duration(seconds: 1), () {
-              Navigator.of(context).pushReplacement(
+              navigator.pushReplacement(
                 MaterialPageRoute(builder: (_) => const MainScreen()),
               );
             });
           } else if (state is LoginAfterRegistrationFailure) {
+            final navigator = Navigator.of(context);
             Future.delayed(const Duration(seconds: 1), () {
-              Navigator.of(context).pushReplacement(
+              navigator.pushReplacement(
                 MaterialPageRoute(builder: (_) => const LoginPage()),
               );
             });
@@ -101,11 +103,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsetsGeometry.fromLTRB(0, 150, 0, 0),
                           child: AppLogo(),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 80,
                         ),
                         Form(
@@ -115,7 +117,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               : AutovalidateMode.disabled,
 
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                             child: Column(
                               children: [
                                 TextFormField(
@@ -126,20 +128,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   keyboardType: TextInputType.emailAddress,
                                   controller: _emailController,
                                   onChanged: (value) {
-                                    if (!firstInput)
+                                    if (!firstInput) {
                                       _emailKey.currentState?.validate();
+                                    }
                                   },
                                   validator: Validators.email(context),
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.email_outlined),
+                                    prefixIcon: const Icon(
+                                      Icons.email_outlined,
+                                    ),
                                     labelText: t.email,
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -148,15 +153,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autofillHints: null,
                                   enableSuggestions: false,
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.person_2_outlined),
+                                    prefixIcon: const Icon(
+                                      Icons.person_2_outlined,
+                                    ),
                                     labelText: t.username,
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -182,24 +189,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     return null;
                                   },
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.password),
+                                    prefixIcon: const Icon(Icons.password),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
                                           showPassword = !showPassword;
                                         });
                                       },
-                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      icon: const Icon(
+                                        Icons.remove_red_eye_outlined,
+                                      ),
                                     ),
                                     errorStyle: null,
                                     labelText: t.password,
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 TextFormField(
@@ -226,7 +235,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     return null;
                                   },
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.password),
+                                    prefixIcon: const Icon(Icons.password),
 
                                     suffixIcon: IconButton(
                                       onPressed: () {
@@ -235,16 +244,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               !showConfirmPassword;
                                         });
                                       },
-                                      icon: Icon(Icons.remove_red_eye_outlined),
+                                      icon: const Icon(
+                                        Icons.remove_red_eye_outlined,
+                                      ),
                                     ),
                                     labelText: t.confirmPassword,
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 50,
                                 ),
                                 Row(

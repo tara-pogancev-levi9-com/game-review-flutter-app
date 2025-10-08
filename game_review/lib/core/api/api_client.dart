@@ -3,8 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'dart:io';
 
-// TODO: Error handling, generic responses
-
 class ApiClient {
   final Dio dio;
 
@@ -61,8 +59,12 @@ class ApiClient {
     );
   }
 
-  Future<Response> put(String path, {dynamic data}) {
-    return dio.put(path, data: data);
+  Future<Response> put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    return dio.put(path, data: data, queryParameters: queryParameters);
   }
 
   Future<Response> delete(

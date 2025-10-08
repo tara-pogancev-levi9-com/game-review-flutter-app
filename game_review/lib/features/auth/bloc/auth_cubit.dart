@@ -18,11 +18,11 @@ class AuthCubit extends Cubit<AuthState> {
       if (token != null) {
         emit(Authenticated());
       } else {
-        emit(Unauthenticated());
+        emit(const Unauthenticated());
       }
-    } catch (e, stackTrace) { 
+    } catch (e, stackTrace) {
       Logger.error(t.errors.authenticationFail, '$e\n$stackTrace');
-      emit(Unauthenticated());
+      emit(const Unauthenticated());
     }
   }
 
@@ -43,6 +43,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     await _authService.logout();
-    emit(Unauthenticated());
+    emit(const Unauthenticated());
   }
 }

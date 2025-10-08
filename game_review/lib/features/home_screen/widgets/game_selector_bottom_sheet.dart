@@ -6,10 +6,10 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
-import 'package:game_review/features/home_screen/widgets/game_card.dart';
 import 'package:game_review/common/widgets/error_view.dart';
-import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/features/home_screen/widgets/game_card.dart';
 import 'package:game_review/features/review_screen/add_review_page.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class GameSelectorBottomSheet extends StatefulWidget {
   const GameSelectorBottomSheet({super.key});
@@ -75,7 +75,7 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
       height: MediaQuery.of(context).size.height * 0.85,
       decoration: BoxDecoration(
         gradient: Theme.of(context).extension<AppGradients>()?.background,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
