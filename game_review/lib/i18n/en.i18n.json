@@ -58,7 +58,13 @@
   },
   "errors": {
     "invalidCredentials": "Invalid credentials",
-    "loginFailed": "Login failed. Please try again."
+    "loginFailed": "Login failed. Please try again.",
+    "requiredField": "{field} required",
+    "invalidEmail": "Invalid email",
+    "minLength": "Min {n} char",
+    "appFailedToStart": "The app failed to start. Please restart and try again.",
+    "gameNotFound": "Game not found",
+    "reviewsNotFound": "Reviews not found"
   },
   "appFailedToStart": "App failed to start:\\n\\n@{error}",
   "library": {
@@ -79,14 +85,7 @@
     "libraryAdditionFailed": "Library addition failed",
     "failedToFetchGames": "Failed to fetch games"
   },
-    "requiredField": "{field} required",
-    "invalidEmail": "Invalid email",
-    "minLength": "Min {n} char",
-    "invalidCredentials": "Invalid credentials",
-    "loginFailed": "Login failed, please try again",
-    "appFailedToStart": "The app failed to start. Please restart and try again.",
-    "gameNotFound": "Game not found",
-    "reviewsNotFound": "Reviews not found",
+  
 
   "branding": {
     "title": "PAW GAMES",

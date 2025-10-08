@@ -12,11 +12,11 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.requiredField.replaceAll('{field}', l.email);
+        return l.errors.requiredField.replaceAll('{field}', l.email);
       }
 
       if (!regex.hasMatch(text)) {
-        return l.invalidEmail;
+        return l.errors.invalidEmail;
       }
       return null;
     };
@@ -31,11 +31,11 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.requiredField.replaceAll('{field}', l.password);
+        return l.errors.requiredField.replaceAll('{field}', l.password);
       }
 
       if (text.length < minLength) {
-        return l.minLength.replaceAll('{n}', '$minLength');
+        return l.errors.minLength.replaceAll('{n}', '$minLength');
       }
       return null;
     };
@@ -50,7 +50,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.requiredField.replaceAll('{field}', fieldLabel);
+        return l.errors.requiredField.replaceAll('{field}', fieldLabel);
       }
       return null;
     };

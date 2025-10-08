@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -7,22 +8,23 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final gradients = theme.extension<AppGradients>()!;
 
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: colorScheme.background,
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: Text(
-              '${t.appFailedToStart}\n\n$error',
-              style: TextStyle(
-                color: colorScheme.error,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(gradient: gradients.background),
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.center,
+        child: Text(
+          '${t.errors.appFailedToStart}\n\n$error',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colorScheme.error,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
