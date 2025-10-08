@@ -24,6 +24,7 @@
   "notifications": "Notifications",
   "back": "Back",
   "next": "Next",
+  "discver": "Discover",
   "discover": "Discover",
   "details": "Details",
   "ratings": "Ratings",
@@ -42,6 +43,12 @@
   "edit": "Edit",
   "delete": "Delete",
   "update": "Update",
+  "registrationError": "Error occurred. Try again later",
+  "passwordMismatch": "Passwords do not match!",
+  "passwordLength": "Password must be at least 8 characters long!",
+  "emailInvalid": "Email address is not valid!",
+  "registrationSuccessful": "Registration successful!",
+  "registrationEmailExistsError": "The provided email is already registered.!",
   "navigation": {
     "home": "Home",
     "search": "Search",
@@ -63,4 +70,5 @@
     "tagline": "Discover. Rate. Share.",
     "logoLabel": "App logo"
   }
+
 }

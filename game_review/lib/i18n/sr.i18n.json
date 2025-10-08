@@ -42,6 +42,12 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "registrationError": "Greška, Pokušajte ponovo kasnije.",
+  "passwordMismatch": "Lozinke se ne podudaraju!.",
+  "passwordLength": "Lozinka mora imati minimum 8 karaktera!.",
+  "emailInvalid": "Email adresa nije validna!.",
+  "registrationSuccessful": "Registracija uspešna.",
+  "registrationEmailExistsError": "Navedeni email je registrovan!",
   "navigation": {
     "home": "Početna",
     "search": "Pretraživanje",

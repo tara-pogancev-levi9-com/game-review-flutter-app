@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/registration_screen/registration.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -56,7 +58,9 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 SizedBox(height: 8.0),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -65,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to register page
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage(),));
                           },
                           child: Text(
                             t.register,
@@ -96,6 +100,7 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+
               ],
             ),
           ],

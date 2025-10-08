@@ -75,6 +75,12 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get registrationError => 'Greška, Pokušajte ponovo kasnije.';
+	@override String get passwordMismatch => 'Lozinke se ne podudaraju!.';
+	@override String get passwordLength => 'Lozinka mora imati minimum 8 karaktera!.';
+	@override String get emailInvalid => 'Email adresa nije validna!.';
+	@override String get registrationSuccessful => 'Registracija uspešna.';
+	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);

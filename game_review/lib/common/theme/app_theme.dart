@@ -84,8 +84,11 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
         contentPadding: const EdgeInsets.all(16),
-        filled: true,
-        fillColor: AppColors.surfaceVariant,
+        filled: false,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(999),
+          borderSide: const BorderSide(color: AppColors.outline, width: 1),
+        ),
         hintStyle: const TextStyle(color: AppColors.textSecondary),
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,

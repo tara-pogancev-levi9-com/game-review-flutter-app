@@ -112,6 +112,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Discover'
 	String get discover => 'Discover';
+	String get discver => 'Discover';
 
 	/// en: 'Details'
 	String get details => 'Details';
@@ -163,6 +164,24 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Update'
 	String get update => 'Update';
+
+	/// en: 'Error occurred. Try again later'
+	String get registrationError => 'Error occurred. Try again later';
+
+	/// en: 'Passwords do not match!'
+	String get passwordMismatch => 'Passwords do not match!';
+
+	/// en: 'Password must be at least 8 characters long!'
+	String get passwordLength => 'Password must be at least 8 characters long!';
+
+	/// en: 'Email address is not valid!'
+	String get emailInvalid => 'Email address is not valid!';
+
+	/// en: 'Registration successful!'
+	String get registrationSuccessful => 'Registration successful!';
+
+	/// en: 'The provided email is already registered.!'
+	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
