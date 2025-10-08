@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/auth/auth_service.dart';
@@ -20,6 +21,10 @@ void setupDependencies() {
     () => AuthService(
       locator<ApiClient>(),
     ),
+  );
+
+  locator.registerLazySingleton<RegistrationCubit>(
+    () => RegistrationCubit(),
   );
 
   locator.registerLazySingleton<AuthCubit>(
