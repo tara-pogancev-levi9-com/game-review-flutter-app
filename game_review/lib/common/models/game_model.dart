@@ -5,16 +5,17 @@ part 'game_model.g.dart';
 
 @freezed
 abstract class GameModel with _$GameModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory GameModel({
     required String id,
     required String title,
     List<String>? genres,
-    String? platforms,
+    List<String>? platforms,
     String? description,
     String? developer,
     String? publisher,
-    @JsonKey(name: 'release_date') DateTime? releaseDate,
-    @JsonKey(name: 'cover_image_url') String? coverImageUrl,
+    String? releaseDate,
+    String? coverImageUrl,
   }) = _GameModel;
 
   factory GameModel.fromJson(Map<String, dynamic> json) =>

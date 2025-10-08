@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/features/home_screen/widgets/game_card.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class GamesList extends StatefulWidget {
   final List<GameModel> games;
@@ -47,21 +48,24 @@ class _GamesListState extends State<GamesList> {
   @override
   Widget build(BuildContext context) {
     if (widget.games.isEmpty) {
-      return const Center(
+      return Center(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Text('No games found'),
+          child: Text(t.NoGamesFound),
         ),
       );
     }
 
+    final itemCount = widget.games.length + (widget.hasMore ? 1 : 0);
+
     return SizedBox(
       height: 240,
-      child: ListView.builder(
+      child: ListView.separated(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: widget.games.length + (widget.hasMore ? 1 : 0),
+        itemCount: itemCount,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
         itemBuilder: (_, index) {
           if (index == widget.games.length) {
             return const Center(
@@ -71,13 +75,7 @@ class _GamesListState extends State<GamesList> {
               ),
             );
           }
-
-          return Padding(
-            padding: EdgeInsets.only(
-              right: index == widget.games.length - 1 ? 0 : 8,
-            ),
-            child: GameCard(game: widget.games[index]),
-          );
+          return GameCard(game: widget.games[index]);
         },
       ),
     );

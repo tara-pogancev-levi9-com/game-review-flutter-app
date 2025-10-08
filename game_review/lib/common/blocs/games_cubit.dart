@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/services/games_service.dart';
+import 'dart:developer' as developer;
+import 'package:game_review/i18n/strings.g.dart';
 
 class GamesCubit extends Cubit<GamesState> {
   final GamesService _service;
@@ -26,7 +28,7 @@ class GamesCubit extends Cubit<GamesState> {
       loaded: (games, hasMore, isLoadingMore) async {
         if (!hasMore || isLoadingMore) return;
 
-        print("Loading more games...");
+        developer.log('Loading more games...', name: 'GamesCubit');
 
         emit(
           GamesState.loaded(
@@ -58,13 +60,12 @@ class GamesCubit extends Cubit<GamesState> {
             ),
           );
         } catch (e) {
-          emit(
-            GamesState.loaded(
-              games,
-              hasMore: hasMore,
-              isLoadingMore: false,
-            ),
+          developer.log(
+            'Failed to load more games',
+            name: 'GamesCubit',
+            error: e,
           );
+          emit(GamesState.error(t.errorLoadingMoreGames));
         }
       },
       orElse: () {},

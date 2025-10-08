@@ -165,6 +165,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get update => 'Update';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+
+	/// en: 'No games found'
+	String get NoGamesFound => 'No games found';
+
+	/// en: 'Failed to load games'
+	String get errorLoadingGames => 'Failed to load games';
+
+	/// en: 'Failed to load more games'
+	String get errorLoadingMoreGames => 'Failed to load more games';
 }
 
 // Path: navigation

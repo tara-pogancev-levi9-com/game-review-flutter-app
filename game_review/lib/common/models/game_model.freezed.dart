@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GameModel {
 
- String get id; String get title; List<String>? get genres; String? get platforms; String? get description; String? get developer; String? get publisher;@JsonKey(name: 'release_date') DateTime? get releaseDate;@JsonKey(name: 'cover_image_url') String? get coverImageUrl;
+ String get id; String get title; List<String>? get genres; List<String>? get platforms; String? get description; String? get developer; String? get publisher; String? get releaseDate; String? get coverImageUrl;
 /// Create a copy of GameModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,12 +28,12 @@ $GameModelCopyWith<GameModel> get copyWith => _$GameModelCopyWithImpl<GameModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.genres, genres)&&(identical(other.platforms, platforms) || other.platforms == platforms)&&(identical(other.description, description) || other.description == description)&&(identical(other.developer, developer) || other.developer == developer)&&(identical(other.publisher, publisher) || other.publisher == publisher)&&(identical(other.releaseDate, releaseDate) || other.releaseDate == releaseDate)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GameModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other.genres, genres)&&const DeepCollectionEquality().equals(other.platforms, platforms)&&(identical(other.description, description) || other.description == description)&&(identical(other.developer, developer) || other.developer == developer)&&(identical(other.publisher, publisher) || other.publisher == publisher)&&(identical(other.releaseDate, releaseDate) || other.releaseDate == releaseDate)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,const DeepCollectionEquality().hash(genres),platforms,description,developer,publisher,releaseDate,coverImageUrl);
+int get hashCode => Object.hash(runtimeType,id,title,const DeepCollectionEquality().hash(genres),const DeepCollectionEquality().hash(platforms),description,developer,publisher,releaseDate,coverImageUrl);
 
 @override
 String toString() {
@@ -48,7 +48,7 @@ abstract mixin class $GameModelCopyWith<$Res>  {
   factory $GameModelCopyWith(GameModel value, $Res Function(GameModel) _then) = _$GameModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, List<String>? genres, String? platforms, String? description, String? developer, String? publisher,@JsonKey(name: 'release_date') DateTime? releaseDate,@JsonKey(name: 'cover_image_url') String? coverImageUrl
+ String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, String? releaseDate, String? coverImageUrl
 });
 
 
@@ -71,11 +71,11 @@ id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,genres: freezed == genres ? _self.genres : genres // ignore: cast_nullable_to_non_nullable
 as List<String>?,platforms: freezed == platforms ? _self.platforms : platforms // ignore: cast_nullable_to_non_nullable
-as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as List<String>?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,developer: freezed == developer ? _self.developer : developer // ignore: cast_nullable_to_non_nullable
 as String?,publisher: freezed == publisher ? _self.publisher : publisher // ignore: cast_nullable_to_non_nullable
 as String?,releaseDate: freezed == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as String?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  String? platforms,  String? description,  String? developer,  String? publisher, @JsonKey(name: 'release_date')  DateTime? releaseDate, @JsonKey(name: 'cover_image_url')  String? coverImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GameModel() when $default != null:
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  String? platforms,  String? description,  String? developer,  String? publisher, @JsonKey(name: 'release_date')  DateTime? releaseDate, @JsonKey(name: 'cover_image_url')  String? coverImageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _GameModel():
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  List<String>? genres,  String? platforms,  String? description,  String? developer,  String? publisher, @JsonKey(name: 'release_date')  DateTime? releaseDate, @JsonKey(name: 'cover_image_url')  String? coverImageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _GameModel() when $default != null:
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -214,10 +214,10 @@ return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.descript
 }
 
 /// @nodoc
-@JsonSerializable()
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _GameModel implements GameModel {
-  const _GameModel({required this.id, required this.title, final  List<String>? genres, this.platforms, this.description, this.developer, this.publisher, @JsonKey(name: 'release_date') this.releaseDate, @JsonKey(name: 'cover_image_url') this.coverImageUrl}): _genres = genres;
+  const _GameModel({required this.id, required this.title, final  List<String>? genres, final  List<String>? platforms, this.description, this.developer, this.publisher, this.releaseDate, this.coverImageUrl}): _genres = genres,_platforms = platforms;
   factory _GameModel.fromJson(Map<String, dynamic> json) => _$GameModelFromJson(json);
 
 @override final  String id;
@@ -231,12 +231,20 @@ class _GameModel implements GameModel {
   return EqualUnmodifiableListView(value);
 }
 
-@override final  String? platforms;
+ final  List<String>? _platforms;
+@override List<String>? get platforms {
+  final value = _platforms;
+  if (value == null) return null;
+  if (_platforms is EqualUnmodifiableListView) return _platforms;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
 @override final  String? description;
 @override final  String? developer;
 @override final  String? publisher;
-@override@JsonKey(name: 'release_date') final  DateTime? releaseDate;
-@override@JsonKey(name: 'cover_image_url') final  String? coverImageUrl;
+@override final  String? releaseDate;
+@override final  String? coverImageUrl;
 
 /// Create a copy of GameModel
 /// with the given fields replaced by the non-null parameter values.
@@ -251,12 +259,12 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other._genres, _genres)&&(identical(other.platforms, platforms) || other.platforms == platforms)&&(identical(other.description, description) || other.description == description)&&(identical(other.developer, developer) || other.developer == developer)&&(identical(other.publisher, publisher) || other.publisher == publisher)&&(identical(other.releaseDate, releaseDate) || other.releaseDate == releaseDate)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GameModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&const DeepCollectionEquality().equals(other._genres, _genres)&&const DeepCollectionEquality().equals(other._platforms, _platforms)&&(identical(other.description, description) || other.description == description)&&(identical(other.developer, developer) || other.developer == developer)&&(identical(other.publisher, publisher) || other.publisher == publisher)&&(identical(other.releaseDate, releaseDate) || other.releaseDate == releaseDate)&&(identical(other.coverImageUrl, coverImageUrl) || other.coverImageUrl == coverImageUrl));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,const DeepCollectionEquality().hash(_genres),platforms,description,developer,publisher,releaseDate,coverImageUrl);
+int get hashCode => Object.hash(runtimeType,id,title,const DeepCollectionEquality().hash(_genres),const DeepCollectionEquality().hash(_platforms),description,developer,publisher,releaseDate,coverImageUrl);
 
 @override
 String toString() {
@@ -271,7 +279,7 @@ abstract mixin class _$GameModelCopyWith<$Res> implements $GameModelCopyWith<$Re
   factory _$GameModelCopyWith(_GameModel value, $Res Function(_GameModel) _then) = __$GameModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, List<String>? genres, String? platforms, String? description, String? developer, String? publisher,@JsonKey(name: 'release_date') DateTime? releaseDate,@JsonKey(name: 'cover_image_url') String? coverImageUrl
+ String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, String? releaseDate, String? coverImageUrl
 });
 
 
@@ -293,12 +301,12 @@ class __$GameModelCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,genres: freezed == genres ? _self._genres : genres // ignore: cast_nullable_to_non_nullable
-as List<String>?,platforms: freezed == platforms ? _self.platforms : platforms // ignore: cast_nullable_to_non_nullable
-as String?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as List<String>?,platforms: freezed == platforms ? _self._platforms : platforms // ignore: cast_nullable_to_non_nullable
+as List<String>?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String?,developer: freezed == developer ? _self.developer : developer // ignore: cast_nullable_to_non_nullable
 as String?,publisher: freezed == publisher ? _self.publisher : publisher // ignore: cast_nullable_to_non_nullable
 as String?,releaseDate: freezed == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as String?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

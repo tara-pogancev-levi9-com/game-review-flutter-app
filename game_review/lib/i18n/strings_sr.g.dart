@@ -76,6 +76,9 @@ class TranslationsSr extends Translations {
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override String get NoGamesFound => 'Нема игара';
+	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
+	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 }
 
 // Path: navigation

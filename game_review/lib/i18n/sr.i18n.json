@@ -47,5 +47,8 @@
     "search": "Pretraživanje",
     "library": "Biblioteka",
     "profile": "Profil"
-  }
+  },
+  "NoGamesFound": "Нема игара",
+  "errorLoadingGames": "Neuspešno učitavanje igara",
+  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara"
 }
