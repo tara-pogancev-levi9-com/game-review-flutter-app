@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/library_screen/game_details_page.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/features/library_screen/temporary_placeholder/game_details_page.dart';
+import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;

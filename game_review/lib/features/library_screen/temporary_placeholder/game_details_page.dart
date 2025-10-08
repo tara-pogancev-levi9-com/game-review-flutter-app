@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
+import 'package:game_review/features/library_screen/widgets/game_actions_menu.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class GameDetailsPage extends StatelessWidget {
   final Game game;
@@ -33,6 +33,7 @@ class GameDetailsPage extends StatelessWidget {
                 ? const Center(child: Icon(Icons.image, size: 64, color: Colors.white70))
                 : null,
           ),
+
           // Title + actions row
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
@@ -50,81 +51,41 @@ class GameDetailsPage extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                PopupMenuButton<String>(
-                  onSelected: (value) async {
-                    final cubit = locator<LibraryCubit>();
-                    switch (value) {
-                      case 'wishlist':
-                        final result = await cubit.addGameToWishlist(game);
-                        if (result == AddResult.added) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Added to Wishlist')),
-                          );
-                        } else if (result == AddResult.alreadyExists) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Game already in Wishlist')),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Failed to add to Wishlist')),
-                          );
-                        }
-                        break;
-                      case 'library':
-                        final result = await cubit.addGameToLibrary(game);
-                        if (result == AddResult.added) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Added to My Library')),
-                          );
-                        } else if (result == AddResult.alreadyExists) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Game already in Library')),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Failed to add to Library')),
-                          );
-                        }
-                        break;
-                      case 'review':
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Add review feature coming soon!')),
-                        );
-                        break;
-                    }
-                  },
-                  itemBuilder: (context) => const [
-                    PopupMenuItem(value: 'wishlist', child: Text('Add to Wishlist')),
-                    PopupMenuItem(value: 'library', child: Text('Add to My Library')),
-                    PopupMenuItem(value: 'review', child: Text('Add Review')),
-                  ],
-                  icon: const Icon(Icons.more_vert),
-                ),
+                GameActionsMenu(game: game),
               ],
             ),
           ),
-          // TODO: Recommendation %
+
+          // Recommendation placeholder
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: Row(
               children: [
                 Text(
-                  '99% of players recommend this game',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                  t.gameDetails.recommendText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 8),
                 const Icon(Icons.add_circle_outline, size: 18),
               ],
             ),
           ),
+
           // Overall section
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             child: Text(
               'Overall',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
+
           // Description
           if (game.description != null)
             Padding(
@@ -134,13 +95,18 @@ class GameDetailsPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
+
           // Details
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Details', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                Text('Details',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,6 +134,7 @@ class GameDetailsPage extends StatelessWidget {
               ],
             ),
           ),
+
           // Platforms
           if (game.platforms != null && game.platforms!.isNotEmpty)
             Padding(
@@ -175,23 +142,30 @@ class GameDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Available on', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text('Available on',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
-                    children: game.platforms!
-                        .map((platform) => Chip(label: Text(platform)))
-                        .toList(),
+                    children:
+                        game.platforms!.map((p) => Chip(label: Text(p))).toList(),
                   ),
                 ],
               ),
             ),
-          // TODO: Reviews
+
+          // Reviews placeholder
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text('Recent reviews', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            child: Text('Recent reviews',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold)),
           ),
-          // TODO: Review
         ],
       ),
     );

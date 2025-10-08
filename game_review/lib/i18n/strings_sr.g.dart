@@ -75,10 +75,13 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get missingApiUrl => 'Nedostaje API_URL promenljiva';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene:\n\n@{error}';
 	@override late final TranslationsLibrarySr library = TranslationsLibrarySr._(_root);
+	@override late final TranslationsGameServiceSr gameService = TranslationsGameServiceSr._(_root);
+	@override late final TranslationsGameDetailsSr gameDetails = TranslationsGameDetailsSr._(_root);
 }
 
 // Path: navigation
@@ -117,4 +120,77 @@ class TranslationsLibrarySr extends TranslationsLibraryEn {
 	@override String get ownedGames => 'Moje igre';
 	@override String get wishlist => 'Lista želja';
 	@override String get myLibrary => 'Moja Biblioteka';
+	@override String get gameAlreadyInWishlist => 'Igra je već na listi želja';
+	@override String get gameAddedToWishlist => 'Igra je dodata na listu želja';
+	@override String get failedToAddToWishlist => 'Dodavanje na listu želja nije uspelo';
+	@override String get gameAlreadyInLibrary => 'Igra je već u biblioteci';
+	@override String get gameAddedToLibrary => 'Igra je dodata u biblioteku';
+	@override String get failedToAddToLibrary => 'Dodavanje u biblioteku nije uspelo';
+	@override String get gameNotFoundInWishlist => 'Igra nije pronađena na listi želja';
+	@override String get gameNotFoundInLibrary => 'Igra nije pronađena u biblioteci';
+	@override String get wishlistAdditionFailed => 'Dodavanje na listu želja nije uspelo';
+	@override String get libraryAdditionFailed => 'Dodavanje u biblioteku nije uspelo';
+	@override String get failedToFetchGames => 'Učitavanje igara nije uspelo';
+}
+
+// Path: gameService
+class TranslationsGameServiceSr extends TranslationsGameServiceEn {
+	TranslationsGameServiceSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get noTokenWishlist => 'Nije moguće dodati na listu želja - token nije pronađen';
+	@override String get noTokenLibrary => 'Nije moguće dodati u biblioteku - token nije pronađen';
+	@override String get noTokenFetchWishlist => 'Nije moguće učitati listu želja - token nije pronađen';
+	@override String get noTokenFetchLibrary => 'Nije moguće učitati biblioteku - token nije pronađen';
+	@override String get noTokenRemoveWishlist => 'Nije moguće ukloniti sa liste želja - token nije pronađen';
+	@override String get noTokenRemoveLibrary => 'Nije moguće ukloniti iz biblioteke - token nije pronađen';
+	@override String get gameAddedToWishlistSuccess => 'Igra je uspešno dodata na listu želja';
+	@override String get gameAddedToLibrarySuccess => 'Igra je uspešno dodata u biblioteku';
+	@override String get failedToAddToWishlistStatus => 'Dodavanje na listu želja nije uspelo';
+	@override String get failedToAddToLibraryStatus => 'Dodavanje u biblioteku nije uspelo';
+	@override String get failedToFetchLatestGames => 'Učitavanje najnovijih igara nije uspelo';
+	@override String get failedToFetchPopularGames => 'Učitavanje popularnih igara nije uspelo';
+	@override String get failedToAddGameToWishlist => 'Dodavanje igre na listu želja nije uspelo';
+	@override String get failedToAddGameToLibrary => 'Dodavanje igre u biblioteku nije uspelo';
+	@override String get failedToFetchWishlistGames => 'Učitavanje igara sa liste želja nije uspelo';
+	@override String get failedToFetchLibraryGames => 'Učitavanje igara iz biblioteke nije uspelo';
+	@override String get removedFromWishlist => 'Uklonjeno sa liste želja na serveru';
+	@override String get removedFromLibrary => 'Uklonjeno iz biblioteke na serveru';
+	@override String get failedToRemoveFromWishlist => 'Uklanjanje sa liste želja nije uspelo';
+	@override String get failedToRemoveFromLibrary => 'Uklanjanje iz biblioteke nije uspelo';
+}
+
+// Path: gameDetails
+class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
+	TranslationsGameDetailsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get addedToWishlist => 'Dodato na listu želja';
+	@override String get gameAlreadyInWishlist => 'Igra je već na listi želja';
+	@override String get failedToAddToWishlist => 'Dodavanje na listu želja nije uspelo';
+	@override String get addedToLibrary => 'Dodato u moju biblioteku';
+	@override String get gameAlreadyInLibrary => 'Igra je već u biblioteci';
+	@override String get failedToAddToLibrary => 'Dodavanje u biblioteku nije uspelo';
+	@override String get removedFromWishlist => 'Uklonjeno sa liste želja';
+	@override String get failedToRemoveFromWishlist => 'Uklanjanje sa liste želja nije uspelo';
+	@override String get removedFromLibrary => 'Uklonjeno iz biblioteke';
+	@override String get failedToRemoveFromLibrary => 'Uklanjanje iz biblioteke nije uspelo';
+	@override String get addReviewComingSoon => 'Funkcija dodavanja recenzije uskoro stiže!';
+	@override String get addToWishlist => 'Dodaj na listu želja';
+	@override String get addToMyLibrary => 'Dodaj u moju biblioteku';
+	@override String get removeFromWishlist => 'Ukloni sa liste želja';
+	@override String get removeFromMyLibrary => 'Ukloni iz moje biblioteke';
+	@override String get addReview => 'Dodaj recenziju';
+	@override String get recommendText => 'x% igrača preporučuje ovu igru';
+	@override String get overall => 'Sveukupno';
+	@override String get details => 'Detalji';
+	@override String get developer => 'Programer';
+	@override String get publisher => 'Izdavač';
+	@override String get released => 'Objavljeno';
+	@override String get availableOn => 'Dostupno na';
+	@override String get recentReviews => 'Nedavne recenzije';
 }

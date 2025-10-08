@@ -1,6 +1,7 @@
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
+import 'package:game_review/i18n/strings.g.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 
@@ -28,7 +29,7 @@ class GameService {
       }
       return [];
     } catch (e) {
-      Logger.error('Failed to fetch latest games', e);
+      Logger.error(t.gameService.failedToFetchLatestGames, e);
       return [];
     }
   }
@@ -50,7 +51,7 @@ class GameService {
       }
       return [];
     } catch (e) {
-      Logger.error('Failed to fetch popular games', e);
+      Logger.error(t.gameService.failedToFetchPopularGames, e);
       return [];
     }
   }
@@ -59,7 +60,7 @@ class GameService {
     try {
       final token = await SecureStorage.getToken();
       if (token == null) {
-        Logger.warning('Cannot add to wishlist – no token found');
+        Logger.warning(t.gameService.noTokenWishlist);
         return false;
       }
 
@@ -74,14 +75,14 @@ class GameService {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        Logger.info('Game added to wishlist successfully');
+        Logger.info(t.gameService.gameAddedToWishlistSuccess);
         return true;
       } else {
-        Logger.warning('Failed to add to wishlist, status ${response.statusCode}: ${response.data}');
+        Logger.warning(t.library.failedToAddToWishlist);
         return false;
       }
     } catch (e) {
-      Logger.error('Failed to add game to wishlist', e);
+      Logger.error(t.library.failedToAddToWishlist, e);
       return false;
     }
   }
@@ -90,7 +91,7 @@ class GameService {
     try {
       final token = await SecureStorage.getToken();
       if (token == null) {
-        Logger.warning('Cannot add to library – no token found');
+        Logger.warning(t.gameService.noTokenLibrary);
         return false;
       }
 
@@ -105,14 +106,14 @@ class GameService {
       );
 
       if (response.statusCode == 201 || response.statusCode == 200) {
-        Logger.info('Game added to library successfully');
+        Logger.info(t.library.gameAddedToLibrary);
         return true;
       } else {
-        Logger.warning('Failed to add to library, status ${response.statusCode}: ${response.data}');
+        Logger.warning(t.library.failedToAddToLibrary);
         return false;
       }
     } catch (e) {
-      Logger.error('Failed to add game to library', e);
+      Logger.error(t.library.failedToAddToLibrary, e);
       return false;
     }
   }
@@ -121,7 +122,7 @@ class GameService {
   try {
     final token = await SecureStorage.getToken();
     if (token == null) {
-      Logger.warning('Cannot fetch wishlist – no token found');
+      Logger.warning(t.gameService.noTokenWishlist);
       return [];
     }
 
@@ -142,7 +143,7 @@ class GameService {
     }
     return [];
   } catch (e) {
-    Logger.error('Failed to fetch wishlist games', e);
+    Logger.error(t.gameService.failedToFetchWishlistGames, e);
     return [];
   }
 }
@@ -151,7 +152,7 @@ Future<List<Game>> getUserLibraryGames() async {
   try {
     final token = await SecureStorage.getToken();
     if (token == null) {
-      Logger.warning('Cannot fetch library – no token found');
+      Logger.warning(t.gameService.noTokenLibrary);
       return [];
     }
 
@@ -172,10 +173,63 @@ Future<List<Game>> getUserLibraryGames() async {
     }
     return [];
   } catch (e) {
-    Logger.error('Failed to fetch library games', e);
+    Logger.error(t.gameService.failedToFetchLibraryGames, e);
     return [];
   }
 }
+
+
+  Future<bool> removeFromWishlist(String gameId) async {
+    try {
+      final token = await SecureStorage.getToken();
+      if (token == null) {
+        Logger.warning(t.gameService.noTokenWishlist);
+        return false;
+      }
+      final userId = JwtDecoder.decode(token)['sub'];
+
+      final path = 'rest/v1/user_wishlist?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+
+      final response = await _apiClient.delete(path);
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        Logger.info(t.gameService.removedFromWishlist);
+        return true;
+      } else {
+        Logger.warning(t.gameService.failedToRemoveFromWishlist);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.gameService.failedToRemoveFromWishlist, e);
+      return false;
+    }
+  }
+
+  Future<bool> removeFromLibrary(String gameId) async {
+    try {
+      final token = await SecureStorage.getToken();
+      if (token == null) {
+        Logger.warning(t.gameService.noTokenLibrary);
+        return false;
+      }
+      final userId = JwtDecoder.decode(token)['sub'];
+
+      final path = 'rest/v1/user_library?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+
+      final response = await _apiClient.delete(path);
+
+      if (response.statusCode == 200 || response.statusCode == 204) {
+        Logger.info(t.gameDetails.removedFromLibrary);
+        return true;
+      } else {
+        Logger.warning(t.gameDetails.failedToRemoveFromLibrary);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.gameDetails.failedToRemoveFromLibrary, e);
+      return false;
+    }
+  }
 
 
 }

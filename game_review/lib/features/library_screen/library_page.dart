@@ -6,6 +6,8 @@ import 'package:game_review/features/library_screen/bloc/library_state.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
+// Q: Is the logic of "UI only listens while lower layers do the job" good enough?
+
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
 
@@ -22,11 +24,10 @@ class _LibraryPageState extends State<LibraryPage> {
   
   @override
   Widget build(BuildContext context) {
-    final l = t;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l.navigation.library),
+        title: Text(t.navigation.library),
       ),
       body: BlocBuilder<LibraryCubit, LibraryState>(
         bloc: locator<LibraryCubit>(),
@@ -52,13 +53,13 @@ class _LibraryPageState extends State<LibraryPage> {
                           CircleAvatar(
                             radius: 28,
                             backgroundImage: NetworkImage(
-                              // Replace with actual user profile image if available
+                              // Replace with actual user profile image if available (Temporary placeholder for now)
                               'https://i.pravatar.cc/150?img=8',
                             ),
                           ),
                           const SizedBox(width: 16),
                           Text(
-                            l.library.myLibrary,
+                            t.library.myLibrary,
                             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -66,10 +67,10 @@ class _LibraryPageState extends State<LibraryPage> {
                         ],
                       ),
                     ),
-                    GameSection(title: l.library.latest, games: latest),
-                    GameSection(title: l.library.popular, games: popular),
-                    GameSection(title: l.library.ownedGames, games: userLib),
-                    GameSection(title: l.library.wishlist, games: wishlist),
+                    GameSection(title: t.library.latest, games: latest),
+                    GameSection(title: t.library.popular, games: popular),
+                    GameSection(title: t.library.ownedGames, games: userLib),
+                    GameSection(title: t.library.wishlist, games: wishlist),
                   ],
                 ),
               ),

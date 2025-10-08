@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
 import 'game_card.dart';
 
 class GameSection extends StatelessWidget {
