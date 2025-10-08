@@ -10,7 +10,6 @@
 .env.local
 *.env
 .idea/
-.vscode/
 
 
 # Flutter repo-specific

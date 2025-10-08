@@ -42,6 +42,12 @@
   "edit": "Edit",
   "delete": "Delete",
   "update": "Update",
+  "registrationError": "Error occurred. Try again later",
+  "passwordMismatch": "Passwords do not match!",
+  "passwordLength": "Password must be at least 8 characters long!",
+  "emailInvalid": "Email address is not valid!",
+  "registrationSuccessful": "Registration successful!",
+  "registrationEmailExistsError": "The provided email is already registered.!",
   "navigation": {
     "home": "Home",
     "search": "Search",
@@ -50,6 +56,21 @@
   },
   "NoGamesFound": "No games found",
   "errorLoadingGames": "Failed to load games",
-  "errorLoadingMoreGames": "Failed to load more games"
+  "errorLoadingMoreGames": "Failed to load more games",
+  "errors": {
+    "requiredField": "{field} required",
+    "invalidEmail": "Invalid email",
+    "minLength": "Min {n} char",
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed, please try again",
+    "appFailedToStart": "The app failed to start. Please restart and try again.",
+    "gameNotFound": "Game not found",
+    "reviewsNotFound": "Reviews not found"
+  },
+  "branding": {
+    "title": "PAW GAMES",
+    "tagline": "Discover. Rate. Share.",
+    "logoLabel": "App logo"
+  }
 
 }

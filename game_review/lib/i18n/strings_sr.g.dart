@@ -75,10 +75,18 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get registrationError => 'Greška, Pokušajte ponovo kasnije.';
+	@override String get passwordMismatch => 'Lozinke se ne podudaraju!.';
+	@override String get passwordLength => 'Lozinka mora imati minimum 8 karaktera!.';
+	@override String get emailInvalid => 'Email adresa nije validna!.';
+	@override String get registrationSuccessful => 'Registracija uspešna.';
+	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
-	@override String get NoGamesFound => 'Нема игара';
+	@override String get NoGamesFound => 'Nema pronađenih igara';
 	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
 	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
+	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
+	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
 }
 
 // Path: navigation
@@ -92,4 +100,33 @@ class TranslationsNavigationSr extends TranslationsNavigationEn {
 	@override String get search => 'Pretraživanje';
 	@override String get library => 'Biblioteka';
 	@override String get profile => 'Profil';
+}
+
+// Path: errors
+class TranslationsErrorsSr extends TranslationsErrorsEn {
+	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get requiredField => '{field} je obavezno';
+	@override String get invalidEmail => 'Neispravan email';
+	@override String get minLength => 'Minimum {n} karaktera';
+	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
+	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
+	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
+	@override String get gameNotFound => 'Igra nije pronađena';
+	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
+}
+
+// Path: branding
+class TranslationsBrandingSr extends TranslationsBrandingEn {
+	TranslationsBrandingSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'PAW IGRE';
+	@override String get tagline => 'Istraži. Oceni. Deli.';
+	@override String get logoLabel => 'Logo aplikacije';
 }

@@ -4,7 +4,6 @@ import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/home_screen/widgets/games_list_view.dart';
-import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/widgets/error_view.dart';
 import 'package:game_review/common/widgets/section_header.dart';
 
