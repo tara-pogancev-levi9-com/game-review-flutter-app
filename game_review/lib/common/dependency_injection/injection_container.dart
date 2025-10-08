@@ -1,4 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:game_review/features/home/bloc/home_cubit.dart';
+import 'package:game_review/features/home/services/review_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -44,4 +46,18 @@ void setupDependencies() {
       locator<GameService>(),
     ),
   );
+
+    locator.registerLazySingleton<ReviewService>(
+    () => ReviewService(
+      locator<ApiClient>(),
+    ),
+  );
+
+  locator.registerLazySingleton<HomeCubit>(
+    () => HomeCubit(
+      locator<GameService>(),
+      locator<ReviewService>(),
+    ),
+  );
+
 }

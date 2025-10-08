@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/home_screen/home_page.dart';
+import 'package:game_review/features/home/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
