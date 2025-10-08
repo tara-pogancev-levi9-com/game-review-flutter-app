@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
-import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
+import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class GameActionsMenu extends StatelessWidget {

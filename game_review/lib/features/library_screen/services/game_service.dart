@@ -1,6 +1,6 @@
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/features/library_screen/temporary_placeholder/models/game.dart';
+import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
