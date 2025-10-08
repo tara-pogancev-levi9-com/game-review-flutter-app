@@ -24,7 +24,6 @@ class AuthService {
           'password': password,
         },
       );
-      print("RESPONSE: " + response.data.toString());
       if (response.statusCode == 200) {
         ('Signup successful! User created.');
         if (response.data['access_token'] != null) {

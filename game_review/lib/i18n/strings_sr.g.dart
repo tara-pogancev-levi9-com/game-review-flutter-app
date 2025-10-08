@@ -53,6 +53,7 @@ class TranslationsSr extends Translations {
 	@override String get confirmPassword => 'Potvrdi Lozinku';
 	@override String get submit => 'Pošalji';
 	@override String get username => 'Korisničko Ime';
+	@override String get displayName => 'Prikazno ime';
 	@override String get profileSettings => 'Podešavanja Profila';
 	@override String get notifications => 'Obaveštenja';
 	@override String get back => 'Nazad';

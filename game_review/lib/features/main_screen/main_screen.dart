@@ -4,7 +4,8 @@ import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
-import 'package:game_review/features/profile/profile_page.dart';
+import 'package:game_review/features/profile_screen/profile_page.dart';
+import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -33,6 +34,16 @@ class _MainScreenState extends State<MainScreen> {
       _history.add(index);
     });
   }
+  Widget? _getFloatingActionButton(){
+    if(_selectedIndex == 3){
+      return FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage(),));
+        },
+        child: Icon(Icons.edit),);
+    }
+    return null;
+  }
 
   void _onBackPressed() {
     setState(() {
@@ -50,11 +61,7 @@ class _MainScreenState extends State<MainScreen> {
     final translations = context.t;
 
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
-      },
-      child: Icon(Icons.edit),),
+      floatingActionButton: _getFloatingActionButton(),
       body: SafeArea(
         child: Column(
           children: [

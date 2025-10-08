@@ -98,6 +98,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Username'
 	String get username => 'Username';
 
+	/// en: 'Display Name'
+	String get displayName => 'Display Name';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
