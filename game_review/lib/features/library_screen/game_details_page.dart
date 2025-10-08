@@ -78,7 +78,7 @@ class GameDetailsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             child: Text(
-              'Overall',
+              t.Overall,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -102,7 +102,7 @@ class GameDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Details',
+                Text(t.Details,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -125,7 +125,7 @@ class GameDetailsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Released'),
+                    Text(t.Released),
                     Text(game.releaseDate != null
                         ? '${game.releaseDate!.toLocal()}'.split(' ')[0]
                         : '-'),
@@ -142,7 +142,7 @@ class GameDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Available on',
+                  Text(t.AvailableOn,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -160,7 +160,7 @@ class GameDetailsPage extends StatelessWidget {
           // Reviews placeholder
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text('Recent reviews',
+            child: Text(t.gameDetails.recentReviews,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium

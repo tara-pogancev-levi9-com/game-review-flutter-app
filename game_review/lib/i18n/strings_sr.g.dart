@@ -89,6 +89,11 @@ class TranslationsSr extends Translations {
 	@override late final TranslationsGameServiceSr gameService = TranslationsGameServiceSr._(_root);
 	@override late final TranslationsGameDetailsSr gameDetails = TranslationsGameDetailsSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+	@override String get Review => 'Recenzija';
+	@override String get Overall => 'Generalno/Opšte mišljenje';
+	@override String get Details => 'Detalji';
+	@override String get Released => 'Objavljeno';
+	@override String get AvailableOn => 'Dostupno na';
 }
 
 // Path: navigation
@@ -113,6 +118,8 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	// Translations
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
+	@override String get failedToFetchRecentReviews => 'Učitavanje nedavnih recenzija nije uspelo.';
+	@override String get failedToLoadHome => 'Učitavanje početnih podataka nije uspelo.';
 }
 
 // Path: library

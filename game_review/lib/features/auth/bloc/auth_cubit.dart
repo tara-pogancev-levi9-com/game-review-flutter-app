@@ -5,6 +5,9 @@ import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'auth_state.dart';
 
+// TODO: handle token expiration and refresh
+// Translation (if needed)
+
 class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService;
 

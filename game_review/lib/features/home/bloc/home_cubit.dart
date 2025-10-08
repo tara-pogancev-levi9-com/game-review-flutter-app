@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/home/models/review.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/features/library_screen/services/game_service.dart';
 import 'package:game_review/features/home/services/review_service.dart';
 import 'home_state.dart';
+import 'package:game_review/i18n/strings.g.dart';
+
 
 class HomeCubit extends Cubit<HomeState> {
   final GameService _gameService;
@@ -12,7 +15,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this._gameService, this._reviewService) : super(const HomeState.initial());
 
-  Future<void> loadHome({int discoverLimit = 8, int reviewsLimit = 10}) async {
+  // TODO: Maybe don't use hardcoded limits here
+  //       Or make them configurable via parameters
+  //       Or have separate methods for loading more reviews / games
+  //       Or use pagination
+  //       For now, keep it simple
+  //       Also, consider caching results to avoid excessive API calls
+  Future<void> loadHome({int discoverLimit = Endpoints.limitDiscoverGames, int reviewsLimit = Endpoints.limitRecentReviews}) async {
     emit(const HomeState.loading());
     try {
       final results = await Future.wait([
@@ -29,7 +38,7 @@ class HomeCubit extends Cubit<HomeState> {
     ));
 
     } catch (e) {
-      Logger.error('Failed to load home', e);
+      Logger.error(t.errors.failedToLoadHome, e);
       emit(HomeState.error(e.toString()));
     }
   }

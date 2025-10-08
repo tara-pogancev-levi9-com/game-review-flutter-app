@@ -42,7 +42,7 @@ class ReviewCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              review.title ?? (review.game?.title ?? 'Review'),
+                              t.Review,
                               style: theme.textTheme.titleMedium,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

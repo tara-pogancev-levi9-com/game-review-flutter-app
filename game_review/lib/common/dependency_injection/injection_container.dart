@@ -38,6 +38,7 @@ void setupDependencies() {
   locator.registerLazySingleton<GameService>(
     () => GameService(
       locator<ApiClient>(),
+      locator<AuthService>(),
     ),
   );
 

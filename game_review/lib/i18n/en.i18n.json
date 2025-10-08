@@ -64,7 +64,10 @@
     "minLength": "Min {n} char",
     "appFailedToStart": "The app failed to start. Please restart and try again.",
     "gameNotFound": "Game not found",
-    "reviewsNotFound": "Reviews not found"
+    "reviewsNotFound": "Reviews not found",
+    "failedToFetchRecentReviews": "Failed to fetch recent reviews",
+    "failedToLoadHome": "Failed to load home data"
+
   },
   "appFailedToStart": "App failed to start:\\n\\n@{error}",
   "library": {
@@ -140,5 +143,10 @@
     "released": "Released",
     "availableOn": "Available on",
     "recentReviews": "Recent reviews"
-  }
+  },
+  "Review": "Review",
+  "Overall": "Overall",
+  "Details": "Details",
+  "Released": "Released",
+  "AvailableOn": "Available on"
 }

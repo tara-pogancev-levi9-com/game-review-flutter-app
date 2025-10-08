@@ -1,21 +1,22 @@
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/endpoints.dart';
+import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:game_review/core/storage/secure_storage.dart';
 
+// TODO: move JWT decoding to a dedicated AuthService method
 
 class GameService {
   final ApiClient _apiClient;
+  final AuthService _authService;
 
-  GameService(this._apiClient);
+  GameService(this._apiClient, this._authService);
 
-
-  Future<List<Game>> getLatestGames({int limit = 15}) async {
+  Future<List<Game>> getLatestGames({int limit = Endpoints.limitPopularGames}) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/games',
+        Endpoints.games,
         queryParameters: {
           'select': '*',
           'order': 'release_date.desc',
@@ -34,10 +35,10 @@ class GameService {
     }
   }
 
-  Future<List<Game>> getPopularGames({int limit = 15}) async {
+  Future<List<Game>> getPopularGames({int limit = Endpoints.limitPopularGames}) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/games',
+        Endpoints.games,
         queryParameters: {
           'select': '*',
           'order': 'title.asc',
@@ -56,18 +57,16 @@ class GameService {
     }
   }
 
-    Future<bool> addToWishlist(String gameId) async {
+Future<bool> addToWishlist(String gameId) async {
     try {
-      final token = await SecureStorage.getToken();
-      if (token == null) {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
         Logger.warning(t.gameService.noTokenWishlist);
         return false;
       }
 
-      final userId = JwtDecoder.decode(token)['sub']; 
-
       final response = await _apiClient.post(
-        'rest/v1/user_wishlist',
+        Endpoints.userWishlist,
         data: {
           'user_id': userId,
           'game_id': gameId,
@@ -89,16 +88,14 @@ class GameService {
 
   Future<bool> addToLibrary(String gameId) async {
     try {
-      final token = await SecureStorage.getToken();
-      if (token == null) {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
         Logger.warning(t.gameService.noTokenLibrary);
         return false;
       }
 
-      final userId = JwtDecoder.decode(token)['sub']; 
-
       final response = await _apiClient.post(
-        'rest/v1/user_library',
+        Endpoints.userLibrary,
         data: {
           'user_id': userId,
           'game_id': gameId,
@@ -119,76 +116,71 @@ class GameService {
   }
 
   Future<List<Game>> getUserWishlistGames() async {
-  try {
-    final token = await SecureStorage.getToken();
-    if (token == null) {
-      Logger.warning(t.gameService.noTokenWishlist);
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenWishlist);
+        return [];
+      }
+
+      final response = await _apiClient.get(
+        Endpoints.userWishlist,
+        queryParameters: {
+          'select': 'games(*)',
+          'user_id': 'eq.$userId',
+        },
+      );
+
+      if (response.statusCode == 200 && response.data is List) {
+        return (response.data as List)
+            .map((entry) => Game.fromJson(entry['games']))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchWishlistGames, e);
       return [];
     }
-
-    final userId = JwtDecoder.decode(token)['sub'];
-
-    final response = await _apiClient.get(
-      'rest/v1/user_wishlist',
-      queryParameters: {
-        'select': 'games(*)', 
-        'user_id': 'eq.$userId',
-      },
-    );
-
-    if (response.statusCode == 200 && response.data is List) {
-      return (response.data as List)
-          .map((entry) => Game.fromJson(entry['games']))
-          .toList();
-    }
-    return [];
-  } catch (e) {
-    Logger.error(t.gameService.failedToFetchWishlistGames, e);
-    return [];
   }
-}
 
-Future<List<Game>> getUserLibraryGames() async {
-  try {
-    final token = await SecureStorage.getToken();
-    if (token == null) {
-      Logger.warning(t.gameService.noTokenLibrary);
+  Future<List<Game>> getUserLibraryGames() async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenLibrary);
+        return [];
+      }
+
+      final response = await _apiClient.get(
+        Endpoints.userLibrary,
+        queryParameters: {
+          'select': 'games(*)',
+          'user_id': 'eq.$userId',
+        },
+      );
+
+      if (response.statusCode == 200 && response.data is List) {
+        return (response.data as List)
+            .map((entry) => Game.fromJson(entry['games']))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchLibraryGames, e);
       return [];
     }
-
-    final userId = JwtDecoder.decode(token)['sub'];
-
-    final response = await _apiClient.get(
-      'rest/v1/user_library',
-      queryParameters: {
-        'select': 'games(*)', 
-        'user_id': 'eq.$userId',
-      },
-    );
-
-    if (response.statusCode == 200 && response.data is List) {
-      return (response.data as List)
-          .map((entry) => Game.fromJson(entry['games']))
-          .toList();
-    }
-    return [];
-  } catch (e) {
-    Logger.error(t.gameService.failedToFetchLibraryGames, e);
-    return [];
   }
-}
-
 
   Future<bool> removeFromWishlist(String gameId) async {
     try {
-      final token = await SecureStorage.getToken();
-      if (token == null) {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
         Logger.warning(t.gameService.noTokenWishlist);
         return false;
       }
-      final userId = JwtDecoder.decode(token)['sub'];
 
-      final path = 'rest/v1/user_wishlist?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+      final path =
+          '${Endpoints.userWishlist}?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
 
       final response = await _apiClient.delete(path);
 
@@ -207,14 +199,14 @@ Future<List<Game>> getUserLibraryGames() async {
 
   Future<bool> removeFromLibrary(String gameId) async {
     try {
-      final token = await SecureStorage.getToken();
-      if (token == null) {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
         Logger.warning(t.gameService.noTokenLibrary);
         return false;
       }
-      final userId = JwtDecoder.decode(token)['sub'];
 
-      final path = 'rest/v1/user_library?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+      final path =
+          '${Endpoints.userLibrary}?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
 
       final response = await _apiClient.delete(path);
 
@@ -230,6 +222,4 @@ Future<List<Game>> getUserLibraryGames() async {
       return false;
     }
   }
-
-
 }

@@ -57,7 +57,10 @@
   },
   "errors": {
     "invalidCredentials": "Neispravni podaci za prijavu",
-    "loginFailed": "Prijava neuspešna. Pokušajte ponovo."
+    "loginFailed": "Prijava neuspešna. Pokušajte ponovo.",
+    "failedToFetchRecentReviews": "Učitavanje nedavnih recenzija nije uspelo.",
+    "failedToLoadHome": "Učitavanje početnih podataka nije uspelo."
+
   },
   "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}",
   "library": {
@@ -139,5 +142,10 @@
     "title": "PAW IGRE",
     "tagline": "Istraži. Oceni. Deli.",
     "logoLabel": "Logo aplikacije"
-  }
+  },
+  "Review": "Recenzija",
+  "Overall": "Generalno/Opšte mišljenje",
+  "Details": "Detalji",
+  "Released": "Objavljeno",
+  "AvailableOn": "Dostupno na"
 }

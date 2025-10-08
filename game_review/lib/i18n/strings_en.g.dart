@@ -198,6 +198,21 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
 	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
+
+	/// en: 'Review'
+	String get Review => 'Review';
+
+	/// en: 'Overall'
+	String get Overall => 'Overall';
+
+	/// en: 'Details'
+	String get Details => 'Details';
+
+	/// en: 'Released'
+	String get Released => 'Released';
+
+	/// en: 'Available on'
+	String get AvailableOn => 'Available on';
 }
 
 // Path: navigation
@@ -252,6 +267,12 @@ class TranslationsErrorsEn {
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to fetch recent reviews'
+	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
+
+	/// en: 'Failed to load home data'
+	String get failedToLoadHome => 'Failed to load home data';
 }
 
 // Path: library
