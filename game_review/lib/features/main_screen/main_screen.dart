@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
-import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
+import 'package:game_review/features/main_screen/widgets/app_scaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile/profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';

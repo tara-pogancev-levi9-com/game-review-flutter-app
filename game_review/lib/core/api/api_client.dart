@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 
-// TODO: Error handling, generic responses
-
 class ApiClient {
   final Dio dio;
 
   ApiClient({required String baseUrl})
-      : dio = Dio(BaseOptions(
+    : dio = Dio(
+        BaseOptions(
           baseUrl: baseUrl,
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
@@ -16,7 +15,8 @@ class ApiClient {
             'Content-Type': 'application/json',
             'apiKey': dotenv.env['API_KEY']!,
           },
-        )) {
+        ),
+      ) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -43,13 +43,24 @@ class ApiClient {
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
   }
+
   Future<Response> post(String path, {dynamic data}) {
     return dio.post(path, data: data);
   }
-  Future<Response> put(String path, {dynamic data}) {
-    return dio.put(path, data: data);
+
+  Future<Response> put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    return dio.put(path, data: data, queryParameters: queryParameters);
   }
-  Future<Response> delete(String path, {dynamic data}) {
-    return dio.delete(path, data: data);
+
+  Future<Response> delete(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+  }) {
+    return dio.delete(path, data: data, queryParameters: queryParameters);
   }
 }
