@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class AppLogo extends StatelessWidget {
-  const AppLogo({super.key});
+  const AppLogo({super.key, this.size = 100.0});
 
-  static const _size = 100.0;
+  final double size;
   static const _spacingBetween = 8.0;
 
   @override
@@ -18,33 +19,21 @@ class AppLogo extends StatelessWidget {
           image: true,
           child: Image.asset(
             'lib/common/assets/images/game_logo.png',
-            height: AppLogo._size,
+            height: size,
             fit: BoxFit.contain,
           ),
         ),
         const SizedBox(height: _spacingBetween),
         Text(
-          'PAW GAMES',
+          t.branding.title,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'PixelifySans',
-            color: AppColors.softWhite,
-            fontSize: 36,
-            fontWeight: FontWeight.w700,
-            height: 1.0,
-          ),
+          style: AppTypography.logoTitle,
         ),
         const SizedBox(height: 8),
         Text(
-          'Discover. Rate. Share.',
+          t.branding.tagline,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'JosefinSans',
-            color: AppColors.textTertiary,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            height: 1.0,
-          ),
+          style: AppTypography.logoTagline,
         ),
       ],
     );
