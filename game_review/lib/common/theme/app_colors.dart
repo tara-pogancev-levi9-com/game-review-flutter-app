@@ -8,6 +8,7 @@ class AppColors {
 
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Color(0xFFA88EB9);
+  static const Color textTertiary = Color(0xFF785E88);
   static const Color softWhite = Color(0xFFF9F0FF);
   static const Color lilacSelected = Color(0xFFE2C4F7);
 

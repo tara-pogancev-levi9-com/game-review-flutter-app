@@ -42,11 +42,32 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "registrationError": "Greška, Pokušajte ponovo kasnije.",
+  "passwordMismatch": "Lozinke se ne podudaraju!.",
+  "passwordLength": "Lozinka mora imati minimum 8 karaktera!.",
+  "emailInvalid": "Email adresa nije validna!.",
+  "registrationSuccessful": "Registracija uspešna.",
+  "registrationEmailExistsError": "Navedeni email je registrovan!",
   "navigation": {
     "home": "Početna",
     "search": "Pretraživanje",
     "library": "Biblioteka",
     "profile": "Profil"
   },
-  "NoGamesFound": "Nema pronađenih igara"
+  "NoGamesFound": "Nema pronađenih igara",
+  "errors": {
+    "requiredField": "{field} je obavezno",
+    "invalidEmail": "Neispravan email",
+    "minLength": "Minimum {n} karaktera",
+    "invalidCredentials": "Neispravni podaci za prijavu",
+    "loginFailed": "Prijava nije uspela, pokušaj ponovo",
+    "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.",
+    "gameNotFound": "Igra nije pronađena",
+    "reviewsNotFound": "Recenzije nisu pronađene"
+  },
+  "branding": {
+    "title": "PAW IGRE",
+    "tagline": "Istraži. Oceni. Deli.",
+    "logoLabel": "Logo aplikacije"
+  }
 }
