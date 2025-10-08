@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/widgets/error_view.dart';
+import 'package:game_review/common/widgets/section_header.dart';
 import 'package:game_review/features/home_screen/widgets/games_list_view.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 
@@ -18,43 +20,35 @@ class GamesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => locator<GamesCubit>()..loadGames(limit: limit),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ),
-          BlocBuilder<GamesCubit, GamesState>(
-            builder: (context, state) => state.when(
-              initial: () => const SizedBox.shrink(),
-              loading: () => const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-              loaded: (games, hasMore, isLoadingMore) => GamesList(
-                games: games,
-                hasMore: hasMore,
-                isLoadingMore: isLoadingMore,
-                onLoadMore: () => context.read<GamesCubit>().loadMoreGames(),
-              ),
-              error: (msg) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(msg, style: AppTypography.errorText),
-                ),
+    final bloc = locator<GamesCubit>()..loadGames(limit: limit);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionHeader(title: title),
+        BlocBuilder<GamesCubit, GamesState>(
+          bloc: bloc,
+          builder: (context, state) => state.when(
+            initial: () => const SizedBox.shrink(),
+            loading: () => const Center(
+              child: Padding(
+                padding: EdgeInsets.all(24),
+                child: CircularProgressIndicator(),
               ),
             ),
+            loaded: (games, hasMore, isLoadingMore) => GamesList(
+              games: games,
+              hasMore: hasMore,
+              isLoadingMore: isLoadingMore,
+              onLoadMore: () => bloc.loadMoreGames(),
+            ),
+            error: (msg) => ErrorView(
+              message: msg,
+              onRetry: () => bloc.loadGames(limit: limit),
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

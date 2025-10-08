@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/features/home_screen/widgets/game_card.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class GamesList extends StatefulWidget {
   final List<GameModel> games;
@@ -47,10 +48,10 @@ class _GamesListState extends State<GamesList> {
   @override
   Widget build(BuildContext context) {
     if (widget.games.isEmpty) {
-      return const Center(
+      return Center(
         child: Padding(
           padding: EdgeInsets.all(24),
-          child: Text('No games found'),
+          child: Text(t.NoGamesFound),
         ),
       );
     }

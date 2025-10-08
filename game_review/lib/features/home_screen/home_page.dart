@@ -9,9 +9,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.t;
     return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          const SizedBox(height: 16),
           GamesListWidget(
             title: t.discover,
             limit: 10,

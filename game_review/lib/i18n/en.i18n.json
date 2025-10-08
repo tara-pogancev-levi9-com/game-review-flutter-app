@@ -47,6 +47,7 @@
     "search": "Search",
     "library": "Library",
     "profile": "Profile"
-  }
+  },
+  "NoGamesFound": "No games found"
 
 }

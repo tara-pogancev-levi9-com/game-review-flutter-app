@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 
@@ -16,14 +17,9 @@ class GameCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onPressed: () {
+          InkWell(
+            borderRadius: BorderSize.m.radius,
+            onTap: () {
               // TODO: Implement navigation to game details page
               Navigator.push(
                 context,
@@ -34,7 +30,7 @@ class GameCard extends StatelessWidget {
               );
             },
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderSize.m.radius,
               child: Container(
                 height: 180,
                 width: 150,
@@ -44,7 +40,7 @@ class GameCard extends StatelessWidget {
                     color: AppColors.outline.withOpacity(0.2),
                     width: 1,
                   ),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderSize.m.radius,
                 ),
                 child: game.coverImageUrl != null
                     ? Image.network(
