@@ -149,5 +149,9 @@
   "Released": "Objavljeno",
   "AvailableOn": "Dostupno na",
   "addComment": "Dodaj komentar",
-  "reviewsNotFound": "Recenzije nisu pronađene"
+  "reviewsNotFound": "Recenzije nisu pronađene",
+  "wouldRecommend": "Preporučuje",
+  "wouldNotRecommend": "Ne preporučuje",
+  "likes": "Lajkovi",
+  "playingRecord": "Sati igranja"
 }

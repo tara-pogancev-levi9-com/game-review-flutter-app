@@ -219,6 +219,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Would recommend'
+	String get wouldRecommend => 'Would recommend';
+
+	/// en: 'Would not recommend'
+	String get wouldNotRecommend => 'Would not recommend';
+
+	/// en: 'Likes'
+	String get likes => 'Likes';
+
+	/// en: 'h on record'
+	String get playingRecord => 'h on record';
 }
 
 // Path: navigation

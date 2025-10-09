@@ -150,5 +150,9 @@
   "Released": "Released",
   "AvailableOn": "Available on",
   "addComment": "Add Comment",
-  "reviewsNotFound": "Reviews not found"
+  "reviewsNotFound": "Reviews not found",
+  "wouldRecommend": "Would recommend",
+  "wouldNotRecommend": "Would not recommend",
+  "likes": "Likes",
+  "playingRecord": "h on record"
 }

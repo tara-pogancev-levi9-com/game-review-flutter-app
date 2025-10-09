@@ -96,6 +96,10 @@ class TranslationsSr extends Translations {
 	@override String get AvailableOn => 'Dostupno na';
 	@override String get addComment => 'Dodaj komentar';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
+	@override String get wouldRecommend => 'Preporučuje';
+	@override String get wouldNotRecommend => 'Ne preporučuje';
+	@override String get likes => 'Lajkovi';
+	@override String get playingRecord => 'Sati igranja';
 }
 
 // Path: navigation
