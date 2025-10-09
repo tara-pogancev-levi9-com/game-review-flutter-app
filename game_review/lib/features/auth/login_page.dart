@@ -7,41 +7,35 @@ import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-
-import 'auth_cubit.dart';
-
+import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'bloc/auth_cubit.dart';
+import 'bloc/auth_state.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
-
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
-
   void _onSubmit() {
     if (_formKey.currentState?.validate() != true) return;
-    context.read<AuthCubit>().login(
-      email: _emailController.text.trim(),
-      password: _passwordController.text,
+    locator<AuthCubit>().login(
+      _emailController.text.trim(),
+      _passwordController.text,
     );
   }
-
   @override
   Widget build(BuildContext context) {
     final topInset = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -54,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         leading: const BackButton(color: Colors.white),
         title: Text(
           t.back,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: AppFonts.josefinSans,
             fontWeight: FontWeight.w400,
             fontSize: 16,
@@ -67,13 +61,14 @@ class _LoginPageState extends State<LoginPage> {
           gradient: Theme.of(context).extension<AppGradients>()?.background,
         ),
         child: BlocConsumer<AuthCubit, AuthState>(
+          bloc: locator<AuthCubit>(),
           listener: (context, state) {
-            if (state is AuthError) {
+            if (state is Unauthenticated && state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
+                SnackBar(content: Text(state.errorMessage!)),
               );
             }
-            if (state is AuthSuccess) {
+            if (state is Authenticated) {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (_) => const MainScreen()),
                 (route) => false,
@@ -89,7 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                 16,
                 16,
               ),
-
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: AutofillGroup(
@@ -100,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const SizedBox(height: 60),
-                        AppLogo(),
+                        const AppLogo(),
                         const SizedBox(height: 70),
                         TextFormField(
                           controller: _emailController,
