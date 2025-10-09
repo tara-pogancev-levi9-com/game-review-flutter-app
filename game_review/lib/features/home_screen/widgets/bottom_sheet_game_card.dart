@@ -1,52 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
-import 'package:game_review/features/search_screen/search_page.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 
-class GameCard extends StatelessWidget {
+class BottomSheetGameCard extends StatelessWidget {
   final GameModel game;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
-  const GameCard({
+  const BottomSheetGameCard({
     super.key,
     required this.game,
-    this.onTap,
+    required this.onTap,
   });
-
-  void _handleTap(BuildContext context) {
-    if (onTap != null) {
-      onTap!();
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SearchPage(), //replace with GameDetails page
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 150,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderSize.m.radius,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InkWell(
-            borderRadius: BorderSize.m.radius,
-            onTap: () => _handleTap(context),
+          // Game Cover Image
+          Expanded(
             child: ClipRRect(
               borderRadius: BorderSize.m.radius,
               child: Container(
-                height: 180,
-                width: 150,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: AppColors.surfaceVariant,
                   border: Border.all(
-                    color: AppColors.outline.withOpacity(0.2),
+                    color: AppColors.outline.withOpacity(0.3),
                     width: 1,
                   ),
                   borderRadius: BorderSize.m.radius,
@@ -65,15 +50,14 @@ class GameCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: Text(
-              game.title,
-              style: AppTypography.gameTitle,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-            ),
+          const SizedBox(height: 12),
+          // Game Title
+          Text(
+            game.title,
+            style: AppTypography.gameTitle.copyWith(fontSize: 14),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
