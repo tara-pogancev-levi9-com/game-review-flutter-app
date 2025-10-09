@@ -3,6 +3,7 @@ import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/services/games_service.dart';
 import 'dart:developer' as developer;
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/common/utils/logger.dart';
 
 class GamesCubit extends Cubit<GamesState> {
   final GamesService _service;
@@ -28,7 +29,7 @@ class GamesCubit extends Cubit<GamesState> {
       loaded: (games, hasMore, isLoadingMore) async {
         if (!hasMore || isLoadingMore) return;
 
-        developer.log('Loading more games...', name: 'GamesCubit');
+        Logger.info('Loading more games...');
 
         emit(
           GamesState.loaded(
@@ -48,7 +49,7 @@ class GamesCubit extends Cubit<GamesState> {
           final allGames = [...games, ...newGames];
           final hasMoreNew = newGames.length >= _pageSize;
 
-          print(
+          Logger.info(
             "Loaded ${newGames.length} more games, total: ${allGames.length}",
           );
 
@@ -60,11 +61,7 @@ class GamesCubit extends Cubit<GamesState> {
             ),
           );
         } catch (e) {
-          developer.log(
-            'Failed to load more games',
-            name: 'GamesCubit',
-            error: e,
-          );
+          Logger.error('Failed to load more games', e);
           emit(GamesState.error(t.errorLoadingMoreGames));
         }
       },
