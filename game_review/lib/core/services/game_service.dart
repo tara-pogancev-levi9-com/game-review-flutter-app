@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_constants.dart';
 import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/auth/auth_service.dart';
 
@@ -12,31 +15,32 @@ class GameService {
   Future<Game?> getGameById(String gameId) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/games',
+        ApiConstants.games,
         queryParameters: {
           'id': 'eq.$gameId',
           'select': '*',
         },
       );
 
-      if (response.statusCode == 200 &&
+      if (response.statusCode == HttpStatus.ok &&
           response.data is List &&
           (response.data as List).isNotEmpty) {
         return Game.fromJson((response.data as List).first);
       }
       return null;
     } catch (e) {
+      Logger.error('Failed to fetch game details', e);
       throw Exception(t.errors.failedToFetchGame);
     }
   }
 
-  Future<List<Game>> getGames({
+  Future<List<Game>> getRecentGames({
     int page = 0,
     int limit = 20,
   }) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/games',
+        ApiConstants.games,
         queryParameters: {
           'select': '*',
           'order': 'created_at.desc',
@@ -45,13 +49,14 @@ class GameService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((json) => Game.fromJson(json))
             .toList();
       }
       return [];
     } catch (e) {
+      Logger.error('Failed to fetch recent games', e);
       throw Exception(t.errors.failedToFetchGames);
     }
   }
@@ -59,7 +64,7 @@ class GameService {
   Future<Map<String, int>> getGameStatistics(String gameId) async {
     try {
       final reviewsResponse = await _apiClient.get(
-        'rest/v1/game_reviews',
+        ApiConstants.gameReviews,
         queryParameters: {
           'game_id': 'eq.$gameId',
           'select': 'id',
@@ -67,7 +72,7 @@ class GameService {
       );
 
       final wishlistResponse = await _apiClient.get(
-        'rest/v1/user_wishlist',
+        ApiConstants.userWishlist,
         queryParameters: {
           'game_id': 'eq.$gameId',
           'select': 'id',
@@ -75,7 +80,7 @@ class GameService {
       );
 
       final libraryResponse = await _apiClient.get(
-        'rest/v1/user_library',
+        ApiConstants.userLibrary,
         queryParameters: {
           'game_id': 'eq.$gameId',
           'select': 'id',
@@ -88,6 +93,7 @@ class GameService {
         'libraryCount': (libraryResponse.data as List).length,
       };
     } catch (e) {
+      Logger.error('Failed to fetch game statistics', e);
       throw Exception(t.errors.failedToFetchGameStatistics);
     }
   }
@@ -98,7 +104,7 @@ class GameService {
   }) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/game_reviews',
+        ApiConstants.gameReviews,
         queryParameters: {
           'game_id': 'eq.$gameId',
           'select': '*,users!inner(id,username,display_name,avatar_url)',
@@ -107,13 +113,14 @@ class GameService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((json) => GameReview.fromJson(json))
             .toList();
       }
       return [];
     } catch (e) {
+      Logger.error('Failed to fetch recent reviews', e);
       throw Exception(t.errors.failedToFetchRecentReviews);
     }
   }
@@ -125,7 +132,7 @@ class GameService {
         throw Exception('User not authenticated');
       }
 
-      await _authService.ensureUserExists();
+      await _authService.createUserDataIfNotPresent();
 
       final isAlreadyInWishlist = await isInWishlist(gameId);
       if (isAlreadyInWishlist) {
@@ -133,7 +140,7 @@ class GameService {
       }
 
       final response = await _apiClient.post(
-        'rest/v1/user_wishlist',
+        ApiConstants.userWishlist,
         data: {
           'user_id': userId,
           'game_id': gameId,
@@ -141,11 +148,19 @@ class GameService {
         },
       );
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != HttpStatus.created) {
         throw Exception(t.errors.failedToAddToWishlist);
       }
     } catch (e) {
-      throw Exception(t.errors.failedToAddToWishlist);
+      Logger.error('Failed to add game to wishlist', e);
+
+      if (e.toString().contains('409') || e.toString().contains('Conflict')) {
+        throw Exception('Game is already in your wishlist');
+      } else if (e.toString().contains('Failed to add to wishlist')) {
+        throw Exception(t.errors.failedToAddToWishlist);
+      } else {
+        throw Exception(t.errors.failedToAddToWishlist);
+      }
     }
   }
 
@@ -157,17 +172,18 @@ class GameService {
       }
 
       final response = await _apiClient.delete(
-        'rest/v1/user_wishlist',
+        ApiConstants.userWishlist,
         queryParameters: {
           'user_id': 'eq.$userId',
           'game_id': 'eq.$gameId',
         },
       );
 
-      if (response.statusCode != 204) {
+      if (response.statusCode != HttpStatus.noContent) {
         throw Exception(t.errors.failedToRemoveFromWishlist);
       }
     } catch (e) {
+      Logger.error('Failed to remove game from wishlist', e);
       throw Exception(t.errors.failedToRemoveFromWishlist);
     }
   }
@@ -180,7 +196,7 @@ class GameService {
       }
 
       final response = await _apiClient.get(
-        'rest/v1/user_wishlist',
+        ApiConstants.userWishlist,
         queryParameters: {
           'user_id': 'eq.$userId',
           'game_id': 'eq.$gameId',
@@ -188,8 +204,10 @@ class GameService {
         },
       );
 
-      return response.statusCode == 200 && (response.data as List).isNotEmpty;
+      return response.statusCode == HttpStatus.ok &&
+          (response.data as List).isNotEmpty;
     } catch (e) {
+      Logger.error('Failed to check if game is in wishlist', e);
       return false;
     }
   }
@@ -197,20 +215,21 @@ class GameService {
   Future<String?> getPlatformIdByName(String platformName) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/gaming_platforms',
+        ApiConstants.gamingPlatforms,
         queryParameters: {
           'name': 'eq.$platformName',
           'select': 'id',
         },
       );
 
-      if (response.statusCode == 200 &&
+      if (response.statusCode == HttpStatus.ok &&
           response.data is List &&
           (response.data as List).isNotEmpty) {
         return (response.data as List).first['id'] as String;
       }
       return null;
     } catch (e) {
+      Logger.error('Failed to get platform ID by name', e);
       return null;
     }
   }
@@ -233,7 +252,7 @@ class GameService {
       }
 
       final response = await _apiClient.post(
-        'rest/v1/user_library',
+        ApiConstants.userLibrary,
         data: {
           'user_id': userId,
           'game_id': gameId,
@@ -244,12 +263,14 @@ class GameService {
         },
       );
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != HttpStatus.created) {
         throw Exception(t.errors.failedToAddToLibrary);
       }
     } catch (e) {
+      Logger.error('Failed to add game to library', e);
+
       if (e.toString().contains('duplicate key value')) {
-        throw Exception('Game already in library');
+        throw Exception('Game is already in your library');
       } else if (e.toString().contains('Failed to add to library')) {
         throw Exception(t.errors.failedToAddToLibrary);
       } else {
@@ -270,7 +291,7 @@ class GameService {
       }
 
       final response = await _apiClient.put(
-        'rest/v1/user_library',
+        ApiConstants.userLibrary,
         data: {
           'hours_played': hoursPlayed,
           'completion_percentage': completionPercentage,
@@ -282,10 +303,11 @@ class GameService {
         },
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != HttpStatus.ok) {
         throw Exception(t.errors.failedToUpdateGameProgress);
       }
     } catch (e) {
+      Logger.error('Failed to update game progress', e);
       throw Exception(t.errors.failedToUpdateGameProgress);
     }
   }
@@ -298,17 +320,18 @@ class GameService {
       }
 
       final response = await _apiClient.delete(
-        'rest/v1/user_library',
+        ApiConstants.userLibrary,
         queryParameters: {
           'user_id': 'eq.$userId',
           'game_id': 'eq.$gameId',
         },
       );
 
-      if (response.statusCode != 204) {
+      if (response.statusCode != HttpStatus.noContent) {
         throw Exception(t.errors.failedToRemoveFromLibrary);
       }
     } catch (e) {
+      Logger.error('Failed to remove game from library', e);
       throw Exception(t.errors.failedToRemoveFromLibrary);
     }
   }
@@ -321,7 +344,7 @@ class GameService {
       }
 
       final response = await _apiClient.get(
-        'rest/v1/user_library',
+        ApiConstants.userLibrary,
         queryParameters: {
           'user_id': 'eq.$userId',
           'game_id': 'eq.$gameId',
@@ -329,8 +352,10 @@ class GameService {
         },
       );
 
-      return response.statusCode == 200 && (response.data as List).isNotEmpty;
+      return response.statusCode == HttpStatus.ok &&
+          (response.data as List).isNotEmpty;
     } catch (e) {
+      Logger.error('Failed to check if game is in library', e);
       return false;
     }
   }

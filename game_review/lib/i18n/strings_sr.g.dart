@@ -132,6 +132,7 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get addedToLibrary => 'Dodato u biblioteku!';
 	@override String get removedFromLibrary => 'Uklonjeno iz biblioteke!';
 	@override String get alreadyInLibrary => 'Već je u biblioteci!';
+	@override String get alreadyInWishlist => 'Već je u listi želja!';
 	@override String get loginRequiredWishlist => 'Molimo prijavite se da biste dodali igre u listu želja';
 	@override String get loginRequiredLibrary => 'Molimo prijavite se da biste dodali igre u biblioteku';
 	@override String get loginRequiredToView => 'Molimo prijavite se da biste videli detalje igre';

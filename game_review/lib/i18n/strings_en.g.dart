@@ -307,6 +307,9 @@ class TranslationsGameDetailsEn {
 	/// en: 'Already in library!'
 	String get alreadyInLibrary => 'Already in library!';
 
+	/// en: 'Already in wishlist!'
+	String get alreadyInWishlist => 'Already in wishlist!';
+
 	/// en: 'Please log in to add games to your wishlist'
 	String get loginRequiredWishlist => 'Please log in to add games to your wishlist';
 

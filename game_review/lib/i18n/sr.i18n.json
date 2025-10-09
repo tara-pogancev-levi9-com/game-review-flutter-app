@@ -84,6 +84,7 @@
     "addedToLibrary": "Dodato u biblioteku!",
     "removedFromLibrary": "Uklonjeno iz biblioteke!",
     "alreadyInLibrary": "Već je u biblioteci!",
+    "alreadyInWishlist": "Već je u listi želja!",
     "loginRequiredWishlist": "Molimo prijavite se da biste dodali igre u listu želja",
     "loginRequiredLibrary": "Molimo prijavite se da biste dodali igre u biblioteku",
     "loginRequiredToView": "Molimo prijavite se da biste videli detalje igre"
