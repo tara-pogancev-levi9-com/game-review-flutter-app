@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/endpoints.dart';
-import 'package:game_review/features/home/models/review.dart';
+import 'package:game_review/features/home_screen/models/review.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/features/library_screen/services/game_service.dart';
-import 'package:game_review/features/home/services/review_service.dart';
+import 'package:game_review/features/home_screen/services/review_service.dart';
 import 'home_state.dart';
 import 'package:game_review/i18n/strings.g.dart';
 

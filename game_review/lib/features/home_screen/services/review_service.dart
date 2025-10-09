@@ -1,6 +1,6 @@
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/features/home/models/review.dart';
+import 'package:game_review/features/home_screen/models/review.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/core/api/endpoints.dart';
 

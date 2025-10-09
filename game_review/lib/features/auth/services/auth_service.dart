@@ -5,10 +5,10 @@ import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../../core/api/api_client.dart';
-import '../../core/storage/secure_storage.dart';
-import '../../common/utils/logger.dart';
-import '../../i18n/strings.g.dart';
+import '../../../core/api/api_client.dart';
+import '../../../core/storage/secure_storage.dart';
+import '../../../common/utils/logger.dart';
+import '../../../i18n/strings.g.dart';
 
 class AuthService {
   final ApiClient apiClient;

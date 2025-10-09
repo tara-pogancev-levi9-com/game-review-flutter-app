@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/home/models/review.dart';
+import 'package:game_review/features/home_screen/models/review.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'widgets/media_thumb.dart';

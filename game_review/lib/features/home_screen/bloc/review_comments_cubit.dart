@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/features/home/bloc/review_comments_state.dart';
-import 'package:game_review/features/home/services/comment_service.dart';
+import 'package:game_review/features/home_screen/bloc/review_comments_state.dart';
+import 'package:game_review/features/home_screen/services/comment_service.dart';
 
 class ReviewCommentsCubit extends Cubit<ReviewCommentsState> {
   final CommentService _commentService;

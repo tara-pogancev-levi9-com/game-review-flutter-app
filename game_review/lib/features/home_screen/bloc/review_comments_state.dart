@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_review/features/home/models/review_comment.dart';
+import 'package:game_review/features/home_screen/models/review_comment.dart';
 
 part 'review_comments_state.freezed.dart';
 
