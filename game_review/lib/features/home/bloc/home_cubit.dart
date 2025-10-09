@@ -15,12 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this._gameService, this._reviewService) : super(const HomeState.initial());
 
-  // TODO: Maybe don't use hardcoded limits here
-  //       Or make them configurable via parameters
-  //       Or have separate methods for loading more reviews / games
-  //       Or use pagination
-  //       For now, keep it simple
-  //       Also, consider caching results to avoid excessive API calls
+  // TODO: Maybe caching results to avoid excessive API calls
   Future<void> loadHome({int discoverLimit = Endpoints.limitDiscoverGames, int reviewsLimit = Endpoints.limitRecentReviews}) async {
     emit(const HomeState.loading());
     try {

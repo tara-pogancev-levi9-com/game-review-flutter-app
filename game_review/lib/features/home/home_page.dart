@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/home/bloc/home_cubit.dart';
 import 'package:game_review/features/home/bloc/home_state.dart';
+import 'package:game_review/features/home/review_details.page.dart';
 import 'package:game_review/features/home/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
@@ -26,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final l = t;
     return BlocBuilder<HomeCubit, HomeState>(
       bloc: cubit,
       builder: (context, state) {
@@ -42,16 +42,16 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(l.discover, style: Theme.of(context).textTheme.headlineSmall),
+                    child: Text(t.discover, style: Theme.of(context).textTheme.headlineSmall),
                   ),
 
-                  // Discover games — reuse GameSection (horizontal)
-                  GameSection(title: l.discover, games: discoverGames),
+                  // Discover games
+                  GameSection(title: t.discover, games: discoverGames),
 
                   // Recent reviews header
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-                    child: Text(l.recentReviews, style: Theme.of(context).textTheme.headlineSmall),
+                    child: Text(t.recentReviews, style: Theme.of(context).textTheme.headlineSmall),
                   ),
 
                   // Recent reviews list (vertical)
@@ -64,7 +64,9 @@ class _HomePageState extends State<HomePage> {
                           child: ReviewCard(
                             review: r,
                             onTap: () {
-                              // TODO: navigate to review details page (future)
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => ReviewDetailsPage(review: r)),
+                              );
                             },
                           ),
                         );

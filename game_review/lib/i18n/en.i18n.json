@@ -148,5 +148,7 @@
   "Overall": "Overall",
   "Details": "Details",
   "Released": "Released",
-  "AvailableOn": "Available on"
+  "AvailableOn": "Available on",
+  "addComment": "Add Comment",
+  "reviewsNotFound": "Reviews not found"
 }

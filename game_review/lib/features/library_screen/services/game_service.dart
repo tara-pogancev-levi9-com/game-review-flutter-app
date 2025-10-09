@@ -5,8 +5,6 @@ import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
-// TODO: move JWT decoding to a dedicated AuthService method
-
 class GameService {
   final ApiClient _apiClient;
   final AuthService _authService;

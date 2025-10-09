@@ -213,6 +213,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Available on'
 	String get AvailableOn => 'Available on';
+
+	/// en: 'Add Comment'
+	String get addComment => 'Add Comment';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
 }
 
 // Path: navigation

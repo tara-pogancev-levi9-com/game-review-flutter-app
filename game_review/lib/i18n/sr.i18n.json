@@ -147,5 +147,7 @@
   "Overall": "Generalno/Opšte mišljenje",
   "Details": "Detalji",
   "Released": "Objavljeno",
-  "AvailableOn": "Dostupno na"
+  "AvailableOn": "Dostupno na",
+  "addComment": "Dodaj komentar",
+  "reviewsNotFound": "Recenzije nisu pronađene"
 }

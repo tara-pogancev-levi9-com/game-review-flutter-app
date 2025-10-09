@@ -39,7 +39,7 @@ mixin _$Review {
   @JsonKey(name: 'sound_rating')
   double? get soundRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'value_rating')
-  double? get valueRating => throw _privateConstructorUsedError; // keep these as String? for the UI — but parse list -> string if backend returns arrays
+  double? get valueRating => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _listOrStringToString)
   String? get pros => throw _privateConstructorUsedError;
   @JsonKey(fromJson: _listOrStringToString)
@@ -50,7 +50,7 @@ mixin _$Review {
   String? get completionStatus => throw _privateConstructorUsedError;
   bool? get recommended => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError; // we will attach nested game manually; don't auto-serialize it
+  DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   Game? get game => throw _privateConstructorUsedError;
 
@@ -422,7 +422,6 @@ class _$ReviewImpl implements _Review {
   @override
   @JsonKey(name: 'value_rating')
   final double? valueRating;
-  // keep these as String? for the UI — but parse list -> string if backend returns arrays
   @override
   @JsonKey(fromJson: _listOrStringToString)
   final String? pros;
@@ -440,7 +439,6 @@ class _$ReviewImpl implements _Review {
   @override
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
-  // we will attach nested game manually; don't auto-serialize it
   @override
   @JsonKey(ignore: true)
   final Game? game;
@@ -576,7 +574,7 @@ abstract class _Review implements Review {
   double? get soundRating;
   @override
   @JsonKey(name: 'value_rating')
-  double? get valueRating; // keep these as String? for the UI — but parse list -> string if backend returns arrays
+  double? get valueRating;
   @override
   @JsonKey(fromJson: _listOrStringToString)
   String? get pros;
@@ -593,7 +591,7 @@ abstract class _Review implements Review {
   bool? get recommended;
   @override
   @JsonKey(name: 'created_at')
-  DateTime? get createdAt; // we will attach nested game manually; don't auto-serialize it
+  DateTime? get createdAt;
   @override
   @JsonKey(ignore: true)
   Game? get game;

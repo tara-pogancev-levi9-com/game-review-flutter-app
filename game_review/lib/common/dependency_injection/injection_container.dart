@@ -1,5 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/features/home/bloc/home_cubit.dart';
+import 'package:game_review/features/home/bloc/review_comments_cubit.dart';
+import 'package:game_review/features/home/services/comment_service.dart';
 import 'package:game_review/features/home/services/review_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
@@ -60,5 +62,16 @@ void setupDependencies() {
       locator<ReviewService>(),
     ),
   );
+
+    locator.registerLazySingleton<CommentService>(
+      () => CommentService(locator<ApiClient>()
+      )
+    );
+
+    locator.registerLazySingleton<ReviewCommentsCubit>(
+      () => ReviewCommentsCubit(locator<CommentService>()
+      )
+    );
+
 
 }
