@@ -3,6 +3,7 @@ import 'package:game_review/common/services/reviews_service.dart';
 import 'dart:developer' as developer;
 import 'package:game_review/i18n/strings.g.dart';
 import 'review_state.dart';
+import 'package:game_review/common/utils/logger.dart';
 
 class ReviewsCubit extends Cubit<ReviewState> {
   final ReviewsService _service;
@@ -23,7 +24,8 @@ class ReviewsCubit extends Cubit<ReviewState> {
       final hasMore = reviews.length >= limit;
       emit(ReviewState.loaded(reviews, hasMore: hasMore));
     } catch (e) {
-      developer.log('Error loading reviews', error: e);
+      Logger.error('Error loading reviews', e);
+
       emit(ReviewState.error(e.toString()));
     }
   }
@@ -41,7 +43,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
       final hasMore = reviews.length >= limit;
       emit(ReviewState.loaded(reviews, hasMore: hasMore));
     } catch (e) {
-      developer.log('Error loading reviews', error: e);
+      Logger.error('Error loading reviews', e);
       emit(ReviewState.error(e.toString()));
     }
   }
@@ -51,7 +53,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
     await currentState.maybeWhen(
       loaded: (reviews, hasMore, isLoadingMore) async {
         if (!hasMore || isLoadingMore) return;
-        developer.log('Loading more reviews...', name: 'ReviewsCubit');
+        Logger.info('Loading more reviews...');
 
         emit(
           ReviewState.loaded(
@@ -71,9 +73,8 @@ class ReviewsCubit extends Cubit<ReviewState> {
           final allReviews = [...reviews, ...newReviews];
           final hasMoreNew = newReviews.length >= _pageSize;
 
-          developer.log(
+          Logger.info(
             'Loaded ${newReviews.length} more reviews, total: ${allReviews.length}',
-            name: 'ReviewsCubit',
           );
 
           emit(
@@ -84,11 +85,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
             ),
           );
         } catch (e) {
-          developer.log(
-            'Failed to load more reviews',
-            name: 'ReviewsCubit',
-            error: e,
-          );
+          Logger.error('Failed to load more reviews', e);
           emit(ReviewState.error(t.errorLoadingMoreGames));
         }
       },
@@ -134,7 +131,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
       );
       emit(ReviewState.reviewAdded(review));
     } catch (e) {
-      developer.log('Error adding review', error: e);
+      Logger.error('Error adding review', e);
       emit(ReviewState.error(e.toString()));
     }
   }
@@ -182,7 +179,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
         orElse: () {},
       );
     } catch (e) {
-      developer.log('Error updating review', error: e);
+      Logger.error('Error updating review', e);
       emit(ReviewState.error(e.toString()));
     }
   }
@@ -202,7 +199,7 @@ class ReviewsCubit extends Cubit<ReviewState> {
         orElse: () {},
       );
     } catch (e) {
-      developer.log('Error deleting review', error: e);
+      Logger.error('Error deleting review', e);
       emit(ReviewState.error(e.toString()));
     }
   }

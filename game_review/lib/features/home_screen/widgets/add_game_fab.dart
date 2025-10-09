@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:game_review/features/home_screen/widgets/game_selector_bottom_sheet.dart';
 
 class AddGameFab extends StatelessWidget {
-  AddGameFab({super.key});
+  final VoidCallback? onReviewAdded;
+
+  const AddGameFab({
+    super.key,
+    this.onReviewAdded,
+  });
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
-        showModalBottomSheet(
+      onPressed: () async {
+        final result = await showModalBottomSheet<bool>(
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           builder: (context) => const GameSelectorBottomSheet(),
         );
+
+        // If a review was added successfully, trigger the callback
+        if (result == true && onReviewAdded != null) {
+          onReviewAdded!();
+        }
       },
       child: const Icon(Icons.edit),
     );

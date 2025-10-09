@@ -7,8 +7,8 @@ import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/home_screen/widgets/game_card.dart';
 import 'package:game_review/common/widgets/error_view.dart';
-import 'package:game_review/features/profile/profile_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/features/review/add_review_page.dart';
 
 class GameSelectorBottomSheet extends StatefulWidget {
   const GameSelectorBottomSheet({super.key});
@@ -50,16 +50,22 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
     }
   }
 
-  void _onGameSelected(GameModel game) {
+  void _onGameSelected(GameModel game) async {
+    // Close the bottom sheet first
     Navigator.pop(context);
 
-    // 2. Navigiraj na CreateReviewPage sa odabranom igrom
-    Navigator.push(
+    // Navigate to Add Review Page with selected game and wait for result
+    final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfilePage(), //CreateReviewPage(game: game),
+        builder: (context) => AddReviewPage(game: game),
       ),
     );
+
+    // If review was added successfully, pop again with success indicator
+    if (result == true && context.mounted) {
+      Navigator.pop(context, true);
+    }
   }
 
   @override
@@ -101,7 +107,7 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
               ],
             ),
           ),
-          // Games Grid using existing GameCard widget
+          // Games Grid
           Expanded(
             child: BlocBuilder<GamesCubit, GamesState>(
               bloc: _gamesCubit,
@@ -143,7 +149,6 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
                           ),
                         );
                       }
-                      // Reusing your existing GameCard widget
                       return GameCard(
                         game: games[index],
                         onTap: () => _onGameSelected(games[index]),

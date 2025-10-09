@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/models/review_model.dart';
+import 'package:game_review/common/utils/logger.dart';
 
 class ReviewsService {
   final ApiClient _apiClient;
@@ -13,7 +14,7 @@ class ReviewsService {
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/review',
+      '/rest/v1/game_reviews',
       queryParameters: {
         'select': '*',
         'game_id': 'eq.$game_id',
@@ -33,7 +34,7 @@ class ReviewsService {
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/reviews',
+      '/rest/v1/game_reviews',
       queryParameters: {
         'select': '*',
         'user_id': 'eq.$user_id',
@@ -69,7 +70,6 @@ class ReviewsService {
       'game_id': game_id,
     };
 
-    // Only include optional fields if they're not null
     if (title != null) data['title'] = title;
     if (content != null) data['content'] = content;
     if (overall_rating != null) data['overall_rating'] = overall_rating;
@@ -84,15 +84,46 @@ class ReviewsService {
     if (completion_status != null)
       data['completion_status'] = completion_status;
     if (recommended != null) data['recommended'] = recommended;
-    // Note: created_at and updated_at are NOT included here
-    // Supabase will set them automatically
+
+    Logger.info('🟣 ADD REVIEW DEBUG');
+    Logger.info('user_id: $user_id');
+    Logger.info('game_id: $game_id');
+    Logger.info('DATA: $data');
 
     final response = await _apiClient.post(
-      '/rest/v1/reviews',
+      '/rest/v1/game_reviews',
       data: data,
+      queryParameters: {
+        'select': '*',
+      },
+      options: Options(
+        headers: {
+          'Prefer': 'return=representation',
+          'Accept': 'application/json',
+        },
+      ),
     );
 
-    return ReviewModel.fromJson(response.data);
+    Logger.info('🔵 RESPONSE STATUS: ${response.statusCode}');
+    Logger.info('🔵 RESPONSE DATA: ${response.data}');
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      final data = response.data;
+
+      // Case 1: Supabase returned a list of rows
+      if (data is List &&
+          data.isNotEmpty &&
+          data.first is Map<String, dynamic>) {
+        return ReviewModel.fromJson(data.first as Map<String, dynamic>);
+      }
+
+      // Case 2: Supabase returned a single JSON object
+      if (data is Map<String, dynamic>) {
+        return ReviewModel.fromJson(data);
+      }
+    }
+
+    throw Exception('Failed to add review: Unexpected response type');
   }
 
   Future<ReviewModel> updateReview({
@@ -128,20 +159,28 @@ class ReviewsService {
       data['completion_status'] = completion_status;
     if (recommended != null) data['recommended'] = recommended;
 
-    final response = await _apiClient.put(
-      '/rest/v1/reviews?id=eq.$id',
+    final response = await _apiClient.patch(
+      '/rest/v1/game_reviews',
       data: data,
+      queryParameters: {
+        'id': 'eq.$id',
+        'select': '*',
+      },
     );
 
-    if (response.data is List && (response.data as List).isNotEmpty) {
-      return ReviewModel.fromJson((response.data as List).first);
+    final List<dynamic> responseData = response.data as List<dynamic>;
+    if (responseData.isNotEmpty) {
+      return ReviewModel.fromJson(responseData.first);
     }
     throw Exception('Failed to update review');
   }
 
   Future<void> deleteReview(String reviewId) async {
     await _apiClient.delete(
-      '/rest/v1/reviews?id=eq.$reviewId',
+      '/rest/v1/game_reviews',
+      queryParameters: {
+        'id': 'eq.$reviewId',
+      },
     );
   }
 }
