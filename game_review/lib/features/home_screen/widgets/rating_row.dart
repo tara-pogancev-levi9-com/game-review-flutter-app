@@ -25,8 +25,6 @@ class RatingRow extends StatelessWidget {
         children: [
           Expanded(child: Text(label, style: Theme.of(context).textTheme.bodyMedium)),
           _ratingStars(value),
-          const SizedBox(width: 10),
-          Text((value ?? 0).toString(), style: Theme.of(context).textTheme.bodySmall),
         ],
       ),
     );

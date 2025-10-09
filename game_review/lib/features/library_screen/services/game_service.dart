@@ -4,6 +4,8 @@ import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/auth/services/auth_service.dart';
 import 'package:game_review/features/library_screen/models/game.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class GameService {
   final ApiClient _apiClient;
@@ -21,7 +23,7 @@ class GameService {
           'limit': limit,
         },
       );
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((gameJson) => Game.fromJson(gameJson))
             .toList();
@@ -43,7 +45,7 @@ class GameService {
           'limit': limit,
         },
       );
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((gameJson) => Game.fromJson(gameJson))
             .toList();
@@ -71,7 +73,7 @@ Future<bool> addToWishlist(String gameId) async {
         },
       );
 
-      if (response.statusCode == 201 || response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.created || response.statusCode == HttpStatus.ok) {
         Logger.info(t.gameService.gameAddedToWishlistSuccess);
         return true;
       } else {
@@ -100,7 +102,7 @@ Future<bool> addToWishlist(String gameId) async {
         },
       );
 
-      if (response.statusCode == 201 || response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.created || response.statusCode == HttpStatus.ok) {
         Logger.info(t.library.gameAddedToLibrary);
         return true;
       } else {
@@ -129,7 +131,7 @@ Future<bool> addToWishlist(String gameId) async {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((entry) => Game.fromJson(entry['games']))
             .toList();
@@ -157,7 +159,7 @@ Future<bool> addToWishlist(String gameId) async {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((entry) => Game.fromJson(entry['games']))
             .toList();
@@ -182,7 +184,7 @@ Future<bool> addToWishlist(String gameId) async {
 
       final response = await _apiClient.delete(path);
 
-      if (response.statusCode == 200 || response.statusCode == 204) {
+      if (response.statusCode == HttpStatus.ok || response.statusCode == HttpStatus.noContent) {
         Logger.info(t.gameService.removedFromWishlist);
         return true;
       } else {
@@ -208,7 +210,7 @@ Future<bool> addToWishlist(String gameId) async {
 
       final response = await _apiClient.delete(path);
 
-      if (response.statusCode == 200 || response.statusCode == 204) {
+      if (response.statusCode == HttpStatus.ok || response.statusCode == HttpStatus.noContent) {
         Logger.info(t.gameDetails.removedFromLibrary);
         return true;
       } else {

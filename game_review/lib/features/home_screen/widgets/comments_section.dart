@@ -4,6 +4,7 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_state.dart';
 import 'package:game_review/features/home_screen/models/review_comment.dart';
+import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class CommentsSection extends StatefulWidget {
@@ -22,12 +23,6 @@ class _CommentsSectionState extends State<CommentsSection> {
     super.initState();
     _cubit = locator<ReviewCommentsCubit>();
     _cubit.loadComments(widget.reviewId);
-  }
-
-  String _formatDate(DateTime? dt) {
-    if (dt == null) return '';
-    final d = dt.toLocal();
-    return '${d.year.toString().padLeft(4, '0')}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -76,7 +71,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                               leading: const CircleAvatar(child: Icon(Icons.person)),
                               title: Text(c.userId ?? 'User', style: Theme.of(context).textTheme.bodySmall),
                               subtitle: Text(c.content ?? '', style: Theme.of(context).textTheme.bodyMedium),
-                              trailing: Text(_formatDate(c.createdAt), style: Theme.of(context).textTheme.bodySmall),
+                              trailing: Text(formatIsoDate(c.createdAt), style: Theme.of(context).textTheme.bodySmall),
                             ),
                             const SizedBox(height: 8),
                           ],

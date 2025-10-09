@@ -22,22 +22,52 @@ class ReviewDetailsPage extends StatelessWidget {
     final content = review.content;
     final createdAt = formatIsoDate(review.createdAt);
 
-    final likesCount = 0; // placeholder
+    final likesCount = 0;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Text(t.gameDetails.details),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.thumb_up_outlined),
+      extendBodyBehindAppBar: false,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(64),
+        child: SafeArea(
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            centerTitle: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.of(context).maybePop(),
+            ),
+            title: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 2),
+                Icon(Icons.pets, size: 26),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.only(bottom: 24),
         children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Row(
+              children: [
+                Text(
+                  t.gameDetails.details,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    // TODO: like action
+                  },
+                  icon: const Icon(Icons.thumb_up_outlined),
+                ),
+              ],
+            ),
+          ),
           // cover
           Container(
             margin: const EdgeInsets.fromLTRB(16, 16, 16, 12),
@@ -49,12 +79,27 @@ class ReviewDetailsPage extends StatelessWidget {
             ),
             child: cover == null ? const Center(child: Icon(Icons.image, size: 48)) : null,
           ),
-
-          // title / reviewer row
+          // game title, reviewer, date
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(gameTitle, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    gameTitle,
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  formatTimeAgo(review.createdAt),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
+
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
             child: Row(
@@ -62,8 +107,6 @@ class ReviewDetailsPage extends StatelessWidget {
                 const Icon(Icons.person, size: 16),
                 const SizedBox(width: 8),
                 Text(reviewer, style: Theme.of(context).textTheme.bodySmall),
-                const Spacer(),
-                Text(createdAt, style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
           ),

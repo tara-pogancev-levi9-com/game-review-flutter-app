@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:game_review/core/api/endpoints.dart';
@@ -24,7 +25,7 @@ class AuthService {
           'password': password,
         },
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         ('Signup successful! User created.');
         if (response.data['access_token'] != null) {
           await SecureStorage.saveToken(response.data['access_token']);
@@ -58,7 +59,7 @@ class AuthService {
         },
       );
 
-      if (response.statusCode == 200 && response.data['access_token'] != null) {
+      if (response.statusCode == HttpStatus.ok && response.data['access_token'] != null) {
         await SecureStorage.saveToken(response.data['access_token']);
         Logger.info('Login successful, token saved.');
         return true;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/features/home_screen/models/review_comment.dart';
@@ -19,7 +21,7 @@ class CommentService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List).map((e) {
           return ReviewComment.fromJson(Map<String, dynamic>.from(e as Map));
         }).toList();

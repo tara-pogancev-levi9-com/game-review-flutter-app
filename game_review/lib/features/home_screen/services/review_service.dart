@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/features/home_screen/models/review.dart';
@@ -21,7 +23,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List).map((r) {
           final map = Map<String, dynamic>.from(r as Map);
           return Review.fromJsonWithNestedGame(map);
