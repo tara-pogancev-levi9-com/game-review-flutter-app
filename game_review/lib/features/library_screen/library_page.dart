@@ -26,9 +26,7 @@ class _LibraryPageState extends State<LibraryPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.navigation.library),
-      ),
+
       body: BlocBuilder<LibraryCubit, LibraryState>(
         bloc: locator<LibraryCubit>(),
         builder: (context, state) {

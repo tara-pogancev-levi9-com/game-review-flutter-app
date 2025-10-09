@@ -126,6 +126,7 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
 	@override String get failedToFetchRecentReviews => 'Učitavanje nedavnih recenzija nije uspelo.';
 	@override String get failedToLoadHome => 'Učitavanje početnih podataka nije uspelo.';
+	@override String get failedToLoadComments => 'Učitavanje komentara nije uspelo.';
 }
 
 // Path: library

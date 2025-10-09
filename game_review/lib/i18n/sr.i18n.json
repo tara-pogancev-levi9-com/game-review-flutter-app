@@ -59,7 +59,8 @@
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava neuspešna. Pokušajte ponovo.",
     "failedToFetchRecentReviews": "Učitavanje nedavnih recenzija nije uspelo.",
-    "failedToLoadHome": "Učitavanje početnih podataka nije uspelo."
+    "failedToLoadHome": "Učitavanje početnih podataka nije uspelo.",
+    "failedToLoadComments": "Učitavanje komentara nije uspelo."
 
   },
   "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}",

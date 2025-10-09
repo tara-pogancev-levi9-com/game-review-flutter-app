@@ -20,7 +20,6 @@ class ReviewDetailsPage extends StatelessWidget {
     final reviewer = review.userId ?? 'User';
     final reviewTitle = review.title;
     final content = review.content;
-    final createdAt = formatIsoDate(review.createdAt);
 
     final likesCount = 0;
 

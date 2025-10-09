@@ -291,6 +291,9 @@ class TranslationsErrorsEn {
 
 	/// en: 'Failed to load home data'
 	String get failedToLoadHome => 'Failed to load home data';
+
+	/// en: 'Failed to load comments'
+	String get failedToLoadComments => 'Failed to load comments';
 }
 
 // Path: library

@@ -66,7 +66,8 @@
     "gameNotFound": "Game not found",
     "reviewsNotFound": "Reviews not found",
     "failedToFetchRecentReviews": "Failed to fetch recent reviews",
-    "failedToLoadHome": "Failed to load home data"
+    "failedToLoadHome": "Failed to load home data",
+    "failedToLoadComments": "Failed to load comments"
 
   },
   "appFailedToStart": "App failed to start:\\n\\n@{error}",

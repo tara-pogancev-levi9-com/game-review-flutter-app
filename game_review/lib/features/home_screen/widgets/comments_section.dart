@@ -41,7 +41,7 @@ class _CommentsSectionState extends State<CommentsSection> {
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (msg) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text('Error loading comments: $msg', style: Theme.of(context).textTheme.bodySmall),
+                child: Text('${t.errors.failedToLoadComments}: $msg', style: Theme.of(context).textTheme.bodySmall),
               ),
               success: (comments) {
                 if (comments.isEmpty) {
@@ -52,12 +52,22 @@ class _CommentsSectionState extends State<CommentsSection> {
                         child: Text(t.reviewsNotFound),
                       ),
                       const SizedBox(height: 12),
-                      OutlinedButton(
-                        onPressed: () {
-                          // TODO: open comment composer
-                        },
-                        child: Text(t.addComment),
+
+                      Center(
+                        child: OutlinedButton(
+                          onPressed: () {
+                            // TODO: open comment composer
+                          },
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 28),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                          ),
+                          child: Text(t.addComment, style: Theme.of(context).textTheme.titleLarge),
+                        ),
                       ),
+
                     ],
                   );
                 }
@@ -77,15 +87,22 @@ class _CommentsSectionState extends State<CommentsSection> {
                           ],
                         )),
                     const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
+
+                    Center(
                       child: OutlinedButton(
                         onPressed: () {
                           // TODO: open comment composer
                         },
-                        child: Text(t.addComment),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 28),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                        ),
+                        child: Text(t.addComment, style: Theme.of(context).textTheme.titleLarge),
                       ),
                     ),
+
                   ],
                 );
               },

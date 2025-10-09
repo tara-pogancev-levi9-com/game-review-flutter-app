@@ -39,7 +39,7 @@ class AuthService {
         return true;
       }
     } on DioException catch (e) {
-      if (e.response?.statusCode != null && e.response?.statusCode == 422) {
+      if (e.response?.statusCode != null && e.response?.statusCode == HttpStatus.unprocessableEntity) {
         throw EmailAlreadyExistsException(t.registrationEmailExistsError);
       }
     } catch (e) {

@@ -8,6 +8,8 @@ import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
+//TODO: The look of reviews is far from figma setup. But now that it works, we can improve it later.
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
