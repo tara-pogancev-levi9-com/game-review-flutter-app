@@ -14,7 +14,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
-      final token = await SecureStorage.getToken();
+      final token = SecureStorage.getToken();
       if (token != null) {
         emit(Authenticated());
       } else {

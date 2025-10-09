@@ -98,6 +98,7 @@
     "addedToLibrary": "Added to library!",
     "removedFromLibrary": "Removed from library!",
     "alreadyInLibrary": "Already in library!",
+    "alreadyInWishlist": "Already in wishlist!",
     "loginRequiredWishlist": "Please log in to add games to your wishlist",
     "loginRequiredLibrary": "Please log in to add games to your library",
     "loginRequiredToView": "Please log in to view game details"

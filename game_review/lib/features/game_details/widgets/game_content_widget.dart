@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/extensions/datetime_extensions.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
@@ -267,7 +268,7 @@ class GameContentWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  _formatDate(game.releaseDate!),
+                  game.releaseDate!.formattedDate,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.lilacSelected,
                   ),
@@ -313,10 +314,6 @@ class GameContentWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
   }
 
   void _handleMenuAction(BuildContext context, String action) {

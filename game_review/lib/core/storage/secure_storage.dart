@@ -9,7 +9,7 @@ class SecureStorage {
     await _prefs.setString(_jwtKey, token);
   }
 
-  static Future<String?> getToken() async {
+  static String? getToken() {
     return _prefs.getString(_jwtKey);
   }
 

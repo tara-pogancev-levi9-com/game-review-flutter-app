@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:game_review/core/api/endpoints.dart';
-import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-
-import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_constants.dart';
+import 'package:game_review/core/api/endpoints.dart';
+import 'package:game_review/core/storage/secure_storage.dart';
+import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 // TODO: Clean up endpoints
 
@@ -31,10 +31,10 @@ class AuthService {
         ('Signup successful! User created.');
         if (response.data['access_token'] != null) {
           await SecureStorage.saveToken(response.data['access_token']);
-          final userData = await apiClient.get('auth/v1/user');
+          final userData = await apiClient.get(ApiConstants.authUser);
           final val = jsonDecode(userData.toString());
           await apiClient.post(
-            'rest/v1/users',
+            ApiConstants.users,
             data: {'id': val['id'], 'username': username, 'email': email},
           );
         }
@@ -72,7 +72,7 @@ class AuthService {
         await SecureStorage.saveToken(response.data['access_token']);
         Logger.info('Login successful, token saved.');
 
-        await ensureUserExists();
+        await createUserDataIfNotPresent();
 
         return true;
       }
@@ -98,16 +98,16 @@ class AuthService {
     Logger.info('Local token deleted');
   }
 
-  Future<String?> getToken() => SecureStorage.getToken();
+  String? getToken() => SecureStorage.getToken();
 
   Future<bool> isAuthenticated() async {
-    final token = await getToken();
+    final token = getToken();
     if (token == null) return false;
     return !JwtDecoder.isExpired(token);
   }
 
   Future<String?> getUserId() async {
-    final token = await getToken();
+    final token = getToken();
     if (token == null) return null;
     try {
       final decoded = JwtDecoder.decode(token);
@@ -122,7 +122,7 @@ class AuthService {
 
   Future<String?> getCurrentUserId() async {
     try {
-      final response = await apiClient.get('auth/v1/user');
+      final response = await apiClient.get(ApiConstants.authUser);
       if (response.statusCode == 200) {
         return response.data['id'] as String?;
       }
@@ -132,13 +132,13 @@ class AuthService {
     return null;
   }
 
-  Future<void> ensureUserExists() async {
+  Future<void> createUserDataIfNotPresent() async {
     try {
       final userId = await getCurrentUserId();
       if (userId == null) return;
 
       final response = await apiClient.get(
-        'rest/v1/users',
+        ApiConstants.users,
         queryParameters: {
           'id': 'eq.$userId',
           'select': 'id',
@@ -149,17 +149,20 @@ class AuthService {
         final List<dynamic> users = response.data as List<dynamic>;
         if (users.isEmpty) {
           await apiClient.post(
-            'rest/v1/users',
+            ApiConstants.users,
             data: {
               'id': userId,
-              'email': (await apiClient.get('auth/v1/user')).data['email'],
+              'email': (await apiClient.get(
+                ApiConstants.authUser,
+              )).data['email'],
               'created_at': DateTime.now().toIso8601String(),
             },
           );
         }
       }
     } catch (e) {
-      Logger.error('Failed to ensure user exists', e);
+      Logger.error('Failed to create user data', e);
+      rethrow;
     }
   }
 }

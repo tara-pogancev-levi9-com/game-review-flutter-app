@@ -1,53 +1,26 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/core/services/game_service.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:get_it/get_it.dart';
 
-abstract class GameDetailsState extends Equatable {
-  const GameDetailsState();
+import 'game_details_state.dart';
 
-  @override
-  List<Object?> get props => [];
-}
-
-class GameDetailsInitial extends GameDetailsState {}
-
-class GameDetailsLoading extends GameDetailsState {}
-
-class GameDetailsLoaded extends GameDetailsState {
-  final Game game;
-  final Map<String, int> statistics;
-  final bool isInWishlist;
-  final bool isInLibrary;
-
-  const GameDetailsLoaded({
-    required this.game,
-    required this.statistics,
-    required this.isInWishlist,
-    required this.isInLibrary,
-  });
-
-  @override
-  List<Object?> get props => [game, statistics, isInWishlist, isInLibrary];
-}
-
-class GameDetailsError extends GameDetailsState {
-  final String message;
-
-  const GameDetailsError(this.message);
-
-  @override
-  List<Object?> get props => [message];
+class _ErrorMessages {
+  static const String failedToAddToWishlist = 'Failed to add to wishlist';
+  static const String failedToRemoveFromWishlist =
+      'Failed to remove from wishlist';
+  static const String gameAlreadyInLibrary = 'Game already in library';
+  static const String failedToAddToLibrary = 'Failed to add to library';
+  static const String failedToRemoveFromLibrary =
+      'Failed to remove from library';
 }
 
 class GameDetailsCubit extends Cubit<GameDetailsState> {
   final GameService _gameService;
 
   GameDetailsCubit({GameService? gameService})
-    : _gameService = gameService ?? GetIt.instance<GameService>(),
+    : _gameService = gameService ?? locator<GameService>(),
       super(GameDetailsInitial());
 
   String? _successMessage;
@@ -55,6 +28,26 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
 
   void clearSuccessMessage() {
     _successMessage = null;
+  }
+
+  String _mapErrorToLocalizedMessage(Object error) {
+    final errorString = error.toString();
+
+    if (errorString.contains(_ErrorMessages.failedToAddToWishlist)) {
+      return t.library.failedToAddToWishlist;
+    } else if (errorString.contains(
+      _ErrorMessages.failedToRemoveFromWishlist,
+    )) {
+      return t.library.failedToRemoveFromWishlist;
+    } else if (errorString.contains(_ErrorMessages.gameAlreadyInLibrary)) {
+      return t.gameDetails.alreadyInLibrary;
+    } else if (errorString.contains(_ErrorMessages.failedToAddToLibrary)) {
+      return t.library.failedToAddToLibrary;
+    } else if (errorString.contains(_ErrorMessages.failedToRemoveFromLibrary)) {
+      return t.library.failedToRemoveFromLibrary;
+    }
+
+    return errorString;
   }
 
   Future<void> loadGameDetails(String gameId) async {
@@ -89,7 +82,7 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
     final currentState = state;
     if (currentState is! GameDetailsLoaded) return;
 
-    final token = await SecureStorage.getToken();
+    final token = SecureStorage.getToken();
     if (token == null) {
       emit(GameDetailsError(t.gameDetails.loginRequiredWishlist));
       return;
@@ -122,13 +115,7 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         );
       }
     } catch (e) {
-      if (e.toString().contains('Failed to add to wishlist')) {
-        emit(GameDetailsError(t.library.failedToAddToWishlist));
-      } else if (e.toString().contains('Failed to remove from wishlist')) {
-        emit(GameDetailsError(t.library.failedToRemoveFromWishlist));
-      } else {
-        emit(GameDetailsError(e.toString()));
-      }
+      emit(GameDetailsError(_mapErrorToLocalizedMessage(e)));
     }
   }
 
@@ -136,7 +123,7 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
     final currentState = state;
     if (currentState is! GameDetailsLoaded) return;
 
-    final token = await SecureStorage.getToken();
+    final token = SecureStorage.getToken();
     if (token == null) {
       emit(GameDetailsError(t.gameDetails.loginRequiredLibrary));
       return;
@@ -173,15 +160,7 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         );
       }
     } catch (e) {
-      if (e.toString().contains('Game already in library')) {
-        emit(GameDetailsError(t.gameDetails.alreadyInLibrary));
-      } else if (e.toString().contains('Failed to add to library')) {
-        emit(GameDetailsError(t.library.failedToAddToLibrary));
-      } else if (e.toString().contains('Failed to remove from library')) {
-        emit(GameDetailsError(t.library.failedToRemoveFromLibrary));
-      } else {
-        emit(GameDetailsError(e.toString()));
-      }
+      emit(GameDetailsError(_mapErrorToLocalizedMessage(e)));
     }
   }
 }

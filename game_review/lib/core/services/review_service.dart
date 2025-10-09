@@ -1,4 +1,5 @@
 import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_constants.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -14,7 +15,7 @@ class ReviewService {
   }) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/game_reviews',
+        ApiConstants.gameReviews,
         queryParameters: {
           'game_id': 'eq.$gameId',
           'select': '*,users!inner(id,username,display_name,avatar_url)',
@@ -38,7 +39,7 @@ class ReviewService {
   Future<List<ReviewComment>> getReviewComments(String reviewId) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/review_comments',
+        ApiConstants.reviewComments,
         queryParameters: {
           'review_id': 'eq.$reviewId',
           'select': '*,users!inner(id,username,display_name,avatar_url)',
@@ -75,7 +76,7 @@ class ReviewService {
   }) async {
     try {
       final response = await _apiClient.post(
-        'rest/v1/game_reviews',
+        ApiConstants.gameReviews,
         data: {
           'game_id': gameId,
           'title': title,
@@ -110,7 +111,7 @@ class ReviewService {
   }) async {
     try {
       final response = await _apiClient.post(
-        'rest/v1/review_comments',
+        ApiConstants.reviewComments,
         data: {
           'review_id': reviewId,
           'content': content,
@@ -130,7 +131,7 @@ class ReviewService {
   Future<void> likeReview(String reviewId) async {
     try {
       final response = await _apiClient.post(
-        'rest/v1/review_likes',
+        ApiConstants.reviewLikes,
         data: {
           'review_id': reviewId,
         },
@@ -147,7 +148,7 @@ class ReviewService {
   Future<void> unlikeReview(String reviewId) async {
     try {
       final response = await _apiClient.delete(
-        'rest/v1/review_likes',
+        ApiConstants.reviewLikes,
         data: {
           'review_id': 'eq.$reviewId',
         },
@@ -164,7 +165,7 @@ class ReviewService {
   Future<bool> hasLikedReview(String reviewId) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/review_likes',
+        ApiConstants.reviewLikes,
         queryParameters: {
           'review_id': 'eq.$reviewId',
           'select': 'id',
@@ -180,7 +181,7 @@ class ReviewService {
   Future<int> getReviewLikesCount(String reviewId) async {
     try {
       final response = await _apiClient.get(
-        'rest/v1/review_likes',
+        ApiConstants.reviewLikes,
         queryParameters: {
           'review_id': 'eq.$reviewId',
           'select': 'id',

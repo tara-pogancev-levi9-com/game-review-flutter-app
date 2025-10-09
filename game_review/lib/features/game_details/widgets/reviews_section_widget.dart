@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/extensions/datetime_extensions.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
@@ -70,18 +71,6 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              // TextButton(
-              //   onPressed: () {
-              //     // TODO: Navigate to all reviews page
-              //   },
-              //   child: Text(
-              //     t.reviews.showMore,
-              //     style: const TextStyle(
-              //       color: AppColors.lilacSelected,
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              // ),
             ],
           ),
 
@@ -217,7 +206,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
               ),
 
               Text(
-                _formatDate(review.createdAt),
+                review.createdAt?.relativeTime ?? '',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -285,22 +274,5 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
         ],
       ),
     );
-  }
-
-  String _formatDate(DateTime? date) {
-    if (date == null) return '';
-
-    final now = DateTime.now();
-    final difference = now.difference(date);
-
-    if (difference.inDays > 0) {
-      return '${difference.inDays}d ago';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours}h ago';
-    } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes}m ago';
-    } else {
-      return t.reviews.justNow;
-    }
   }
 }
