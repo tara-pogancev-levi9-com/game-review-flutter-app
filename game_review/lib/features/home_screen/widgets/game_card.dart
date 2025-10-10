@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
+import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 
@@ -28,6 +29,7 @@ class GameCard extends StatelessWidget {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -38,6 +40,7 @@ class GameCard extends StatelessWidget {
           InkWell(
             borderRadius: BorderSize.m.radius,
             onTap: () => _handleTap(context),
+
             child: ClipRRect(
               borderRadius: BorderSize.m.radius,
               child: Container(

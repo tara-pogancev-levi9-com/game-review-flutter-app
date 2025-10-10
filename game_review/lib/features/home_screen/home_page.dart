@@ -9,18 +9,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.t;
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          children: [
-            GamesListWidget(
-              title: t.discover,
-              limit: 10,
-            ),
-            const SizedBox(height: 24),
-          ],
-        ),
+    
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        children: [
+          GamesListWidget(
+            title: t.discover,
+            limit: 10,
+          ),
+          const SizedBox(height: 24),
+        ],
       ),
       floatingActionButton: AddGameFab(),
     );
