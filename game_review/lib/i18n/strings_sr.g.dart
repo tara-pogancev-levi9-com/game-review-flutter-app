@@ -82,6 +82,9 @@ class TranslationsSr extends Translations {
 	@override String get registrationSuccessful => 'Registracija uspešna.';
 	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override String get NoGamesFound => 'Nema pronađenih igara';
+	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
+	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
 }
