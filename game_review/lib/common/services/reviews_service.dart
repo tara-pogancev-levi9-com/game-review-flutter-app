@@ -183,4 +183,22 @@ class ReviewsService {
       },
     );
   }
+
+  Future<bool> hasUserReviewedGame({
+    required String userId,
+    required String gameId,
+  }) async {
+    final response = await _apiClient.get(
+      '/rest/v1/game_reviews',
+      queryParameters: {
+        'select': 'id',
+        'user_id': 'eq.$userId',
+        'game_id': 'eq.$gameId',
+        'limit': 1,
+      },
+    );
+
+    final List<dynamic> data = response.data as List<dynamic>;
+    return data.isNotEmpty;
+  }
 }

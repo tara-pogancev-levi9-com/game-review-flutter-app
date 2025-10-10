@@ -4,14 +4,21 @@ import 'package:game_review/common/blocs/review_cubit.dart';
 import 'package:game_review/common/blocs/review_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
-import 'package:game_review/features/auth/bloc/auth_cubit.dart';
-import 'package:game_review/features/auth/bloc/auth_state.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/features/review/widgets/overall_section_widget.dart';
+import 'package:game_review/features/review/widgets/review_dropdown.dart';
+import 'package:game_review/common/widgets/error_snackbar.dart';
+import 'package:game_review/features/review/widgets/custom_text_form_field.dart';
+import 'package:game_review/features/review/widgets/rating_row_widget.dart';
+import 'package:game_review/features/review/widgets/rating_section_widget.dart';
+import 'package:game_review/features/review/widgets/section_title_widget.dart';
+import 'package:game_review/features/review/widgets/game_header_widget.dart';
 
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
@@ -27,55 +34,132 @@ class AddReviewPage extends StatefulWidget {
 
 class _AddReviewPageState extends State<AddReviewPage> {
   late final ReviewsCubit _reviewsCubit;
-  late final AuthCubit _authCubit;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Controllers for required fields
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _propsController = TextEditingController();
+  final TextEditingController _consController = TextEditingController();
+  final TextEditingController _playtimeController = TextEditingController();
+
+  // Form field keys for validation
+  final GlobalKey<FormFieldState> _titleKey = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _descriptionKey = GlobalKey<FormFieldState>();
 
   // Required state
   bool _recommended = true;
   double _overallRating = 3.0;
+  double _gameplayRating = 3.0;
+  double _graphicsRating = 3.0;
+  double _storyRating = 3.0;
+  double _soundRating = 3.0;
+  double _valueRating = 3.0;
+
+  // Optional state
+  double _completionPercentage = 50.0;
+  String _completionStatus = 'In progress';
+
+  bool firstInput = true;
 
   @override
   void initState() {
     super.initState();
     _reviewsCubit = locator<ReviewsCubit>();
-    _authCubit = locator<AuthCubit>();
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
+    _propsController.dispose();
+    _consController.dispose();
+    _playtimeController.dispose();
     super.dispose();
   }
 
   Future<void> _onSave() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      setState(() => firstInput = false);
+      // Scroll to first error field
+      Future.delayed(const Duration(milliseconds: 300), () {
+        Scrollable.ensureVisible(
+          _titleKey.currentContext ?? _descriptionKey.currentContext!,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      });
+      return;
+    }
 
     try {
       final userService = locator<UserService>();
       final userId = await userService.getCurrentUserUid();
+      final reviewsService = locator<ReviewsService>();
+
+      final hasReview = await reviewsService.hasUserReviewedGame(
+        userId: userId,
+        gameId: widget.game.id,
+      );
+
+      if (hasReview) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('You have already reviewed this game'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+        return;
+      }
+
+      final pros = _propsController.text.isNotEmpty
+          ? _propsController.text.split(',').map((e) => e.trim()).toList()
+          : null;
+
+      final cons = _consController.text.isNotEmpty
+          ? _consController.text.split(',').map((e) => e.trim()).toList()
+          : null;
+
+      final playtimeHours = _playtimeController.text.isNotEmpty
+          ? int.tryParse(_playtimeController.text)
+          : null;
+
+      String formattedCompletionStatus = _completionStatus;
+      if (_completionStatus == 'Completed') {
+        formattedCompletionStatus = 'Completed (100%)';
+      } else if (_completionStatus == 'Not started') {
+        formattedCompletionStatus = 'Not Started (0%)';
+      } else if (_completionStatus == 'In progress') {
+        formattedCompletionStatus =
+            'In Progress (${_completionPercentage.toInt()}%)';
+      } else if (_completionStatus == 'Abandoned') {
+        formattedCompletionStatus =
+            'Abandoned (${_completionPercentage.toInt()}%)';
+      }
+
+      double clampRating(double value) => (value * 2).clamp(0.0, 9.9);
 
       await _reviewsCubit.addReview(
         user_id: userId,
         game_id: widget.game.id,
         title: _titleController.text.trim(),
         content: _descriptionController.text.trim(),
-        overall_rating: _overallRating,
+        overall_rating: clampRating(_overallRating),
         recommended: _recommended,
+        gameplay_rating: clampRating(_gameplayRating),
+        graphics_rating: clampRating(_graphicsRating),
+        story_rating: clampRating(_storyRating),
+        sound_rating: clampRating(_soundRating),
+        value_rating: clampRating(_valueRating),
+        pros: pros,
+        cons: cons,
+        playtime_hours: playtimeHours,
+        completion_status: formattedCompletionStatus,
       );
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
+      ErrorSnackbar.show(context, 'Failed to save review', error: e);
     }
   }
 
@@ -113,24 +197,14 @@ class _AddReviewPageState extends State<AddReviewPage> {
           listener: (context, state) {
             state.maybeWhen(
               reviewAdded: (review) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Review added successfully!'),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-                // Go back and trigger refresh
-                Navigator.of(
+                ErrorSnackbar.showSuccess(
                   context,
-                ).pop(true); // Return true to indicate success
+                  'Review added successfully!',
+                );
+                Navigator.of(context).pop(true);
               },
               error: (message) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(message),
-                    backgroundColor: Colors.red,
-                  ),
-                );
+                ErrorSnackbar.show(context, message);
               },
               orElse: () {},
             );
@@ -143,6 +217,9 @@ class _AddReviewPageState extends State<AddReviewPage> {
 
             return Form(
               key: _formKey,
+              autovalidateMode: !firstInput
+                  ? AutovalidateMode.onUserInteraction
+                  : AutovalidateMode.disabled,
               child: SingleChildScrollView(
                 padding: EdgeInsets.fromLTRB(
                   24,
@@ -154,7 +231,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Game Header with Cover Image
-                    _buildGameHeader(),
+                    GameHeaderWidget(game: widget.game),
                     const SizedBox(height: 32),
 
                     // Game Title
@@ -169,123 +246,200 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 24),
 
                     // Overall Section with Recommendation Toggle (REQUIRED)
-                    _buildOverallSection(),
+                    OverallSectionWidget(
+                      recommended: _recommended,
+                      onChanged: (value) =>
+                          setState(() => _recommended = value),
+                    ),
                     const SizedBox(height: 24),
 
                     // Title Input (REQUIRED)
-                    TextFormField(
+                    CustomTextFormField(
+                      key: _titleKey,
                       controller: _titleController,
+                      label: 'Review title *',
                       maxLines: 1,
-                      style: const TextStyle(color: AppColors.textPrimary),
-                      decoration: InputDecoration(
-                        hintText: 'Review title *',
-                        hintStyle: const TextStyle(
-                          color: AppColors.textSecondary,
-                        ),
-                        filled: false,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.outline,
-                            width: 1,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.outline,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.lilacSelected,
-                            width: 1.8,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: Colors.redAccent,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: Colors.redAccent,
-                            width: 1.8,
-                          ),
-                        ),
-                      ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Review title is required';
                         }
                         return null;
                       },
+                      firstInput: firstInput,
                     ),
                     const SizedBox(height: 16),
 
                     // Description Input (REQUIRED)
-                    TextFormField(
+                    CustomTextFormField(
+                      key: _descriptionKey,
                       controller: _descriptionController,
+                      label: 'Review description *',
                       maxLines: 5,
-                      style: const TextStyle(color: AppColors.textPrimary),
-                      decoration: InputDecoration(
-                        hintText: 'Review description *',
-                        hintStyle: const TextStyle(
-                          color: AppColors.textSecondary,
-                        ),
-                        filled: false,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.outline,
-                            width: 1,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.outline,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: AppColors.lilacSelected,
-                            width: 1.8,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: Colors.redAccent,
-                            width: 1,
-                          ),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderSize.m.radius,
-                          borderSide: const BorderSide(
-                            color: Colors.redAccent,
-                            width: 1.8,
-                          ),
-                        ),
-                      ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Review description is required';
                         }
                         return null;
                       },
+                      firstInput: firstInput,
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Pros & Cons Section (OPTIONAL)
+                    SectionTitleWidget(title: 'Pros & Cons'),
+                    const SizedBox(height: 16),
+
+                    CustomTextFormField(
+                      controller: _propsController,
+                      label: 'Game pros (comma-separated)',
+                      maxLines: 2,
+                    ),
+                    const SizedBox(height: 16),
+
+                    CustomTextFormField(
+                      controller: _consController,
+                      label: 'Game cons (comma-separated)',
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 32),
 
                     // Overall Rating (REQUIRED)
-                    _buildOverallRating(),
+                    RatingSectionWidget(
+                      title: 'Overall Rating *',
+                      rating: _overallRating,
+                      onChanged: (value) =>
+                          setState(() => _overallRating = value),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Other Ratings (OPTIONAL)
+                    SectionTitleWidget(title: 'Individual Ratings'),
+                    const SizedBox(height: 16),
+
+                    RatingRowWidget(
+                      label: 'Gameplay',
+                      rating: _gameplayRating,
+                      onChanged: (value) =>
+                          setState(() => _gameplayRating = value),
+                    ),
+                    const SizedBox(height: 12),
+
+                    RatingRowWidget(
+                      label: 'Graphics',
+                      rating: _graphicsRating,
+                      onChanged: (value) =>
+                          setState(() => _graphicsRating = value),
+                    ),
+                    const SizedBox(height: 12),
+
+                    RatingRowWidget(
+                      label: 'Story',
+                      rating: _storyRating,
+                      onChanged: (value) =>
+                          setState(() => _storyRating = value),
+                    ),
+                    const SizedBox(height: 12),
+
+                    RatingRowWidget(
+                      label: 'Sound',
+                      rating: _soundRating,
+                      onChanged: (value) =>
+                          setState(() => _soundRating = value),
+                    ),
+                    const SizedBox(height: 12),
+
+                    RatingRowWidget(
+                      label: 'Value',
+                      rating: _valueRating,
+                      onChanged: (value) =>
+                          setState(() => _valueRating = value),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Misc Section (OPTIONAL)
+                    SectionTitleWidget(title: 'Miscellaneous'),
+                    const SizedBox(height: 16),
+
+                    // Completion Percentage Slider
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Game completion (%)',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            Text(
+                              '${_completionPercentage.toInt()}%',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: AppColors.lilacSelected,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Slider(
+                          value: _completionPercentage,
+                          min: 0,
+                          max: 100,
+                          divisions: 100,
+                          onChanged: (value) =>
+                              setState(() => _completionPercentage = value),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Completion Status Dropdown
+                    ReviewDropdown(
+                      label: 'Completion status',
+                      value: _completionStatus,
+                      items: const [
+                        'Not started',
+                        'In progress',
+                        'Completed',
+                        'Abandoned',
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() {
+                            _completionStatus = value;
+
+                            // Auto-fill completion percentage based on status
+                            if (value == 'Completed') {
+                              _completionPercentage = 100.0;
+                            } else if (value == 'Not started') {
+                              _completionPercentage = 0.0;
+                            }
+                          });
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 24),
+
+                    // In-game Hours Input (OPTIONAL)
+                    CustomTextFormField(
+                      controller: _playtimeController,
+                      label: 'In-game hours',
+                      keyboardType: TextInputType.number,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) {
+                          if (int.tryParse(value) == null) {
+                            return 'Please enter a valid number';
+                          }
+                        }
+                        return null;
+                      },
+                      firstInput: firstInput,
+                    ),
                     const SizedBox(height: 32),
 
                     // Save Button
@@ -296,6 +450,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                         text: 'Save',
                       ),
                     ),
+                    const SizedBox(height: 16),
                   ],
                 ),
               ),
@@ -303,104 +458,6 @@ class _AddReviewPageState extends State<AddReviewPage> {
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildGameHeader() {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderSize.m.radius,
-        child: Container(
-          height: 160,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: AppColors.surfaceVariant,
-            borderRadius: BorderSize.m.radius,
-          ),
-          child: widget.game.coverImageUrl != null
-              ? Image.network(
-                  widget.game.coverImageUrl!,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => _placeholder(),
-                )
-              : _placeholder(),
-        ),
-      ),
-    );
-  }
-
-  Widget _placeholder() => const Center(
-    child: Icon(
-      Icons.gamepad_rounded,
-      size: 64,
-      color: AppColors.textSecondary,
-    ),
-  );
-
-  Widget _buildOverallSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Overall',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'I recommend this game *',
-              style: TextStyle(
-                fontSize: 16,
-                color: AppColors.textPrimary,
-              ),
-            ),
-            Switch(
-              value: _recommended,
-              onChanged: (value) => setState(() => _recommended = value),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildOverallRating() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Overall Rating *',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(5, (index) {
-            return GestureDetector(
-              onTap: () =>
-                  setState(() => _overallRating = (index + 1).toDouble()),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  index < _overallRating ? Icons.star : Icons.star_border,
-                  color: index < _overallRating
-                      ? AppColors.primaryPurple
-                      : AppColors.textSecondary,
-                  size: 40,
-                ),
-              ),
-            );
-          }),
-        ),
-      ],
     );
   }
 }
