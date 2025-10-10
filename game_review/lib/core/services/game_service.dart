@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
@@ -191,43 +190,6 @@ class GameService {
     } catch (e) {
       Logger.error(t.gameService.failedToFetchLibraryGames, e);
       throw Exception(t.library.failedToFetchGames);
-    }
-  }
-
-  Future<Map<String, int>> getGameStatistics(String gameId) async {
-    try {
-      final reviewsResponse = await _apiClient.get(
-        ApiConstants.gameReviews,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      final wishlistResponse = await _apiClient.get(
-        ApiConstants.userWishlist,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      final libraryResponse = await _apiClient.get(
-        ApiConstants.userLibrary,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      return {
-        'reviewsCount': (reviewsResponse.data as List).length,
-        'wishlistCount': (wishlistResponse.data as List).length,
-        'libraryCount': (libraryResponse.data as List).length,
-      };
-    } catch (e) {
-      Logger.error('Failed to fetch game statistics', e);
-      throw Exception(t.library.failedToFetchGameStatistics);
     }
   }
 
