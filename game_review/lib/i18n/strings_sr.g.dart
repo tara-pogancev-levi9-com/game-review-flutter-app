@@ -10,7 +10,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSr extends Translations {
+class TranslationsSr implements Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -20,11 +20,15 @@ class TranslationsSr extends Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ),
-		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+		  ) {
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
 
 	/// Metadata for the translations of <sr>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsSr _root = this; // ignore: unused_field
 
@@ -81,21 +85,21 @@ class TranslationsSr extends Translations {
 	@override String get emailInvalid => 'Email adresa nije validna!.';
 	@override String get registrationSuccessful => 'Registracija uspešna.';
 	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
-	@override late final TranslationsGameDetailsSr gameDetails = TranslationsGameDetailsSr._(_root);
-	@override late final TranslationsReviewsSr reviews = TranslationsReviewsSr._(_root);
-	@override late final TranslationsActionsSr actions = TranslationsActionsSr._(_root);
-	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override late final _TranslationsGameDetailsSr gameDetails = _TranslationsGameDetailsSr._(_root);
+	@override late final _TranslationsReviewsSr reviews = _TranslationsReviewsSr._(_root);
+	@override late final _TranslationsActionsSr actions = _TranslationsActionsSr._(_root);
+	@override late final _TranslationsNavigationSr navigation = _TranslationsNavigationSr._(_root);
 	@override String get NoGamesFound => 'Nema pronađenih igara';
 	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
 	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
-	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
-	@override late final TranslationsCommonSr common = TranslationsCommonSr._(_root);
-	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+	@override late final _TranslationsErrorsSr errors = _TranslationsErrorsSr._(_root);
+	@override late final _TranslationsCommonSr common = _TranslationsCommonSr._(_root);
+	@override late final _TranslationsBrandingSr branding = _TranslationsBrandingSr._(_root);
 }
 
 // Path: gameDetails
-class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
-	TranslationsGameDetailsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsGameDetailsSr implements TranslationsGameDetailsEn {
+	_TranslationsGameDetailsSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -142,8 +146,8 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 }
 
 // Path: reviews
-class TranslationsReviewsSr extends TranslationsReviewsEn {
-	TranslationsReviewsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsReviewsSr implements TranslationsReviewsEn {
+	_TranslationsReviewsSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -168,8 +172,8 @@ class TranslationsReviewsSr extends TranslationsReviewsEn {
 }
 
 // Path: actions
-class TranslationsActionsSr extends TranslationsActionsEn {
-	TranslationsActionsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsActionsSr implements TranslationsActionsEn {
+	_TranslationsActionsSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -186,8 +190,8 @@ class TranslationsActionsSr extends TranslationsActionsEn {
 }
 
 // Path: navigation
-class TranslationsNavigationSr extends TranslationsNavigationEn {
-	TranslationsNavigationSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsNavigationSr implements TranslationsNavigationEn {
+	_TranslationsNavigationSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -199,8 +203,8 @@ class TranslationsNavigationSr extends TranslationsNavigationEn {
 }
 
 // Path: errors
-class TranslationsErrorsSr extends TranslationsErrorsEn {
-	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsErrorsSr implements TranslationsErrorsEn {
+	_TranslationsErrorsSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -236,8 +240,8 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 }
 
 // Path: common
-class TranslationsCommonSr extends TranslationsCommonEn {
-	TranslationsCommonSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsCommonSr implements TranslationsCommonEn {
+	_TranslationsCommonSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -246,8 +250,8 @@ class TranslationsCommonSr extends TranslationsCommonEn {
 }
 
 // Path: branding
-class TranslationsBrandingSr extends TranslationsBrandingEn {
-	TranslationsBrandingSr._(TranslationsSr root) : this._root = root, super.internal(root);
+class _TranslationsBrandingSr implements TranslationsBrandingEn {
+	_TranslationsBrandingSr._(this._root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -256,3 +260,167 @@ class TranslationsBrandingSr extends TranslationsBrandingEn {
 	@override String get tagline => 'Istraži. Oceni. Deli.';
 	@override String get logoLabel => 'Logo aplikacije';
 }
+
+/// Flat map(s) containing all translations.
+/// Only for edge cases! For simple maps, use the map function of this library.
+extension on TranslationsSr {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'welcome': return 'Dobrodošao!';
+			case 'greeting': return 'Zdravo, {name}!';
+			case 'changeLanguage': return 'Promeni jezik';
+			case 'appTitle': return 'Aplikacija za Recenzije Igara';
+			case 'home': return 'Početna';
+			case 'settings': return 'Podešavanja';
+			case 'searchGames': return 'Pretraži igre';
+			case 'favoriteGames': return 'Omiljene Igre';
+			case 'recentReviews': return 'Nedavne Recenzije';
+			case 'addReview': return 'Dodaj Recenziju';
+			case 'myProfile': return 'Moj Profil';
+			case 'logout': return 'Odjavi se';
+			case 'login': return 'Prijava';
+			case 'goodbye': return 'Doviđenja!';
+			case 'king': return 'Kralj';
+			case 'register': return 'Registruj se';
+			case 'email': return 'Email';
+			case 'password': return 'Lozinka';
+			case 'confirmPassword': return 'Potvrdi Lozinku';
+			case 'submit': return 'Pošalji';
+			case 'username': return 'Korisničko Ime';
+			case 'profileSettings': return 'Podešavanja Profila';
+			case 'notifications': return 'Obaveštenja';
+			case 'back': return 'Nazad';
+			case 'next': return 'Dalje';
+			case 'discover': return 'Istraži';
+			case 'details': return 'Detalji';
+			case 'ratings': return 'Ocene';
+			case 'evaluation': return 'Evaluacija';
+			case 'overall': return 'Sveukupno';
+			case 'gameplay': return 'Igra';
+			case 'graphics': return 'Grafika';
+			case 'sound': return 'Zvuk';
+			case 'story': return 'Priča';
+			case 'value': return 'Vrednost';
+			case 'pros': return 'Prednosti';
+			case 'cons': return 'Nedostaci';
+			case 'media': return 'Mediji';
+			case 'discussions': return 'Diskusije';
+			case 'save': return 'Sačuvaj';
+			case 'edit': return 'Izmeni';
+			case 'delete': return 'Obriši';
+			case 'update': return 'Ažuriraj';
+			case 'registrationError': return 'Greška, Pokušajte ponovo kasnije.';
+			case 'passwordMismatch': return 'Lozinke se ne podudaraju!.';
+			case 'passwordLength': return 'Lozinka mora imati minimum 8 karaktera!.';
+			case 'emailInvalid': return 'Email adresa nije validna!.';
+			case 'registrationSuccessful': return 'Registracija uspešna.';
+			case 'registrationEmailExistsError': return 'Navedeni email je registrovan!';
+			case 'gameDetails.title': return 'Detalji Igre';
+			case 'gameDetails.developer': return 'Razvijač';
+			case 'gameDetails.publisher': return 'Izdavač';
+			case 'gameDetails.released': return 'Izdato';
+			case 'gameDetails.availableOn': return 'Dostupno na';
+			case 'gameDetails.overallRecommendation': return '{percentage}% igrača preporučuje ovu igru';
+			case 'gameDetails.addToWishlist': return 'Dodaj u Listu Želja';
+			case 'gameDetails.removeFromWishlist': return 'Ukloni iz Liste Želja';
+			case 'gameDetails.addToLibrary': return 'Dodaj u Biblioteku';
+			case 'gameDetails.trackHours': return 'Prati Sate';
+			case 'gameDetails.hoursPlayed': return 'Sati Igranja';
+			case 'gameDetails.completionPercentage': return 'Završeno %';
+			case 'gameDetails.lastPlayed': return 'Poslednji Put Igrano';
+			case 'gameDetails.isFavorite': return 'Omiljeno';
+			case 'gameDetails.reviewsCount': return '{count} recenzija';
+			case 'gameDetails.wishlistCount': return '{count} u listi želja';
+			case 'gameDetails.libraryCount': return '{count} u biblioteci';
+			case 'gameDetails.noReviews': return 'Još uvek nema recenzija';
+			case 'gameDetails.noGenres': return 'Žanrovi nisu specificirani';
+			case 'gameDetails.noPlatforms': return 'Platforme nisu specificirane';
+			case 'gameDetails.noDescription': return 'Opis nije dostupan';
+			case 'gameDetails.noDeveloper': return 'Razvijač nije specificiran';
+			case 'gameDetails.noPublisher': return 'Izdavač nije specificiran';
+			case 'gameDetails.noReleaseDate': return 'Datum izdavanja nije specificiran';
+			case 'gameDetails.statistics': return 'Statistike';
+			case 'gameDetails.recentReviews': return 'Nedavne recenzije';
+			case 'gameDetails.unknownUser': return 'Nepoznat Korisnik';
+			case 'gameDetails.retry': return 'Pokušaj ponovo';
+			case 'gameDetails.reviewComingSoon': return 'Funkcionalnost recenzija uskoro!';
+			case 'gameDetails.shareComingSoon': return 'Funkcionalnost deljenja uskoro!';
+			case 'gameDetails.addedToWishlist': return 'Dodato u listu želja!';
+			case 'gameDetails.removedFromWishlist': return 'Uklonjeno iz liste želja!';
+			case 'gameDetails.addedToLibrary': return 'Dodato u biblioteku!';
+			case 'gameDetails.removedFromLibrary': return 'Uklonjeno iz biblioteke!';
+			case 'gameDetails.alreadyInLibrary': return 'Već je u biblioteci!';
+			case 'gameDetails.alreadyInWishlist': return 'Već je u listi želja!';
+			case 'gameDetails.loginRequiredWishlist': return 'Molimo prijavite se da biste dodali igre u listu želja';
+			case 'gameDetails.loginRequiredLibrary': return 'Molimo prijavite se da biste dodali igre u biblioteku';
+			case 'gameDetails.loginRequiredToView': return 'Molimo prijavite se da biste videli detalje igre';
+			case 'reviews.title': return 'Recenzije';
+			case 'reviews.addComment': return 'Dodaj Komentar';
+			case 'reviews.like': return 'Sviđa mi se';
+			case 'reviews.unlike': return 'Ne sviđa mi se';
+			case 'reviews.reply': return 'Odgovori';
+			case 'reviews.showMore': return 'Prikaži Više';
+			case 'reviews.showLess': return 'Prikaži Manje';
+			case 'reviews.hoursAgo': return 'pre {hours}h';
+			case 'reviews.daysAgo': return 'pre {days}d';
+			case 'reviews.weeksAgo': return 'pre {weeks}n';
+			case 'reviews.monthsAgo': return 'pre {months}mes';
+			case 'reviews.yearsAgo': return 'pre {years}g';
+			case 'reviews.justNow': return 'Upravo sada';
+			case 'reviews.playtimeHours': return 'Vreme igranja: {hours} sati';
+			case 'reviews.completionStatus': return 'Status: {status}';
+			case 'reviews.recommended': return 'Preporučeno';
+			case 'reviews.notRecommended': return 'Nije Preporučeno';
+			case 'actions.addToWishlist': return 'Dodaj u Listu Želja';
+			case 'actions.removeFromWishlist': return 'Ukloni iz Liste Želja';
+			case 'actions.addToLibrary': return 'Dodaj u Biblioteku';
+			case 'actions.removeFromLibrary': return 'Ukloni iz Biblioteke';
+			case 'actions.markAsFavorite': return 'Označi kao Omiljeno';
+			case 'actions.removeFromFavorites': return 'Ukloni iz Omiljenih';
+			case 'actions.trackProgress': return 'Prati Napredak';
+			case 'actions.writeReview': return 'Napiši Recenziju';
+			case 'actions.shareGame': return 'Podeli Igru';
+			case 'navigation.home': return 'Početna';
+			case 'navigation.search': return 'Pretraživanje';
+			case 'navigation.library': return 'Biblioteka';
+			case 'navigation.profile': return 'Profil';
+			case 'NoGamesFound': return 'Nema pronađenih igara';
+			case 'errorLoadingGames': return 'Neuspešno učitavanje igara';
+			case 'errorLoadingMoreGames': return 'Neuspešno učitavanje dodatnih igara';
+			case 'errors.requiredField': return '{field} je obavezno';
+			case 'errors.invalidEmail': return 'Neispravan email';
+			case 'errors.minLength': return 'Minimum {n} karaktera';
+			case 'errors.invalidCredentials': return 'Neispravni podaci za prijavu';
+			case 'errors.loginFailed': return 'Prijava nije uspela, pokušaj ponovo';
+			case 'errors.appFailedToStart': return 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
+			case 'errors.gameNotFound': return 'Igra nije pronađena';
+			case 'errors.reviewsNotFound': return 'Recenzije nisu pronađene';
+			case 'errors.failedToFetchGame': return 'Neuspešno učitavanje igre';
+			case 'errors.failedToFetchGames': return 'Neuspešno učitavanje igara';
+			case 'errors.failedToFetchGameStatistics': return 'Neuspešno učitavanje statistika igre';
+			case 'errors.failedToFetchRecentReviews': return 'Neuspešno učitavanje nedavnih recenzija';
+			case 'errors.failedToAddToWishlist': return 'Neuspešno dodavanje u listu želja';
+			case 'errors.failedToRemoveFromWishlist': return 'Neuspešno uklanjanje iz liste želja';
+			case 'errors.failedToAddToLibrary': return 'Neuspešno dodavanje u biblioteku';
+			case 'errors.failedToRemoveFromLibrary': return 'Neuspešno uklanjanje iz biblioteke';
+			case 'errors.failedToUpdateGameProgress': return 'Neuspešno ažuriranje napretka igre';
+			case 'errors.failedToFetchGameReviews': return 'Neuspešno učitavanje recenzija igre';
+			case 'errors.failedToFetchReviewComments': return 'Neuspešno učitavanje komentara recenzije';
+			case 'errors.failedToCreateReview': return 'Neuspešno kreiranje recenzije';
+			case 'errors.failedToAddComment': return 'Neuspešno dodavanje komentara';
+			case 'errors.failedToLikeReview': return 'Neuspešno lajkovanje recenzije';
+			case 'errors.failedToUnlikeReview': return 'Neuspešno uklanjanje lajka recenzije';
+			case 'errors.userNotAuthenticated': return 'Korisnik nije autentifikovan';
+			case 'errors.registrationEmailExistsError': return 'Nalog sa ovim email-om već postoji';
+			case 'errors.passwordLength': return 'Lozinka mora imati minimum 8 karaktera';
+			case 'errors.confirmPassword': return 'Molimo potvrdite vašu lozinku';
+			case 'errors.passwordMismatch': return 'Lozinke se ne podudaraju';
+			case 'common.goBack': return 'Nazad';
+			case 'branding.title': return 'PAW IGRE';
+			case 'branding.tagline': return 'Istraži. Oceni. Deli.';
+			case 'branding.logoLabel': return 'Logo aplikacije';
+			default: return null;
+		}
+	}
+}
+

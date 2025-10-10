@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GameModel {
 
- String get id; String get title; List<String>? get genres; List<String>? get platforms; String? get description; String? get developer; String? get publisher; String? get releaseDate; String? get coverImageUrl;
+ String get id; String get title; List<String>? get genres; List<String>? get platforms; String? get description; String? get developer; String? get publisher; DateTime? get releaseDate; String? get coverImageUrl;
 /// Create a copy of GameModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $GameModelCopyWith<$Res>  {
   factory $GameModelCopyWith(GameModel value, $Res Function(GameModel) _then) = _$GameModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, String? releaseDate, String? coverImageUrl
+ String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, DateTime? releaseDate, String? coverImageUrl
 });
 
 
@@ -75,7 +75,7 @@ as List<String>?,description: freezed == description ? _self.description : descr
 as String?,developer: freezed == developer ? _self.developer : developer // ignore: cast_nullable_to_non_nullable
 as String?,publisher: freezed == publisher ? _self.publisher : publisher // ignore: cast_nullable_to_non_nullable
 as String?,releaseDate: freezed == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
-as String?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as DateTime?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -161,7 +161,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  DateTime? releaseDate,  String? coverImageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GameModel() when $default != null:
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -182,7 +182,7 @@ return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  DateTime? releaseDate,  String? coverImageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _GameModel():
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -202,7 +202,7 @@ return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.descript
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  String? releaseDate,  String? coverImageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  List<String>? genres,  List<String>? platforms,  String? description,  String? developer,  String? publisher,  DateTime? releaseDate,  String? coverImageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _GameModel() when $default != null:
 return $default(_that.id,_that.title,_that.genres,_that.platforms,_that.description,_that.developer,_that.publisher,_that.releaseDate,_that.coverImageUrl);case _:
@@ -243,7 +243,7 @@ class _GameModel implements GameModel {
 @override final  String? description;
 @override final  String? developer;
 @override final  String? publisher;
-@override final  String? releaseDate;
+@override final  DateTime? releaseDate;
 @override final  String? coverImageUrl;
 
 /// Create a copy of GameModel
@@ -279,7 +279,7 @@ abstract mixin class _$GameModelCopyWith<$Res> implements $GameModelCopyWith<$Re
   factory _$GameModelCopyWith(_GameModel value, $Res Function(_GameModel) _then) = __$GameModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, String? releaseDate, String? coverImageUrl
+ String id, String title, List<String>? genres, List<String>? platforms, String? description, String? developer, String? publisher, DateTime? releaseDate, String? coverImageUrl
 });
 
 
@@ -306,7 +306,7 @@ as List<String>?,description: freezed == description ? _self.description : descr
 as String?,developer: freezed == developer ? _self.developer : developer // ignore: cast_nullable_to_non_nullable
 as String?,publisher: freezed == publisher ? _self.publisher : publisher // ignore: cast_nullable_to_non_nullable
 as String?,releaseDate: freezed == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
-as String?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
+as DateTime?,coverImageUrl: freezed == coverImageUrl ? _self.coverImageUrl : coverImageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

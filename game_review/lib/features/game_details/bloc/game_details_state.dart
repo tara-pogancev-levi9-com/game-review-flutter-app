@@ -13,7 +13,7 @@ class GameDetailsInitial extends GameDetailsState {}
 class GameDetailsLoading extends GameDetailsState {}
 
 class GameDetailsLoaded extends GameDetailsState {
-  final Game game;
+  final GameModel game;
   final Map<String, int> statistics;
   final bool isInWishlist;
   final bool isInLibrary;
