@@ -87,6 +87,31 @@ class TranslationsSr extends Translations {
 	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+	@override String get youHaveAlreadyReviewedThisGame => 'Već ste ocenili ovu igru';
+	@override String get completed => 'Završeno';
+	@override String get notStarted => 'Nije započeto';
+	@override String get inProgress => 'U toku';
+	@override String get abandoned => 'Napusteno';
+	@override String get FailedToSaveReview => 'Nije moglo da se sačuva ocena';
+	@override String get reviewAddedSuccessfully => 'Ocena je uspešno dodata!';
+	@override String get reviewTitle => 'Naslov ocene *';
+	@override String get reviewTitleIsRequired => 'Naslov ocene je obavezan';
+	@override String get reviewDescription => 'Opis ocene *';
+	@override String get reviewDescriptionIsRequired => 'Opis ocene je obavezan';
+	@override String get prosCons => 'Prednosti i mane';
+	@override String get gamePros => 'Prednosti igre (odvojene zarezima)';
+	@override String get gameCons => 'Mane igre (odvojene zarezima)';
+	@override String get overallRating => 'Ukupna ocena *';
+	@override String get individualRatings => 'Individualne ocene';
+	@override String get miscellaneous => 'Razno';
+	@override String get gameCompletion => 'Završetak igre (%)';
+	@override String get completionStatus => 'Status završetka';
+	@override String get inGameHours => 'Časovi u igri';
+	@override String get pleaseEnterAValidNumber => 'Molimo unesite validan broj';
+	@override String get iRecommendThisGame => 'Preporučujem ovu igru *';
+	@override String get selectAGameFromYourLibrary => 'Izaberite igru iz vaše biblioteke...';
+	@override String get completed100 => 'Završeno (100%)';
+	@override String get notStarted0 => 'Nije započeto (0%)';
 }
 
 // Path: navigation

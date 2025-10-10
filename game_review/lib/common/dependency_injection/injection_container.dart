@@ -1,5 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
+import 'package:game_review/common/blocs/review_cubit.dart';
+import 'package:game_review/common/services/games_service.dart';
+import 'package:game_review/common/services/reviews_service.dart';
+import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/common/services/games_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -29,7 +33,7 @@ void setupDependencies() {
   locator.registerFactory<GamesCubit>(
     () => GamesCubit(locator<GamesService>()),
   );
-  
+
   locator.registerLazySingleton<RegistrationCubit>(
     () => RegistrationCubit(),
   );
@@ -39,4 +43,17 @@ void setupDependencies() {
       locator<AuthService>(),
     ),
   );
+
+  locator.registerLazySingleton<ReviewsService>(
+    () => ReviewsService(locator<ApiClient>()),
+  );
+
+  locator.registerFactory<ReviewsCubit>(
+    () => ReviewsCubit(locator<ReviewsService>()),
+  );
+
+  locator.registerLazySingleton<UserService>(
+    () => UserService(locator<ApiClient>()),
+  );
+
 }
