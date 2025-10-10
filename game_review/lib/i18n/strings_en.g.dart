@@ -136,13 +136,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   /// en: 'Evaluation'
   String get evaluation => 'Evaluation';
 
-	/// en: 'Discover'
-	String get discover => 'Discover';
-
   /// en: 'Overall'
   String get overall => 'Overall';
 
-  
   /// en: 'Gameplay'
   String get gameplay => 'Gameplay';
 
@@ -213,98 +209,86 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   /// en: 'Failed to load more games'
   String get errorLoadingMoreGames => 'Failed to load more games';
 
-	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
-
-	/// en: 'No games found'
-	String get NoGamesFound => 'No games found';
-
-	/// en: 'Failed to load games'
-	String get errorLoadingGames => 'Failed to load games';
-
-	/// en: 'Failed to load more games'
-	String get errorLoadingMoreGames => 'Failed to load more games';
-
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
-
-	/// en: 'You have already reviewed this game'
-	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';
-
-	/// en: 'Completed'
-	String get completed => 'Completed';
-
-	/// en: 'Not started'
-	String get notStarted => 'Not started';
-
-	/// en: 'In progress'
-	String get inProgress => 'In progress';
-
-	/// en: 'Abandoned'
-	String get abandoned => 'Abandoned';
-
-	/// en: 'Failed to save review'
-	String get FailedToSaveReview => 'Failed to save review';
-
-	/// en: 'Review added successfully!'
-	String get reviewAddedSuccessfully => 'Review added successfully!';
-
-	/// en: 'Review title *'
-	String get reviewTitle => 'Review title *';
-
-	/// en: 'Review title is required'
-	String get reviewTitleIsRequired => 'Review title is required';
-
-	/// en: 'Review description *'
-	String get reviewDescription => 'Review description *';
-
-	/// en: 'Review description is required'
-	String get reviewDescriptionIsRequired => 'Review description is required';
-
-	/// en: 'Pros & Cons'
-	String get prosCons => 'Pros & Cons';
-
-	/// en: 'Game pros (comma-separated)'
-	String get gamePros => 'Game pros (comma-separated)';
-
-	/// en: 'Game cons (comma-separated)'
-	String get gameCons => 'Game cons (comma-separated)';
-
-	/// en: 'Overall Rating *'
-	String get overallRating => 'Overall Rating *';
-
-	/// en: 'Individual Ratings'
-	String get individualRatings => 'Individual Ratings';
-
-	/// en: 'Miscellaneous'
-	String get miscellaneous => 'Miscellaneous';
-
-	/// en: 'Game completion (%)'
-	String get gameCompletion => 'Game completion (%)';
-
-	/// en: 'Completion status'
-	String get completionStatus => 'Completion status';
-
-	/// en: 'In-game hours'
-	String get inGameHours => 'In-game hours';
-
-	/// en: 'Please enter a valid number'
-	String get pleaseEnterAValidNumber => 'Please enter a valid number';
-
-	/// en: 'I recommend this game *'
-	String get iRecommendThisGame => 'I recommend this game *';
-
-	/// en: 'Select a game from your library...'
-	String get selectAGameFromYourLibrary => 'Select a game from your library...';
-
-	/// en: 'Completed (100%)'
-	String get completed100 => 'Completed (100%)';
-
-	/// en: 'Not Started (0%)'
-	String get notStarted0 => 'Not Started (0%)';
   late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
   late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(
     _root,
   );
+
+  /// en: 'You have already reviewed this game'
+  String get youHaveAlreadyReviewedThisGame =>
+      'You have already reviewed this game';
+
+  /// en: 'Completed'
+  String get completed => 'Completed';
+
+  /// en: 'Not started'
+  String get notStarted => 'Not started';
+
+  /// en: 'In progress'
+  String get inProgress => 'In progress';
+
+  /// en: 'Abandoned'
+  String get abandoned => 'Abandoned';
+
+  /// en: 'Failed to save review'
+  String get FailedToSaveReview => 'Failed to save review';
+
+  /// en: 'Review added successfully!'
+  String get reviewAddedSuccessfully => 'Review added successfully!';
+
+  /// en: 'Review title *'
+  String get reviewTitle => 'Review title *';
+
+  /// en: 'Review title is required'
+  String get reviewTitleIsRequired => 'Review title is required';
+
+  /// en: 'Review description *'
+  String get reviewDescription => 'Review description *';
+
+  /// en: 'Review description is required'
+  String get reviewDescriptionIsRequired => 'Review description is required';
+
+  /// en: 'Pros & Cons'
+  String get prosCons => 'Pros & Cons';
+
+  /// en: 'Game pros (comma-separated)'
+  String get gamePros => 'Game pros (comma-separated)';
+
+  /// en: 'Game cons (comma-separated)'
+  String get gameCons => 'Game cons (comma-separated)';
+
+  /// en: 'Overall Rating *'
+  String get overallRating => 'Overall Rating *';
+
+  /// en: 'Individual Ratings'
+  String get individualRatings => 'Individual Ratings';
+
+  /// en: 'Miscellaneous'
+  String get miscellaneous => 'Miscellaneous';
+
+  /// en: 'Game completion (%)'
+  String get gameCompletion => 'Game completion (%)';
+
+  /// en: 'Completion status'
+  String get completionStatus => 'Completion status';
+
+  /// en: 'In-game hours'
+  String get inGameHours => 'In-game hours';
+
+  /// en: 'Please enter a valid number'
+  String get pleaseEnterAValidNumber => 'Please enter a valid number';
+
+  /// en: 'I recommend this game *'
+  String get iRecommendThisGame => 'I recommend this game *';
+
+  /// en: 'Select a game from your library...'
+  String get selectAGameFromYourLibrary => 'Select a game from your library...';
+
+  /// en: 'Completed (100%)'
+  String get completed100 => 'Completed (100%)';
+
+  /// en: 'Not Started (0%)'
+  String get notStarted0 => 'Not Started (0%)';
 }
 
 // Path: navigation
