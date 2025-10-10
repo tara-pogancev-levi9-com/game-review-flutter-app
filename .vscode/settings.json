@@ -6,5 +6,10 @@
   },
   "[dart]": {
     "editor.formatOnSave": true
-  }
+  },
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+    "pubspec.yaml": "pubspec.lock,pubspec_overrides.yaml,.packages,.flutter-plugins,.flutter-plugins-dependencies,.metadata",
+    "*.dart": "${capture}.g.dart,${capture}.freezed.dart,${capture}.slang.dart"
+  }, 
 }

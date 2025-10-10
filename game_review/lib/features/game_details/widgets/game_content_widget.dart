@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_review/common/extensions/datetime_extensions.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/common/extensions/datetime_extensions.dart';
 
 class GameContentWidget extends StatelessWidget {
-  final Game game;
+  final GameModel game;
   final String gameId;
   final bool isInWishlist;
   final bool isInLibrary;

@@ -8,7 +8,7 @@ class ReviewService {
 
   ReviewService(this._apiClient);
 
-  Future<List<GameReview>> getGameReviews(
+  Future<List<GameReviewModel>> getGameReviews(
     String gameId, {
     int limit = 10,
     int offset = 0,
@@ -27,7 +27,7 @@ class ReviewService {
 
       if (response.statusCode == 200 && response.data is List) {
         return (response.data as List)
-            .map((json) => GameReview.fromJson(json))
+            .map((json) => GameReviewModel.fromJson(json))
             .toList();
       }
       return [];
@@ -36,7 +36,7 @@ class ReviewService {
     }
   }
 
-  Future<List<ReviewComment>> getReviewComments(String reviewId) async {
+  Future<List<ReviewCommentModel>> getReviewComments(String reviewId) async {
     try {
       final response = await _apiClient.get(
         ApiConstants.reviewComments,
@@ -49,7 +49,7 @@ class ReviewService {
 
       if (response.statusCode == 200 && response.data is List) {
         return (response.data as List)
-            .map((json) => ReviewComment.fromJson(json))
+            .map((json) => ReviewCommentModel.fromJson(json))
             .toList();
       }
       return [];
@@ -58,7 +58,7 @@ class ReviewService {
     }
   }
 
-  Future<GameReview> createReview({
+  Future<GameReviewModel> createReview({
     required String gameId,
     required String title,
     required String content,
@@ -96,7 +96,7 @@ class ReviewService {
       );
 
       if (response.statusCode == 201) {
-        return GameReview.fromJson(response.data);
+        return GameReviewModel.fromJson(response.data);
       }
       throw Exception(t.library.failedToCreateReview);
     } catch (e) {
@@ -104,7 +104,7 @@ class ReviewService {
     }
   }
 
-  Future<ReviewComment> addComment({
+  Future<ReviewCommentModel> addComment({
     required String reviewId,
     required String content,
     String? parentCommentId,
@@ -120,7 +120,7 @@ class ReviewService {
       );
 
       if (response.statusCode == 201) {
-        return ReviewComment.fromJson(response.data);
+        return ReviewCommentModel.fromJson(response.data);
       }
       throw Exception(t.library.failedToAddComment);
     } catch (e) {

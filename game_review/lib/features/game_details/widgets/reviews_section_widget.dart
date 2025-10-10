@@ -21,7 +21,7 @@ class ReviewsSectionWidget extends StatefulWidget {
 
 class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
   final ReviewService _reviewService = GetIt.instance<ReviewService>();
-  List<GameReview> _reviews = [];
+  List<GameReviewModel> _reviews = [];
   bool _isLoading = false;
   bool _hasError = false;
 
@@ -139,7 +139,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
     );
   }
 
-  Widget _buildReviewCard(BuildContext context, GameReview review) {
+  Widget _buildReviewCard(BuildContext context, GameReviewModel review) {
     return Container(
       padding: AppTheme.paddingLarge,
       decoration: BoxDecoration(

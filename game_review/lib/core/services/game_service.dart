@@ -15,7 +15,7 @@ class GameService {
 
   GameService(this._apiClient, this._authService);
 
-  Future<Game?> getGameById(String gameId) async {
+  Future<GameModel?> getGameById(String gameId) async {
     try {
       final response = await _apiClient.get(
         ApiConstants.games,
@@ -28,7 +28,7 @@ class GameService {
       if (response.statusCode == HttpStatus.ok &&
           response.data is List &&
           (response.data as List).isNotEmpty) {
-        return Game.fromJson((response.data as List).first);
+        return GameModel.fromJson((response.data as List).first);
       }
       return null;
     } catch (e) {
@@ -37,7 +37,7 @@ class GameService {
     }
   }
 
-  Future<List<Game>> getRecentGames({
+  Future<List<GameModel>> getRecentGames({
     int page = 0,
     int limit = 20,
   }) async {
@@ -54,7 +54,7 @@ class GameService {
 
       if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
-            .map((json) => Game.fromJson(json))
+            .map((json) => GameModel.fromJson(json))
             .toList();
       }
       return [];
@@ -231,7 +231,7 @@ class GameService {
     }
   }
 
-  Future<List<GameReview>> getRecentReviews(
+  Future<List<GameReviewModel>> getRecentReviews(
     String gameId, {
     int limit = 5,
   }) async {
@@ -248,7 +248,7 @@ class GameService {
 
       if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
-            .map((json) => GameReview.fromJson(json))
+            .map((json) => GameReviewModel.fromJson(json))
             .toList();
       }
       return [];
