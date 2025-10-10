@@ -71,6 +71,30 @@
     "title": "PAW IGRE",
     "tagline": "Istraži. Oceni. Deli.",
     "logoLabel": "Logo aplikacije"
-  }
-
+  },
+  "youHaveAlreadyReviewedThisGame": "Već ste ocenili ovu igru",
+  "completed": "Završeno",
+  "notStarted": "Nije započeto",
+  "inProgress": "U toku",
+  "abandoned": "Napusteno",
+  "FailedToSaveReview": "Nije moglo da se sačuva ocena",
+  "reviewAddedSuccessfully": "Ocena je uspešno dodata!",
+  "reviewTitle": "Naslov ocene *",
+  "reviewTitleIsRequired": "Naslov ocene je obavezan",
+  "reviewDescription": "Opis ocene *",
+  "reviewDescriptionIsRequired": "Opis ocene je obavezan",
+  "prosCons": "Prednosti i mane",
+  "gamePros(comma-separated)": "Prednosti igre (odvojene zarezima)",
+  "gameCons(comma-separated)": "Mane igre (odvojene zarezima)",
+  "overallRating": "Ukupna ocena *",
+  "individualRatings": "Individualne ocene",
+  "miscellaneous": "Razno",
+  "gameCompletion": "Završetak igre (%)",
+  "completionStatus": "Status završetka",
+  "inGameHours": "Časovi u igri",
+  "pleaseEnterAValidNumber": "Molimo unesite validan broj",
+  "iRecommendThisGame": "Preporučujem ovu igru *",
+  "selectAGameFromYourLibrary": "Izaberite igru iz vaše biblioteke...",
+  "completed100": "Završeno (100%)",
+  "notStarted0": "Nije započeto (0%)"
 }

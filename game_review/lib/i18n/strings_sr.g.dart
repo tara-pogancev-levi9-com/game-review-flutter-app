@@ -10,7 +10,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsSr implements Translations {
+class TranslationsSr extends Translations {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsSr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -20,15 +20,11 @@ class TranslationsSr implements Translations {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
 	/// Metadata for the translations of <sr>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
-
-	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final TranslationsSr _root = this; // ignore: unused_field
 
@@ -85,17 +81,42 @@ class TranslationsSr implements Translations {
 	@override String get emailInvalid => 'Email adresa nije validna!.';
 	@override String get registrationSuccessful => 'Registracija uspešna.';
 	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
-	@override late final _TranslationsNavigationSr navigation = _TranslationsNavigationSr._(_root);
+	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
 	@override String get NoGamesFound => 'Nema pronađenih igara';
 	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
 	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
-	@override late final _TranslationsErrorsSr errors = _TranslationsErrorsSr._(_root);
-	@override late final _TranslationsBrandingSr branding = _TranslationsBrandingSr._(_root);
+	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
+	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+	@override String get youHaveAlreadyReviewedThisGame => 'Već ste ocenili ovu igru';
+	@override String get completed => 'Završeno';
+	@override String get notStarted => 'Nije započeto';
+	@override String get inProgress => 'U toku';
+	@override String get abandoned => 'Napusteno';
+	@override String get FailedToSaveReview => 'Nije moglo da se sačuva ocena';
+	@override String get reviewAddedSuccessfully => 'Ocena je uspešno dodata!';
+	@override String get reviewTitle => 'Naslov ocene *';
+	@override String get reviewTitleIsRequired => 'Naslov ocene je obavezan';
+	@override String get reviewDescription => 'Opis ocene *';
+	@override String get reviewDescriptionIsRequired => 'Opis ocene je obavezan';
+	@override String get prosCons => 'Prednosti i mane';
+	@override String get gamePros => 'Prednosti igre (odvojene zarezima)';
+	@override String get gameCons => 'Mane igre (odvojene zarezima)';
+	@override String get overallRating => 'Ukupna ocena *';
+	@override String get individualRatings => 'Individualne ocene';
+	@override String get miscellaneous => 'Razno';
+	@override String get gameCompletion => 'Završetak igre (%)';
+	@override String get completionStatus => 'Status završetka';
+	@override String get inGameHours => 'Časovi u igri';
+	@override String get pleaseEnterAValidNumber => 'Molimo unesite validan broj';
+	@override String get iRecommendThisGame => 'Preporučujem ovu igru *';
+	@override String get selectAGameFromYourLibrary => 'Izaberite igru iz vaše biblioteke...';
+	@override String get completed100 => 'Završeno (100%)';
+	@override String get notStarted0 => 'Nije započeto (0%)';
 }
 
 // Path: navigation
-class _TranslationsNavigationSr implements TranslationsNavigationEn {
-	_TranslationsNavigationSr._(this._root);
+class TranslationsNavigationSr extends TranslationsNavigationEn {
+	TranslationsNavigationSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -107,8 +128,8 @@ class _TranslationsNavigationSr implements TranslationsNavigationEn {
 }
 
 // Path: errors
-class _TranslationsErrorsSr implements TranslationsErrorsEn {
-	_TranslationsErrorsSr._(this._root);
+class TranslationsErrorsSr extends TranslationsErrorsEn {
+	TranslationsErrorsSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -124,8 +145,8 @@ class _TranslationsErrorsSr implements TranslationsErrorsEn {
 }
 
 // Path: branding
-class _TranslationsBrandingSr implements TranslationsBrandingEn {
-	_TranslationsBrandingSr._(this._root);
+class TranslationsBrandingSr extends TranslationsBrandingEn {
+	TranslationsBrandingSr._(TranslationsSr root) : this._root = root, super.internal(root);
 
 	final TranslationsSr _root; // ignore: unused_field
 
@@ -134,81 +155,3 @@ class _TranslationsBrandingSr implements TranslationsBrandingEn {
 	@override String get tagline => 'Istraži. Oceni. Deli.';
 	@override String get logoLabel => 'Logo aplikacije';
 }
-
-/// Flat map(s) containing all translations.
-/// Only for edge cases! For simple maps, use the map function of this library.
-extension on TranslationsSr {
-	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'welcome': return 'Dobrodošao!';
-			case 'greeting': return 'Zdravo, {name}!';
-			case 'changeLanguage': return 'Promeni jezik';
-			case 'appTitle': return 'Aplikacija za Recenzije Igara';
-			case 'home': return 'Početna';
-			case 'settings': return 'Podešavanja';
-			case 'searchGames': return 'Pretraži igre';
-			case 'favoriteGames': return 'Omiljene Igre';
-			case 'recentReviews': return 'Nedavne Recenzije';
-			case 'addReview': return 'Dodaj Recenziju';
-			case 'myProfile': return 'Moj Profil';
-			case 'logout': return 'Odjavi se';
-			case 'login': return 'Prijava';
-			case 'goodbye': return 'Doviđenja!';
-			case 'king': return 'Kralj';
-			case 'register': return 'Registruj se';
-			case 'email': return 'Email';
-			case 'password': return 'Lozinka';
-			case 'confirmPassword': return 'Potvrdi Lozinku';
-			case 'submit': return 'Pošalji';
-			case 'username': return 'Korisničko Ime';
-			case 'profileSettings': return 'Podešavanja Profila';
-			case 'notifications': return 'Obaveštenja';
-			case 'back': return 'Nazad';
-			case 'next': return 'Dalje';
-			case 'discover': return 'Istraži';
-			case 'details': return 'Detalji';
-			case 'ratings': return 'Ocene';
-			case 'evaluation': return 'Evaluacija';
-			case 'overall': return 'Sveukupno';
-			case 'gameplay': return 'Igra';
-			case 'graphics': return 'Grafika';
-			case 'sound': return 'Zvuk';
-			case 'story': return 'Priča';
-			case 'value': return 'Vrednost';
-			case 'pros': return 'Prednosti';
-			case 'cons': return 'Nedostaci';
-			case 'media': return 'Mediji';
-			case 'discussions': return 'Diskusije';
-			case 'save': return 'Sačuvaj';
-			case 'edit': return 'Izmeni';
-			case 'delete': return 'Obriši';
-			case 'update': return 'Ažuriraj';
-			case 'registrationError': return 'Greška, Pokušajte ponovo kasnije.';
-			case 'passwordMismatch': return 'Lozinke se ne podudaraju!.';
-			case 'passwordLength': return 'Lozinka mora imati minimum 8 karaktera!.';
-			case 'emailInvalid': return 'Email adresa nije validna!.';
-			case 'registrationSuccessful': return 'Registracija uspešna.';
-			case 'registrationEmailExistsError': return 'Navedeni email je registrovan!';
-			case 'navigation.home': return 'Početna';
-			case 'navigation.search': return 'Pretraživanje';
-			case 'navigation.library': return 'Biblioteka';
-			case 'navigation.profile': return 'Profil';
-			case 'NoGamesFound': return 'Nema pronađenih igara';
-			case 'errorLoadingGames': return 'Neuspešno učitavanje igara';
-			case 'errorLoadingMoreGames': return 'Neuspešno učitavanje dodatnih igara';
-			case 'errors.requiredField': return '{field} je obavezno';
-			case 'errors.invalidEmail': return 'Neispravan email';
-			case 'errors.minLength': return 'Minimum {n} karaktera';
-			case 'errors.invalidCredentials': return 'Neispravni podaci za prijavu';
-			case 'errors.loginFailed': return 'Prijava nije uspela, pokušaj ponovo';
-			case 'errors.appFailedToStart': return 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
-			case 'errors.gameNotFound': return 'Igra nije pronađena';
-			case 'errors.reviewsNotFound': return 'Recenzije nisu pronađene';
-			case 'branding.title': return 'PAW IGRE';
-			case 'branding.tagline': return 'Istraži. Oceni. Deli.';
-			case 'branding.logoLabel': return 'Logo aplikacije';
-			default: return null;
-		}
-	}
-}
-

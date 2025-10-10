@@ -24,15 +24,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+		  );
 
 	/// Metadata for the translations of <en>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
-
-	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -187,7 +182,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'The provided email is already registered.!'
 	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
-	late final TranslationsNavigationEn navigation = TranslationsNavigationEn._(_root);
+	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 
 	/// en: 'No games found'
 	String get NoGamesFound => 'No games found';
@@ -198,13 +193,88 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Failed to load more games'
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
-	late final TranslationsBrandingEn branding = TranslationsBrandingEn._(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
+	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
+
+	/// en: 'You have already reviewed this game'
+	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';
+
+	/// en: 'Completed'
+	String get completed => 'Completed';
+
+	/// en: 'Not started'
+	String get notStarted => 'Not started';
+
+	/// en: 'In progress'
+	String get inProgress => 'In progress';
+
+	/// en: 'Abandoned'
+	String get abandoned => 'Abandoned';
+
+	/// en: 'Failed to save review'
+	String get FailedToSaveReview => 'Failed to save review';
+
+	/// en: 'Review added successfully!'
+	String get reviewAddedSuccessfully => 'Review added successfully!';
+
+	/// en: 'Review title *'
+	String get reviewTitle => 'Review title *';
+
+	/// en: 'Review title is required'
+	String get reviewTitleIsRequired => 'Review title is required';
+
+	/// en: 'Review description *'
+	String get reviewDescription => 'Review description *';
+
+	/// en: 'Review description is required'
+	String get reviewDescriptionIsRequired => 'Review description is required';
+
+	/// en: 'Pros & Cons'
+	String get prosCons => 'Pros & Cons';
+
+	/// en: 'Game pros (comma-separated)'
+	String get gamePros => 'Game pros (comma-separated)';
+
+	/// en: 'Game cons (comma-separated)'
+	String get gameCons => 'Game cons (comma-separated)';
+
+	/// en: 'Overall Rating *'
+	String get overallRating => 'Overall Rating *';
+
+	/// en: 'Individual Ratings'
+	String get individualRatings => 'Individual Ratings';
+
+	/// en: 'Miscellaneous'
+	String get miscellaneous => 'Miscellaneous';
+
+	/// en: 'Game completion (%)'
+	String get gameCompletion => 'Game completion (%)';
+
+	/// en: 'Completion status'
+	String get completionStatus => 'Completion status';
+
+	/// en: 'In-game hours'
+	String get inGameHours => 'In-game hours';
+
+	/// en: 'Please enter a valid number'
+	String get pleaseEnterAValidNumber => 'Please enter a valid number';
+
+	/// en: 'I recommend this game *'
+	String get iRecommendThisGame => 'I recommend this game *';
+
+	/// en: 'Select a game from your library...'
+	String get selectAGameFromYourLibrary => 'Select a game from your library...';
+
+	/// en: 'Completed (100%)'
+	String get completed100 => 'Completed (100%)';
+
+	/// en: 'Not Started (0%)'
+	String get notStarted0 => 'Not Started (0%)';
 }
 
 // Path: navigation
 class TranslationsNavigationEn {
-	TranslationsNavigationEn._(this._root);
+	TranslationsNavigationEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -225,7 +295,7 @@ class TranslationsNavigationEn {
 
 // Path: errors
 class TranslationsErrorsEn {
-	TranslationsErrorsEn._(this._root);
+	TranslationsErrorsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -258,7 +328,7 @@ class TranslationsErrorsEn {
 
 // Path: branding
 class TranslationsBrandingEn {
-	TranslationsBrandingEn._(this._root);
+	TranslationsBrandingEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -273,81 +343,3 @@ class TranslationsBrandingEn {
 	/// en: 'App logo'
 	String get logoLabel => 'App logo';
 }
-
-/// Flat map(s) containing all translations.
-/// Only for edge cases! For simple maps, use the map function of this library.
-extension on Translations {
-	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'welcome': return 'Welcome!';
-			case 'greeting': return 'Hello, {name}!';
-			case 'changeLanguage': return 'Change Language';
-			case 'appTitle': return 'Game Review App';
-			case 'home': return 'Home';
-			case 'settings': return 'Settings';
-			case 'searchGames': return 'Search for games';
-			case 'favoriteGames': return 'Favorite Games';
-			case 'recentReviews': return 'Recent Reviews';
-			case 'addReview': return 'Add Review';
-			case 'myProfile': return 'My Profile';
-			case 'logout': return 'Logout';
-			case 'login': return 'Login';
-			case 'goodbye': return 'Goodbye!';
-			case 'king': return 'King';
-			case 'register': return 'Register';
-			case 'email': return 'Email';
-			case 'password': return 'Password';
-			case 'confirmPassword': return 'Confirm Password';
-			case 'submit': return 'Submit';
-			case 'username': return 'Username';
-			case 'profileSettings': return 'Profile Settings';
-			case 'notifications': return 'Notifications';
-			case 'back': return 'Back';
-			case 'next': return 'Next';
-			case 'discover': return 'Discover';
-			case 'details': return 'Details';
-			case 'ratings': return 'Ratings';
-			case 'evaluation': return 'Evaluation';
-			case 'overall': return 'Overall';
-			case 'gameplay': return 'Gameplay';
-			case 'graphics': return 'Graphics';
-			case 'sound': return 'Sound';
-			case 'story': return 'Story';
-			case 'value': return 'Value';
-			case 'pros': return 'Pros';
-			case 'cons': return 'Cons';
-			case 'media': return 'Media';
-			case 'discussions': return 'Discussions';
-			case 'save': return 'Save';
-			case 'edit': return 'Edit';
-			case 'delete': return 'Delete';
-			case 'update': return 'Update';
-			case 'registrationError': return 'Error occurred. Try again later';
-			case 'passwordMismatch': return 'Passwords do not match!';
-			case 'passwordLength': return 'Password must be at least 8 characters long!';
-			case 'emailInvalid': return 'Email address is not valid!';
-			case 'registrationSuccessful': return 'Registration successful!';
-			case 'registrationEmailExistsError': return 'The provided email is already registered.!';
-			case 'navigation.home': return 'Home';
-			case 'navigation.search': return 'Search';
-			case 'navigation.library': return 'Library';
-			case 'navigation.profile': return 'Profile';
-			case 'NoGamesFound': return 'No games found';
-			case 'errorLoadingGames': return 'Failed to load games';
-			case 'errorLoadingMoreGames': return 'Failed to load more games';
-			case 'errors.requiredField': return '{field} required';
-			case 'errors.invalidEmail': return 'Invalid email';
-			case 'errors.minLength': return 'Min {n} char';
-			case 'errors.invalidCredentials': return 'Invalid credentials';
-			case 'errors.loginFailed': return 'Login failed, please try again';
-			case 'errors.appFailedToStart': return 'The app failed to start. Please restart and try again.';
-			case 'errors.gameNotFound': return 'Game not found';
-			case 'errors.reviewsNotFound': return 'Reviews not found';
-			case 'branding.title': return 'PAW GAMES';
-			case 'branding.tagline': return 'Discover. Rate. Share.';
-			case 'branding.logoLabel': return 'App logo';
-			default: return null;
-		}
-	}
-}
-

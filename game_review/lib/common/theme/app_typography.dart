@@ -58,4 +58,10 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );
+
+  static const TextStyle smallText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lilacSelected,
+  );
 }

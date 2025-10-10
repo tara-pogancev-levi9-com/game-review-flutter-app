@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
 

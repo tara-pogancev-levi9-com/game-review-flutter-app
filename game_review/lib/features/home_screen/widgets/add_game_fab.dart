@@ -20,7 +20,6 @@ class AddGameFab extends StatelessWidget {
           builder: (context) => const GameSelectorBottomSheet(),
         );
 
-        // If a review was added successfully, trigger the callback
         if (result == true && onReviewAdded != null) {
           onReviewAdded!();
         }

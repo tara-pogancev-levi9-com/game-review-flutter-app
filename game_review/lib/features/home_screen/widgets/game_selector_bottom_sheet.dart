@@ -5,10 +5,11 @@ import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/home_screen/widgets/game_card.dart';
 import 'package:game_review/common/widgets/error_view.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/features/review/add_review_page.dart';
+import 'package:game_review/features/review_screen/add_review_page.dart';
 
 class GameSelectorBottomSheet extends StatefulWidget {
   const GameSelectorBottomSheet({super.key});
@@ -51,10 +52,8 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
   }
 
   void _onGameSelected(GameModel game) async {
-    // Close the bottom sheet first
     Navigator.pop(context);
 
-    // Navigate to Add Review Page with selected game and wait for result
     final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -62,7 +61,6 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
       ),
     );
 
-    // If review was added successfully, pop again with success indicator
     if (result == true && context.mounted) {
       Navigator.pop(context, true);
     }
@@ -73,13 +71,14 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
     final t = context.t;
     return Container(
       height: MediaQuery.of(context).size.height * 0.85,
-      decoration: const BoxDecoration(
-        color: AppColors.primaryPurple,
+      decoration: BoxDecoration(
+        gradient: Theme.of(context).extension<AppGradients>()?.background,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(24),
           topRight: Radius.circular(24),
         ),
       ),
+
       child: Column(
         children: [
           // Header with title and X button
@@ -89,11 +88,8 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
               children: [
                 Expanded(
                   child: Text(
-                    'Select a game from your library...',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: AppColors.textPrimary,
-                      fontSize: 28,
-                    ),
+                    t.selectAGameFromYourLibrary,
+                    style: AppTypography.gameTitle28,
                   ),
                 ),
                 IconButton(
