@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/features/library_screen/game_details_page.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;
@@ -10,6 +10,8 @@ class GameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double cardWidth = 140;
+    const double imageHeight = 100;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -19,7 +21,7 @@ class GameCard extends StatelessWidget {
         );
       },
       child: SizedBox(
-        width: 140,
+        width: cardWidth,
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,15 +31,15 @@ class GameCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.network(
                     game.coverImageUrl!,
-                    height: 100,
-                    width: 140,
+                    height: imageHeight,
+                    width: cardWidth,
                     fit: BoxFit.cover,
                   ),
                 )
               else
                 Container(
-                  height: 100,
-                  width: 140,
+                  height: imageHeight,
+                  width: cardWidth,
                   color: Colors.grey[800],
                   child: const Icon(Icons.videogame_asset, size: 40),
                 ),

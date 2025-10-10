@@ -6,9 +6,9 @@ import 'package:game_review/features/home_screen/models/review_comment.dart';
 import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
-class CommentService {
+class ReviewCommentService {
   final ApiClient _apiClient;
-  CommentService(this._apiClient);
+  ReviewCommentService(this._apiClient);
 
   Future<List<ReviewComment>> getCommentsForReview(String reviewId) async {
     try {

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
-import 'package:game_review/features/home_screen/models/review.dart';
+import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/common/models/review_model.dart';
 
 part 'home_state.freezed.dart';
 

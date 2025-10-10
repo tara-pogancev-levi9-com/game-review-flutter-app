@@ -6,7 +6,6 @@ import 'package:game_review/i18n/strings.g.dart';
 import 'auth_state.dart';
 
 // TODO: handle token expiration and refresh
-// Translation (if needed)
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthService _authService;
@@ -22,7 +21,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(Unauthenticated());
       }
     } catch (e, stackTrace) { 
-      Logger.error('CRITICAL: checkAuthStatus failed!', '$e\n$stackTrace');
+      Logger.error(t.errors.authenticationFail, '$e\n$stackTrace');
       emit(Unauthenticated());
     }
   }
@@ -37,7 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(Unauthenticated(t.errors.invalidCredentials));
       }
     } catch (e) {
-      Logger.error('Login error', e);
+      Logger.error(t.errors.loginFailed, e);
       emit(Unauthenticated(t.errors.loginFailed));
     }
   }

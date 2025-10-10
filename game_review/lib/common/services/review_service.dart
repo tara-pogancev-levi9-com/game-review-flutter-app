@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/features/home_screen/models/review.dart';
+import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/core/api/endpoints.dart';
 
@@ -12,7 +12,7 @@ class ReviewService {
 
   ReviewService(this._apiClient);
 
-  Future<List<Review>> getRecentReviews({int limit = Endpoints.limitRecentReviews}) async {
+  Future<List<Review>> getRecentReviews({int limit = Endpoints.limitRecentReviews, int offset = 0}) async {
     try {
       final response = await _apiClient.get(
         Endpoints.gameReviews,
@@ -20,6 +20,7 @@ class ReviewService {
           'select': '*,games(*)',
           'order': 'created_at.desc',
           'limit': limit,
+          'offset': offset,
         },
       );
 
@@ -35,6 +36,4 @@ class ReviewService {
       return [];
     }
   }
-
-  /// TODO: like a review
 }

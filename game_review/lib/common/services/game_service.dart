@@ -2,7 +2,7 @@ import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/auth/services/auth_service.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'dart:convert';
 import 'dart:io';

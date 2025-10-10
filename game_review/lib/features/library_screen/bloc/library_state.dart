@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 
 part 'library_state.freezed.dart';
 
-// Q: Can state file be annotated with @freezed or is it an "overkill"
 @freezed
 class LibraryState with _$LibraryState {
   const factory LibraryState.initial() = LibraryInitial;

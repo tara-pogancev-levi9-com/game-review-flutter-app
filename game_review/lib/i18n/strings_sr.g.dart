@@ -89,11 +89,7 @@ class TranslationsSr extends Translations {
 	@override late final TranslationsGameServiceSr gameService = TranslationsGameServiceSr._(_root);
 	@override late final TranslationsGameDetailsSr gameDetails = TranslationsGameDetailsSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
-	@override String get Review => 'Recenzija';
-	@override String get Overall => 'Generalno/Opšte mišljenje';
-	@override String get Details => 'Detalji';
-	@override String get Released => 'Objavljeno';
-	@override String get AvailableOn => 'Dostupno na';
+	@override String get gameReview => 'Recenzija';
 	@override String get addComment => 'Dodaj komentar';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
 	@override String get wouldRecommend => 'Preporučuje';
@@ -127,6 +123,7 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get failedToFetchRecentReviews => 'Učitavanje nedavnih recenzija nije uspelo.';
 	@override String get failedToLoadHome => 'Učitavanje početnih podataka nije uspelo.';
 	@override String get failedToLoadComments => 'Učitavanje komentara nije uspelo.';
+	@override String get authenticationFail => 'Autentifikacija nije uspela.';
 }
 
 // Path: library

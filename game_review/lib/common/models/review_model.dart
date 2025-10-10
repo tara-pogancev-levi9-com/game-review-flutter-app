@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 
 part 'review.freezed.dart';
 part 'review.g.dart';

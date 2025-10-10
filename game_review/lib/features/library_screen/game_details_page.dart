@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/features/library_screen/widgets/game_actions_menu.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -8,20 +8,21 @@ class GameDetailsPage extends StatelessWidget {
 
   const GameDetailsPage({super.key, required this.game});
 
+  static const _imageBorderRadius = BorderRadius.only(
+    bottomLeft: Radius.circular(32),
+    bottomRight: Radius.circular(32),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
-          // Cover image or placeholder
           Container(
             height: 200,
             decoration: BoxDecoration(
               color: Colors.grey[400],
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(32),
-                bottomRight: Radius.circular(32),
-              ),
+              borderRadius: _imageBorderRadius,
               image: game.coverImageUrl != null
                   ? DecorationImage(
                       image: NetworkImage(game.coverImageUrl!),
@@ -34,7 +35,6 @@ class GameDetailsPage extends StatelessWidget {
                 : null,
           ),
 
-          // Title + actions row
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
             child: Row(
@@ -48,7 +48,6 @@ class GameDetailsPage extends StatelessWidget {
                         .textTheme
                         .headlineSmall
                         ?.copyWith(fontWeight: FontWeight.bold),
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 GameActionsMenu(game: game),
@@ -56,7 +55,6 @@ class GameDetailsPage extends StatelessWidget {
             ),
           ),
 
-          // Recommendation placeholder
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             child: Row(
@@ -74,11 +72,10 @@ class GameDetailsPage extends StatelessWidget {
             ),
           ),
 
-          // Overall section
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             child: Text(
-              t.Overall,
+              t.gameDetails.overall,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -86,7 +83,6 @@ class GameDetailsPage extends StatelessWidget {
             ),
           ),
 
-          // Description
           if (game.description != null)
             Padding(
               padding: const EdgeInsets.all(16),
@@ -96,13 +92,12 @@ class GameDetailsPage extends StatelessWidget {
               ),
             ),
 
-          // Details
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(t.Details,
+                Text(t.gameDetails.details,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
@@ -111,21 +106,21 @@ class GameDetailsPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Developer'),
+                    Text(t.gameDetails.developer),
                     Text(game.developer ?? '-'),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Publisher'),
+                    Text(t.gameDetails.publisher),
                     Text(game.publisher ?? '-'),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(t.Released),
+                    Text(t.gameDetails.released),
                     Text(game.releaseDate != null
                         ? '${game.releaseDate!.toLocal()}'.split(' ')[0]
                         : '-'),
@@ -135,14 +130,13 @@ class GameDetailsPage extends StatelessWidget {
             ),
           ),
 
-          // Platforms
           if (game.platforms != null && game.platforms!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(t.AvailableOn,
+                  Text(t.gameDetails.availableOn,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
@@ -157,7 +151,6 @@ class GameDetailsPage extends StatelessWidget {
               ),
             ),
 
-          // Reviews placeholder
           Padding(
             padding: const EdgeInsets.all(16),
             child: Text(t.gameDetails.recentReviews,

@@ -200,19 +200,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
 
 	/// en: 'Review'
-	String get Review => 'Review';
-
-	/// en: 'Overall'
-	String get Overall => 'Overall';
-
-	/// en: 'Details'
-	String get Details => 'Details';
-
-	/// en: 'Released'
-	String get Released => 'Released';
-
-	/// en: 'Available on'
-	String get AvailableOn => 'Available on';
+	String get gameReview => 'Review';
 
 	/// en: 'Add Comment'
 	String get addComment => 'Add Comment';
@@ -294,6 +282,9 @@ class TranslationsErrorsEn {
 
 	/// en: 'Failed to load comments'
 	String get failedToLoadComments => 'Failed to load comments';
+
+	/// en: 'Authentication check failed'
+	String get authenticationFail => 'Authentication check failed';
 }
 
 // Path: library

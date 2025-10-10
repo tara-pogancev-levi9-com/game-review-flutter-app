@@ -67,7 +67,8 @@
     "reviewsNotFound": "Reviews not found",
     "failedToFetchRecentReviews": "Failed to fetch recent reviews",
     "failedToLoadHome": "Failed to load home data",
-    "failedToLoadComments": "Failed to load comments"
+    "failedToLoadComments": "Failed to load comments",
+    "authenticationFail": "Authentication check failed"
 
   },
   "appFailedToStart": "App failed to start:\\n\\n@{error}",
@@ -145,11 +146,7 @@
     "availableOn": "Available on",
     "recentReviews": "Recent reviews"
   },
-  "Review": "Review",
-  "Overall": "Overall",
-  "Details": "Details",
-  "Released": "Released",
-  "AvailableOn": "Available on",
+  "gameReview": "Review",
   "addComment": "Add Comment",
   "reviewsNotFound": "Reviews not found",
   "wouldRecommend": "Would recommend",

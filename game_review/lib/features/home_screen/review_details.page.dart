@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/home_screen/models/review.dart';
+import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'widgets/media_thumb.dart';
@@ -92,7 +92,7 @@ class ReviewDetailsPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  formatTimeAgo(review.createdAt),
+                  review.createdAt?.timeAgo ?? '',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],

@@ -19,20 +19,33 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final HomeCubit cubit;
+  final ScrollController _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    cubit = locator<HomeCubit>();
-    cubit.loadHome();
-  }
+    @override
+    void initState() {
+      super.initState();
+      cubit = locator<HomeCubit>();
+      cubit.loadHome();
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      bloc: cubit,
-      builder: (context, state) {
-        return state.when(
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 300) {
+          cubit.loadMoreReviews();
+        }
+      });
+    }
+
+    @override
+    void dispose() {
+      _scrollController.dispose();
+      super.dispose();
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return BlocBuilder<HomeCubit, HomeState>(
+        bloc: cubit,
+        builder: (context, state) {
+          return state.when(
           initial: () => const Center(child: CircularProgressIndicator()),
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (message) => Center(child: Text(message)),
@@ -40,6 +53,7 @@ class _HomePageState extends State<HomePage> {
             return RefreshIndicator(
               onRefresh: () => cubit.refresh(),
               child: ListView(
+                controller: _scrollController, 
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 children: [
                   Padding(
@@ -47,32 +61,39 @@ class _HomePageState extends State<HomePage> {
                     child: Text(t.discover, style: Theme.of(context).textTheme.headlineSmall),
                   ),
 
-                  // Discover games
-                  GameSection(title: t.discover, games: discoverGames),
+                  GameSection(games: discoverGames),
 
-                  // Recent reviews header
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
                     child: Text(t.recentReviews, style: Theme.of(context).textTheme.headlineSmall),
                   ),
 
-                  // Recent reviews list (vertical)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: recentReviews.map((r) {
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: recentReviews.length + (cubit.hasMoreReviews ? 1 : 0),
+                      itemBuilder: (context, index) {
+                        if (index >= recentReviews.length) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                        final r = recentReviews[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
                           child: ReviewCard(
                             review: r,
-                            onTap: () {
+                            onDetails: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(builder: (_) => ReviewDetailsPage(review: r)),
                               );
                             },
                           ),
                         );
-                      }).toList(),
+                      },
                     ),
                   ),
                   const SizedBox(height: 24),

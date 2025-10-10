@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
-import 'package:game_review/features/library_screen/models/game.dart';
+import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
+
+enum GameAction {
+  addToWishlist,
+  addToLibrary,
+  removeFromWishlist,
+  removeFromLibrary,
+  addReview,
+}
 
 class GameActionsMenu extends StatelessWidget {
   final Game game;
@@ -13,12 +22,12 @@ class GameActionsMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = locator<LibraryCubit>();
 
-    return PopupMenuButton<String>(
+    return PopupMenuButton<GameAction>(
       onSelected: (value) async {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
         switch (value) {
-          case 'wishlist':
+          case GameAction.addToWishlist:
             final result = await cubit.addGameToWishlist(game);
             if (result == AddResult.added) {
               _showSnackBar(context, t.gameDetails.addedToWishlist);
@@ -29,7 +38,7 @@ class GameActionsMenu extends StatelessWidget {
             }
             break;
 
-          case 'library':
+          case GameAction.addToLibrary:
             final result = await cubit.addGameToLibrary(game);
             if (result == AddResult.added) {
               _showSnackBar(context, t.gameDetails.addedToLibrary);
@@ -40,7 +49,7 @@ class GameActionsMenu extends StatelessWidget {
             }
             break;
 
-          case 'remove_wishlist':
+          case GameAction.removeFromWishlist:
             final removedWishlist = await cubit.removeGameFromWishlist(game);
             _showSnackBar(
               context,
@@ -50,7 +59,7 @@ class GameActionsMenu extends StatelessWidget {
             );
             break;
 
-          case 'remove_library':
+          case GameAction.removeFromLibrary:
             final removedLibrary = await cubit.removeGameFromLibrary(game);
             _showSnackBar(
               context,
@@ -60,17 +69,17 @@ class GameActionsMenu extends StatelessWidget {
             );
             break;
 
-          case 'review':
+          case GameAction.addReview:
             _showSnackBar(context, t.gameDetails.addReviewComingSoon);
             break;
         }
       },
       itemBuilder: (context) => [
-        PopupMenuItem(value: 'wishlist', child: Text(t.gameDetails.addToWishlist)),
-        PopupMenuItem(value: 'library', child: Text(t.gameDetails.addToMyLibrary)),
-        PopupMenuItem(value: 'remove_wishlist', child: Text(t.gameDetails.removeFromWishlist)),
-        PopupMenuItem(value: 'remove_library', child: Text(t.gameDetails.removeFromMyLibrary)),
-        PopupMenuItem(value: 'review', child: Text(t.gameDetails.addReview)),
+        PopupMenuItem(value: GameAction.addToWishlist, child: Text(t.gameDetails.addToWishlist)),
+        PopupMenuItem(value: GameAction.addToLibrary, child: Text(t.gameDetails.addToMyLibrary)),
+        PopupMenuItem(value: GameAction.removeFromWishlist, child: Text(t.gameDetails.removeFromWishlist)),
+        PopupMenuItem(value: GameAction.removeFromLibrary, child: Text(t.gameDetails.removeFromMyLibrary)),
+        PopupMenuItem(value: GameAction.addReview, child: Text(t.gameDetails.addReview)),
       ],
       icon: const Icon(Icons.more_vert),
     );

@@ -81,7 +81,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                               leading: const CircleAvatar(child: Icon(Icons.person)),
                               title: Text(c.userId ?? 'User', style: Theme.of(context).textTheme.bodySmall),
                               subtitle: Text(c.content ?? '', style: Theme.of(context).textTheme.bodyMedium),
-                              trailing: Text(formatIsoDate(c.createdAt), style: Theme.of(context).textTheme.bodySmall),
+                              trailing: Text(c.createdAt?.formattedIso ?? '', style: Theme.of(context).textTheme.bodySmall),
                             ),
                             const SizedBox(height: 8),
                           ],

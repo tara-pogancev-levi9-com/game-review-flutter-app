@@ -6,8 +6,6 @@ import 'package:game_review/features/library_screen/bloc/library_state.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
-// Q: Is the logic of "UI only listens while lower layers do the job" good enough?
-
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
 
@@ -41,7 +39,7 @@ class _LibraryPageState extends State<LibraryPage> {
               userWishlistGames: final wishlist,
             ) =>
               RefreshIndicator(
-                onRefresh: () => locator<LibraryCubit>().fetchGames(), // Q: Is this good? Or should there be a mechanism that does this only once (or every 30, 60, 90 ... minutes, seconds, ...) instead of doing it every time when we open the page?
+                onRefresh: () => locator<LibraryCubit>().fetchGames(),
                 child: ListView(
                   children: [
                     Padding(
