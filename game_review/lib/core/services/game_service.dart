@@ -61,43 +61,6 @@ class GameService {
     }
   }
 
-  Future<Map<String, int>> getGameStatistics(String gameId) async {
-    try {
-      final reviewsResponse = await _apiClient.get(
-        ApiConstants.gameReviews,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      final wishlistResponse = await _apiClient.get(
-        ApiConstants.userWishlist,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      final libraryResponse = await _apiClient.get(
-        ApiConstants.userLibrary,
-        queryParameters: {
-          'game_id': 'eq.$gameId',
-          'select': 'id',
-        },
-      );
-
-      return {
-        'reviewsCount': (reviewsResponse.data as List).length,
-        'wishlistCount': (wishlistResponse.data as List).length,
-        'libraryCount': (libraryResponse.data as List).length,
-      };
-    } catch (e) {
-      Logger.error('Failed to fetch game statistics', e);
-      throw Exception(t.errors.failedToFetchGameStatistics);
-    }
-  }
-
   Future<List<GameReviewModel>> getRecentReviews(
     String gameId, {
     int limit = 5,

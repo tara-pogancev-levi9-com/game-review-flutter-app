@@ -14,19 +14,17 @@ class GameDetailsLoading extends GameDetailsState {}
 
 class GameDetailsLoaded extends GameDetailsState {
   final GameModel game;
-  final Map<String, int> statistics;
   final bool isInWishlist;
   final bool isInLibrary;
 
   const GameDetailsLoaded({
     required this.game,
-    required this.statistics,
     required this.isInWishlist,
     required this.isInLibrary,
   });
 
   @override
-  List<Object?> get props => [game, statistics, isInWishlist, isInLibrary];
+  List<Object?> get props => [game, isInWishlist, isInLibrary];
 }
 
 class GameDetailsError extends GameDetailsState {

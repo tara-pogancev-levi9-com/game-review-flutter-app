@@ -59,15 +59,12 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         return;
       }
 
-      final statistics = await _gameService.getGameStatistics(gameId);
-
       final isInWishlist = await _gameService.isInWishlist(gameId);
       final isInLibrary = await _gameService.isInLibrary(gameId);
 
       emit(
         GameDetailsLoaded(
           game: game,
-          statistics: statistics,
           isInWishlist: isInWishlist,
           isInLibrary: isInLibrary,
         ),
@@ -95,7 +92,6 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         emit(
           GameDetailsLoaded(
             game: currentState.game,
-            statistics: currentState.statistics,
             isInWishlist: false,
             isInLibrary: currentState.isInLibrary,
           ),
@@ -107,7 +103,6 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         emit(
           GameDetailsLoaded(
             game: currentState.game,
-            statistics: currentState.statistics,
             isInWishlist: true,
             isInLibrary: currentState.isInLibrary,
           ),
@@ -136,7 +131,6 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         emit(
           GameDetailsLoaded(
             game: currentState.game,
-            statistics: currentState.statistics,
             isInWishlist: currentState.isInWishlist,
             isInLibrary: false,
           ),
@@ -152,7 +146,6 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         emit(
           GameDetailsLoaded(
             game: currentState.game,
-            statistics: currentState.statistics,
             isInWishlist: currentState.isInWishlist,
             isInLibrary: true,
           ),

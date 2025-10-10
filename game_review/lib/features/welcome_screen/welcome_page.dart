@@ -68,7 +68,6 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            //TODO: Implement on pressed navigation to register page
                             Navigator.push(
                               context,
                               MaterialPageRoute(
