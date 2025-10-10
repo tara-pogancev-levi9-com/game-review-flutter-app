@@ -125,6 +125,9 @@
     "library": "Library",
     "profile": "Profile"
   },
+  "NoGamesFound": "No games found",
+  "errorLoadingGames": "Failed to load games",
+  "errorLoadingMoreGames": "Failed to load more games",
   "errors": {
     "requiredField": "{field} required",
     "invalidEmail": "Invalid email",

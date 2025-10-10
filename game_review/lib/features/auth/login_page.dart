@@ -14,7 +14,6 @@ import 'bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -24,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -43,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final topInset = MediaQuery.of(context).padding.top;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -92,7 +89,6 @@ class _LoginPageState extends State<LoginPage> {
                 16,
                 16,
               ),
-
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: AutofillGroup(

@@ -85,6 +85,9 @@ class TranslationsSr extends Translations {
 	@override late final TranslationsReviewsSr reviews = TranslationsReviewsSr._(_root);
 	@override late final TranslationsActionsSr actions = TranslationsActionsSr._(_root);
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
+	@override String get NoGamesFound => 'Nema pronađenih igara';
+	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
+	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override late final TranslationsCommonSr common = TranslationsCommonSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);

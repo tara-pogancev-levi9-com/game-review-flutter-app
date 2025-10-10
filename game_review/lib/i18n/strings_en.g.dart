@@ -186,6 +186,16 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsReviewsEn reviews = TranslationsReviewsEn.internal(_root);
 	late final TranslationsActionsEn actions = TranslationsActionsEn.internal(_root);
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+
+	/// en: 'No games found'
+	String get NoGamesFound => 'No games found';
+
+	/// en: 'Failed to load games'
+	String get errorLoadingGames => 'Failed to load games';
+
+	/// en: 'Failed to load more games'
+	String get errorLoadingMoreGames => 'Failed to load more games';
+
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);

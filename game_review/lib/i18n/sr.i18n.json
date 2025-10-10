@@ -125,6 +125,9 @@
     "library": "Biblioteka",
     "profile": "Profil"
   },
+  "NoGamesFound": "Nema pronađenih igara",
+  "errorLoadingGames": "Neuspešno učitavanje igara",
+  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara",
   "errors": {
     "requiredField": "{field} je obavezno",
     "invalidEmail": "Neispravan email",
@@ -163,4 +166,5 @@
     "tagline": "Istraži. Oceni. Deli.",
     "logoLabel": "Logo aplikacije"
   }
+
 }

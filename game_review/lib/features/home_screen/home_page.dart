@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/features/home_screen/widgets/games_list_widget.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/game_details/game_details.dart';
 
@@ -7,14 +8,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    final t = context.t;
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.home_rounded,
-            size: 80,
-            color: Theme.of(context).colorScheme.primary,
+          GamesListWidget(
+            title: t.discover,
+            limit: 10,
           ),
           const SizedBox(height: 16),
           Text(
