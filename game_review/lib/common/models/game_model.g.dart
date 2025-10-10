@@ -16,7 +16,9 @@ _GameModel _$GameModelFromJson(Map<String, dynamic> json) => _GameModel(
   description: json['description'] as String?,
   developer: json['developer'] as String?,
   publisher: json['publisher'] as String?,
-  releaseDate: json['release_date'] as String?,
+  releaseDate: json['release_date'] == null
+      ? null
+      : DateTime.parse(json['release_date'] as String),
   coverImageUrl: json['cover_image_url'] as String?,
 );
 
@@ -29,6 +31,6 @@ Map<String, dynamic> _$GameModelToJson(_GameModel instance) =>
       'description': instance.description,
       'developer': instance.developer,
       'publisher': instance.publisher,
-      'release_date': instance.releaseDate,
+      'release_date': instance.releaseDate?.toIso8601String(),
       'cover_image_url': instance.coverImageUrl,
     };

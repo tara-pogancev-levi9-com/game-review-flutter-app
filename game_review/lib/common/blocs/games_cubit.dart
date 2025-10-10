@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/services/games_service.dart';
-import 'dart:developer' as developer;
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/utils/logger.dart';
 

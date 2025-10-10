@@ -37,7 +37,7 @@ class GameCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.surfaceVariant,
                   border: Border.all(
-                    color: AppColors.outline.withOpacity(0.2),
+                    color: AppColors.outline.withValues(alpha: 0.2),
                     width: 1,
                   ),
                   borderRadius: BorderSize.m.radius,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 
-/// Reusable scaffold with gradient background for consistent app design
 class AppScaffold extends StatelessWidget {
   final Widget body;
   final PreferredSizeWidget? appBar;
