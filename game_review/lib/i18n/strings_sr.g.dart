@@ -56,6 +56,8 @@ class TranslationsSr extends Translations {
 	@override String get displayName => 'Prikazno ime';
 	@override String get noImage => 'Nema Slike';
 	@override String get changePassword => 'Promeni Lozinku';
+	@override String get passwordChanged => 'Lozinka uspesno promenjena.';
+	@override String get errorChangingPassword => 'Greska prilikom promene lozinke';
 	@override String get userDataNotLoaded => 'Podatci korisnika nisu ucitani!';
 	@override String get saveProfile => 'Sacuvaj profil';
 	@override String get enterBio => 'Unesi biografiju';

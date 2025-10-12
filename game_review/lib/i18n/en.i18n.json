@@ -49,6 +49,8 @@
   "passwordLength": "Password must be at least 8 characters long!",
   "changePassword": "Change Password",
   "userDataNotLoaded": "User data not loaded!",
+  "passwordChanged": "Password changed successfully.",
+  "errorChangingPassword": "Error when changing password.",
   "saveProfile": "Save Profile",
   "enterBio": "Enter bio",
   "profileInfo": "Profile Info",

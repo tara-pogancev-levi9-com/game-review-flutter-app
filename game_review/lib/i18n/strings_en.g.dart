@@ -185,6 +185,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'User data not loaded!'
 	String get userDataNotLoaded => 'User data not loaded!';
 
+	/// en: 'Password changed successfully.'
+	String get passwordChanged => 'Password changed successfully.';
+
+	/// en: 'Error when changing password.'
+	String get errorChangingPassword => 'Error when changing password.';
+
 	/// en: 'Save Profile'
 	String get saveProfile => 'Save Profile';
 

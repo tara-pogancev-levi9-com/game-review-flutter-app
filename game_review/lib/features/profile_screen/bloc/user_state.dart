@@ -1,39 +1,19 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
 
-abstract class UserProfileState extends Equatable {
-  const UserProfileState();
+part 'user_state.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
-}
+@freezed
+abstract class UserProfileState with _$UserProfileState {
+  const factory UserProfileState.loading() = _UserProfileLoading;
 
-class UserProfileInitial extends UserProfileState {}
+  const factory UserProfileState.loaded({
+    required User user,
+    required String? loggedUserId,
+    required bool? alreadyFriends,
+    required String? message,
+  }) = _UserProfileLoaded;
 
-class UserProfileLoading extends UserProfileState {}
-
-class DataChangeSuccess extends UserProfileState {
-  final String message;
-  const DataChangeSuccess(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class UserProfileLoaded extends UserProfileState {
-  final User user;
-  final String? loggedUserId;
-  final bool? alreadyFriends;
-  const UserProfileLoaded(this.user, this.loggedUserId, this.alreadyFriends);
-
-  @override
-  List<Object?> get props => [user];
-}
-
-class UserProfileError extends UserProfileState {
-  final String message;
-  const UserProfileError(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  const factory UserProfileState.error({required String message}) =
+      _UserProfileError;
 }

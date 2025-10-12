@@ -23,6 +23,8 @@
   "displayName": "Prikazno ime",
   "noImage": "Nema Slike",
   "changePassword": "Promeni Lozinku",
+  "passwordChanged": "Lozinka uspesno promenjena.",
+  "errorChangingPassword": "Greska prilikom promene lozinke",
   "userDataNotLoaded": "Podatci korisnika nisu ucitani!",
   "saveProfile": "Sacuvaj profil",
   "enterBio": "Unesi biografiju",

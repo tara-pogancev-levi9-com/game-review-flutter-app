@@ -44,8 +44,9 @@ class _AvatarState extends State<Avatar> {
     return BlocBuilder<UserCubit, UserProfileState>(
       bloc: locator<UserCubit>(),
       builder: (context, state) {
-        if (state is UserProfileLoaded) {
-          return Column(
+        return state.when(
+          loading: () => CircularProgressIndicator(),
+          loaded: (user, loggedUserId, alreadyFriends, message) => Column(
             children: [
               Container(
                 height: 250,
@@ -107,7 +108,7 @@ class _AvatarState extends State<Avatar> {
                                       .last
                                       .toLowerCase();
                                   imageBytes = imgBytes;
-                                  imagePath = '/${state.user.id}/profile';
+                                  imagePath = '/${user.id}/profile';
                                   imageSelected = true;
                                 });
                               },
@@ -133,8 +134,8 @@ class _AvatarState extends State<Avatar> {
                                     color: AppColors.softWhite,
                                     onPressed: () async {
                                       await locator<UserCubit>().deleteAvatar(
-                                        state.user.id,
-                                        '/${state.user.id}/profile',
+                                        user.id,
+                                        '/${user.id}/profile',
                                       );
                                       setState(() {
                                         _currentImageUrl = null;
@@ -171,10 +172,9 @@ class _AvatarState extends State<Avatar> {
                     )
                   : null),
             ],
-          );
-        } else {
-          return CircularProgressIndicator();
-        }
+          ),
+          error: (message) => Center(child: Text('Error: $message')),
+        );
       },
     );
   }

@@ -57,9 +57,7 @@ class UserService {
         },
       );
 
-      if (response.statusCode == 200) {
-        print('Password changed successfully!');
-      } else {
+      if (response.statusCode != 200) {
         throw Exception(
           'Failed to change password with status: ${response.statusCode}',
         );
