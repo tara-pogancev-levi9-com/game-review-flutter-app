@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
+import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
@@ -18,14 +19,34 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  String? currentUserId;
   final List<int> _history = [0];
 
   final List<Widget> _pages = [
     const HomePage(),
     const SearchPage(),
     const LibraryPage(),
-    const ProfilePage(),
+    //const ProfilePage(),
   ];
+
+  bool _isDataFetched = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isDataFetched) {
+      _isDataFetched = true;
+      _fetchUserId();
+    }
+  }
+
+  Future<void> _fetchUserId() async {
+    final String fetchedId = await locator<UserCubit>().getCurrentUserId();
+    _pages.add(ProfilePage(currentUserId: fetchedId));
+    setState(() {
+      currentUserId = fetchedId;
+    });
+  }
 
   void _onDestinationSelected(int index) {
     setState(() {
@@ -34,13 +55,20 @@ class _MainScreenState extends State<MainScreen> {
       _history.add(index);
     });
   }
-  Widget? _getFloatingActionButton(){
-    if(_selectedIndex == 3){
+
+  Widget? _getFloatingActionButton() {
+    if (_selectedIndex == 3) {
       return FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfilePage(),));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditProfilePage(),
+            ),
+          );
         },
-        child: Icon(Icons.edit),);
+        child: Icon(Icons.edit),
+      );
     }
     return null;
   }
@@ -60,54 +88,60 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final translations = context.t;
 
-    return AppScaffold(
-      floatingActionButton: _getFloatingActionButton(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            CustomHeader(
-              isHome: _selectedIndex == 0,
-              onBack: _onBackPressed,
-            ),
-            Expanded(child: _pages[_selectedIndex]),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.transparent,
-              Colors.black.withValues(alpha: 0.5),
+    if (currentUserId == null) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    } else {
+      return AppScaffold(
+        floatingActionButton: _getFloatingActionButton(),
+        body: SafeArea(
+          child: Column(
+            children: [
+              CustomHeader(
+                isHome: _selectedIndex == 0,
+                onBack: _onBackPressed,
+              ),
+              Expanded(child: _pages[_selectedIndex]),
             ],
           ),
         ),
-        child: NavigationBar(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: _onDestinationSelected,
-          elevation: 0,
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.home_rounded),
-              label: translations.navigation.home,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Colors.black.withValues(alpha: 0.5),
+              ],
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.search_rounded),
-              label: translations.navigation.search,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.library_books_rounded),
-              label: translations.navigation.library,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.person_rounded),
-              label: translations.navigation.profile,
-            ),
-          ],
+          ),
+          child: NavigationBar(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: _onDestinationSelected,
+            elevation: 0,
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home_rounded),
+                label: translations.navigation.home,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.search_rounded),
+                label: translations.navigation.search,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.library_books_rounded),
+                label: translations.navigation.library,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.person_rounded),
+                label: translations.navigation.profile,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

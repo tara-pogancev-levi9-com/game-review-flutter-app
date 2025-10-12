@@ -4,19 +4,20 @@ import 'package:game_review/core/storage/secure_storage.dart';
 
 // TODO: Error handling, generic responses
 
-class ApiClient {
+class ApiImageClient {
   final Dio dio;
 
-  ApiClient({required String baseUrl})
+  ApiImageClient({required String baseUrl})
       : dio = Dio(BaseOptions(
-          baseUrl: baseUrl,
-          connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
-          headers: {
-            'Content-Type': 'application/json',
-            'apiKey': dotenv.env['API_KEY']!,
-          },
-        )) {
+    baseUrl: baseUrl,
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    headers: {
+      //'Content-Type': 'application/json',
+      'apiKey': dotenv.env['API_KEY']!,
+      'x-upsert': 'true'
+    },
+  )) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -24,6 +25,7 @@ class ApiClient {
 
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
+            //options.headers['Content-Type'] = 'image/${imageExtensions}';
           }
 
           return handler.next(options);
@@ -43,14 +45,15 @@ class ApiClient {
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
   }
-  Future<Response> post(String path, {dynamic data}) {
-    return dio.post(path, data: data);
+  Future<Response> post(String path, String imageExtensions, {dynamic data}) {
+    Options options = Options(
+        headers: {'Content-Type': 'image/${imageExtensions}'});
+    return dio.post(path, data: data, options: options);
   }
-  Future<Response> put(String path, {dynamic data}) {
-    return dio.put(path, data: data);
-  }
-  Future<Response> patch(String path, String id, {dynamic data}) {
-    return dio.patch(path, queryParameters: {'id': 'eq.$id'},  data: data);
+  Future<Response> put(String path, String imageExtensions, {dynamic data}) {
+    Options options = Options(
+        headers: {'Content-Type': imageExtensions});
+    return dio.put(path, data: data, options: options);
   }
   Future<Response> delete(String path, {dynamic data}) {
     return dio.delete(path, data: data);

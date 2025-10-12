@@ -12,9 +12,19 @@ class UserProfileInitial extends UserProfileState {}
 
 class UserProfileLoading extends UserProfileState {}
 
+class DataChangeSuccess extends UserProfileState {
+  final String message;
+  const DataChangeSuccess(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
 class UserProfileLoaded extends UserProfileState {
   final User user;
-  const UserProfileLoaded(this.user);
+  final String? loggedUserId;
+  final bool? alreadyFriends;
+  const UserProfileLoaded(this.user, this.loggedUserId, this.alreadyFriends);
 
   @override
   List<Object?> get props => [user];

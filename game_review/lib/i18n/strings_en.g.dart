@@ -101,6 +101,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Display Name'
 	String get displayName => 'Display Name';
 
+	/// en: 'No Image'
+	String get noImage => 'No Image';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
@@ -175,6 +178,21 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Password must be at least 8 characters long!'
 	String get passwordLength => 'Password must be at least 8 characters long!';
+
+	/// en: 'Change Password'
+	String get changePassword => 'Change Password';
+
+	/// en: 'User data not loaded!'
+	String get userDataNotLoaded => 'User data not loaded!';
+
+	/// en: 'Save Profile'
+	String get saveProfile => 'Save Profile';
+
+	/// en: 'Enter bio'
+	String get enterBio => 'Enter bio';
+
+	/// en: 'Profile Info'
+	String get profileInfo => 'Profile Info';
 
 	/// en: 'Email address is not valid!'
 	String get emailInvalid => 'Email address is not valid!';
