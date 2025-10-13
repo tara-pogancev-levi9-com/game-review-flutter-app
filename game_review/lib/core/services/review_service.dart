@@ -1,12 +1,14 @@
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_constants.dart';
 import 'package:game_review/common/models/models.dart';
+import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewService {
   final ApiClient _apiClient;
+  final AuthService _authService;
 
-  ReviewService(this._apiClient);
+  ReviewService(this._apiClient, this._authService);
 
   Future<List<GameReviewModel>> getGameReviews(
     String gameId, {
@@ -26,9 +28,22 @@ class ReviewService {
       );
 
       if (response.statusCode == 200 && response.data is List) {
-        return (response.data as List)
+        final reviews = (response.data as List)
             .map((json) => GameReviewModel.fromJson(json))
             .toList();
+
+        final reviewsWithLikes = await Future.wait(
+          reviews.map((review) async {
+            final likesCount = await getReviewLikesCount(review.id);
+            final isLiked = await hasLikedReview(review.id);
+            return review.copyWith(
+              likesCount: likesCount,
+              isLiked: isLiked,
+            );
+          }),
+        );
+
+        return reviewsWithLikes;
       }
       return [];
     } catch (e) {
@@ -130,10 +145,16 @@ class ReviewService {
 
   Future<void> likeReview(String reviewId) async {
     try {
+      final userId = await _authService.getCurrentUserId();
+      if (userId == null) {
+        throw Exception(t.errors.userNotAuthenticated);
+      }
+
       final response = await _apiClient.post(
         ApiConstants.reviewLikes,
         data: {
           'review_id': reviewId,
+          'user_id': userId,
         },
       );
 
@@ -147,10 +168,16 @@ class ReviewService {
 
   Future<void> unlikeReview(String reviewId) async {
     try {
+      final userId = await _authService.getCurrentUserId();
+      if (userId == null) {
+        throw Exception(t.errors.userNotAuthenticated);
+      }
+
       final response = await _apiClient.delete(
         ApiConstants.reviewLikes,
-        data: {
+        queryParameters: {
           'review_id': 'eq.$reviewId',
+          'user_id': 'eq.$userId',
         },
       );
 
@@ -164,10 +191,16 @@ class ReviewService {
 
   Future<bool> hasLikedReview(String reviewId) async {
     try {
+      final userId = await _authService.getCurrentUserId();
+      if (userId == null) {
+        return false;
+      }
+
       final response = await _apiClient.get(
         ApiConstants.reviewLikes,
         queryParameters: {
           'review_id': 'eq.$reviewId',
+          'user_id': 'eq.$userId',
           'select': 'id',
         },
       );

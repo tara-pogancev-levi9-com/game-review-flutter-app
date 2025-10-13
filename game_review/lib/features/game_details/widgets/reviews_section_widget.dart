@@ -24,6 +24,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
   List<GameReviewModel> _reviews = [];
   bool _isLoading = false;
   bool _hasError = false;
+  final Set<String> _likingInProgress = {};
 
   @override
   void initState() {
@@ -52,6 +53,67 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
         _isLoading = false;
       });
     }
+  }
+
+  Future<void> _toggleLike(GameReviewModel review) async {
+    if (_likingInProgress.contains(review.id)) {
+      return;
+    }
+
+    setState(() {
+      _likingInProgress.add(review.id);
+    });
+
+    try {
+      if (review.isLiked == true) {
+        await _reviewService.unlikeReview(review.id);
+        _updateReview(
+          review.copyWith(
+            isLiked: false,
+            likesCount: (review.likesCount ?? 0) > 0
+                ? (review.likesCount ?? 0) - 1
+                : 0,
+          ),
+        );
+      } else {
+        await _reviewService.likeReview(review.id);
+        _updateReview(
+          review.copyWith(
+            isLiked: true,
+            likesCount: (review.likesCount ?? 0) + 1,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              review.isLiked == true
+                  ? t.errors.failedToUnlikeReview
+                  : t.errors.failedToLikeReview,
+            ),
+            backgroundColor: AppColors.error,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _likingInProgress.remove(review.id);
+        });
+      }
+    }
+  }
+
+  void _updateReview(GameReviewModel updatedReview) {
+    setState(() {
+      final index = _reviews.indexWhere((r) => r.id == updatedReview.id);
+      if (index != -1) {
+        _reviews[index] = updatedReview;
+      }
+    });
   }
 
   @override
@@ -243,17 +305,19 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
           Row(
             children: [
               IconButton(
-                icon: const Icon(
-                  Icons.favorite_border,
+                icon: Icon(
+                  review.isLiked == true
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                   color: AppColors.lilacSelected,
                   size: 20,
                 ),
-                onPressed: () {
-                  // TODO: Implement like functionality
-                },
+                onPressed: _likingInProgress.contains(review.id)
+                    ? null
+                    : () => _toggleLike(review),
               ),
               Text(
-                '0',
+                '${review.likesCount}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: AppColors.textSecondary,
                 ),
