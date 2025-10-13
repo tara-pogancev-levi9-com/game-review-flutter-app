@@ -1,75 +1,60 @@
 name: game_review
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
-   
+
 environment:
   sdk: ^3.9.2
 
 dependencies:
   flutter:
-    sdk: flutter 
+    sdk: flutter
   flutter_dotenv: ^6.0.0
-  dio: ^5.9.0 
+  dio: ^5.9.0
   encrypt_shared_preferences: ^0.9.10
   slang: ^4.8.1
   slang_flutter: ^4.8.0
-  logger: ^2.6.2 
-
+  logger: ^2.6.2
 
   bloc: ^9.0.1
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
-  freezed_annotation: ^3.1.0
-  json_annotation: ^4.9.0
-
   cupertino_icons: ^1.0.8
   get_it: ^8.2.0
-
   flutter_launcher_icons: ^0.14.4
-
   flutter_localizations:
     sdk: flutter
+  jwt_decoder: ^2.0.1
 
-
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.9.0
+
+  build_runner: ^2.4.9
+
   slang_build_runner: ^4.8.1
   slang_gpt: ^0.11.0
+  flutter_lints: ^4.0.0
   freezed: ^3.2.3
   json_serializable: ^6.11.1
 
-
-
 flutter_launcher_icons:
-  android: true # Set to true to generate Android icons
-  ios: true     # Set to true to generate iOS icons
-  image_path: "lib/common/assets/icons/LogoApp.png" # Path to your icon image
-  adaptive_icon_background: "#2A0144"  # Or an image path like "assets/icon/background.png"
+  android: true
+  ios: true
+  image_path: "lib/common/assets/icons/LogoApp.png"
+  adaptive_icon_background: "#2A0144"
   adaptive_icon_foreground: "lib/common/assets/icons/SizedForegroundLogo.png"
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-
-  flutter_lints: ^5.0.0
-
 flutter:
-
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - .env
     - lib/common/assets/icons/
     - lib/common/assets/images/
-    - lib/common/assets/icons/
   #   - images/a_dot_ham.jpeg
 
   fonts:
@@ -99,4 +84,3 @@ flutter:
       fonts:
         - asset: fonts/PixelifySans-Bold.ttf
           weight: 700
-

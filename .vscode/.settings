@@ -1,0 +1,10 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always",
+    "source.fixAll": "always",
+    "quickfix.create.constructorForFinalFields": "always"
+  },
+  "[dart]": {
+    "editor.formatOnSave": true
+  }
+}

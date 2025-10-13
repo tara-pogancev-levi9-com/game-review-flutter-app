@@ -16,7 +16,6 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -28,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     super.dispose();
   }
-
   void _onSubmit() {
     if (_formKey.currentState?.validate() != true) return;
     locator<AuthCubit>().login(
@@ -36,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
       _passwordController.text,
     );
   }
-
   @override
   Widget build(BuildContext context) {
     final topInset = MediaQuery.of(context).padding.top;

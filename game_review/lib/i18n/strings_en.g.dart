@@ -164,6 +164,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Missing API_URL environment variable'
+	String get missingApiUrl => 'Missing API_URL environment variable';
+
 	/// en: 'Error occurred. Try again later'
 	String get registrationError => 'Error occurred. Try again later';
 
@@ -194,6 +197,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
+
+	/// en: 'App failed to start:\n\n@{error}'
+	String get appFailedToStart => 'App failed to start:\n\n@{error}';
+
+	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 
 	/// en: 'You have already reviewed this game'
@@ -270,6 +278,32 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Not Started (0%)'
 	String get notStarted0 => 'Not Started (0%)';
+
+	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
+	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
+
+	/// en: 'Review'
+	String get gameReview => 'Review';
+
+	/// en: 'Add Comment'
+	String get addComment => 'Add Comment';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Would recommend'
+	String get wouldRecommend => 'Would recommend';
+
+	/// en: 'Would not recommend'
+	String get wouldNotRecommend => 'Would not recommend';
+
+	/// en: 'Likes'
+	String get likes => 'Likes';
+
+	/// en: 'h on record'
+	String get playingRecord => 'h on record';
+
+	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
 }
 
 // Path: navigation
@@ -301,6 +335,12 @@ class TranslationsErrorsEn {
 
 	// Translations
 
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed. Please try again.'
+	String get loginFailed => 'Login failed. Please try again.';
+
 	/// en: '{field} required'
 	String get requiredField => '{field} required';
 
@@ -310,12 +350,6 @@ class TranslationsErrorsEn {
 	/// en: 'Min {n} char'
 	String get minLength => 'Min {n} char';
 
-	/// en: 'Invalid credentials'
-	String get invalidCredentials => 'Invalid credentials';
-
-	/// en: 'Login failed, please try again'
-	String get loginFailed => 'Login failed, please try again';
-
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 
@@ -324,6 +358,18 @@ class TranslationsErrorsEn {
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to fetch recent reviews'
+	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
+
+	/// en: 'Failed to load home data'
+	String get failedToLoadHome => 'Failed to load home data';
+
+	/// en: 'Failed to load comments'
+	String get failedToLoadComments => 'Failed to load comments';
+
+	/// en: 'Authentication check failed'
+	String get authenticationFail => 'Authentication check failed';
 
 	/// en: 'Failed to process review'
 	String get failedToProcessReview => 'Failed to process review';
@@ -344,6 +390,63 @@ class TranslationsErrorsEn {
 	String get failedToDeleteReview => 'Failed to delete review';
 }
 
+// Path: library
+class TranslationsLibraryEn {
+	TranslationsLibraryEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Latest'
+	String get latest => 'Latest';
+
+	/// en: 'Popular'
+	String get popular => 'Popular';
+
+	/// en: 'Owned Games'
+	String get ownedGames => 'Owned Games';
+
+	/// en: 'Wishlist'
+	String get wishlist => 'Wishlist';
+
+	/// en: 'My Library'
+	String get myLibrary => 'My Library';
+
+	/// en: 'Game already in wishlist'
+	String get gameAlreadyInWishlist => 'Game already in wishlist';
+
+	/// en: 'Game added to wishlist'
+	String get gameAddedToWishlist => 'Game added to wishlist';
+
+	/// en: 'Failed to add to wishlist'
+	String get failedToAddToWishlist => 'Failed to add to wishlist';
+
+	/// en: 'Game already in library'
+	String get gameAlreadyInLibrary => 'Game already in library';
+
+	/// en: 'Game added to library'
+	String get gameAddedToLibrary => 'Game added to library';
+
+	/// en: 'Failed to add to library'
+	String get failedToAddToLibrary => 'Failed to add to library';
+
+	/// en: 'Game not found in wishlist'
+	String get gameNotFoundInWishlist => 'Game not found in wishlist';
+
+	/// en: 'Game not found in library'
+	String get gameNotFoundInLibrary => 'Game not found in library';
+
+	/// en: 'Wishlist addition failed'
+	String get wishlistAdditionFailed => 'Wishlist addition failed';
+
+	/// en: 'Library addition failed'
+	String get libraryAdditionFailed => 'Library addition failed';
+
+	/// en: 'Failed to fetch games'
+	String get failedToFetchGames => 'Failed to fetch games';
+}
+
 // Path: branding
 class TranslationsBrandingEn {
 	TranslationsBrandingEn.internal(this._root);
@@ -360,4 +463,184 @@ class TranslationsBrandingEn {
 
 	/// en: 'App logo'
 	String get logoLabel => 'App logo';
+}
+
+// Path: gameService
+class TranslationsGameServiceEn {
+	TranslationsGameServiceEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Cannot add to wishlist - no token found'
+	String get noTokenWishlist => 'Cannot add to wishlist - no token found';
+
+	/// en: 'Cannot add to library - no token found'
+	String get noTokenLibrary => 'Cannot add to library - no token found';
+
+	/// en: 'Cannot fetch wishlist - no token found'
+	String get noTokenFetchWishlist => 'Cannot fetch wishlist - no token found';
+
+	/// en: 'Cannot fetch library - no token found'
+	String get noTokenFetchLibrary => 'Cannot fetch library - no token found';
+
+	/// en: 'Cannot remove from wishlist - no token found'
+	String get noTokenRemoveWishlist => 'Cannot remove from wishlist - no token found';
+
+	/// en: 'Cannot remove from library - no token found'
+	String get noTokenRemoveLibrary => 'Cannot remove from library - no token found';
+
+	/// en: 'Game added to wishlist successfully'
+	String get gameAddedToWishlistSuccess => 'Game added to wishlist successfully';
+
+	/// en: 'Game added to library successfully'
+	String get gameAddedToLibrarySuccess => 'Game added to library successfully';
+
+	/// en: 'Failed to add to wishlist, status'
+	String get failedToAddToWishlistStatus => 'Failed to add to wishlist, status';
+
+	/// en: 'Failed to add to library, status'
+	String get failedToAddToLibraryStatus => 'Failed to add to library, status';
+
+	/// en: 'Failed to fetch latest games'
+	String get failedToFetchLatestGames => 'Failed to fetch latest games';
+
+	/// en: 'Failed to fetch popular games'
+	String get failedToFetchPopularGames => 'Failed to fetch popular games';
+
+	/// en: 'Failed to add game to wishlist'
+	String get failedToAddGameToWishlist => 'Failed to add game to wishlist';
+
+	/// en: 'Failed to add game to library'
+	String get failedToAddGameToLibrary => 'Failed to add game to library';
+
+	/// en: 'Failed to fetch wishlist games'
+	String get failedToFetchWishlistGames => 'Failed to fetch wishlist games';
+
+	/// en: 'Failed to fetch library games'
+	String get failedToFetchLibraryGames => 'Failed to fetch library games';
+
+	/// en: 'Removed from wishlist on server'
+	String get removedFromWishlist => 'Removed from wishlist on server';
+
+	/// en: 'Removed from library on server'
+	String get removedFromLibrary => 'Removed from library on server';
+
+	/// en: 'Failed to remove from wishlist'
+	String get failedToRemoveFromWishlist => 'Failed to remove from wishlist';
+
+	/// en: 'Failed to remove from library'
+	String get failedToRemoveFromLibrary => 'Failed to remove from library';
+}
+
+// Path: gameDetails
+class TranslationsGameDetailsEn {
+	TranslationsGameDetailsEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Added to Wishlist'
+	String get addedToWishlist => 'Added to Wishlist';
+
+	/// en: 'Game already in Wishlist'
+	String get gameAlreadyInWishlist => 'Game already in Wishlist';
+
+	/// en: 'Failed to add to Wishlist'
+	String get failedToAddToWishlist => 'Failed to add to Wishlist';
+
+	/// en: 'Added to My Library'
+	String get addedToLibrary => 'Added to My Library';
+
+	/// en: 'Game already in Library'
+	String get gameAlreadyInLibrary => 'Game already in Library';
+
+	/// en: 'Failed to add to Library'
+	String get failedToAddToLibrary => 'Failed to add to Library';
+
+	/// en: 'Removed from Wishlist'
+	String get removedFromWishlist => 'Removed from Wishlist';
+
+	/// en: 'Failed to remove from Wishlist'
+	String get failedToRemoveFromWishlist => 'Failed to remove from Wishlist';
+
+	/// en: 'Removed from Library'
+	String get removedFromLibrary => 'Removed from Library';
+
+	/// en: 'Failed to remove from Library'
+	String get failedToRemoveFromLibrary => 'Failed to remove from Library';
+
+	/// en: 'Add review feature coming soon!'
+	String get addReviewComingSoon => 'Add review feature coming soon!';
+
+	/// en: 'Add to Wishlist'
+	String get addToWishlist => 'Add to Wishlist';
+
+	/// en: 'Add to My Library'
+	String get addToMyLibrary => 'Add to My Library';
+
+	/// en: 'Remove from Wishlist'
+	String get removeFromWishlist => 'Remove from Wishlist';
+
+	/// en: 'Remove from My Library'
+	String get removeFromMyLibrary => 'Remove from My Library';
+
+	/// en: 'Add Review'
+	String get addReview => 'Add Review';
+
+	/// en: 'x of players recommend this game'
+	String get recommendText => 'x of players recommend this game';
+
+	/// en: 'Overall'
+	String get overall => 'Overall';
+
+	/// en: 'Details'
+	String get details => 'Details';
+
+	/// en: 'Developer'
+	String get developer => 'Developer';
+
+	/// en: 'Publisher'
+	String get publisher => 'Publisher';
+
+	/// en: 'Released'
+	String get released => 'Released';
+
+	/// en: 'Available on'
+	String get availableOn => 'Available on';
+
+	/// en: 'Recent reviews'
+	String get recentReviews => 'Recent reviews';
+}
+
+// Path: time
+class TranslationsTimeEn {
+	TranslationsTimeEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'second/s ago'
+	String get secondsAgo => 'second/s ago';
+
+	/// en: 'minute/s ago'
+	String get minutesAgo => 'minute/s ago';
+
+	/// en: 'hour/s ago'
+	String get hoursAgo => 'hour/s ago';
+
+	/// en: 'day/s ago'
+	String get daysAgo => 'day/s ago';
+
+	/// en: 'week/s ago'
+	String get weeksAgo => 'week/s ago';
+
+	/// en: 'month/s ago'
+	String get monthsAgo => 'month/s ago';
+
+	/// en: 'year/s ago'
+	String get yearsAgo => 'year/s ago';
 }
