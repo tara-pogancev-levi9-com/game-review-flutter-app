@@ -9,11 +9,10 @@ class HomeState with _$HomeState {
   const factory HomeState.initial() = HomeInitial;
   const factory HomeState.loading() = HomeLoading;
   const factory HomeState.success({
-    required List<Game> discoverGames,
-    @Default([]) List<Review> recentReviews,
+    required List<GameModel> discoverGames,
+    @Default([]) List<ReviewModel> recentReviews,
     @Default(false) bool isLoadingMore,
     @Default(true) bool hasMore,
   }) = HomeSuccess;
   const factory HomeState.error(String message) = HomeError;
 }
-

@@ -4,7 +4,7 @@ import 'package:game_review/features/library_screen/widgets/game_actions_menu.da
 import 'package:game_review/i18n/strings.g.dart';
 
 class GameDetailsPage extends StatelessWidget {
-  final Game game;
+  final GameModel game;
 
   const GameDetailsPage({super.key, required this.game});
 
@@ -31,7 +31,9 @@ class GameDetailsPage extends StatelessWidget {
                   : null,
             ),
             child: game.coverImageUrl == null
-                ? const Center(child: Icon(Icons.image, size: 64, color: Colors.white70))
+                ? const Center(
+                    child: Icon(Icons.image, size: 64, color: Colors.white70),
+                  )
                 : null,
           ),
 
@@ -44,10 +46,9 @@ class GameDetailsPage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     game.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 GameActionsMenu(game: game),
@@ -61,10 +62,9 @@ class GameDetailsPage extends StatelessWidget {
               children: [
                 Text(
                   t.gameDetails.recommendText,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 8),
                 const Icon(Icons.add_circle_outline, size: 18),
@@ -76,10 +76,9 @@ class GameDetailsPage extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             child: Text(
               t.gameDetails.overall,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
 
@@ -97,11 +96,12 @@ class GameDetailsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(t.gameDetails.details,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  t.gameDetails.details,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,9 +121,11 @@ class GameDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(t.gameDetails.released),
-                    Text(game.releaseDate != null
-                        ? '${game.releaseDate!.toLocal()}'.split(' ')[0]
-                        : '-'),
+                    Text(
+                      game.releaseDate != null
+                          ? game.releaseDate!.split(' ')[0]
+                          : '-',
+                    ),
                   ],
                 ),
               ],
@@ -136,16 +138,18 @@ class GameDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(t.gameDetails.availableOn,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    t.gameDetails.availableOn,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
-                    children:
-                        game.platforms!.map((p) => Chip(label: Text(p))).toList(),
+                    children: game.platforms!
+                        .map((p) => Chip(label: Text(p)))
+                        .toList(),
                   ),
                 ],
               ),
@@ -153,11 +157,12 @@ class GameDetailsPage extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(t.gameDetails.recentReviews,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontWeight: FontWeight.bold)),
+            child: Text(
+              t.gameDetails.recentReviews,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),

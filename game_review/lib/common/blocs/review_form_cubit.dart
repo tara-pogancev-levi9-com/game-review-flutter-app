@@ -5,7 +5,6 @@ import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/utils/app_exception.dart';
 import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewFormCubit extends Cubit<ReviewFormState> {
   final ReviewsService _service;
@@ -85,16 +84,16 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
         id: id,
         title: title,
         content: content,
-        overall_rating: overall_rating,
-        gameplay_rating: gameplay_rating,
-        graphics_rating: graphics_rating,
-        story_rating: story_rating,
-        sound_rating: sound_rating,
-        value_rating: value_rating,
+        overallRating: overall_rating,
+        gameplayRating: gameplay_rating,
+        graphicsRating: graphics_rating,
+        storyRating: story_rating,
+        soundRating: sound_rating,
+        valueRating: value_rating,
         pros: pros,
         cons: cons,
-        playtime_hours: playtime_hours,
-        completion_status: completion_status,
+        playtimeHours: playtime_hours,
+        completionStatus: completion_status,
         recommended: recommended,
       );
       emit(const ReviewFormState.success(null));

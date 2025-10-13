@@ -6,7 +6,6 @@ import 'package:game_review/features/home_screen/bloc/home_state.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
-import 'package:game_review/features/home_screen/widgets/games_list_widget.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +26,8 @@ class _HomePageState extends State<HomePage> {
     cubit.loadHome();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 300) {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 300) {
         cubit.loadMoreReviews();
       }
     });
@@ -56,8 +56,14 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text(t.discover, style: Theme.of(context).textTheme.headlineSmall),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Text(
+                        t.discover,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
                     ),
                   ),
 
@@ -68,7 +74,10 @@ class _HomePageState extends State<HomePage> {
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-                      child: Text(t.recentReviews, style: Theme.of(context).textTheme.headlineSmall),
+                      child: Text(
+                        t.recentReviews,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
                     ),
                   ),
 
@@ -90,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                             review: r,
                             onDetails: () {
                               Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => ReviewDetailsPage(review: r)),
+                                MaterialPageRoute(
+                                  builder: (_) => ReviewDetailsPage(review: r),
+                                ),
                               );
                             },
                           ),

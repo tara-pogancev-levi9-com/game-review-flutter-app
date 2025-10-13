@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
+
 import '../../home_screen/widgets/game_card.dart';
 
 class GameSection extends StatelessWidget {
   final String? title;
-  final List<Game> games;
+  final List<GameModel> games;
 
   const GameSection({super.key, this.title, required this.games});
 
@@ -18,7 +19,10 @@ class GameSection extends StatelessWidget {
         if (title != null && title!.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Text(title!, style: Theme.of(context).textTheme.headlineSmall),
+            child: Text(
+              title!,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
         SizedBox(
           height: 180,

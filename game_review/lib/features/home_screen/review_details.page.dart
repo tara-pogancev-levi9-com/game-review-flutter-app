@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
+import 'utils/formatters.dart';
+import 'widgets/comments_section.dart';
 import 'widgets/media_thumb.dart';
 import 'widgets/rating_row.dart';
 import 'widgets/review_chip.dart';
-import 'widgets/comments_section.dart';
-import 'utils/formatters.dart';
 
 class ReviewDetailsPage extends StatelessWidget {
-  final Review review;
+  final ReviewModel review;
 
   const ReviewDetailsPage({super.key, required this.review});
 
   @override
   Widget build(BuildContext context) {
     final cover = review.game?.coverImageUrl;
-    final gameTitle = review.game?.title ?? review.gameId ?? t.gameDetails.details;
-    final reviewer = review.userId ?? 'User';
+    final gameTitle = review.game?.title ?? review.gameId;
+    final reviewer = review.userId;
     final reviewTitle = review.title;
     final content = review.content;
 
@@ -55,7 +55,9 @@ class ReviewDetailsPage extends StatelessWidget {
               children: [
                 Text(
                   t.gameDetails.details,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const Spacer(),
                 IconButton(
@@ -74,9 +76,16 @@ class ReviewDetailsPage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.grey[900],
               borderRadius: BorderRadius.circular(12),
-              image: cover != null ? DecorationImage(image: NetworkImage(cover), fit: BoxFit.cover) : null,
+              image: cover != null
+                  ? DecorationImage(
+                      image: NetworkImage(cover),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
-            child: cover == null ? const Center(child: Icon(Icons.image, size: 48)) : null,
+            child: cover == null
+                ? const Center(child: Icon(Icons.image, size: 48))
+                : null,
           ),
           // game title, reviewer, date
           Padding(
@@ -86,7 +95,9 @@ class ReviewDetailsPage extends StatelessWidget {
                 Expanded(
                   child: Text(
                     gameTitle,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -114,12 +125,20 @@ class ReviewDetailsPage extends StatelessWidget {
           if (reviewTitle != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              child: Text(reviewTitle, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+              child: Text(
+                reviewTitle,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
             ),
           if (content != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(content, style: Theme.of(context).textTheme.bodyMedium),
+              child: Text(
+                content,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
 
           // chips
@@ -129,10 +148,24 @@ class ReviewDetailsPage extends StatelessWidget {
               spacing: 8,
               runSpacing: 6,
               children: [
-                ReviewChip('${review.playtimeHours ?? 0} ${t.playingRecord}', icon: Icons.schedule),
-                ReviewChip(review.completionStatus ?? '-', icon: Icons.check_circle_outline),
-                ReviewChip(review.recommended == true ? t.wouldRecommend : t.wouldNotRecommend, icon: Icons.thumb_up),
-                ReviewChip('$likesCount ${t.likes}', icon: Icons.favorite_outline),
+                ReviewChip(
+                  '${review.playtimeHours ?? 0} ${t.playingRecord}',
+                  icon: Icons.schedule,
+                ),
+                ReviewChip(
+                  review.completionStatus ?? '-',
+                  icon: Icons.check_circle_outline,
+                ),
+                ReviewChip(
+                  review.recommended == true
+                      ? t.wouldRecommend
+                      : t.wouldNotRecommend,
+                  icon: Icons.thumb_up,
+                ),
+                ReviewChip(
+                  '$likesCount ${t.likes}',
+                  icon: Icons.favorite_outline,
+                ),
                 // Comments count in CommentsSection / CommentsChip inside that widget
               ],
             ),
@@ -141,7 +174,12 @@ class ReviewDetailsPage extends StatelessWidget {
           // ratings header + rows
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Text(t.ratings, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            child: Text(
+              t.ratings,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -160,31 +198,71 @@ class ReviewDetailsPage extends StatelessWidget {
           // evaluation (pros/cons)
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Text(t.evaluation, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            child: Text(
+              t.evaluation,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
           if (review.pros != null && review.pros!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Row(children: [const Icon(Icons.check_circle_outline), const SizedBox(width: 8), Text(t.pros, style: Theme.of(context).textTheme.titleSmall)]),
-                const SizedBox(height: 8),
-                Text(review.pros!, style: Theme.of(context).textTheme.bodyMedium),
-              ]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.check_circle_outline),
+                      const SizedBox(width: 8),
+                      Text(
+                        t.pros,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    review.pros!.toString(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
             ),
           if (review.cons != null && review.cons!.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Row(children: [const Icon(Icons.block_outlined), const SizedBox(width: 8), Text(t.cons, style: Theme.of(context).textTheme.titleSmall)]),
-                const SizedBox(height: 8),
-                Text(review.cons!, style: Theme.of(context).textTheme.bodyMedium),
-              ]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.block_outlined),
+                      const SizedBox(width: 8),
+                      Text(
+                        t.cons,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    review.cons!.toString(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
             ),
 
           // media
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-            child: Text(t.media, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            child: Text(
+              t.media,
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ),
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 0, 16, 8),

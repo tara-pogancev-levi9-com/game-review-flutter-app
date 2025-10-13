@@ -70,8 +70,7 @@
     "failedToFetchRecentReviews": "Failed to fetch recent reviews",
     "failedToLoadHome": "Failed to load home data",
     "failedToLoadComments": "Failed to load comments",
-    "authenticationFail": "Authentication check failed"
-
+    "authenticationFail": "Authentication check failed",
     "failedToProcessReview": "Failed to process review",
     "unexpectedResponseFormat": "Unexpected response format from server",
     "genericError": "An error occurred. Please try again.",
@@ -98,8 +97,6 @@
     "libraryAdditionFailed": "Library addition failed",
     "failedToFetchGames": "Failed to fetch games"
   },
-  
-
   "branding": {
     "title": "PAW GAMES",
     "tagline": "Discover. Rate. Share.",
@@ -129,10 +126,7 @@
   "iRecommendThisGame": "I recommend this game *",
   "selectAGameFromYourLibrary": "Select a game from your library...",
   "completed100": "Completed (100%)",
-  "notStarted0": "Not Started (0%)"
-
-
-
+  "notStarted0": "Not Started (0%)",
   "gameService": {
     "noTokenWishlist": "Cannot add to wishlist - no token found",
     "noTokenLibrary": "Cannot add to library - no token found",

@@ -6,8 +6,8 @@ part of 'review_comment.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReviewCommentImpl _$$ReviewCommentImplFromJson(Map<String, dynamic> json) =>
-    _$ReviewCommentImpl(
+_ReviewComment _$ReviewCommentFromJson(Map<String, dynamic> json) =>
+    _ReviewComment(
       id: json['id'] as String,
       userId: json['user_id'] as String?,
       reviewId: json['review_id'] as String?,
@@ -21,7 +21,7 @@ _$ReviewCommentImpl _$$ReviewCommentImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$$ReviewCommentImplToJson(_$ReviewCommentImpl instance) =>
+Map<String, dynamic> _$ReviewCommentToJson(_ReviewComment instance) =>
     <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,

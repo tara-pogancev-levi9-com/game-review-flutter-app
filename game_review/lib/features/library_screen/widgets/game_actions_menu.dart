@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 import 'package:game_review/i18n/strings.g.dart';
-
 
 enum GameAction {
   addToWishlist,
@@ -14,7 +13,7 @@ enum GameAction {
 }
 
 class GameActionsMenu extends StatelessWidget {
-  final Game game;
+  final GameModel game;
 
   const GameActionsMenu({super.key, required this.game});
 
@@ -75,11 +74,26 @@ class GameActionsMenu extends StatelessWidget {
         }
       },
       itemBuilder: (context) => [
-        PopupMenuItem(value: GameAction.addToWishlist, child: Text(t.gameDetails.addToWishlist)),
-        PopupMenuItem(value: GameAction.addToLibrary, child: Text(t.gameDetails.addToMyLibrary)),
-        PopupMenuItem(value: GameAction.removeFromWishlist, child: Text(t.gameDetails.removeFromWishlist)),
-        PopupMenuItem(value: GameAction.removeFromLibrary, child: Text(t.gameDetails.removeFromMyLibrary)),
-        PopupMenuItem(value: GameAction.addReview, child: Text(t.gameDetails.addReview)),
+        PopupMenuItem(
+          value: GameAction.addToWishlist,
+          child: Text(t.gameDetails.addToWishlist),
+        ),
+        PopupMenuItem(
+          value: GameAction.addToLibrary,
+          child: Text(t.gameDetails.addToMyLibrary),
+        ),
+        PopupMenuItem(
+          value: GameAction.removeFromWishlist,
+          child: Text(t.gameDetails.removeFromWishlist),
+        ),
+        PopupMenuItem(
+          value: GameAction.removeFromLibrary,
+          child: Text(t.gameDetails.removeFromMyLibrary),
+        ),
+        PopupMenuItem(
+          value: GameAction.addReview,
+          child: Text(t.gameDetails.addReview),
+        ),
       ],
       icon: const Icon(Icons.more_vert),
     );

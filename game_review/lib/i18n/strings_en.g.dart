@@ -164,19 +164,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Missing API_URL environment variable'
+	String get missingApiUrl => 'Missing API_URL environment variable';
+
 	/// en: 'Error occurred. Try again later'
 	String get registrationError => 'Error occurred. Try again later';
 
-	/// en: 'Discover'
-	String get discver => 'Discover';
-
-	/// en: 'Discover'
-	String get discover => 'Discover';
-
-	/// en: 'Details'
-	String get details => 'Details';
-  /// en: 'Overall'
-  String get overall => 'Overall';
 	/// en: 'Passwords do not match!'
 	String get passwordMismatch => 'Passwords do not match!';
 
@@ -204,6 +197,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
+
+	/// en: 'App failed to start:\n\n@{error}'
+	String get appFailedToStart => 'App failed to start:\n\n@{error}';
+
+	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 
 	/// en: 'You have already reviewed this game'
@@ -230,13 +228,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Review title *'
 	String get reviewTitle => 'Review title *';
 
-	/// en: 'Missing API_URL environment variable'
-	String get missingApiUrl => 'Missing API_URL environment variable';
-
-	/// en: 'Error occurred. Try again later'
-	String get registrationError => 'Error occurred. Try again later';
-  /// en: 'Password must be at least 8 characters long!'
-  String get passwordLength => 'Password must be at least 8 characters long!';
 	/// en: 'Review title is required'
 	String get reviewTitleIsRequired => 'Review title is required';
 
@@ -255,43 +246,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Game cons (comma-separated)'
 	String get gameCons => 'Game cons (comma-separated)';
 
-	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-
-	/// en: 'App failed to start:\n\n@{error}'
-	String get appFailedToStart => 'App failed to start:\n\n@{error}';
-
-	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
-	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
-	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
-	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
-
-	/// en: 'Review'
-	String get gameReview => 'Review';
-
-	/// en: 'Add Comment'
-	String get addComment => 'Add Comment';
-
-	/// en: 'Reviews not found'
-	String get reviewsNotFound => 'Reviews not found';
-
-	/// en: 'Would recommend'
-	String get wouldRecommend => 'Would recommend';
-
-	/// en: 'Would not recommend'
-	String get wouldNotRecommend => 'Would not recommend';
-
-	/// en: 'Likes'
-	String get likes => 'Likes';
-
-	/// en: 'h on record'
-	String get playingRecord => 'h on record';
-
-	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
-  late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-  late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(
-    _root,
-  );
 	/// en: 'Overall Rating *'
 	String get overallRating => 'Overall Rating *';
 
@@ -324,6 +278,32 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'Not Started (0%)'
 	String get notStarted0 => 'Not Started (0%)';
+
+	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
+	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
+
+	/// en: 'Review'
+	String get gameReview => 'Review';
+
+	/// en: 'Add Comment'
+	String get addComment => 'Add Comment';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Would recommend'
+	String get wouldRecommend => 'Would recommend';
+
+	/// en: 'Would not recommend'
+	String get wouldNotRecommend => 'Would not recommend';
+
+	/// en: 'Likes'
+	String get likes => 'Likes';
+
+	/// en: 'h on record'
+	String get playingRecord => 'h on record';
+
+	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
 }
 
 // Path: navigation
@@ -355,6 +335,12 @@ class TranslationsErrorsEn {
 
 	// Translations
 
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed. Please try again.'
+	String get loginFailed => 'Login failed. Please try again.';
+
 	/// en: '{field} required'
 	String get requiredField => '{field} required';
 
@@ -364,28 +350,26 @@ class TranslationsErrorsEn {
 	/// en: 'Min {n} char'
 	String get minLength => 'Min {n} char';
 
-	/// en: 'Invalid credentials'
-	String get invalidCredentials => 'Invalid credentials';
-
-	/// en: 'Login failed, please try again'
-	String get loginFailed => 'Login failed, please try again';
-
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 
-	/// en: 'Invalid credentials'
-	String get invalidCredentials => 'Invalid credentials';
-
-	/// en: 'Login failed. Please try again.'
-	String get loginFailed => 'Login failed. Please try again.';
-
-	/// en: '{field} required'
-	String get requiredField => '{field} required';
 	/// en: 'Game not found'
 	String get gameNotFound => 'Game not found';
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to fetch recent reviews'
+	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
+
+	/// en: 'Failed to load home data'
+	String get failedToLoadHome => 'Failed to load home data';
+
+	/// en: 'Failed to load comments'
+	String get failedToLoadComments => 'Failed to load comments';
+
+	/// en: 'Authentication check failed'
+	String get authenticationFail => 'Authentication check failed';
 
 	/// en: 'Failed to process review'
 	String get failedToProcessReview => 'Failed to process review';
@@ -402,20 +386,8 @@ class TranslationsErrorsEn {
 	/// en: 'Failed to update review'
 	String get failedToUpdateReview => 'Failed to update review';
 
-	/// en: 'Reviews not found'
-	String get reviewsNotFound => 'Reviews not found';
-
-	/// en: 'Failed to fetch recent reviews'
-	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
-
-	/// en: 'Failed to load home data'
-	String get failedToLoadHome => 'Failed to load home data';
-
-	/// en: 'Failed to load comments'
-	String get failedToLoadComments => 'Failed to load comments';
-
-	/// en: 'Authentication check failed'
-	String get authenticationFail => 'Authentication check failed';
+	/// en: 'Failed to delete review'
+	String get failedToDeleteReview => 'Failed to delete review';
 }
 
 // Path: library
@@ -473,8 +445,6 @@ class TranslationsLibraryEn {
 
 	/// en: 'Failed to fetch games'
 	String get failedToFetchGames => 'Failed to fetch games';
-	/// en: 'Failed to delete review'
-	String get failedToDeleteReview => 'Failed to delete review';
 }
 
 // Path: branding

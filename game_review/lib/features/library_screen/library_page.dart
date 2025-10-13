@@ -19,18 +19,20 @@ class _LibraryPageState extends State<LibraryPage> {
     super.initState();
     locator<LibraryCubit>().fetchGames();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       body: BlocBuilder<LibraryCubit, LibraryState>(
         bloc: locator<LibraryCubit>(),
         builder: (context, state) {
           return switch (state) {
-            LibraryInitial() => const Center(child: CircularProgressIndicator()),
-            LibraryLoading() => const Center(child: CircularProgressIndicator()),
+            LibraryInitial() => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            LibraryLoading() => const Center(
+              child: CircularProgressIndicator(),
+            ),
             LibraryError(:final message) => Center(child: Text(message)),
             LibrarySuccess(
               latestGames: final latest,
@@ -56,9 +58,10 @@ class _LibraryPageState extends State<LibraryPage> {
                           const SizedBox(width: 16),
                           Text(
                             t.library.myLibrary,
-                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ],
                       ),
@@ -70,7 +73,7 @@ class _LibraryPageState extends State<LibraryPage> {
                   ],
                 ),
               ),
-                _ => const SizedBox.shrink(),
+            _ => const SizedBox.shrink(),
           };
         },
       ),

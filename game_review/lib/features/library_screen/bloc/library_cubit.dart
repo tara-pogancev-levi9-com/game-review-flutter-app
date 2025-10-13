@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/game_service.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
 import 'library_state.dart';
 
 enum AddResult { added, alreadyExists, failed }
@@ -22,12 +23,14 @@ class LibraryCubit extends Cubit<LibraryState> {
         _gameService.getUserWishlistGames(),
       ]);
 
-      emit(LibraryState.success(
-        latestGames: results[0],
-        popularGames: results[1],
-        userLibraryGames: results[2],
-        userWishlistGames: results[3],
-      ));
+      emit(
+        LibraryState.success(
+          latestGames: results[0],
+          popularGames: results[1],
+          userLibraryGames: results[2],
+          userWishlistGames: results[3],
+        ),
+      );
     } catch (e) {
       Logger.error(t.library.failedToFetchGames, e);
       emit(LibraryState.error(e.toString()));
@@ -44,12 +47,14 @@ class LibraryCubit extends Cubit<LibraryState> {
         _gameService.getUserWishlistGames(),
       ]);
 
-      emit(LibraryState.success(
-        latestGames: results[0],
-        popularGames: results[1],
-        userLibraryGames: results[2],
-        userWishlistGames: results[3],
-      ));
+      emit(
+        LibraryState.success(
+          latestGames: results[0],
+          popularGames: results[1],
+          userLibraryGames: results[2],
+          userWishlistGames: results[3],
+        ),
+      );
     } catch (e) {
       Logger.error(t.library.failedToFetchGames, e);
       emit(LibraryState.error(e.toString()));
@@ -57,35 +62,38 @@ class LibraryCubit extends Cubit<LibraryState> {
   }
 
   Future<void> _fetchUserLists() async {
-  try {
-    final results = await Future.wait([
-      _gameService.getUserLibraryGames(),
-      _gameService.getUserWishlistGames(),
-    ]);
+    try {
+      final results = await Future.wait([
+        _gameService.getUserLibraryGames(),
+        _gameService.getUserWishlistGames(),
+      ]);
 
-    if (state is LibrarySuccess) {
-      final current = state as LibrarySuccess;
+      if (state is LibrarySuccess) {
+        final current = state as LibrarySuccess;
 
-      emit(current.copyWith(
-        userLibraryGames: results[0],
-        userWishlistGames: results[1],
-      ));
-    } else {
-      emit(LibraryState.success(
-        latestGames: const [],
-        popularGames: const [],
-        userLibraryGames: results[0],
-        userWishlistGames: results[1],
-      ));
+        emit(
+          current.copyWith(
+            userLibraryGames: results[0],
+            userWishlistGames: results[1],
+          ),
+        );
+      } else {
+        emit(
+          LibraryState.success(
+            latestGames: const [],
+            popularGames: const [],
+            userLibraryGames: results[0],
+            userWishlistGames: results[1],
+          ),
+        );
+      }
+    } catch (e) {
+      Logger.error(t.library.failedToFetchGames, e);
+      emit(LibraryState.error(e.toString()));
     }
-  } catch (e) {
-    Logger.error(t.library.failedToFetchGames, e);
-    emit(LibraryState.error(e.toString()));
   }
-}
 
-
-  Future<AddResult> addGameToWishlist(Game game) async {
+  Future<AddResult> addGameToWishlist(GameModel game) async {
     final currentState = state;
 
     if (currentState is LibrarySuccess) {
@@ -98,9 +106,11 @@ class LibraryCubit extends Cubit<LibraryState> {
         final success = await _gameService.addToWishlist(game.id);
         if (success) {
           Logger.info(t.library.gameAddedToWishlist);
-          emit(currentState.copyWith(
-            userWishlistGames: [...currentState.userWishlistGames, game],
-          ));
+          emit(
+            currentState.copyWith(
+              userWishlistGames: [...currentState.userWishlistGames, game],
+            ),
+          );
           return AddResult.added;
         } else {
           Logger.warning(t.library.failedToAddToWishlist);
@@ -129,7 +139,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<AddResult> addGameToLibrary(Game game) async {
+  Future<AddResult> addGameToLibrary(GameModel game) async {
     final currentState = state;
 
     if (currentState is LibrarySuccess) {
@@ -142,9 +152,11 @@ class LibraryCubit extends Cubit<LibraryState> {
         final success = await _gameService.addToLibrary(game.id);
         if (success) {
           Logger.info(t.library.gameAddedToLibrary);
-          emit(currentState.copyWith(
-            userLibraryGames: [...currentState.userLibraryGames, game],
-          ));
+          emit(
+            currentState.copyWith(
+              userLibraryGames: [...currentState.userLibraryGames, game],
+            ),
+          );
           return AddResult.added;
         } else {
           Logger.warning(t.library.failedToAddToLibrary);
@@ -160,7 +172,7 @@ class LibraryCubit extends Cubit<LibraryState> {
       final success = await _gameService.addToLibrary(game.id);
       if (success) {
         Logger.info(t.library.gameAddedToLibrary);
-        await _fetchAll(); 
+        await _fetchAll();
         // Alternative: await _fetchUserLists(); // if desired
         return AddResult.added;
       } else {
@@ -173,7 +185,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<bool> removeGameFromWishlist(Game game) async {
+  Future<bool> removeGameFromWishlist(GameModel game) async {
     final currentState = state;
     if (currentState is LibrarySuccess) {
       if (!currentState.userWishlistGames.any((g) => g.id == game.id)) {
@@ -183,9 +195,13 @@ class LibraryCubit extends Cubit<LibraryState> {
 
       final success = await _gameService.removeFromWishlist(game.id);
       if (success) {
-        emit(currentState.copyWith(
-          userWishlistGames: currentState.userWishlistGames.where((g) => g.id != game.id).toList(),
-        ));
+        emit(
+          currentState.copyWith(
+            userWishlistGames: currentState.userWishlistGames
+                .where((g) => g.id != game.id)
+                .toList(),
+          ),
+        );
         return true;
       }
       return false;
@@ -196,7 +212,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<bool> removeGameFromLibrary(Game game) async {
+  Future<bool> removeGameFromLibrary(GameModel game) async {
     final currentState = state;
     if (currentState is LibrarySuccess) {
       if (!currentState.userLibraryGames.any((g) => g.id == game.id)) {
@@ -206,9 +222,13 @@ class LibraryCubit extends Cubit<LibraryState> {
 
       final success = await _gameService.removeFromLibrary(game.id);
       if (success) {
-        emit(currentState.copyWith(
-          userLibraryGames: currentState.userLibraryGames.where((g) => g.id != game.id).toList(),
-        ));
+        emit(
+          currentState.copyWith(
+            userLibraryGames: currentState.userLibraryGames
+                .where((g) => g.id != game.id)
+                .toList(),
+          ),
+        );
         return true;
       }
       return false;

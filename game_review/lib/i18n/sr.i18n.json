@@ -65,7 +65,6 @@
     "failedToLoadHome": "Učitavanje početnih podataka nije uspelo.",
     "failedToLoadComments": "Učitavanje komentara nije uspelo.",
     "authenticationFail": "Autentifikacija nije uspela."
-
   },
   "appFailedToStart": "Aplikacija nije uspela da se pokrene:\\n\\n@{error}",
   "library": {
@@ -85,7 +84,7 @@
     "wishlistAdditionFailed": "Dodavanje na listu želja nije uspelo",
     "libraryAdditionFailed": "Dodavanje u biblioteku nije uspelo",
     "failedToFetchGames": "Učitavanje igara nije uspelo"
-    },
+  },
 
   "gameService": {
     "noTokenWishlist": "Nije moguće dodati na listu želja - token nije pronađen",
@@ -169,8 +168,7 @@
     "weeksAgo": "nedelj/a",
     "monthsAgo": "mesec/a",
     "yearsAgo": "godina/a"
-  }
-
+  },
   "youHaveAlreadyReviewedThisGame": "Već ste ocenili ovu igru",
   "completed": "Završeno",
   "notStarted": "Nije započeto",

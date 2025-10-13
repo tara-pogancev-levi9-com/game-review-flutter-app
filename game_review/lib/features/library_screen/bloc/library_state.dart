@@ -8,10 +8,10 @@ class LibraryState with _$LibraryState {
   const factory LibraryState.initial() = LibraryInitial;
   const factory LibraryState.loading() = LibraryLoading;
   const factory LibraryState.success({
-    required List<Game> latestGames,
-    required List<Game> popularGames,
-    @Default([]) List<Game> userLibraryGames,
-    @Default([]) List<Game> userWishlistGames,
+    required List<GameModel> latestGames,
+    required List<GameModel> popularGames,
+    @Default([]) List<GameModel> userLibraryGames,
+    @Default([]) List<GameModel> userWishlistGames,
   }) = LibrarySuccess;
   const factory LibraryState.error(String message) = LibraryError;
 }

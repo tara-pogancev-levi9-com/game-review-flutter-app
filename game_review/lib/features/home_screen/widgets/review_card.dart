@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/review_model.dart';
+import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/features/home_screen/review_details.page.dart'; 
 
 class ReviewCard extends StatelessWidget {
-  final Review review;
-  final VoidCallback? onDetails; 
+  final ReviewModel review;
+  final VoidCallback? onDetails;
 
   const ReviewCard({super.key, required this.review, this.onDetails});
 
@@ -17,7 +17,7 @@ class ReviewCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       spacing: 4,
       children: List.generate(5, (i) {
-          return Icon(
+        return Icon(
           i < filled ? Icons.star : Icons.star_border,
           size: 16,
         );
@@ -29,7 +29,8 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cover = review.game?.coverImageUrl;
-    final gameTitle = review.game?.title ?? review.gameId ?? t.gameDetails.details;
+    final gameTitle =
+        review.game?.title ?? review.gameId ?? t.gameDetails.details;
     final excerpt = (review.content ?? '').trim();
     final createdAgo = formatTimeAgo(review.createdAt);
     final username = review.userId ?? 'User';
@@ -48,9 +49,16 @@ class ReviewCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey[900],
                 borderRadius: BorderRadius.circular(12),
-                image: cover != null ? DecorationImage(image: NetworkImage(cover), fit: BoxFit.cover) : null,
+                image: cover != null
+                    ? DecorationImage(
+                        image: NetworkImage(cover),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
-              child: cover == null ? const Center(child: Icon(Icons.image, size: 48)) : null,
+              child: cover == null
+                  ? const Center(child: Icon(Icons.image, size: 48))
+                  : null,
             ),
 
             const SizedBox(height: 12),
@@ -60,7 +68,9 @@ class ReviewCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     gameTitle,
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -91,12 +101,19 @@ class ReviewCard extends StatelessWidget {
                       return;
                     }
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => ReviewDetailsPage(review: review)),
+                      MaterialPageRoute(
+                        builder: (_) => ReviewDetailsPage(review: review),
+                      ),
                     );
                   },
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 14,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(999),
+                    ),
                   ),
                   child: Text(t.details),
                 ),
@@ -109,7 +126,9 @@ class ReviewCard extends StatelessWidget {
               children: [
                 const Icon(Icons.person, size: 16),
                 const SizedBox(width: 8),
-                Expanded(child: Text(username, style: theme.textTheme.bodySmall)),
+                Expanded(
+                  child: Text(username, style: theme.textTheme.bodySmall),
+                ),
               ],
             ),
           ],

@@ -4,7 +4,7 @@ part 'review_comment.freezed.dart';
 part 'review_comment.g.dart';
 
 @freezed
-class ReviewComment with _$ReviewComment {
+abstract class ReviewComment with _$ReviewComment {
   const factory ReviewComment({
     required String id,
     @JsonKey(name: 'user_id') String? userId,
@@ -15,5 +15,6 @@ class ReviewComment with _$ReviewComment {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _ReviewComment;
 
-  factory ReviewComment.fromJson(Map<String, dynamic> json) => _$ReviewCommentFromJson(json);
+  factory ReviewComment.fromJson(Map<String, dynamic> json) =>
+      _$ReviewCommentFromJson(json);
 }

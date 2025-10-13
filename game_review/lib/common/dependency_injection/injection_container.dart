@@ -1,23 +1,22 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
-import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
-import 'package:game_review/features/home_screen/services/review_comment_service.dart';
-import 'package:game_review/common/services/review_service.dart';
-import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/review_form_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_game_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_user_cubit.dart';
+import 'package:game_review/common/services/game_service.dart';
 import 'package:game_review/common/services/games_service.dart';
 import 'package:game_review/common/services/reviews_service.dart';
+import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/features/auth/bloc/auth_cubit.dart';
+import 'package:game_review/features/auth/services/auth_service.dart';
+import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
+import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
+import 'package:game_review/features/home_screen/services/review_comment_service.dart';
+import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
+import 'package:game_review/i18n/strings.g.dart';
 import 'package:get_it/get_it.dart';
-import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/features/auth/services/auth_service.dart';
-import 'package:game_review/features/auth/bloc/auth_cubit.dart';
-import 'package:game_review/common/services/game_service.dart';
-import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -68,20 +67,17 @@ void setupDependencies() {
   locator.registerLazySingleton<HomeCubit>(
     () => HomeCubit(
       locator<GameService>(),
-      locator<ReviewService>(),
+      locator<ReviewsService>(),
     ),
   );
 
-    locator.registerLazySingleton<ReviewCommentService>(
-      () => ReviewCommentService(locator<ApiClient>()
-      )
-    );
+  locator.registerLazySingleton<ReviewCommentService>(
+    () => ReviewCommentService(locator<ApiClient>()),
+  );
 
-    locator.registerLazySingleton<ReviewCommentsCubit>(
-      () => ReviewCommentsCubit(locator<ReviewCommentService>()
-      )
-    );
-
+  locator.registerLazySingleton<ReviewCommentsCubit>(
+    () => ReviewCommentsCubit(locator<ReviewCommentService>()),
+  );
 
   locator.registerLazySingleton<ReviewsService>(
     () => ReviewsService(locator<ApiClient>()),
