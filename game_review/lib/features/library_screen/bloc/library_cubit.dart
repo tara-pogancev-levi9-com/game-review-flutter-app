@@ -5,10 +5,6 @@ import 'package:game_review/common/services/game_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'library_state.dart';
 
-// IMPORTANT: We can discuss later about this specific cubit implementation and its pros/cons. 
-// TODO: We can still improve by caching/fetching latest/popular games separately
-// Q: We have library cubit and library state but mainly use game service in it. Is the naming conventionally correct or should we rename it to GameCubit/GameState to follow the service name?
-
 enum AddResult { added, alreadyExists, failed }
 
 class LibraryCubit extends Cubit<LibraryState> {
@@ -38,7 +34,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<void> _fetchAllAndEmit() async {
+  Future<void> _fetchAll() async {
     emit(const LibraryState.loading());
     try {
       final results = await Future.wait([
@@ -60,24 +56,34 @@ class LibraryCubit extends Cubit<LibraryState> {
     }
   }
 
-  Future<void> _fetchUserListsAndEmit({List<Game>? latest, List<Game>? popular}) async {
-    try {
-      final results = await Future.wait([
-        _gameService.getUserLibraryGames(),
-        _gameService.getUserWishlistGames(),
-      ]);
+  Future<void> _fetchUserLists() async {
+  try {
+    final results = await Future.wait([
+      _gameService.getUserLibraryGames(),
+      _gameService.getUserWishlistGames(),
+    ]);
 
-      emit(LibraryState.success(
-        latestGames: latest ?? const [],
-        popularGames: popular ?? const [],
+    if (state is LibrarySuccess) {
+      final current = state as LibrarySuccess;
+
+      emit(current.copyWith(
         userLibraryGames: results[0],
         userWishlistGames: results[1],
       ));
-    } catch (e) {
-      Logger.error(t.library.failedToFetchGames, e);
-      emit(LibraryState.error(e.toString()));
+    } else {
+      emit(LibraryState.success(
+        latestGames: const [],
+        popularGames: const [],
+        userLibraryGames: results[0],
+        userWishlistGames: results[1],
+      ));
     }
+  } catch (e) {
+    Logger.error(t.library.failedToFetchGames, e);
+    emit(LibraryState.error(e.toString()));
   }
+}
+
 
   Future<AddResult> addGameToWishlist(Game game) async {
     final currentState = state;
@@ -110,8 +116,8 @@ class LibraryCubit extends Cubit<LibraryState> {
       final success = await _gameService.addToWishlist(game.id);
       if (success) {
         Logger.info(t.library.gameAddedToWishlist);
-        await _fetchAllAndEmit();
-        // Alternative: await _fetchUserListsAndEmit();   // if you want only user lists
+        await _fetchAll();
+        // Alternative: await _fetchUserLists();   // if you want only user lists
         return AddResult.added;
       } else {
         Logger.warning(t.library.failedToAddToWishlist);
@@ -154,8 +160,8 @@ class LibraryCubit extends Cubit<LibraryState> {
       final success = await _gameService.addToLibrary(game.id);
       if (success) {
         Logger.info(t.library.gameAddedToLibrary);
-        await _fetchAllAndEmit(); 
-        // Alternative: await _fetchUserListsAndEmit(); // if desired
+        await _fetchAll(); 
+        // Alternative: await _fetchUserLists(); // if desired
         return AddResult.added;
       } else {
         Logger.warning(t.library.failedToAddToLibrary);

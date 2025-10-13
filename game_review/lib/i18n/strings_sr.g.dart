@@ -96,6 +96,7 @@ class TranslationsSr extends Translations {
 	@override String get wouldNotRecommend => 'Ne preporučuje';
 	@override String get likes => 'Lajkovi';
 	@override String get playingRecord => 'Sati igranja';
+	@override late final TranslationsTimeSr time = TranslationsTimeSr._(_root);
 }
 
 // Path: navigation
@@ -231,4 +232,20 @@ class TranslationsBrandingSr extends TranslationsBrandingEn {
 	@override String get title => 'PAW IGRE';
 	@override String get tagline => 'Istraži. Oceni. Deli.';
 	@override String get logoLabel => 'Logo aplikacije';
+}
+
+// Path: time
+class TranslationsTimeSr extends TranslationsTimeEn {
+	TranslationsTimeSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get secondsAgo => 'sekund/a';
+	@override String get minutesAgo => 'minut/a';
+	@override String get hoursAgo => 'sat/a';
+	@override String get daysAgo => 'dan/a';
+	@override String get weeksAgo => 'nedelj/a';
+	@override String get monthsAgo => 'mesec/a';
+	@override String get yearsAgo => 'godina/a';
 }

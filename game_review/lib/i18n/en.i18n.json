@@ -152,5 +152,14 @@
   "wouldRecommend": "Would recommend",
   "wouldNotRecommend": "Would not recommend",
   "likes": "Likes",
-  "playingRecord": "h on record"
+  "playingRecord": "h on record",
+  "time": {
+    "secondsAgo": "second/s ago",
+    "minutesAgo": "minute/s ago",
+    "hoursAgo": "hour/s ago",
+    "daysAgo": "day/s ago",
+    "weeksAgo": "week/s ago",
+    "monthsAgo": "month/s ago",
+    "yearsAgo": "year/s ago"
+  }
 }

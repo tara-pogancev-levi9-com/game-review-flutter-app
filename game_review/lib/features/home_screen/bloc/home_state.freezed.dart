@@ -24,6 +24,8 @@ mixin _$HomeState {
     required TResult Function(
       List<Game> discoverGames,
       List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
     )
     success,
     required TResult Function(String message) error,
@@ -32,7 +34,12 @@ mixin _$HomeState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult? Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult? Function(String message)? error,
   }) => throw _privateConstructorUsedError;
@@ -40,7 +47,12 @@ mixin _$HomeState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -137,6 +149,8 @@ class _$HomeInitialImpl implements HomeInitial {
     required TResult Function(
       List<Game> discoverGames,
       List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
     )
     success,
     required TResult Function(String message) error,
@@ -149,7 +163,12 @@ class _$HomeInitialImpl implements HomeInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult? Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult? Function(String message)? error,
   }) {
@@ -161,7 +180,12 @@ class _$HomeInitialImpl implements HomeInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -262,6 +286,8 @@ class _$HomeLoadingImpl implements HomeLoading {
     required TResult Function(
       List<Game> discoverGames,
       List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
     )
     success,
     required TResult Function(String message) error,
@@ -274,7 +300,12 @@ class _$HomeLoadingImpl implements HomeLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult? Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult? Function(String message)? error,
   }) {
@@ -286,7 +317,12 @@ class _$HomeLoadingImpl implements HomeLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -346,7 +382,12 @@ abstract class _$$HomeSuccessImplCopyWith<$Res> {
     $Res Function(_$HomeSuccessImpl) then,
   ) = __$$HomeSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Game> discoverGames, List<Review> recentReviews});
+  $Res call({
+    List<Game> discoverGames,
+    List<Review> recentReviews,
+    bool isLoadingMore,
+    bool hasMore,
+  });
 }
 
 /// @nodoc
@@ -362,7 +403,12 @@ class __$$HomeSuccessImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? discoverGames = null, Object? recentReviews = null}) {
+  $Res call({
+    Object? discoverGames = null,
+    Object? recentReviews = null,
+    Object? isLoadingMore = null,
+    Object? hasMore = null,
+  }) {
     return _then(
       _$HomeSuccessImpl(
         discoverGames: null == discoverGames
@@ -373,6 +419,14 @@ class __$$HomeSuccessImplCopyWithImpl<$Res>
             ? _value._recentReviews
             : recentReviews // ignore: cast_nullable_to_non_nullable
                   as List<Review>,
+        isLoadingMore: null == isLoadingMore
+            ? _value.isLoadingMore
+            : isLoadingMore // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        hasMore: null == hasMore
+            ? _value.hasMore
+            : hasMore // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -384,6 +438,8 @@ class _$HomeSuccessImpl implements HomeSuccess {
   const _$HomeSuccessImpl({
     required final List<Game> discoverGames,
     final List<Review> recentReviews = const [],
+    this.isLoadingMore = false,
+    this.hasMore = true,
   }) : _discoverGames = discoverGames,
        _recentReviews = recentReviews;
 
@@ -405,8 +461,15 @@ class _$HomeSuccessImpl implements HomeSuccess {
   }
 
   @override
+  @JsonKey()
+  final bool isLoadingMore;
+  @override
+  @JsonKey()
+  final bool hasMore;
+
+  @override
   String toString() {
-    return 'HomeState.success(discoverGames: $discoverGames, recentReviews: $recentReviews)';
+    return 'HomeState.success(discoverGames: $discoverGames, recentReviews: $recentReviews, isLoadingMore: $isLoadingMore, hasMore: $hasMore)';
   }
 
   @override
@@ -421,7 +484,10 @@ class _$HomeSuccessImpl implements HomeSuccess {
             const DeepCollectionEquality().equals(
               other._recentReviews,
               _recentReviews,
-            ));
+            ) &&
+            (identical(other.isLoadingMore, isLoadingMore) ||
+                other.isLoadingMore == isLoadingMore) &&
+            (identical(other.hasMore, hasMore) || other.hasMore == hasMore));
   }
 
   @override
@@ -429,6 +495,8 @@ class _$HomeSuccessImpl implements HomeSuccess {
     runtimeType,
     const DeepCollectionEquality().hash(_discoverGames),
     const DeepCollectionEquality().hash(_recentReviews),
+    isLoadingMore,
+    hasMore,
   );
 
   /// Create a copy of HomeState
@@ -447,11 +515,13 @@ class _$HomeSuccessImpl implements HomeSuccess {
     required TResult Function(
       List<Game> discoverGames,
       List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
     )
     success,
     required TResult Function(String message) error,
   }) {
-    return success(discoverGames, recentReviews);
+    return success(discoverGames, recentReviews, isLoadingMore, hasMore);
   }
 
   @override
@@ -459,11 +529,16 @@ class _$HomeSuccessImpl implements HomeSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult? Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(discoverGames, recentReviews);
+    return success?.call(discoverGames, recentReviews, isLoadingMore, hasMore);
   }
 
   @override
@@ -471,13 +546,18 @@ class _$HomeSuccessImpl implements HomeSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(discoverGames, recentReviews);
+      return success(discoverGames, recentReviews, isLoadingMore, hasMore);
     }
     return orElse();
   }
@@ -524,10 +604,14 @@ abstract class HomeSuccess implements HomeState {
   const factory HomeSuccess({
     required final List<Game> discoverGames,
     final List<Review> recentReviews,
+    final bool isLoadingMore,
+    final bool hasMore,
   }) = _$HomeSuccessImpl;
 
   List<Game> get discoverGames;
   List<Review> get recentReviews;
+  bool get isLoadingMore;
+  bool get hasMore;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -611,6 +695,8 @@ class _$HomeErrorImpl implements HomeError {
     required TResult Function(
       List<Game> discoverGames,
       List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
     )
     success,
     required TResult Function(String message) error,
@@ -623,7 +709,12 @@ class _$HomeErrorImpl implements HomeError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult? Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult? Function(String message)? error,
   }) {
@@ -635,7 +726,12 @@ class _$HomeErrorImpl implements HomeError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Game> discoverGames, List<Review> recentReviews)?
+    TResult Function(
+      List<Game> discoverGames,
+      List<Review> recentReviews,
+      bool isLoadingMore,
+      bool hasMore,
+    )?
     success,
     TResult Function(String message)? error,
     required TResult orElse(),

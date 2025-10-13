@@ -151,5 +151,14 @@
   "wouldRecommend": "Preporučuje",
   "wouldNotRecommend": "Ne preporučuje",
   "likes": "Lajkovi",
-  "playingRecord": "Sati igranja"
+  "playingRecord": "Sati igranja",
+  "time": {
+    "secondsAgo": "sekund/a",
+    "minutesAgo": "minut/a",
+    "hoursAgo": "sat/a",
+    "daysAgo": "dan/a",
+    "weeksAgo": "nedelj/a",
+    "monthsAgo": "mesec/a",
+    "yearsAgo": "godina/a"
+  }
 }

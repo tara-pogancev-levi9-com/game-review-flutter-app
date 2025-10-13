@@ -15,13 +15,11 @@ class ReviewCard extends StatelessWidget {
     final filled = (v / 2).round();
     return Row(
       mainAxisSize: MainAxisSize.min,
+      spacing: 4,
       children: List.generate(5, (i) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 4),
-          child: Icon(
-            i < filled ? Icons.star : Icons.star_border,
-            size: 16,
-          ),
+          return Icon(
+          i < filled ? Icons.star : Icons.star_border,
+          size: 16,
         );
       }),
     );
@@ -63,8 +61,6 @@ class ReviewCard extends StatelessWidget {
                   child: Text(
                     gameTitle,
                     style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(width: 8),

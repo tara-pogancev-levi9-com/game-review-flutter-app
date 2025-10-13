@@ -11,6 +11,9 @@ class HomeState with _$HomeState {
   const factory HomeState.success({
     required List<Game> discoverGames,
     @Default([]) List<Review> recentReviews,
+    @Default(false) bool isLoadingMore,
+    @Default(true) bool hasMore,
   }) = HomeSuccess;
   const factory HomeState.error(String message) = HomeError;
 }
+

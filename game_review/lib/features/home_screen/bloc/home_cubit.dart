@@ -8,30 +8,39 @@ import 'package:game_review/common/services/review_service.dart';
 import 'home_state.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
-
 class HomeCubit extends Cubit<HomeState> {
   final GameService _gameService;
   final ReviewService _reviewService;
 
-
-// Q: Is using "flags" like _isLoadingMore and _hasMore a good practice in Cubit? Or is there a "built in" way to handle such states?
-
   final int reviewsPageSize;
-  bool _isLoadingMore = false;
-  bool _hasMore = true;
   final List<Review> _reviews = [];
 
-  HomeCubit(this._gameService, this._reviewService, {this.reviewsPageSize = Endpoints.limitRecentReviews}) : super(const HomeState.initial());
+  HomeCubit(this._gameService, this._reviewService,
+      {this.reviewsPageSize = Endpoints.limitRecentReviews})
+      : super(const HomeState.initial());
 
   Future<void> loadHome({int discoverLimit = Endpoints.limitDiscoverGames}) async {
     emit(const HomeState.loading());
     try {
-      final latestGames = await _gameService.getLatestGames(limit: discoverLimit);
-      _reviews.clear();
-      final first = await _reviewService.getRecentReviews(limit: reviewsPageSize, offset: 0);
-      _reviews.addAll(first);
-      _hasMore = first.length >= reviewsPageSize;
-      emit(HomeState.success(discoverGames: latestGames, recentReviews: List.unmodifiable(_reviews)));
+      final results = await Future.wait([
+        _gameService.getLatestGames(limit: discoverLimit),
+        _reviewService.getRecentReviews(limit: reviewsPageSize, offset: 0),
+      ]);
+
+      final latestGames = results[0] as List<Game>;
+      final first = results[1] as List<Review>;
+
+      _reviews
+        ..clear()
+        ..addAll(first);
+
+      final hasMore = first.length >= reviewsPageSize;
+      emit(HomeState.success(
+        discoverGames: latestGames,
+        recentReviews: List.unmodifiable(_reviews),
+        isLoadingMore: false,
+        hasMore: hasMore,
+      ));
     } catch (e) {
       Logger.error(t.errors.failedToLoadHome, e);
       emit(HomeState.error(e.toString()));
@@ -39,28 +48,36 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> loadMoreReviews() async {
-    if (_isLoadingMore || !_hasMore) return;
-    _isLoadingMore = true;
+    final current = state;
+    final inSuccess = current is HomeSuccess;
+    if (!inSuccess) return;
+
+    final success = current;
+
+    if (success.isLoadingMore || !success.hasMore) return;
+
+    emit(success.copyWith(isLoadingMore: true));
+
     try {
       final offset = _reviews.length;
       final next = await _reviewService.getRecentReviews(limit: reviewsPageSize, offset: offset);
-      if (next.isEmpty) {
-        _hasMore = false;
-      } else {
+
+      if (next.isNotEmpty) {
         _reviews.addAll(next);
-        _hasMore = next.length >= reviewsPageSize;
-        final discoverGames = state.maybeWhen(success: (d, r) => d, orElse: () => <Game>[]);
-        emit(HomeState.success(discoverGames: discoverGames, recentReviews: List.unmodifiable(_reviews)));
       }
+
+      final hasMore = next.length >= reviewsPageSize;
+      emit(success.copyWith(
+        recentReviews: List.unmodifiable(_reviews),
+        isLoadingMore: false,
+        hasMore: hasMore,
+      ));
     } catch (e) {
       Logger.error('Failed to load more reviews', e);
-    } finally {
-      _isLoadingMore = false;
+      emit(success.copyWith(isLoadingMore: false));
     }
   }
 
-  bool get hasMoreReviews => _hasMore;
-  bool get isLoadingMore => _isLoadingMore;
   List<Review> get currentReviews => List.unmodifiable(_reviews);
 
   Future<void> refresh() => loadHome();

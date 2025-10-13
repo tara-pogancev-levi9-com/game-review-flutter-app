@@ -1,3 +1,5 @@
+import 'package:game_review/i18n/strings.g.dart';
+
 extension DateTimeX on DateTime {
   String get formattedIso {
     final d = toLocal();
@@ -9,19 +11,22 @@ extension DateTimeX on DateTime {
     final difference = now.difference(toLocal());
 
     if (difference.inSeconds < 60) {
-      return '${difference.inSeconds}s ago';
+      return '${difference.inSeconds} ${t.time.secondsAgo}';
     } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
+      return '${difference.inMinutes} ${t.time.minutesAgo}';
     } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
+      return '${difference.inHours} ${t.time.hoursAgo}';
     } else if (difference.inDays < 7) {
-      return '${difference.inDays}d ago';
+      return '${difference.inDays} ${t.time.daysAgo}';
     } else if (difference.inDays < 30) {
-      return '${(difference.inDays / 7).floor()}w ago';
+      final weeks = (difference.inDays / 7).floor();
+      return '$weeks ${t.time.weeksAgo}';
     } else if (difference.inDays < 365) {
-      return '${(difference.inDays / 30).floor()}mo ago';
+      final months = (difference.inDays / 30).floor();
+      return '$months ${t.time.monthsAgo}';
     } else {
-      return '${(difference.inDays / 365).floor()}y ago';
+      final years = (difference.inDays / 365).floor();
+      return '$years ${t.time.yearsAgo}';
     }
   }
 }

@@ -219,6 +219,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'h on record'
 	String get playingRecord => 'h on record';
+
+	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
 }
 
 // Path: navigation
@@ -510,4 +512,34 @@ class TranslationsGameDetailsEn {
 
 	/// en: 'Recent reviews'
 	String get recentReviews => 'Recent reviews';
+}
+
+// Path: time
+class TranslationsTimeEn {
+	TranslationsTimeEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'second/s ago'
+	String get secondsAgo => 'second/s ago';
+
+	/// en: 'minute/s ago'
+	String get minutesAgo => 'minute/s ago';
+
+	/// en: 'hour/s ago'
+	String get hoursAgo => 'hour/s ago';
+
+	/// en: 'day/s ago'
+	String get daysAgo => 'day/s ago';
+
+	/// en: 'week/s ago'
+	String get weeksAgo => 'week/s ago';
+
+	/// en: 'month/s ago'
+	String get monthsAgo => 'month/s ago';
+
+	/// en: 'year/s ago'
+	String get yearsAgo => 'year/s ago';
 }
