@@ -269,5 +269,11 @@
   "iRecommendThisGame": "Preporučujem ovu igru *",
   "selectAGameFromYourLibrary": "Izaberite igru iz vaše biblioteke...",
   "completed100": "Završeno (100%)",
-  "notStarted0": "Nije započeto (0%)"
+  "notStarted0": "Nije započeto (0%)",
+  "dateTime": {
+    "daysAgo": "pre {days}d",
+    "hoursAgo": "pre {hours}h",
+    "minutesAgo": "pre {minutes}m",
+    "justNow": "upravo sada"
+  }
 }

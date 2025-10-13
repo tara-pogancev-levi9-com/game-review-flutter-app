@@ -316,6 +316,16 @@ class GameContentWidget extends StatelessWidget {
     );
   }
 
+  void _showComingSoonSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   void _handleMenuAction(BuildContext context, String action) {
     final cubit = context.read<GameDetailsCubit>();
 
@@ -328,23 +338,11 @@ class GameContentWidget extends StatelessWidget {
         break;
       case 'review':
         // TODO: Navigate to review writing page
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(t.gameDetails.reviewComingSoon),
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        _showComingSoonSnackBar(context, t.gameDetails.reviewComingSoon);
         break;
       case 'share':
         // TODO: Implement share functionality
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(t.gameDetails.shareComingSoon),
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        _showComingSoonSnackBar(context, t.gameDetails.shareComingSoon);
         break;
     }
   }

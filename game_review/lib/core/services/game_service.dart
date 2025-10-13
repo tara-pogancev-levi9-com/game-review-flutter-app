@@ -24,12 +24,17 @@ class GameService {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok &&
-          response.data is List &&
-          (response.data as List).isNotEmpty) {
-        return GameModel.fromJson((response.data as List).first);
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${t.library.failedToFetchGame}',
+        );
       }
-      return null;
+
+      if (response.data is! List || (response.data as List).isEmpty) {
+        throw Exception(t.errors.gameNotFound);
+      }
+
+      return GameModel.fromJson((response.data as List).first);
     } catch (e) {
       Logger.error('Failed to fetch game details', e);
       throw Exception(t.library.failedToFetchGame);
@@ -51,12 +56,21 @@ class GameService {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok && response.data is List) {
-        return (response.data as List)
-            .map((json) => GameModel.fromJson(json))
-            .toList();
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${t.library.failedToFetchGames}',
+        );
       }
-      return [];
+
+      if (response.data is! List) {
+        throw Exception(
+          'Invalid response format: ${t.library.failedToFetchGames}',
+        );
+      }
+
+      return (response.data as List)
+          .map((json) => GameModel.fromJson(json))
+          .toList();
     } catch (e) {
       throw Exception(t.library.failedToFetchGames);
     }
@@ -208,12 +222,21 @@ class GameService {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok && response.data is List) {
-        return (response.data as List)
-            .map((json) => GameReviewModel.fromJson(json))
-            .toList();
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception(
+          'HTTP ${response.statusCode}: ${t.errors.failedToFetchRecentReviews}',
+        );
       }
-      return [];
+
+      if (response.data is! List) {
+        throw Exception(
+          'Invalid response format: ${t.errors.failedToFetchRecentReviews}',
+        );
+      }
+
+      return (response.data as List)
+          .map((json) => GameReviewModel.fromJson(json))
+          .toList();
     } catch (e) {
       Logger.error('Failed to fetch recent reviews', e);
       throw Exception(t.errors.failedToFetchRecentReviews);
@@ -365,15 +388,20 @@ class GameService {
         },
       );
 
-      if (response.statusCode == HttpStatus.ok &&
-          response.data is List &&
-          (response.data as List).isNotEmpty) {
-        return (response.data as List).first['id'] as String;
+      if (response.statusCode != HttpStatus.ok) {
+        throw Exception(
+          'HTTP ${response.statusCode}: Failed to get platform ID',
+        );
       }
-      return null;
+
+      if (response.data is! List || (response.data as List).isEmpty) {
+        throw Exception('Platform not found: $platformName');
+      }
+
+      return (response.data as List).first['id'] as String;
     } catch (e) {
       Logger.error('Failed to get platform ID by name', e);
-      return null;
+      throw Exception('Failed to get platform ID for: $platformName');
     }
   }
 
@@ -391,7 +419,12 @@ class GameService {
 
       String? actualPlatformId;
       if (platformId != null) {
-        actualPlatformId = await getPlatformIdByName(platformId);
+        try {
+          actualPlatformId = await getPlatformIdByName(platformId);
+        } catch (e) {
+          Logger.error('Failed to get platform ID for library', e);
+          throw Exception('Invalid platform: $platformId');
+        }
       }
 
       final response = await _apiClient.post(
@@ -413,7 +446,7 @@ class GameService {
       Logger.error('Failed to add game to library', e);
 
       if (e.toString().contains('duplicate key value')) {
-        throw Exception('Game is already in your library');
+        throw Exception(t.gameDetails.alreadyInLibrary);
       } else if (e.toString().contains('Failed to add to library')) {
         throw Exception(t.library.failedToAddToLibrary);
       } else {

@@ -269,5 +269,11 @@
     "weeksAgo": "week/s ago",
     "monthsAgo": "month/s ago",
     "yearsAgo": "year/s ago"
+  },
+  "dateTime": {
+    "daysAgo": "{days}d ago",
+    "hoursAgo": "{hours}h ago",
+    "minutesAgo": "{minutes}m ago",
+    "justNow": "just now"
   }
 }

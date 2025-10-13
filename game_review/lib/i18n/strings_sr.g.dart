@@ -128,6 +128,7 @@ class TranslationsSr extends Translations {
 	@override String get selectAGameFromYourLibrary => 'Izaberite igru iz vaše biblioteke...';
 	@override String get completed100 => 'Završeno (100%)';
 	@override String get notStarted0 => 'Nije započeto (0%)';
+	@override late final TranslationsDateTimeSr dateTime = TranslationsDateTimeSr._(_root);
 }
 
 // Path: gameDetails
@@ -383,4 +384,17 @@ class TranslationsTimeSr extends TranslationsTimeEn {
 	@override String get weeksAgo => 'nedelj/a';
 	@override String get monthsAgo => 'mesec/a';
 	@override String get yearsAgo => 'godina/a';
+}
+
+// Path: dateTime
+class TranslationsDateTimeSr extends TranslationsDateTimeEn {
+	TranslationsDateTimeSr._(TranslationsSr root) : this._root = root, super.internal(root);
+
+	final TranslationsSr _root; // ignore: unused_field
+
+	// Translations
+	@override String get daysAgo => 'pre {days}d';
+	@override String get hoursAgo => 'pre {hours}h';
+	@override String get minutesAgo => 'pre {minutes}m';
+	@override String get justNow => 'upravo sada';
 }
