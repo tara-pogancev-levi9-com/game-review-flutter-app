@@ -48,7 +48,7 @@ void setupDependencies() {
   );
 
   locator.registerLazySingleton<ReviewService>(
-    () => ReviewService(locator<ApiClient>()),
+    () => ReviewService(locator<ApiClient>(), locator<AuthService>()),
   );
 
   locator.registerFactory<GameDetailsCubit>(
