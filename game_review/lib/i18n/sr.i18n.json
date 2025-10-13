@@ -65,12 +65,42 @@
     "loginFailed": "Prijava nije uspela, pokušaj ponovo",
     "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.",
     "gameNotFound": "Igra nije pronađena",
-    "reviewsNotFound": "Recenzije nisu pronađene"
+    "reviewsNotFound": "Recenzije nisu pronađene",
+    "failedToProcessReview": "Nije uspelo da se obradi recenzija",
+    "unexpectedResponseFormat": "Neočekivani format odgovora sa servera",
+    "genericError": "Došlo je do greške. Molimo pokušajte ponovo.",
+    "failedToAddReview": "Nije uspelo da se doda recenzija",
+    "failedToUpdateReview": "Nije uspelo da se ažurira recenzija",
+    "failedToDeleteReview": "Nije uspelo da se obriše recenzija"
   },
   "branding": {
     "title": "PAW IGRE",
     "tagline": "Istraži. Oceni. Deli.",
     "logoLabel": "Logo aplikacije"
-  }
-
+  },
+  "youHaveAlreadyReviewedThisGame": "Već ste ocenili ovu igru",
+  "completed": "Završeno",
+  "notStarted": "Nije započeto",
+  "inProgress": "U toku",
+  "abandoned": "Napusteno",
+  "failedToSaveReview": "Nije uspelo da se sačuva recenzija",
+  "reviewAddedSuccessfully": "Ocena je uspešno dodata!",
+  "reviewTitle": "Naslov ocene *",
+  "reviewTitleIsRequired": "Naslov ocene je obavezan",
+  "reviewDescription": "Opis ocene *",
+  "reviewDescriptionIsRequired": "Opis ocene je obavezan",
+  "prosCons": "Prednosti i mane",
+  "gamePros": "Prednosti igre (odvojene zarezima)",
+  "gameCons": "Mane igre (odvojene zarezima)",
+  "overallRating": "Ukupna ocena *",
+  "individualRatings": "Individualne ocene",
+  "miscellaneous": "Razno",
+  "gameCompletion": "Završetak igre (%)",
+  "completionStatus": "Status završetka",
+  "inGameHours": "Časovi u igri",
+  "pleaseEnterAValidNumber": "Molimo unesite validan broj",
+  "iRecommendThisGame": "Preporučujem ovu igru *",
+  "selectAGameFromYourLibrary": "Izaberite igru iz vaše biblioteke...",
+  "completed100": "Završeno (100%)",
+  "notStarted0": "Nije započeto (0%)"
 }

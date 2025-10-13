@@ -61,6 +61,7 @@ class GamesCubit extends Cubit<GamesState> {
             ),
           );
         } catch (e) {
+
           Logger.error('Failed to load more games', e);
           emit(GamesState.error(t.errorLoadingMoreGames));
         }

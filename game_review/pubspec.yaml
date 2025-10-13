@@ -9,9 +9,9 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
-  flutter_dotenv: ^5.1.0
-  dio: ^5.2.1 
+    sdk: flutter 
+  flutter_dotenv: ^6.0.0
+  dio: ^5.9.0 
   encrypt_shared_preferences: ^0.9.10
   slang: ^4.8.1
   slang_flutter: ^4.8.0
@@ -99,3 +99,4 @@ flutter:
       fonts:
         - asset: fonts/PixelifySans-Bold.ttf
           weight: 700
+
