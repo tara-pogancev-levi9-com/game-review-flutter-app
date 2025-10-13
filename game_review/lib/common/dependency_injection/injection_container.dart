@@ -5,7 +5,12 @@ import 'package:game_review/features/home_screen/services/review_comment_service
 import 'package:game_review/common/services/review_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
+import 'package:game_review/common/blocs/review_form_cubit.dart';
+import 'package:game_review/common/blocs/reviews_by_game_cubit.dart';
+import 'package:game_review/common/blocs/reviews_by_user_cubit.dart';
 import 'package:game_review/common/services/games_service.dart';
+import 'package:game_review/common/services/reviews_service.dart';
+import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
@@ -36,7 +41,7 @@ void setupDependencies() {
   locator.registerFactory<GamesCubit>(
     () => GamesCubit(locator<GamesService>()),
   );
-  
+
   locator.registerLazySingleton<RegistrationCubit>(
     () => RegistrationCubit(),
   );
@@ -60,12 +65,6 @@ void setupDependencies() {
     ),
   );
 
-    locator.registerLazySingleton<ReviewService>(
-    () => ReviewService(
-      locator<ApiClient>(),
-    ),
-  );
-
   locator.registerLazySingleton<HomeCubit>(
     () => HomeCubit(
       locator<GameService>(),
@@ -84,4 +83,23 @@ void setupDependencies() {
     );
 
 
+  locator.registerLazySingleton<ReviewsService>(
+    () => ReviewsService(locator<ApiClient>()),
+  );
+
+  locator.registerLazySingleton<UserService>(
+    () => UserService(locator<ApiClient>()),
+  );
+
+  locator.registerFactory<ReviewFormCubit>(
+    () => ReviewFormCubit(locator<ReviewsService>()),
+  );
+
+  locator.registerFactory<ReviewsByGameCubit>(
+    () => ReviewsByGameCubit(locator<ReviewsService>()),
+  );
+
+  locator.registerFactory<ReviewsByUserCubit>(
+    () => ReviewsByUserCubit(locator<ReviewsService>()),
+  );
 }

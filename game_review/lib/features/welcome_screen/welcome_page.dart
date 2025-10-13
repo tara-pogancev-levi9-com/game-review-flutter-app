@@ -66,7 +66,12 @@ class WelcomePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage(),));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegistrationPage(),
+                              ),
+                            );
                           },
                           child: Text(
                             t.register,
@@ -97,7 +102,6 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-
               ],
             ),
           ],

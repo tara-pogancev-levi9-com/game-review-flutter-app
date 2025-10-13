@@ -1,49 +1,54 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_review/common/models/game_model.dart';
 
-part 'review.freezed.dart';
-part 'review.g.dart';
-// DEBUG PHASE - IGNORE FOR NOW
-String? _listOrStringToString(dynamic json) {
-  if (json == null) return null;
-  if (json is String) return json;
-  if (json is Iterable) {
-    return json.map((e) => e?.toString() ?? '').join(', ');
-  }
-  return json.toString();
-}
+part 'review_model.freezed.dart';
+part 'review_model.g.dart';
 
 @freezed
-class Review with _$Review {
-  const factory Review({
+abstract class ReviewModel with _$ReviewModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory ReviewModel({
     required String id,
-    @JsonKey(name: 'user_id') String? userId,
-    @JsonKey(name: 'game_id') String? gameId,
+    required String user_id,
+    required String game_id,
     String? title,
     String? content,
-    @JsonKey(name: 'overall_rating') double? overallRating,
-    @JsonKey(name: 'gameplay_rating') double? gameplayRating,
-    @JsonKey(name: 'graphics_rating') double? graphicsRating,
-    @JsonKey(name: 'story_rating') double? storyRating,
-    @JsonKey(name: 'sound_rating') double? soundRating,
-    @JsonKey(name: 'value_rating') double? valueRating,
-    @JsonKey(fromJson: _listOrStringToString) String? pros,
-    @JsonKey(fromJson: _listOrStringToString) String? cons,
-    @JsonKey(name: 'playtime_hours') int? playtimeHours,
-    @JsonKey(name: 'completion_status') String? completionStatus,
+    double? overall_rating,
+    double? gameplay_rating,
+    double? graphics_rating,
+    double? story_rating,
+    double? sound_rating,
+    double? value_rating,
+    List<String>? pros,
+    List<String>? cons,
+    int? playtime_hours,
+    String? completion_status,
     bool? recommended,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(ignore: true) Game? game,
-  }) = _Review;
+    DateTime? created_at,
+    DateTime? updated_at,
+  }) = _ReviewModel;
 
-  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+  factory ReviewModel.fromJson(Map<String, dynamic> json) =>
+      _$ReviewModelFromJson(json);
+}
 
-  static Review fromJsonWithNestedGame(Map<String, dynamic> json) {
-    final review = Review.fromJson(json);
-    final gameJson = json['games'];
-    if (gameJson != null && gameJson is Map<String, dynamic>) {
-      return review.copyWith(game: Game.fromJson(Map<String, dynamic>.from(gameJson)));
+extension ReviewModelExtension on ReviewModel {
+  //Converts to JSON removing NULL values for API requests
+  Map<String, dynamic> toJsonForApi({bool includeNulls = false}) {
+    final json = toJson();
+
+    if (includeNulls) {
+      return json;
     }
-    return review;
+
+    //Remove null values and system generated fields
+    json.removeWhere(
+      (key, value) =>
+          value == null ||
+          key == 'id' ||
+          key == 'created_at' ||
+          key == 'updated_at',
+    );
+
+    return json;
   }
 }

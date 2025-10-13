@@ -72,6 +72,12 @@
     "failedToLoadComments": "Failed to load comments",
     "authenticationFail": "Authentication check failed"
 
+    "failedToProcessReview": "Failed to process review",
+    "unexpectedResponseFormat": "Unexpected response format from server",
+    "genericError": "An error occurred. Please try again.",
+    "failedToAddReview": "Failed to add review",
+    "failedToUpdateReview": "Failed to update review",
+    "failedToDeleteReview": "Failed to delete review"
   },
   "appFailedToStart": "App failed to start:\\n\\n@{error}",
   "library": {
@@ -99,6 +105,33 @@
     "tagline": "Discover. Rate. Share.",
     "logoLabel": "App logo"
   },
+  "youHaveAlreadyReviewedThisGame": "You have already reviewed this game",
+  "completed": "Completed",
+  "notStarted": "Not started",
+  "inProgress": "In progress",
+  "abandoned": "Abandoned",
+  "failedToSaveReview": "Failed to save review",
+  "reviewAddedSuccessfully": "Review added successfully!",
+  "reviewTitle": "Review title *",
+  "reviewTitleIsRequired": "Review title is required",
+  "reviewDescription": "Review description *",
+  "reviewDescriptionIsRequired": "Review description is required",
+  "prosCons": "Pros & Cons",
+  "gamePros": "Game pros (comma-separated)",
+  "gameCons": "Game cons (comma-separated)",
+  "overallRating": "Overall Rating *",
+  "individualRatings": "Individual Ratings",
+  "miscellaneous": "Miscellaneous",
+  "gameCompletion": "Game completion (%)",
+  "completionStatus": "Completion status",
+  "inGameHours": "In-game hours",
+  "pleaseEnterAValidNumber": "Please enter a valid number",
+  "iRecommendThisGame": "I recommend this game *",
+  "selectAGameFromYourLibrary": "Select a game from your library...",
+  "completed100": "Completed (100%)",
+  "notStarted0": "Not Started (0%)"
+
+
 
   "gameService": {
     "noTokenWishlist": "Cannot add to wishlist - no token found",

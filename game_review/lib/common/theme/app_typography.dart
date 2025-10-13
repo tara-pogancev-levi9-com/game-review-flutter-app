@@ -42,4 +42,26 @@ class AppTypography {
     fontWeight: FontWeight.w500,
     fontSize: 28,
   );
+
+  static const TextStyle labelSmall = TextStyle(
+    fontSize: 16,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle bodyTextSecondary = TextStyle(
+    fontSize: 16,
+    color: AppColors.textSecondary,
+  );
+
+  static const TextStyle gameTitle28 = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle smallText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lilacSelected,
+  );
 }
