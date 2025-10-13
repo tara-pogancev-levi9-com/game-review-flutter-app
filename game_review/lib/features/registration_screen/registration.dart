@@ -30,8 +30,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _confirmPasswordKey = GlobalKey<FormFieldState>();
   final _passwordKey = GlobalKey<FormFieldState>();
   final _emailKey = GlobalKey<FormFieldState>();
+  final _usernameKey = GlobalKey<FormFieldState>();
 
-  bool firstInput = true;
+  bool hasBeenSubmitted = false;
+
+  void _onSubmit() {
+    setState(() {
+      hasBeenSubmitted = true;
+    });
+
+    if (_formKey.currentState!.validate()) {
+      final registrationData = RegistrationModel(
+        email: _emailController.text,
+        username: _usernameController.text,
+        password: _passwordController.text,
+      );
+
+      locator<RegistrationCubit>().signup(registrationData);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
@@ -111,7 +129,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         Form(
                           key: _formKey,
-                          autovalidateMode: !firstInput
+                          autovalidateMode: hasBeenSubmitted
                               ? AutovalidateMode.onUserInteraction
                               : AutovalidateMode.disabled,
 
@@ -125,9 +143,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autofillHints: null,
                                   enableSuggestions: false,
                                   keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
                                   controller: _emailController,
                                   onChanged: (value) {
-                                    if (!firstInput) {
+                                    if (hasBeenSubmitted) {
                                       _emailKey.currentState?.validate();
                                     }
                                   },
@@ -147,10 +166,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   height: 20,
                                 ),
                                 TextFormField(
+                                  key: _usernameKey,
                                   controller: _usernameController,
                                   autocorrect: false,
                                   autofillHints: null,
                                   enableSuggestions: false,
+                                  textInputAction: TextInputAction.next,
+                                  onChanged: (value) {
+                                    if (hasBeenSubmitted) {
+                                      _usernameKey.currentState?.validate();
+                                    }
+                                  },
+                                  validator: Validators.required(
+                                    context,
+                                    fieldLabel: t.username,
+                                  ),
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.person_2_outlined,
@@ -172,21 +202,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autofillHints: null,
                                   enableSuggestions: false,
                                   obscureText: !showPassword,
+                                  textInputAction: TextInputAction.next,
                                   onChanged: (value) {
-                                    if (!firstInput) {
+                                    if (hasBeenSubmitted) {
                                       _passwordKey.currentState?.validate();
                                       _confirmPasswordKey.currentState
                                           ?.validate();
                                     }
                                   },
-                                  validator: (value) {
-                                    if (value == null ||
-                                        value.isEmpty ||
-                                        value.length < 8) {
-                                      return t.errors.passwordLength;
-                                    }
-                                    return null;
-                                  },
+                                  validator: Validators.password(
+                                    context,
+                                    minLength: 8,
+                                  ),
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(Icons.password),
                                     suffixIcon: IconButton(
@@ -218,8 +245,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   controller: _confirmPasswordController,
                                   keyboardType: TextInputType.text,
                                   obscureText: !showConfirmPassword,
+                                  textInputAction: TextInputAction.done,
+                                  onFieldSubmitted: (_) => _onSubmit(),
                                   onChanged: (value) {
-                                    if (!firstInput) {
+                                    if (hasBeenSubmitted) {
                                       _confirmPasswordKey.currentState
                                           ?.validate();
                                     }
@@ -267,33 +296,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         ),
 
                                         child: ElevatedButton(
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              final registrationData =
-                                                  RegistrationModel(
-                                                    email:
-                                                        _emailController.text,
-                                                    username:
-                                                        _usernameController
-                                                            .text,
-                                                    password:
-                                                        _passwordController
-                                                            .text,
-                                                  );
-
-                                              locator<RegistrationCubit>()
-                                                  .signup(
-                                                    registrationData,
-                                                  );
-                                            } else {
-                                              //locator<RegistrationCubit>()
-                                              //  .formValidationFailed();
-                                              setState(() {
-                                                firstInput = false;
-                                              });
-                                            }
-                                          },
+                                          onPressed: _onSubmit,
                                           child: Text(
                                             t.register,
                                           ),

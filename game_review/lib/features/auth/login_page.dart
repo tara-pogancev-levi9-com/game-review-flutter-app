@@ -108,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                             AutofillHints.email,
                           ],
                           keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
                           decoration: InputDecoration(
                             hintText: t.email,
                             prefixIcon: const Icon(
@@ -122,6 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _passwordController,
                           autofillHints: const [AutofillHints.password],
                           obscureText: _obscurePassword,
+                          textInputAction: TextInputAction.done,
+                          onFieldSubmitted: (_) => _onSubmit(),
                           decoration: InputDecoration(
                             hintText: t.password,
                             prefixIcon: const Icon(
