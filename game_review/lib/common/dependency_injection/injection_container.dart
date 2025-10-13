@@ -2,7 +2,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
-import 'package:game_review/features/registration_screen/bloc/registerCubit.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/services/games_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
@@ -20,7 +19,7 @@ void setupDependencies() {
     ),
   );
   locator.registerLazySingleton<ApiImageClient>(
-        () => ApiImageClient(
+    () => ApiImageClient(
       baseUrl: dotenv.env['API_URL']!,
     ),
   );
@@ -43,10 +42,6 @@ void setupDependencies() {
     () => RegistrationCubit(),
   );
 
-  locator.registerLazySingleton<RegistrationCubit>(
-    () => RegistrationCubit(),
-  );
-
   locator.registerLazySingleton<AuthCubit>(
     () => AuthCubit(
       locator<AuthService>(),
@@ -54,11 +49,9 @@ void setupDependencies() {
   );
 
   locator.registerLazySingleton<UserService>(
-        () => UserService(locator<ApiClient>(), locator<ApiImageClient>()),
+    () => UserService(locator<ApiClient>(), locator<ApiImageClient>()),
   );
   locator.registerLazySingleton<UserCubit>(
-        () => UserCubit(),
+    () => UserCubit(),
   );
-
-
 }

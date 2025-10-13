@@ -33,7 +33,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool firstInput = true;
 
-  RegExp get _emailRegex => RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
@@ -70,7 +69,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
             );
           } else if (state is RegistrationInitial) {
-          }  else if (state is RegistrationFailure) {
+          } else if (state is RegistrationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
@@ -104,7 +103,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       children: [
                         Padding(
                           padding: EdgeInsetsGeometry.fromLTRB(0, 150, 0, 0),
-                          child: AppLogo()
+                          child: AppLogo(),
                         ),
                         SizedBox(
                           height: 80,

@@ -31,6 +31,8 @@
   "profileInfo": "Informacije o profilu",
   "profileSettings": "Podešavanja Profila",
   "notifications": "Obaveštenja",
+  "addFriend": "Dodaj prijatelja",
+  "friends": "Prijatelji",
   "back": "Nazad",
   "next": "Dalje",
   "discover": "Istraži",
@@ -80,21 +82,6 @@
   },
   "NoGamesFound": "Nema pronađenih igara",
   "errorLoadingGames": "Neuspešno učitavanje igara",
-  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara",
-  "errors": {
-    "requiredField": "{field} je obavezno",
-    "invalidEmail": "Neispravan email",
-    "minLength": "Minimum {n} karaktera",
-    "invalidCredentials": "Neispravni podaci za prijavu",
-    "loginFailed": "Prijava nije uspela, pokušaj ponovo",
-    "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.",
-    "gameNotFound": "Igra nije pronađena",
-    "reviewsNotFound": "Recenzije nisu pronađene"
-  },
-  "branding": {
-    "title": "PAW IGRE",
-    "tagline": "Istraži. Oceni. Deli.",
-    "logoLabel": "Logo aplikacije"
-  }
+  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara"
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
+import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
@@ -36,7 +37,6 @@ class _ProfilePageState extends State<ProfilePage> {
       listener: (context, state) {
         state.whenOrNull(
           loaded: (user, loggedUserId, alreadyFriends, message) {
-            print("LOADED STATE: " + message.toString());
             if (message != null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(message)),
@@ -79,8 +79,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () {
-                                locator<AuthCubit>().logout();
+                              onPressed: () async {
+                                await locator<AuthCubit>().logout();
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                );
                               },
                               icon: Icon(
                                 Icons.logout,
@@ -98,7 +104,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   right: 0,
                   child: Center(
                     child: Text(
-                      //"Name",
                       user.username,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
@@ -172,11 +177,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           null,
                                         );
                                       },
-                                      child: Text("Add Friend"),
+                                      child: Text(t.addFriend),
                                     )
                                   : OutlinedButton(
                                       onPressed: () {},
-                                      child: Text("Friends"),
+                                      child: Text(t.friends),
                                     )
                             : null,
                       ],

@@ -26,7 +26,6 @@ class _MainScreenState extends State<MainScreen> {
     const HomePage(),
     const SearchPage(),
     const LibraryPage(),
-    //const ProfilePage(),
   ];
 
   bool _isDataFetched = false;

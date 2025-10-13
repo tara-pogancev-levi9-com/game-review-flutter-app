@@ -61,7 +61,6 @@ class AuthService {
       if (response.statusCode == 200 && response.data['access_token'] != null) {
         await SecureStorage.saveToken(response.data['access_token']);
         Logger.info('Login successful, token saved.');
-        print("TOKEN: " + response.data['access_token']);
         return true;
       }
       Logger.warning(

@@ -64,6 +64,8 @@ class TranslationsSr extends Translations {
 	@override String get profileInfo => 'Informacije o profilu';
 	@override String get profileSettings => 'Podešavanja Profila';
 	@override String get notifications => 'Obaveštenja';
+	@override String get addFriend => 'Dodaj prijatelja';
+	@override String get friends => 'Prijatelji';
 	@override String get back => 'Nazad';
 	@override String get next => 'Dalje';
 	@override String get discover => 'Istraži';
@@ -96,8 +98,6 @@ class TranslationsSr extends Translations {
 	@override String get NoGamesFound => 'Nema pronađenih igara';
 	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
 	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
-	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
-	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
 }
 
 // Path: navigation
