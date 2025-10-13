@@ -25,6 +25,8 @@ abstract class GameReviewModel with _$GameReviewModel {
     bool? recommended,
     DateTime? createdAt,
     DateTime? updatedAt,
+    bool? isLiked,
+    int? likesCount,
   }) = _GameReviewModel;
 
   factory GameReviewModel.fromJson(Map<String, dynamic> json) =>
