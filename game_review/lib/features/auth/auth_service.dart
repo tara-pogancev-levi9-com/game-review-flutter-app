@@ -64,9 +64,10 @@ class AuthService {
         print("TOKEN: " + response.data['access_token']);
         return true;
       }
-      Logger.warning('Login failed with status: ${response.statusCode}. Response: ${response.data}');
+      Logger.warning(
+        'Login failed with status: ${response.statusCode}. Response: ${response.data}',
+      );
       return false;
-
     } catch (e) {
       Logger.error('Login error', e);
       return false;

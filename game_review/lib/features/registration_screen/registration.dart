@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
-import 'package:game_review/features/registration_screen/bloc/registerCubit.dart';
-import 'package:game_review/features/registration_screen/models/loginModel.dart';
-import 'package:game_review/features/registration_screen/models/registrationModel.dart';
-
+import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
+import 'package:game_review/features/registration_screen/models/login_model.dart';
+import 'package:game_review/features/registration_screen/models/registration_model.dart';
+import 'package:game_review/common/validation/validators.dart';
 import '../../i18n/strings.g.dart';
-import 'bloc/registrationState.dart';
+import 'bloc/registration_state.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -69,11 +70,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
             );
           } else if (state is RegistrationInitial) {
-          } else if (state is RegistrationDuplicateEmail) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
-          } else if (state is RegistrationFailure) {
+          }  else if (state is RegistrationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),
             );
@@ -107,12 +104,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       children: [
                         Padding(
                           padding: EdgeInsetsGeometry.fromLTRB(0, 150, 0, 0),
-                          child: Image(
-                            image: AssetImage(
-                              'lib/common/assets/images/Logo.png',
-                            ),
-                            fit: BoxFit.fill,
-                          ),
+                          child: AppLogo()
                         ),
                         SizedBox(
                           height: 80,
@@ -138,7 +130,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     if (!firstInput)
                                       _emailKey.currentState?.validate();
                                   },
-                                  validator: (value) => emailValidator(value),
+                                  validator: Validators.email(context),
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(Icons.email_outlined),
                                     labelText: t.email,
@@ -327,13 +319,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         },
       ),
     );
-  }
-
-  String? emailValidator(value) {
-    if (value == null || !_emailRegex.hasMatch(value)) {
-      return t.emailInvalid;
-    }
-    return null;
   }
 
   @override
