@@ -30,10 +30,10 @@ class ReviewCard extends StatelessWidget {
     final theme = Theme.of(context);
     final cover = review.game?.coverImageUrl;
     final gameTitle =
-        review.game?.title ?? review.gameId ?? t.gameDetails.details;
+        review.game?.title ?? review.gameId;
     final excerpt = (review.content ?? '').trim();
     final createdAgo = formatTimeAgo(review.createdAt);
-    final username = review.userId ?? 'User';
+    final username = review.userId;
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
