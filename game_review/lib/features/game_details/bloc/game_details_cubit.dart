@@ -74,38 +74,53 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
     }
   }
 
+  bool _checkTokenAndEmitErrorIfNeeded() {
+    final token = SecureStorage.getToken();
+    if (token == null) {
+      emit(GameDetailsError(t.gameDetails.loginRequiredWishlist));
+      return false;
+    }
+    return true;
+  }
+
+  void _emitUpdatedState(
+    GameDetailsLoaded currentState, {
+    required bool isInWishlist,
+    required bool isInLibrary,
+  }) {
+    emit(
+      GameDetailsLoaded(
+        game: currentState.game,
+        isInWishlist: isInWishlist,
+        isInLibrary: isInLibrary,
+      ),
+    );
+  }
+
   Future<void> toggleWishlist(String gameId) async {
     final currentState = state;
     if (currentState is! GameDetailsLoaded) return;
 
-    final token = SecureStorage.getToken();
-    if (token == null) {
-      emit(GameDetailsError(t.gameDetails.loginRequiredWishlist));
-      return;
-    }
+    if (!_checkTokenAndEmitErrorIfNeeded()) return;
 
     try {
       if (currentState.isInWishlist) {
         await _gameService.removeFromWishlist(gameId);
         _successMessage = t.gameDetails.removedFromWishlist;
 
-        emit(
-          GameDetailsLoaded(
-            game: currentState.game,
-            isInWishlist: false,
-            isInLibrary: currentState.isInLibrary,
-          ),
+        _emitUpdatedState(
+          currentState,
+          isInWishlist: false,
+          isInLibrary: currentState.isInLibrary,
         );
       } else {
         await _gameService.addToWishlist(gameId, 1);
         _successMessage = t.gameDetails.addedToWishlist;
 
-        emit(
-          GameDetailsLoaded(
-            game: currentState.game,
-            isInWishlist: true,
-            isInLibrary: currentState.isInLibrary,
-          ),
+        _emitUpdatedState(
+          currentState,
+          isInWishlist: true,
+          isInLibrary: currentState.isInLibrary,
         );
       }
     } catch (e) {
@@ -117,23 +132,17 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
     final currentState = state;
     if (currentState is! GameDetailsLoaded) return;
 
-    final token = SecureStorage.getToken();
-    if (token == null) {
-      emit(GameDetailsError(t.gameDetails.loginRequiredLibrary));
-      return;
-    }
+    if (!_checkTokenAndEmitErrorIfNeeded()) return;
 
     try {
       if (currentState.isInLibrary) {
         await _gameService.removeFromLibrary(gameId);
         _successMessage = t.gameDetails.removedFromLibrary;
 
-        emit(
-          GameDetailsLoaded(
-            game: currentState.game,
-            isInWishlist: currentState.isInWishlist,
-            isInLibrary: false,
-          ),
+        _emitUpdatedState(
+          currentState,
+          isInWishlist: currentState.isInWishlist,
+          isInLibrary: false,
         );
       } else {
         final platformId = currentState.game.platforms?.isNotEmpty == true
@@ -143,12 +152,10 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
         await _gameService.addToLibrary(gameId, platformId);
         _successMessage = t.gameDetails.addedToLibrary;
 
-        emit(
-          GameDetailsLoaded(
-            game: currentState.game,
-            isInWishlist: currentState.isInWishlist,
-            isInLibrary: true,
-          ),
+        _emitUpdatedState(
+          currentState,
+          isInWishlist: currentState.isInWishlist,
+          isInLibrary: true,
         );
       }
     } catch (e) {

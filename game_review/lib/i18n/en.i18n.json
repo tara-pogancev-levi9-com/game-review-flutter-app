@@ -165,6 +165,12 @@
     "title": "PAW GAMES",
     "tagline": "Discover. Rate. Share.",
     "logoLabel": "App logo"
+  },
+  "dateTime": {
+    "daysAgo": "{days}d ago",
+    "hoursAgo": "{hours}h ago",
+    "minutesAgo": "{minutes}m ago",
+    "justNow": "just now"
   }
 
 }

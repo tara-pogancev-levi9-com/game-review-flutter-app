@@ -165,6 +165,12 @@
     "title": "PAW IGRE",
     "tagline": "Istraži. Oceni. Deli.",
     "logoLabel": "Logo aplikacije"
+  },
+  "dateTime": {
+    "daysAgo": "pre {days}d",
+    "hoursAgo": "pre {hours}h",
+    "minutesAgo": "pre {minutes}m",
+    "justNow": "upravo sada"
   }
 
 }
