@@ -8,6 +8,7 @@ import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
+import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 

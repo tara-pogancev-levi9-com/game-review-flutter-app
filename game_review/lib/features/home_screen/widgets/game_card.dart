@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/common/widgets/network_image_widget.dart';
+import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;
+  final VoidCallback? onTap;
 
-  const GameCard({super.key, required this.game});
+  const GameCard({
+    super.key,
+    required this.game,
+    this.onTap,
+  });
+
+  void _handleTap(BuildContext context) {
+    if (onTap != null) {
+      onTap!();
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SearchPage(), //replace with GameDetails page
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +39,8 @@ class GameCard extends StatelessWidget {
         children: [
           InkWell(
             borderRadius: BorderSize.m.radius,
-            onTap: () {
-              // TODO: Implement navigation to game details page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const WelcomePage(), //GameDetailsScreen(game: game)
-                ),
-              );
-            },
+            onTap: () => _handleTap(context),
+
             child: ClipRRect(
               borderRadius: BorderSize.m.radius,
               child: Container(
@@ -42,17 +54,10 @@ class GameCard extends StatelessWidget {
                   ),
                   borderRadius: BorderSize.m.radius,
                 ),
-                child: game.coverImageUrl != null
-                    ? Image.network(
-                        game.coverImageUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _placeholder(),
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return _placeholder();
-                        },
-                      )
-                    : _placeholder(),
+                child: NetworkImageWidget(
+                  imageUrl: game.coverImageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -70,12 +75,4 @@ class GameCard extends StatelessWidget {
       ),
     );
   }
-
-  Widget _placeholder() => const Center(
-    child: Icon(
-      Icons.gamepad_rounded,
-      size: 48,
-      color: AppColors.textSecondary,
-    ),
-  );
 }

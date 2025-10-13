@@ -90,33 +90,9 @@ class TranslationsSr extends Translations {
   @override
   String get username => 'Korisničko Ime';
   @override
-  String get displayName => 'Prikazno ime';
-  @override
-  String get noImage => 'Nema Slike';
-  @override
-  String get saveImage => 'Sačuvaj Sliku ';
-  @override
-  String get changePassword => 'Promeni Lozinku';
-  @override
-  String get passwordChanged => 'Lozinka uspesno promenjena.';
-  @override
-  String get errorChangingPassword => 'Greska prilikom promene lozinke';
-  @override
-  String get userDataNotLoaded => 'Podatci korisnika nisu ucitani!';
-  @override
-  String get saveProfile => 'Sacuvaj profil';
-  @override
-  String get enterBio => 'Unesi biografiju';
-  @override
-  String get profileInfo => 'Informacije o profilu';
-  @override
   String get profileSettings => 'Podešavanja Profila';
   @override
   String get notifications => 'Obaveštenja';
-  @override
-  String get addFriend => 'Dodaj prijatelja';
-  @override
-  String get friends => 'Prijatelji';
   @override
   String get back => 'Nazad';
   @override
@@ -158,6 +134,8 @@ class TranslationsSr extends Translations {
   @override
   String get update => 'Ažuriraj';
   @override
+  String get registrationError => 'Greška, Pokušajte ponovo kasnije.';
+  @override
   String get passwordMismatch => 'Lozinke se ne podudaraju!.';
   @override
   String get passwordLength => 'Lozinka mora imati minimum 8 karaktera!.';
@@ -172,15 +150,66 @@ class TranslationsSr extends Translations {
     _root,
   );
   @override
-  late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
-  @override
-  late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
-  @override
   String get NoGamesFound => 'Nema pronađenih igara';
   @override
   String get errorLoadingGames => 'Neuspešno učitavanje igara';
   @override
   String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
+  @override
+  late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
+  @override
+  late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+  @override
+  String get youHaveAlreadyReviewedThisGame => 'Već ste ocenili ovu igru';
+  @override
+  String get completed => 'Završeno';
+  @override
+  String get notStarted => 'Nije započeto';
+  @override
+  String get inProgress => 'U toku';
+  @override
+  String get abandoned => 'Napusteno';
+  @override
+  String get failedToSaveReview => 'Nije uspelo da se sačuva recenzija';
+  @override
+  String get reviewAddedSuccessfully => 'Ocena je uspešno dodata!';
+  @override
+  String get reviewTitle => 'Naslov ocene *';
+  @override
+  String get reviewTitleIsRequired => 'Naslov ocene je obavezan';
+  @override
+  String get reviewDescription => 'Opis ocene *';
+  @override
+  String get reviewDescriptionIsRequired => 'Opis ocene je obavezan';
+  @override
+  String get prosCons => 'Prednosti i mane';
+  @override
+  String get gamePros => 'Prednosti igre (odvojene zarezima)';
+  @override
+  String get gameCons => 'Mane igre (odvojene zarezima)';
+  @override
+  String get overallRating => 'Ukupna ocena *';
+  @override
+  String get individualRatings => 'Individualne ocene';
+  @override
+  String get miscellaneous => 'Razno';
+  @override
+  String get gameCompletion => 'Završetak igre (%)';
+  @override
+  String get completionStatus => 'Status završetka';
+  @override
+  String get inGameHours => 'Časovi u igri';
+  @override
+  String get pleaseEnterAValidNumber => 'Molimo unesite validan broj';
+  @override
+  String get iRecommendThisGame => 'Preporučujem ovu igru *';
+  @override
+  String get selectAGameFromYourLibrary =>
+      'Izaberite igru iz vaše biblioteke...';
+  @override
+  String get completed100 => 'Završeno (100%)';
+  @override
+  String get notStarted0 => 'Nije započeto (0%)';
 }
 
 // Path: navigation
@@ -228,6 +257,19 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
   String get gameNotFound => 'Igra nije pronađena';
   @override
   String get reviewsNotFound => 'Recenzije nisu pronađene';
+  @override
+  String get failedToProcessReview => 'Nije uspelo da se obradi recenzija';
+  @override
+  String get unexpectedResponseFormat =>
+      'Neočekivani format odgovora sa servera';
+  @override
+  String get genericError => 'Došlo je do greške. Molimo pokušajte ponovo.';
+  @override
+  String get failedToAddReview => 'Nije uspelo da se doda recenzija';
+  @override
+  String get failedToUpdateReview => 'Nije uspelo da se ažurira recenzija';
+  @override
+  String get failedToDeleteReview => 'Nije uspelo da se obriše recenzija';
 }
 
 // Path: branding

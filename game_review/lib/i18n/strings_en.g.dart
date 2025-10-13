@@ -98,15 +98,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Username'
 	String get username => 'Username';
 
-	/// en: 'Display Name'
-	String get displayName => 'Display Name';
-
-	/// en: 'No Image'
-	String get noImage => 'No Image';
-
-	/// en: 'Save Image'
-	String get saveImage => 'Save Image';
-
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
@@ -173,38 +164,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Error occurred. Try again later'
+	String get registrationError => 'Error occurred. Try again later';
+
 	/// en: 'Passwords do not match!'
 	String get passwordMismatch => 'Passwords do not match!';
 
 	/// en: 'Password must be at least 8 characters long!'
 	String get passwordLength => 'Password must be at least 8 characters long!';
-
-	/// en: 'Change Password'
-	String get changePassword => 'Change Password';
-
-	/// en: 'Add Friend'
-	String get addFriend => 'Add Friend';
-
-	/// en: 'Friends'
-	String get friends => 'Friends';
-
-	/// en: 'User data not loaded!'
-	String get userDataNotLoaded => 'User data not loaded!';
-
-	/// en: 'Password changed successfully.'
-	String get passwordChanged => 'Password changed successfully.';
-
-	/// en: 'Error when changing password.'
-	String get errorChangingPassword => 'Error when changing password.';
-
-	/// en: 'Save Profile'
-	String get saveProfile => 'Save Profile';
-
-	/// en: 'Enter bio'
-	String get enterBio => 'Enter bio';
-
-	/// en: 'Profile Info'
-	String get profileInfo => 'Profile Info';
 
 	/// en: 'Email address is not valid!'
 	String get emailInvalid => 'Email address is not valid!';
@@ -216,7 +183,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 
 	/// en: 'No games found'
 	String get NoGamesFound => 'No games found';
@@ -227,7 +193,83 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Failed to load more games'
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
+
+	/// en: 'You have already reviewed this game'
+	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';
+
+	/// en: 'Completed'
+	String get completed => 'Completed';
+
+	/// en: 'Not started'
+	String get notStarted => 'Not started';
+
+	/// en: 'In progress'
+	String get inProgress => 'In progress';
+
+	/// en: 'Abandoned'
+	String get abandoned => 'Abandoned';
+
+	/// en: 'Failed to save review'
+	String get failedToSaveReview => 'Failed to save review';
+
+	/// en: 'Review added successfully!'
+	String get reviewAddedSuccessfully => 'Review added successfully!';
+
+	/// en: 'Review title *'
+	String get reviewTitle => 'Review title *';
+
+	/// en: 'Review title is required'
+	String get reviewTitleIsRequired => 'Review title is required';
+
+	/// en: 'Review description *'
+	String get reviewDescription => 'Review description *';
+
+	/// en: 'Review description is required'
+	String get reviewDescriptionIsRequired => 'Review description is required';
+
+	/// en: 'Pros & Cons'
+	String get prosCons => 'Pros & Cons';
+
+	/// en: 'Game pros (comma-separated)'
+	String get gamePros => 'Game pros (comma-separated)';
+
+	/// en: 'Game cons (comma-separated)'
+	String get gameCons => 'Game cons (comma-separated)';
+
+	/// en: 'Overall Rating *'
+	String get overallRating => 'Overall Rating *';
+
+	/// en: 'Individual Ratings'
+	String get individualRatings => 'Individual Ratings';
+
+	/// en: 'Miscellaneous'
+	String get miscellaneous => 'Miscellaneous';
+
+	/// en: 'Game completion (%)'
+	String get gameCompletion => 'Game completion (%)';
+
+	/// en: 'Completion status'
+	String get completionStatus => 'Completion status';
+
+	/// en: 'In-game hours'
+	String get inGameHours => 'In-game hours';
+
+	/// en: 'Please enter a valid number'
+	String get pleaseEnterAValidNumber => 'Please enter a valid number';
+
+	/// en: 'I recommend this game *'
+	String get iRecommendThisGame => 'I recommend this game *';
+
+	/// en: 'Select a game from your library...'
+	String get selectAGameFromYourLibrary => 'Select a game from your library...';
+
+	/// en: 'Completed (100%)'
+	String get completed100 => 'Completed (100%)';
+
+	/// en: 'Not Started (0%)'
+	String get notStarted0 => 'Not Started (0%)';
 }
 
 // Path: navigation
@@ -282,6 +324,24 @@ class TranslationsErrorsEn {
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to process review'
+	String get failedToProcessReview => 'Failed to process review';
+
+	/// en: 'Unexpected response format from server'
+	String get unexpectedResponseFormat => 'Unexpected response format from server';
+
+	/// en: 'An error occurred. Please try again.'
+	String get genericError => 'An error occurred. Please try again.';
+
+	/// en: 'Failed to add review'
+	String get failedToAddReview => 'Failed to add review';
+
+	/// en: 'Failed to update review'
+	String get failedToUpdateReview => 'Failed to update review';
+
+	/// en: 'Failed to delete review'
+	String get failedToDeleteReview => 'Failed to delete review';
 }
 
 // Path: branding
