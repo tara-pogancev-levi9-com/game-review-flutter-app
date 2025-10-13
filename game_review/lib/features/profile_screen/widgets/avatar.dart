@@ -10,6 +10,7 @@ import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class Avatar extends StatefulWidget {
   const Avatar({
@@ -66,10 +67,10 @@ class _AvatarState extends State<Avatar> {
                             : null,
                         child:
                             _selectedImage == null && _currentImageUrl == null
-                            ? const Center(
+                            ? Center(
                                 child: Text(
-                                  'No Image',
-                                ), // The CircleAvatar will automatically clip this child to a circle
+                                  t.noImage,
+                                ),
                               )
                             : null,
                       ),
@@ -97,8 +98,7 @@ class _AvatarState extends State<Avatar> {
                                   return;
                                 } else {
                                   setState(() {
-                                    _selectedImage =
-                                        image; // Update the state with the new image
+                                    _selectedImage = image;
                                   });
                                 }
                                 final imgBytes = await image.readAsBytes();
@@ -168,7 +168,7 @@ class _AvatarState extends State<Avatar> {
                         widget.onUpload(imageUrl);
                       },
 
-                      child: const Text('Save Image'),
+                      child: Text(t.saveImage),
                     )
                   : null),
             ],

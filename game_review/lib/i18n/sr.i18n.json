@@ -22,6 +22,7 @@
   "username": "Korisničko Ime",
   "displayName": "Prikazno ime",
   "noImage": "Nema Slike",
+  "saveImage": "Sačuvaj Sliku ",
   "changePassword": "Promeni Lozinku",
   "passwordChanged": "Lozinka uspesno promenjena.",
   "errorChangingPassword": "Greska prilikom promene lozinke",

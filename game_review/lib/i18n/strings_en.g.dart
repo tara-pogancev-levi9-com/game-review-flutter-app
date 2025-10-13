@@ -104,6 +104,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'No Image'
 	String get noImage => 'No Image';
 
+	/// en: 'Save Image'
+	String get saveImage => 'Save Image';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
