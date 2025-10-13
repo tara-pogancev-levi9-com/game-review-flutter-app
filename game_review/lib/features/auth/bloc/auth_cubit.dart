@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
       } else {
         emit(Unauthenticated());
       }
-    } catch (e, stackTrace) { 
+    } catch (e, stackTrace) {
       Logger.error('CRITICAL: checkAuthStatus failed!', '$e\n$stackTrace');
       emit(Unauthenticated());
     }

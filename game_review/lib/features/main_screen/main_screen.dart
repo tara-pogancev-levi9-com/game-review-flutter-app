@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
@@ -40,11 +41,20 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _fetchUserId() async {
-    final String fetchedId = await locator<UserCubit>().getCurrentUserId();
-    _pages.add(ProfilePage(currentUserId: fetchedId));
-    setState(() {
-      currentUserId = fetchedId;
-    });
+    try {
+      final String fetchedId = await locator<UserCubit>().getCurrentUserId();
+      _pages.add(ProfilePage(currentUserId: fetchedId));
+      setState(() {
+        currentUserId = fetchedId;
+      });
+    } catch (e) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+      );
+    }
   }
 
   void _onDestinationSelected(int index) {
