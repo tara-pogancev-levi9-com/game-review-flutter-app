@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
+import 'dart:io';
 
 // TODO: Error handling, generic responses
 
@@ -34,7 +35,7 @@ class ApiClient {
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          if (e.response?.statusCode == 401) {
+          if (e.response?.statusCode == HttpStatus.unauthorized) {
             // TODO: Handle unauthorized error
           }
           return handler.next(e);
