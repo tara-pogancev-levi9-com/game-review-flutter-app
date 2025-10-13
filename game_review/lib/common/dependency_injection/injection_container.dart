@@ -4,6 +4,8 @@ import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart
 import 'package:game_review/features/home_screen/services/review_comment_service.dart';
 import 'package:game_review/common/services/review_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:game_review/common/blocs/games_cubit.dart';
+import 'package:game_review/common/services/games_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:game_review/core/api/api_client.dart';
@@ -27,6 +29,14 @@ void setupDependencies() {
     ),
   );
 
+  locator.registerLazySingleton<GamesService>(
+    () => GamesService(locator<ApiClient>()),
+  );
+
+  locator.registerFactory<GamesCubit>(
+    () => GamesCubit(locator<GamesService>()),
+  );
+  
   locator.registerLazySingleton<RegistrationCubit>(
     () => RegistrationCubit(),
   );

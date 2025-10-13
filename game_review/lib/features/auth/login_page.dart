@@ -10,6 +10,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'bloc/auth_cubit.dart';
 import 'bloc/auth_state.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override

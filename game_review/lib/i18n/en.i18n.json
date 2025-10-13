@@ -24,7 +24,6 @@
   "notifications": "Notifications",
   "back": "Back",
   "next": "Next",
-  "discver": "Discover",
   "discover": "Discover",
   "details": "Details",
   "ratings": "Ratings",
@@ -56,6 +55,9 @@
     "library": "Library",
     "profile": "Profile"
   },
+  "NoGamesFound": "No games found",
+  "errorLoadingGames": "Failed to load games",
+  "errorLoadingMoreGames": "Failed to load more games",
   "errors": {
     "invalidCredentials": "Invalid credentials",
     "loginFailed": "Login failed. Please try again.",

@@ -1,21 +1,23 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'game.freezed.dart';
-part 'game.g.dart';
+part 'game_model.freezed.dart';
+part 'game_model.g.dart';
 
 @freezed
-class Game with _$Game {
-  const factory Game({
+abstract class GameModel with _$GameModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory GameModel({
     required String id,
     required String title,
+    List<String>? genres,
+    List<String>? platforms,
     String? description,
     String? developer,
     String? publisher,
-    @JsonKey(name: 'release_date') DateTime? releaseDate,
-    @JsonKey(name: 'cover_image_url') String? coverImageUrl,
-    List<String>? genres,
-    List<String>? platforms,
-  }) = _Game;
+    String? releaseDate,
+    String? coverImageUrl,
+  }) = _GameModel;
 
-  factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
+  factory GameModel.fromJson(Map<String, dynamic> json) =>
+      _$GameModelFromJson(json);
 }

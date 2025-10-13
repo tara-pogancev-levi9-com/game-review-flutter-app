@@ -55,6 +55,9 @@
     "library": "Biblioteka",
     "profile": "Profil"
   },
+  "NoGamesFound": "Nema pronađenih igara",
+  "errorLoadingGames": "Neuspešno učitavanje igara",
+  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara",
   "errors": {
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava neuspešna. Pokušajte ponovo.",
@@ -161,4 +164,5 @@
     "monthsAgo": "mesec/a",
     "yearsAgo": "godina/a"
   }
+
 }

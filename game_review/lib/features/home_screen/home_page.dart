@@ -6,6 +6,7 @@ import 'package:game_review/features/home_screen/bloc/home_state.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
+import 'package:game_review/features/home_screen/widgets/games_list_widget.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class HomePage extends StatefulWidget {
