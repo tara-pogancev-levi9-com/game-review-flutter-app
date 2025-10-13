@@ -17,6 +17,7 @@ class AppColors {
 
   static const Color outline = Color(0xFFA88EB9);
 }
+
 @immutable
 class AppGradients extends ThemeExtension<AppGradients> {
   final LinearGradient background;

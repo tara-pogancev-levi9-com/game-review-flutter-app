@@ -33,6 +33,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool firstInput = true;
 
+  RegExp get _emailRegex => RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
