@@ -30,3 +30,25 @@ abstract class ReviewModel with _$ReviewModel {
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>
       _$ReviewModelFromJson(json);
 }
+
+extension ReviewModelExtension on ReviewModel {
+  //Converts to JSON removing NULL values for API requests
+  Map<String, dynamic> toJsonForApi({bool includeNulls = false}) {
+    final json = toJson();
+
+    if (includeNulls) {
+      return json;
+    }
+
+    //Remove null values and system generated fields
+    json.removeWhere(
+      (key, value) =>
+          value == null ||
+          key == 'id' ||
+          key == 'created_at' ||
+          key == 'updated_at',
+    );
+
+    return json;
+  }
+}

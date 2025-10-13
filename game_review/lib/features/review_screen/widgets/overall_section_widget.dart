@@ -43,12 +43,6 @@ class OverallSectionWidget extends StatelessWidget {
               Switch(
                 value: recommended,
                 onChanged: onChanged,
-                activeThumbColor: AppColors.primaryPurple,
-                activeTrackColor: AppColors.lilacSelected,
-                inactiveThumbColor: AppColors.lilacSelected,
-                inactiveTrackColor: AppColors.textSecondary.withValues(
-                  alpha: 0.3,
-                ),
               ),
             ],
           ),

@@ -8,358 +8,356 @@ part of 'strings.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
-
 class Translations implements BaseTranslations<AppLocale, Translations> {
-  /// Returns the current translations of the given [context].
-  ///
-  /// Usage:
-  /// final t = Translations.of(context);
-  static Translations of(BuildContext context) =>
-      InheritedLocaleData.of<AppLocale, Translations>(context).translations;
+	/// Returns the current translations of the given [context].
+	///
+	/// Usage:
+	/// final t = Translations.of(context);
+	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
-  /// You can call this constructor and build your own translation instance of this locale.
-  /// Constructing via the enum [AppLocale.build] is preferred.
-  Translations({
-    Map<String, Node>? overrides,
-    PluralResolver? cardinalResolver,
-    PluralResolver? ordinalResolver,
-    TranslationMetadata<AppLocale, Translations>? meta,
-  }) : assert(
-         overrides == null,
-         'Set "translation_overrides: true" in order to enable this feature.',
-       ),
-       $meta =
-           meta ??
-           TranslationMetadata(
-             locale: AppLocale.en,
-             overrides: overrides ?? {},
-             cardinalResolver: cardinalResolver,
-             ordinalResolver: ordinalResolver,
-           );
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = meta ?? TranslationMetadata(
+		    locale: AppLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  );
 
-  /// Metadata for the translations of <en>.
-  @override
-  final TranslationMetadata<AppLocale, Translations> $meta;
+	/// Metadata for the translations of <en>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
-  late final Translations _root = this; // ignore: unused_field
+	late final Translations _root = this; // ignore: unused_field
 
-  Translations $copyWith({
-    TranslationMetadata<AppLocale, Translations>? meta,
-  }) => Translations(meta: meta ?? this.$meta);
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
-  // Translations
+	// Translations
 
-  /// en: 'Welcome!'
-  String get welcome => 'Welcome!';
+	/// en: 'Welcome!'
+	String get welcome => 'Welcome!';
 
-  /// en: 'Hello, {name}!'
-  String get greeting => 'Hello, {name}!';
+	/// en: 'Hello, {name}!'
+	String get greeting => 'Hello, {name}!';
 
-  /// en: 'Change Language'
-  String get changeLanguage => 'Change Language';
+	/// en: 'Change Language'
+	String get changeLanguage => 'Change Language';
 
-  /// en: 'Game Review App'
-  String get appTitle => 'Game Review App';
+	/// en: 'Game Review App'
+	String get appTitle => 'Game Review App';
 
-  /// en: 'Home'
-  String get home => 'Home';
+	/// en: 'Home'
+	String get home => 'Home';
 
-  /// en: 'Settings'
-  String get settings => 'Settings';
+	/// en: 'Settings'
+	String get settings => 'Settings';
 
-  /// en: 'Search for games'
-  String get searchGames => 'Search for games';
+	/// en: 'Search for games'
+	String get searchGames => 'Search for games';
 
-  /// en: 'Favorite Games'
-  String get favoriteGames => 'Favorite Games';
+	/// en: 'Favorite Games'
+	String get favoriteGames => 'Favorite Games';
 
-  /// en: 'Recent Reviews'
-  String get recentReviews => 'Recent Reviews';
+	/// en: 'Recent Reviews'
+	String get recentReviews => 'Recent Reviews';
 
-  /// en: 'Add Review'
-  String get addReview => 'Add Review';
+	/// en: 'Add Review'
+	String get addReview => 'Add Review';
 
-  /// en: 'My Profile'
-  String get myProfile => 'My Profile';
+	/// en: 'My Profile'
+	String get myProfile => 'My Profile';
 
-  /// en: 'Logout'
-  String get logout => 'Logout';
+	/// en: 'Logout'
+	String get logout => 'Logout';
 
-  /// en: 'Login'
-  String get login => 'Login';
+	/// en: 'Login'
+	String get login => 'Login';
 
-  /// en: 'Goodbye!'
-  String get goodbye => 'Goodbye!';
+	/// en: 'Goodbye!'
+	String get goodbye => 'Goodbye!';
 
-  /// en: 'King'
-  String get king => 'King';
+	/// en: 'King'
+	String get king => 'King';
 
-  /// en: 'Register'
-  String get register => 'Register';
+	/// en: 'Register'
+	String get register => 'Register';
 
-  /// en: 'Email'
-  String get email => 'Email';
+	/// en: 'Email'
+	String get email => 'Email';
 
-  /// en: 'Password'
-  String get password => 'Password';
+	/// en: 'Password'
+	String get password => 'Password';
 
-  /// en: 'Confirm Password'
-  String get confirmPassword => 'Confirm Password';
+	/// en: 'Confirm Password'
+	String get confirmPassword => 'Confirm Password';
 
-  /// en: 'Submit'
-  String get submit => 'Submit';
+	/// en: 'Submit'
+	String get submit => 'Submit';
 
-  /// en: 'Username'
-  String get username => 'Username';
+	/// en: 'Username'
+	String get username => 'Username';
 
-  /// en: 'Profile Settings'
-  String get profileSettings => 'Profile Settings';
+	/// en: 'Profile Settings'
+	String get profileSettings => 'Profile Settings';
 
-  /// en: 'Notifications'
-  String get notifications => 'Notifications';
+	/// en: 'Notifications'
+	String get notifications => 'Notifications';
 
-  /// en: 'Back'
-  String get back => 'Back';
+	/// en: 'Back'
+	String get back => 'Back';
 
-  /// en: 'Next'
-  String get next => 'Next';
+	/// en: 'Next'
+	String get next => 'Next';
 
-  /// en: 'Discover'
-  String get discover => 'Discover';
+	/// en: 'Discover'
+	String get discover => 'Discover';
 
-  /// en: 'Details'
-  String get details => 'Details';
+	/// en: 'Details'
+	String get details => 'Details';
 
-  /// en: 'Ratings'
-  String get ratings => 'Ratings';
+	/// en: 'Ratings'
+	String get ratings => 'Ratings';
 
-  /// en: 'Evaluation'
-  String get evaluation => 'Evaluation';
+	/// en: 'Evaluation'
+	String get evaluation => 'Evaluation';
 
-  /// en: 'Overall'
-  String get overall => 'Overall';
+	/// en: 'Overall'
+	String get overall => 'Overall';
 
-  /// en: 'Gameplay'
-  String get gameplay => 'Gameplay';
+	/// en: 'Gameplay'
+	String get gameplay => 'Gameplay';
 
-  /// en: 'Graphics'
-  String get graphics => 'Graphics';
+	/// en: 'Graphics'
+	String get graphics => 'Graphics';
 
-  /// en: 'Sound'
-  String get sound => 'Sound';
+	/// en: 'Sound'
+	String get sound => 'Sound';
 
-  /// en: 'Story'
-  String get story => 'Story';
+	/// en: 'Story'
+	String get story => 'Story';
 
-  /// en: 'Value'
-  String get value => 'Value';
+	/// en: 'Value'
+	String get value => 'Value';
 
-  /// en: 'Pros'
-  String get pros => 'Pros';
+	/// en: 'Pros'
+	String get pros => 'Pros';
 
-  /// en: 'Cons'
-  String get cons => 'Cons';
+	/// en: 'Cons'
+	String get cons => 'Cons';
 
-  /// en: 'Media'
-  String get media => 'Media';
+	/// en: 'Media'
+	String get media => 'Media';
 
-  /// en: 'Discussions'
-  String get discussions => 'Discussions';
+	/// en: 'Discussions'
+	String get discussions => 'Discussions';
 
-  /// en: 'Save'
-  String get save => 'Save';
+	/// en: 'Save'
+	String get save => 'Save';
 
-  /// en: 'Edit'
-  String get edit => 'Edit';
+	/// en: 'Edit'
+	String get edit => 'Edit';
 
-  /// en: 'Delete'
-  String get delete => 'Delete';
+	/// en: 'Delete'
+	String get delete => 'Delete';
 
-  /// en: 'Update'
-  String get update => 'Update';
+	/// en: 'Update'
+	String get update => 'Update';
 
-  late final TranslationsNavigationEn navigation =
-      TranslationsNavigationEn.internal(_root);
+	/// en: 'Error occurred. Try again later'
+	String get registrationError => 'Error occurred. Try again later';
 
-  /// en: 'No games found'
-  String get NoGamesFound => 'No games found';
+	/// en: 'Passwords do not match!'
+	String get passwordMismatch => 'Passwords do not match!';
 
-  /// en: 'Error occurred. Try again later'
-  String get registrationError => 'Error occurred. Try again later';
+	/// en: 'Password must be at least 8 characters long!'
+	String get passwordLength => 'Password must be at least 8 characters long!';
 
-  /// en: 'Passwords do not match!'
-  String get passwordMismatch => 'Passwords do not match!';
+	/// en: 'Email address is not valid!'
+	String get emailInvalid => 'Email address is not valid!';
 
-  /// en: 'Password must be at least 8 characters long!'
-  String get passwordLength => 'Password must be at least 8 characters long!';
+	/// en: 'Registration successful!'
+	String get registrationSuccessful => 'Registration successful!';
 
-  /// en: 'Email address is not valid!'
-  String get emailInvalid => 'Email address is not valid!';
+	/// en: 'The provided email is already registered.!'
+	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
-  /// en: 'Registration successful!'
-  String get registrationSuccessful => 'Registration successful!';
+	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 
-  /// en: 'The provided email is already registered.!'
-  String get registrationEmailExistsError =>
-      'The provided email is already registered.!';
+	/// en: 'No games found'
+	String get NoGamesFound => 'No games found';
 
-  /// en: 'Failed to load games'
-  String get errorLoadingGames => 'Failed to load games';
+	/// en: 'Failed to load games'
+	String get errorLoadingGames => 'Failed to load games';
 
-  /// en: 'Failed to load more games'
-  String get errorLoadingMoreGames => 'Failed to load more games';
+	/// en: 'Failed to load more games'
+	String get errorLoadingMoreGames => 'Failed to load more games';
 
-  late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-  late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(
-    _root,
-  );
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
+	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 
-  /// en: 'You have already reviewed this game'
-  String get youHaveAlreadyReviewedThisGame =>
-      'You have already reviewed this game';
+	/// en: 'You have already reviewed this game'
+	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';
 
-  /// en: 'Completed'
-  String get completed => 'Completed';
+	/// en: 'Completed'
+	String get completed => 'Completed';
 
-  /// en: 'Not started'
-  String get notStarted => 'Not started';
+	/// en: 'Not started'
+	String get notStarted => 'Not started';
 
-  /// en: 'In progress'
-  String get inProgress => 'In progress';
+	/// en: 'In progress'
+	String get inProgress => 'In progress';
 
-  /// en: 'Abandoned'
-  String get abandoned => 'Abandoned';
+	/// en: 'Abandoned'
+	String get abandoned => 'Abandoned';
 
-  /// en: 'Failed to save review'
-  String get FailedToSaveReview => 'Failed to save review';
+	/// en: 'Failed to save review'
+	String get failedToSaveReview => 'Failed to save review';
 
-  /// en: 'Review added successfully!'
-  String get reviewAddedSuccessfully => 'Review added successfully!';
+	/// en: 'Review added successfully!'
+	String get reviewAddedSuccessfully => 'Review added successfully!';
 
-  /// en: 'Review title *'
-  String get reviewTitle => 'Review title *';
+	/// en: 'Review title *'
+	String get reviewTitle => 'Review title *';
 
-  /// en: 'Review title is required'
-  String get reviewTitleIsRequired => 'Review title is required';
+	/// en: 'Review title is required'
+	String get reviewTitleIsRequired => 'Review title is required';
 
-  /// en: 'Review description *'
-  String get reviewDescription => 'Review description *';
+	/// en: 'Review description *'
+	String get reviewDescription => 'Review description *';
 
-  /// en: 'Review description is required'
-  String get reviewDescriptionIsRequired => 'Review description is required';
+	/// en: 'Review description is required'
+	String get reviewDescriptionIsRequired => 'Review description is required';
 
-  /// en: 'Pros & Cons'
-  String get prosCons => 'Pros & Cons';
+	/// en: 'Pros & Cons'
+	String get prosCons => 'Pros & Cons';
 
-  /// en: 'Game pros (comma-separated)'
-  String get gamePros => 'Game pros (comma-separated)';
+	/// en: 'Game pros (comma-separated)'
+	String get gamePros => 'Game pros (comma-separated)';
 
-  /// en: 'Game cons (comma-separated)'
-  String get gameCons => 'Game cons (comma-separated)';
+	/// en: 'Game cons (comma-separated)'
+	String get gameCons => 'Game cons (comma-separated)';
 
-  /// en: 'Overall Rating *'
-  String get overallRating => 'Overall Rating *';
+	/// en: 'Overall Rating *'
+	String get overallRating => 'Overall Rating *';
 
-  /// en: 'Individual Ratings'
-  String get individualRatings => 'Individual Ratings';
+	/// en: 'Individual Ratings'
+	String get individualRatings => 'Individual Ratings';
 
-  /// en: 'Miscellaneous'
-  String get miscellaneous => 'Miscellaneous';
+	/// en: 'Miscellaneous'
+	String get miscellaneous => 'Miscellaneous';
 
-  /// en: 'Game completion (%)'
-  String get gameCompletion => 'Game completion (%)';
+	/// en: 'Game completion (%)'
+	String get gameCompletion => 'Game completion (%)';
 
-  /// en: 'Completion status'
-  String get completionStatus => 'Completion status';
+	/// en: 'Completion status'
+	String get completionStatus => 'Completion status';
 
-  /// en: 'In-game hours'
-  String get inGameHours => 'In-game hours';
+	/// en: 'In-game hours'
+	String get inGameHours => 'In-game hours';
 
-  /// en: 'Please enter a valid number'
-  String get pleaseEnterAValidNumber => 'Please enter a valid number';
+	/// en: 'Please enter a valid number'
+	String get pleaseEnterAValidNumber => 'Please enter a valid number';
 
-  /// en: 'I recommend this game *'
-  String get iRecommendThisGame => 'I recommend this game *';
+	/// en: 'I recommend this game *'
+	String get iRecommendThisGame => 'I recommend this game *';
 
-  /// en: 'Select a game from your library...'
-  String get selectAGameFromYourLibrary => 'Select a game from your library...';
+	/// en: 'Select a game from your library...'
+	String get selectAGameFromYourLibrary => 'Select a game from your library...';
 
-  /// en: 'Completed (100%)'
-  String get completed100 => 'Completed (100%)';
+	/// en: 'Completed (100%)'
+	String get completed100 => 'Completed (100%)';
 
-  /// en: 'Not Started (0%)'
-  String get notStarted0 => 'Not Started (0%)';
+	/// en: 'Not Started (0%)'
+	String get notStarted0 => 'Not Started (0%)';
 }
 
 // Path: navigation
 class TranslationsNavigationEn {
-  TranslationsNavigationEn.internal(this._root);
+	TranslationsNavigationEn.internal(this._root);
 
-  final Translations _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
-  // Translations
+	// Translations
 
-  /// en: 'Home'
-  String get home => 'Home';
+	/// en: 'Home'
+	String get home => 'Home';
 
-  /// en: 'Search'
-  String get search => 'Search';
+	/// en: 'Search'
+	String get search => 'Search';
 
-  /// en: 'Library'
-  String get library => 'Library';
+	/// en: 'Library'
+	String get library => 'Library';
 
-  /// en: 'Profile'
-  String get profile => 'Profile';
+	/// en: 'Profile'
+	String get profile => 'Profile';
 }
 
 // Path: errors
 class TranslationsErrorsEn {
-  TranslationsErrorsEn.internal(this._root);
+	TranslationsErrorsEn.internal(this._root);
 
-  final Translations _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
-  // Translations
+	// Translations
 
-  /// en: '{field} required'
-  String get requiredField => '{field} required';
+	/// en: '{field} required'
+	String get requiredField => '{field} required';
 
-  /// en: 'Invalid email'
-  String get invalidEmail => 'Invalid email';
+	/// en: 'Invalid email'
+	String get invalidEmail => 'Invalid email';
 
-  /// en: 'Min {n} char'
-  String get minLength => 'Min {n} char';
+	/// en: 'Min {n} char'
+	String get minLength => 'Min {n} char';
 
-  /// en: 'Invalid credentials'
-  String get invalidCredentials => 'Invalid credentials';
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
 
-  /// en: 'Login failed, please try again'
-  String get loginFailed => 'Login failed, please try again';
+	/// en: 'Login failed, please try again'
+	String get loginFailed => 'Login failed, please try again';
 
-  /// en: 'The app failed to start. Please restart and try again.'
-  String get appFailedToStart =>
-      'The app failed to start. Please restart and try again.';
+	/// en: 'The app failed to start. Please restart and try again.'
+	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 
-  /// en: 'Game not found'
-  String get gameNotFound => 'Game not found';
+	/// en: 'Game not found'
+	String get gameNotFound => 'Game not found';
 
-  /// en: 'Reviews not found'
-  String get reviewsNotFound => 'Reviews not found';
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to process review'
+	String get failedToProcessReview => 'Failed to process review';
+
+	/// en: 'Unexpected response format from server'
+	String get unexpectedResponseFormat => 'Unexpected response format from server';
+
+	/// en: 'An error occurred. Please try again.'
+	String get genericError => 'An error occurred. Please try again.';
+
+	/// en: 'Failed to add review'
+	String get failedToAddReview => 'Failed to add review';
+
+	/// en: 'Failed to update review'
+	String get failedToUpdateReview => 'Failed to update review';
+
+	/// en: 'Failed to delete review'
+	String get failedToDeleteReview => 'Failed to delete review';
 }
 
 // Path: branding
 class TranslationsBrandingEn {
-  TranslationsBrandingEn.internal(this._root);
+	TranslationsBrandingEn.internal(this._root);
 
-  final Translations _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
-  // Translations
+	// Translations
 
-  /// en: 'PAW GAMES'
-  String get title => 'PAW GAMES';
+	/// en: 'PAW GAMES'
+	String get title => 'PAW GAMES';
 
-  /// en: 'Discover. Rate. Share.'
-  String get tagline => 'Discover. Rate. Share.';
+	/// en: 'Discover. Rate. Share.'
+	String get tagline => 'Discover. Rate. Share.';
 
-  /// en: 'App logo'
-  String get logoLabel => 'App logo';
+	/// en: 'App logo'
+	String get logoLabel => 'App logo';
 }

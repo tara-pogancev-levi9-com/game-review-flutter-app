@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
+import 'package:game_review/common/widgets/network_image_widget.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/common/theme/app_typography.dart';
@@ -29,7 +30,6 @@ class GameCard extends StatelessWidget {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -54,17 +54,10 @@ class GameCard extends StatelessWidget {
                   ),
                   borderRadius: BorderSize.m.radius,
                 ),
-                child: game.coverImageUrl != null
-                    ? Image.network(
-                        game.coverImageUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _placeholder(),
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return _placeholder();
-                        },
-                      )
-                    : _placeholder(),
+                child: NetworkImageWidget(
+                  imageUrl: game.coverImageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -82,12 +75,4 @@ class GameCard extends StatelessWidget {
       ),
     );
   }
-
-  Widget _placeholder() => const Center(
-    child: Icon(
-      Icons.gamepad_rounded,
-      size: 48,
-      color: AppColors.textSecondary,
-    ),
-  );
 }

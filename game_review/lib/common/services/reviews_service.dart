@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/common/utils/app_exception.dart';
 
 class ReviewsService {
   final ApiClient _apiClient;
@@ -65,25 +66,27 @@ class ReviewsService {
     String? completion_status,
     bool? recommended,
   }) async {
-    final Map<String, dynamic> data = {
-      'user_id': user_id,
-      'game_id': game_id,
-    };
+    final reviewData = ReviewModel(
+      id: '',
+      user_id: user_id,
+      game_id: game_id,
+      title: title,
+      content: content,
+      overall_rating: overall_rating,
+      gameplay_rating: gameplay_rating,
+      graphics_rating: graphics_rating,
+      story_rating: story_rating,
+      sound_rating: sound_rating,
+      value_rating: value_rating,
+      pros: pros,
+      cons: cons,
+      playtime_hours: playtime_hours,
+      completion_status: completion_status,
+      recommended: recommended,
+    );
 
-    if (title != null) data['title'] = title;
-    if (content != null) data['content'] = content;
-    if (overall_rating != null) data['overall_rating'] = overall_rating;
-    if (gameplay_rating != null) data['gameplay_rating'] = gameplay_rating;
-    if (graphics_rating != null) data['graphics_rating'] = graphics_rating;
-    if (story_rating != null) data['story_rating'] = story_rating;
-    if (sound_rating != null) data['sound_rating'] = sound_rating;
-    if (value_rating != null) data['value_rating'] = value_rating;
-    if (pros != null) data['pros'] = pros;
-    if (cons != null) data['cons'] = cons;
-    if (playtime_hours != null) data['playtime_hours'] = playtime_hours;
-    if (completion_status != null)
-      data['completion_status'] = completion_status;
-    if (recommended != null) data['recommended'] = recommended;
+    //Convert to JSON, removing nulls
+    final data = reviewData.toJsonForApi();
 
     Logger.info('🟣 ADD REVIEW DEBUG');
     Logger.info('user_id: $user_id');
@@ -107,23 +110,7 @@ class ReviewsService {
     Logger.info('🔵 RESPONSE STATUS: ${response.statusCode}');
     Logger.info('🔵 RESPONSE DATA: ${response.data}');
 
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      final data = response.data;
-
-      // Case 1: Supabase returned a list of rows
-      if (data is List &&
-          data.isNotEmpty &&
-          data.first is Map<String, dynamic>) {
-        return ReviewModel.fromJson(data.first as Map<String, dynamic>);
-      }
-
-      // Case 2: Supabase returned a single JSON object
-      if (data is Map<String, dynamic>) {
-        return ReviewModel.fromJson(data);
-      }
-    }
-
-    throw Exception('Failed to add review: Unexpected response type');
+    return _parseReviewFromResponse(response);
   }
 
   Future<ReviewModel> updateReview({
@@ -142,22 +129,27 @@ class ReviewsService {
     String? completion_status,
     bool? recommended,
   }) async {
-    final data = <String, dynamic>{};
+    // Create a partial ReviewModel with only the fields we're updating
+    final reviewData = ReviewModel(
+      id: id,
+      user_id: '', //Not being updated
+      game_id: '', //Not being updated
+      title: title,
+      content: content,
+      overall_rating: overall_rating,
+      gameplay_rating: gameplay_rating,
+      graphics_rating: graphics_rating,
+      story_rating: story_rating,
+      sound_rating: sound_rating,
+      value_rating: value_rating,
+      pros: pros,
+      cons: cons,
+      playtime_hours: playtime_hours,
+      completion_status: completion_status,
+      recommended: recommended,
+    );
 
-    if (title != null) data['title'] = title;
-    if (content != null) data['content'] = content;
-    if (overall_rating != null) data['overall_rating'] = overall_rating;
-    if (gameplay_rating != null) data['gameplay_rating'] = gameplay_rating;
-    if (graphics_rating != null) data['graphics_rating'] = graphics_rating;
-    if (story_rating != null) data['story_rating'] = story_rating;
-    if (sound_rating != null) data['sound_rating'] = sound_rating;
-    if (value_rating != null) data['value_rating'] = value_rating;
-    if (pros != null) data['pros'] = pros;
-    if (cons != null) data['cons'] = cons;
-    if (playtime_hours != null) data['playtime_hours'] = playtime_hours;
-    if (completion_status != null)
-      data['completion_status'] = completion_status;
-    if (recommended != null) data['recommended'] = recommended;
+    final data = reviewData.toJsonForApi();
 
     final response = await _apiClient.patch(
       '/rest/v1/game_reviews',
@@ -166,13 +158,14 @@ class ReviewsService {
         'id': 'eq.$id',
         'select': '*',
       },
+      options: Options(
+        headers: {
+          'Prefer': 'return=representation',
+        },
+      ),
     );
 
-    final List<dynamic> responseData = response.data as List<dynamic>;
-    if (responseData.isNotEmpty) {
-      return ReviewModel.fromJson(responseData.first);
-    }
-    throw Exception('Failed to update review');
+    return _parseReviewFromResponse(response);
   }
 
   Future<void> deleteReview(String reviewId) async {
@@ -200,5 +193,28 @@ class ReviewsService {
 
     final List<dynamic> data = response.data as List<dynamic>;
     return data.isNotEmpty;
+  }
+
+  // reviews_service.dart
+  ReviewModel _parseReviewFromResponse(Response response) {
+    if (response.statusCode != 201 && response.statusCode != 200) {
+      throw AppException(
+        'errors.failedToProcessReview',
+        fallbackMessage:
+            'Failed to process review: HTTP ${response.statusCode}',
+      );
+    }
+
+    final data = response.data;
+
+    // Supabase with 'Prefer: return=representation' always returns a list
+    if (data is List && data.isNotEmpty && data.first is Map<String, dynamic>) {
+      return ReviewModel.fromJson(data.first as Map<String, dynamic>);
+    }
+
+    throw AppException(
+      'errors.unexpectedResponseFormat',
+      fallbackMessage: 'Failed to parse review: Unexpected response format',
+    );
   }
 }

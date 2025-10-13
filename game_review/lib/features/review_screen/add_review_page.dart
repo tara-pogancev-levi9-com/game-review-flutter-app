@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_review/common/blocs/review_cubit.dart';
-import 'package:game_review/common/blocs/review_state.dart';
+import 'package:game_review/common/blocs/review_form_cubit.dart';
+import 'package:game_review/common/blocs/review_form_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
@@ -12,7 +12,7 @@ import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/features/review_screen/widgets/overall_section_widget.dart';
 import 'package:game_review/features/review_screen/widgets/review_dropdown.dart';
-import 'package:game_review/common/widgets/error_snackbar.dart';
+import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/review_screen/widgets/custom_text_form_field.dart';
 import 'package:game_review/features/review_screen/widgets/rating_row_widget.dart';
 import 'package:game_review/features/review_screen/widgets/rating_section_widget.dart';
@@ -32,7 +32,7 @@ class AddReviewPage extends StatefulWidget {
 }
 
 class _AddReviewPageState extends State<AddReviewPage> {
-  late final ReviewsCubit _reviewsCubit;
+  late final ReviewFormCubit _reviewFormCubit;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Controllers for required fields
@@ -64,7 +64,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
   @override
   void initState() {
     super.initState();
-    _reviewsCubit = locator<ReviewsCubit>();
+    _reviewFormCubit = locator<ReviewFormCubit>();
   }
 
   @override
@@ -140,7 +140,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
 
       double clampRating(double value) => (value * 2).clamp(0.0, 9.9);
 
-      await _reviewsCubit.addReview(
+      await _reviewFormCubit.addReview(
         user_id: userId,
         game_id: widget.game.id,
         title: _titleController.text.trim(),
@@ -158,7 +158,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
         completion_status: formattedCompletionStatus,
       );
     } catch (e) {
-      ErrorSnackbar.show(context, t.FailedToSaveReview, error: e);
+      AppSnackbar.showError(context, t.failedToSaveReview, error: e);
     }
   }
 
@@ -186,19 +186,21 @@ class _AddReviewPageState extends State<AddReviewPage> {
         decoration: BoxDecoration(
           gradient: Theme.of(context).extension<AppGradients>()?.background,
         ),
-        child: BlocConsumer<ReviewsCubit, ReviewState>(
-          bloc: _reviewsCubit,
+        child: BlocConsumer<ReviewFormCubit, ReviewFormState>(
+          bloc: _reviewFormCubit,
           listener: (context, state) {
             state.maybeWhen(
-              reviewAdded: (review) {
-                ErrorSnackbar.showSuccess(
-                  context,
-                  t.reviewAddedSuccessfully,
-                );
+              success: (review) {
+                AppSnackbar.showSuccess(context, t.reviewAddedSuccessfully);
+
                 Navigator.of(context).pop(true);
               },
               error: (message) {
-                ErrorSnackbar.show(context, message);
+                AppSnackbar.showError(
+                  context,
+                  t.failedToSaveReview,
+                  error: message,
+                );
               },
               orElse: () {},
             );

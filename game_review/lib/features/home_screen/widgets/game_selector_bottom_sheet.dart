@@ -61,6 +61,8 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
       ),
     );
 
+    if (!mounted) return;
+
     if (result == true && context.mounted) {
       Navigator.pop(context, true);
     }
