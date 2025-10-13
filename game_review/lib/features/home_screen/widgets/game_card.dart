@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/features/library_screen/game_details_page.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/widgets/network_image_widget.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
@@ -52,30 +52,26 @@ class GameCard extends StatelessWidget {
                     color: AppColors.outline.withOpacity(0.2),
                     width: 1,
                   ),
-                )
-              else
-                Container(
-                  height: imageHeight,
-                  width: cardWidth,
-                  color: Colors.grey[800],
-                  child: const Icon(Icons.videogame_asset, size: 40),
-                ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  game.title,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  borderRadius: BorderSize.m.radius,
                 ),
                 child: NetworkImageWidget(
                   imageUrl: game.coverImageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: 8),
+          Expanded(
+            child: Text(
+              game.title,
+              style: AppTypography.gameTitle,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }

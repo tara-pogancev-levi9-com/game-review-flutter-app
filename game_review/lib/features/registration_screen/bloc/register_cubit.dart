@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/auth/services/auth_service.dart';
+import 'package:game_review/features/auth/auth_service.dart';
 import 'package:game_review/features/registration_screen/bloc/registration_state.dart';
 import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
 import 'package:game_review/features/registration_screen/models/login_model.dart';
