@@ -1,9 +1,10 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/endpoints.dart';
-import 'package:game_review/features/profile_screen/models/user.dart';
 
 class UserService {
   final ApiClient apiClient;
@@ -21,7 +22,7 @@ class UserService {
     }
   }
 
-  Future<User> getCurrentUser() async {
+  Future<UserModel> getCurrentUser() async {
     try {
       final String userUid = await getCurrentUserUid();
 
@@ -35,7 +36,7 @@ class UserService {
       if (userDataList.isNotEmpty) {
         final Map<String, dynamic> userData =
             userDataList.first as Map<String, dynamic>;
-        User currentUserProfile = User.fromJson(userData);
+        UserModel currentUserProfile = UserModel.fromJson(userData);
         return currentUserProfile;
       } else {
         throw Exception("User profile not found.");

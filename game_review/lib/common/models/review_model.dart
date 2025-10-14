@@ -27,25 +27,35 @@ abstract class ReviewModel with _$ReviewModel {
     DateTime? createdAt,
     DateTime? updatedAt,
     GameModel? game,
+    String? username,
   }) = _ReviewModel;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>
       _$ReviewModelFromJson(json);
 
-  static ReviewModel fromJsonWithNestedGame(Map<String, dynamic> json) {
+  static ReviewModel fromJsonWithNestedGameAndUser(Map<String, dynamic> json) {
     final review = ReviewModel.fromJson(json);
     final gameJson = json['games'];
-    if (gameJson != null && gameJson is Map<String, dynamic>) {
-      return review.copyWith(
-        game: GameModel.fromJson(Map<String, dynamic>.from(gameJson)),
-      );
+    final userJson = json['users'];
+
+    String? username;
+    if (userJson != null && userJson is Map<String, dynamic>) {
+      username = userJson['username'] as String?;
     }
-    return review;
+
+    GameModel? game;
+    if (gameJson != null && gameJson is Map<String, dynamic>) {
+      game = GameModel.fromJson(Map<String, dynamic>.from(gameJson));
+    }
+
+    return review.copyWith(
+      game: game,
+      username: username,
+    );
   }
 }
 
 extension ReviewModelExtension on ReviewModel {
-  //Converts to JSON removing NULL values for API requests
   Map<String, dynamic> toJsonForApi({bool includeNulls = false}) {
     final json = toJson();
 
@@ -53,7 +63,6 @@ extension ReviewModelExtension on ReviewModel {
       return json;
     }
 
-    //Remove null values and system generated fields
     json.removeWhere(
       (key, value) =>
           value == null ||

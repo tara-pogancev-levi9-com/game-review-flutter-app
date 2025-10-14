@@ -32,6 +32,7 @@ _ReviewModel _$ReviewModelFromJson(Map<String, dynamic> json) => _ReviewModel(
   game: json['game'] == null
       ? null
       : GameModel.fromJson(json['game'] as Map<String, dynamic>),
+  username: json['username'] as String?,
 );
 
 Map<String, dynamic> _$ReviewModelToJson(_ReviewModel instance) =>
@@ -55,4 +56,5 @@ Map<String, dynamic> _$ReviewModelToJson(_ReviewModel instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'game': instance.game,
+      'username': instance.username,
     };

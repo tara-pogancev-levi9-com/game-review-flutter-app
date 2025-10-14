@@ -61,7 +61,7 @@ class ReviewsService {
       final response = await _apiClient.get(
         Endpoints.gameReviews,
         queryParameters: {
-          'select': '*,games(*)',
+          'select': '*,games(*),users(username)',
           'order': 'created_at.desc',
           'limit': limit,
           'offset': offset,
@@ -71,7 +71,7 @@ class ReviewsService {
       if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List).map((r) {
           final map = Map<String, dynamic>.from(r as Map);
-          return ReviewModel.fromJsonWithNestedGame(map);
+          return ReviewModel.fromJsonWithNestedGameAndUser(map);
         }).toList();
       }
       return [];
