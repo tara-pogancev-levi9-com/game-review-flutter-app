@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/models/profile_Info_model.dart';
 import 'package:game_review/features/profile_screen/widgets/avatar.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
+import '../../main_screen/widgets/app_scaffold.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -30,6 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool showPassword = false;
   bool showConfirmPassword = false;
   bool firstInput = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserProfileState>(

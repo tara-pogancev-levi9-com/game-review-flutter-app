@@ -33,7 +33,7 @@ class UserService {
     try {
       final Response response = await apiClient.patch(
         '/rest/v1/users',
-        userId,
+        queryParameters: {'id': 'eq.$userId'},
         data: updates,
       );
 
@@ -94,7 +94,7 @@ class UserService {
     try {
       final Response response = await apiClient.patch(
         '/rest/v1/users',
-        userId,
+        queryParameters: {'id': 'eq.$userId'},
         data: {'avatar_url': null},
       );
 
@@ -198,7 +198,7 @@ class UserService {
   Future<void> uploadAvatar(imagePath, imageBytes, imageExtensions) async {
     try {
       final Response response = await locator<ApiImageClient>().post(
-        '/storage/v1/object/avatars/${imagePath}',
+        '/storage/v1/object/avatars/$imagePath',
         imageExtensions,
         data: imageBytes,
       );

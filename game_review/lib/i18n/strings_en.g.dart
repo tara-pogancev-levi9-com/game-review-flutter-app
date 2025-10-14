@@ -98,6 +98,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Username'
 	String get username => 'Username';
 
+	/// en: 'Display Name'
+	String get displayName => 'Display Name';
+
+	/// en: 'No Image'
+	String get noImage => 'No Image';
+
+	/// en: 'Save Image'
+	String get saveImage => 'Save Image';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
@@ -176,6 +185,33 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Password must be at least 8 characters long!'
 	String get passwordLength => 'Password must be at least 8 characters long!';
 
+	/// en: 'Change Password'
+	String get changePassword => 'Change Password';
+
+	/// en: 'Add Friend'
+	String get addFriend => 'Add Friend';
+
+	/// en: 'Friends'
+	String get friends => 'Friends';
+
+	/// en: 'User data not loaded!'
+	String get userDataNotLoaded => 'User data not loaded!';
+
+	/// en: 'Password changed successfully.'
+	String get passwordChanged => 'Password changed successfully.';
+
+	/// en: 'Error when changing password.'
+	String get errorChangingPassword => 'Error when changing password.';
+
+	/// en: 'Save Profile'
+	String get saveProfile => 'Save Profile';
+
+	/// en: 'Enter bio'
+	String get enterBio => 'Enter bio';
+
+	/// en: 'Profile Info'
+	String get profileInfo => 'Profile Info';
+
 	/// en: 'Email address is not valid!'
 	String get emailInvalid => 'Email address is not valid!';
 
@@ -207,6 +243,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
+
+	/// en: 'Avatar updated.'
+	String get avatarUpdated => 'Avatar updated.';
+
+	/// en: 'Profile updated.'
+	String get profileUpdated => 'Profile updated.';
 
 	/// en: 'You have already reviewed this game'
 	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';

@@ -5,7 +5,6 @@ import 'package:game_review/features/main_screen/widgets/app_scaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
-import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -38,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
       _fetchUserId();
     }*/
   }
+
   //Commented because: It is possibly not needed since the logic is moved to ProfilePage
   /*Future<void> _fetchUserId() async {
     try {
@@ -96,60 +96,59 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final translations = context.t;
 
-    if (currentUserId == null) {
+    /*if (currentUserId == null) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
-    } else {
-      return AppScaffold(
-        floatingActionButton: _getFloatingActionButton(),
-        body: SafeArea(
-          child: Column(
-            children: [
-              CustomHeader(
-                isHome: _selectedIndex == 0,
-                onBack: _onBackPressed,
-              ),
-              Expanded(child: _pages[_selectedIndex]),
-            ],
-          ),
-        ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.transparent,
-                Colors.black.withValues(alpha: 0.5),
-              ],
+    } else {*/
+    return AppScaffold(
+      floatingActionButton: _getFloatingActionButton(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            CustomHeader(
+              isHome: _selectedIndex == 0,
+              onBack: _onBackPressed,
             ),
-          ),
-          child: NavigationBar(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onDestinationSelected,
-            elevation: 0,
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.home_rounded),
-                label: translations.navigation.home,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.search_rounded),
-                label: translations.navigation.search,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.library_books_rounded),
-                label: translations.navigation.library,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.person_rounded),
-                label: translations.navigation.profile,
-              ),
+            Expanded(child: _pages[_selectedIndex]),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withValues(alpha: 0.5),
             ],
           ),
         ),
-      );
-    }
+        child: NavigationBar(
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: _onDestinationSelected,
+          elevation: 0,
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.home_rounded),
+              label: translations.navigation.home,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.search_rounded),
+              label: translations.navigation.search,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.library_books_rounded),
+              label: translations.navigation.library,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.person_rounded),
+              label: translations.navigation.profile,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

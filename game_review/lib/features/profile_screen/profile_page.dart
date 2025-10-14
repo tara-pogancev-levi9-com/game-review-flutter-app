@@ -4,10 +4,11 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 import 'package:game_review/features/auth/login_page.dart';
-import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
+import '../main_screen/widgets/app_scaffold.dart';
 
 class ProfilePage extends StatefulWidget {
   final String? currentUserId;

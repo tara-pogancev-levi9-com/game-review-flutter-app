@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 
@@ -77,14 +76,15 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) {
     return dio.delete(path, data: data, queryParameters: queryParameters);
+  }
 
   /*Future<Response> patch(String path, String id, {dynamic data}) {
     return dio.patch(path, queryParameters: {'id': 'eq.$id'}, data: data);
   }*/
 
-  Future<Response> delete(String path, {dynamic data}) {
+  /*Future<Response> delete(String path, {dynamic data}) {
     return dio.delete(path, data: data);
-  }
+  }*/
 
   Future<Response> patch(
     String path, {
