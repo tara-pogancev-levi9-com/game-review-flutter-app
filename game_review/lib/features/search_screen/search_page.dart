@@ -186,7 +186,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Swipe to see more',
+                  t.swipeToSeeMore,
                   style: AppTypography.searchItemSubtitle.copyWith(
                     fontSize: 12,
                     color: AppColors.textSecondary,
@@ -233,7 +233,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Swipe to see more',
+                  t.swipeToSeeMore,
                   style: AppTypography.searchItemSubtitle.copyWith(
                     fontSize: 12,
                     color: AppColors.textSecondary,
@@ -282,7 +282,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              'No results found for "$query"',
+              t.noResultsFound(query: query),
               style: AppTypography.heading.copyWith(
                 color: AppColors.textSecondary,
               ),

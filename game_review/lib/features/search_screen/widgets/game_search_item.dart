@@ -26,7 +26,7 @@ class GameSearchItem extends StatelessWidget {
       },
       borderRadius: BorderSize.m.radius,
       child: Container(
-        height: 180, // Fixed height za uniformnost
+        height: 180,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.surfaceVariant,
@@ -39,7 +39,6 @@ class GameSearchItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Game Cover i Title u redu
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -101,7 +100,6 @@ class GameSearchItem extends StatelessWidget {
 
             const Spacer(),
 
-            // Platforms ispod
             if (game.platforms != null && game.platforms!.isNotEmpty) ...[
               const Divider(color: AppColors.outline, height: 24),
               Row(
@@ -124,7 +122,6 @@ class GameSearchItem extends StatelessWidget {
               ),
             ],
 
-            // Developer/Publisher
             if (game.developer != null || game.publisher != null) ...[
               const SizedBox(height: 8),
               Row(

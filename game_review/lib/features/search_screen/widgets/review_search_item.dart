@@ -4,6 +4,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewSearchItem extends StatelessWidget {
   final ReviewModel review;
@@ -25,7 +26,7 @@ class ReviewSearchItem extends StatelessWidget {
       },
       borderRadius: BorderSize.m.radius,
       child: Container(
-        height: 180, // Ista visina kao i game card
+        height: 180,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.surfaceVariant,
@@ -85,16 +86,16 @@ class ReviewSearchItem extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.thumb_up_rounded,
                           color: AppColors.success,
                           size: 14,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
-                          'Recommended',
+                          t.recommended,
                           style: AppTypography.smallText,
                         ),
                       ],
@@ -113,6 +114,32 @@ class ReviewSearchItem extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
+
+            // Game Title
+            if (review.game?.title != null) ...[
+              Row(
+                children: [
+                  const Icon(
+                    Icons.videogame_asset_rounded,
+                    size: 16,
+                    color: AppColors.textSecondary,
+                  ),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      review.game!.title,
+                      style: AppTypography.searchItemSubtitle.copyWith(
+                        color: AppColors.lilacSelected,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
 
             // Review Title
             if (review.title != null && review.title!.isNotEmpty) ...[

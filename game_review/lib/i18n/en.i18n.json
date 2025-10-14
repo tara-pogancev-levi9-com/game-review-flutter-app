@@ -192,5 +192,9 @@
     "yearsAgo": "year/s ago"
   },
     "gamesSection": "Games",
-    "reviewsSection": "Reviews"
+    "reviewsSection": "Reviews",
+    "recommended": "Recommended",
+    "swipeToSeeMore" : "Swipe to see more",
+    "noResultsFound": "No results found for \"{{query}}\""
+    
 }

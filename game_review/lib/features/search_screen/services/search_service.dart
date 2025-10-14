@@ -1,5 +1,6 @@
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/models/review_model.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 
 class SearchService {
@@ -13,14 +14,13 @@ class SearchService {
   }) async {
     if (query.isEmpty) return [];
 
-    // Pretraga po: title, developer, publisher (case-insensitive)
     final response = await _apiClient.get(
       '/rest/v1/games',
       queryParameters: {
         'select': '*',
         'or':
             '(title.ilike.*$query*,developer.ilike.*$query*,publisher.ilike.*$query*)',
-        'limit': limit * 2, // Dobavi više rezultata za client-side filtering
+        'limit': limit * 2,
         'order': 'title.asc',
       },
     );
@@ -61,7 +61,7 @@ class SearchService {
       final reviewsResponse = await _apiClient.get(
         '/rest/v1/game_reviews',
         queryParameters: {
-          'select': '*',
+          'select': '*,games(*)',
           'or': '(title.ilike.*$query*,content.ilike.*$query*)',
           'limit': limit,
           'order': 'created_at.desc',
@@ -70,7 +70,7 @@ class SearchService {
 
       final List<dynamic> reviewsData = reviewsResponse.data as List<dynamic>;
       final reviews = reviewsData
-          .map((json) => ReviewModel.fromJson(json))
+          .map((json) => ReviewModel.fromJsonWithNestedGame(json))
           .toList();
 
       final gamesResponse = await _apiClient.get(
@@ -89,7 +89,7 @@ class SearchService {
         final gameReviewsResponse = await _apiClient.get(
           '/rest/v1/game_reviews',
           queryParameters: {
-            'select': '*',
+            'select': '*,games(*)',
             'game_id': 'in.(${gameIds.join(',')})',
             'limit': limit,
             'order': 'created_at.desc',
@@ -99,7 +99,7 @@ class SearchService {
         final List<dynamic> gameReviewsData =
             gameReviewsResponse.data as List<dynamic>;
         final gameReviews = gameReviewsData
-            .map((json) => ReviewModel.fromJson(json))
+            .map((json) => ReviewModel.fromJsonWithNestedGame(json))
             .toList();
 
         final allReviews = [...reviews, ...gameReviews];
@@ -113,10 +113,11 @@ class SearchService {
 
       return reviews;
     } catch (e) {
+      Logger.error('Search reviews failed', e);
       final response = await _apiClient.get(
         '/rest/v1/game_reviews',
         queryParameters: {
-          'select': '*',
+          'select': '*,games(*)',
           'or': '(title.ilike.*$query*,content.ilike.*$query*)',
           'limit': limit,
           'order': 'created_at.desc',
@@ -124,7 +125,9 @@ class SearchService {
       );
 
       final List<dynamic> data = response.data as List<dynamic>;
-      return data.map((json) => ReviewModel.fromJson(json)).toList();
+      return data
+          .map((json) => ReviewModel.fromJsonWithNestedGame(json))
+          .toList();
     }
   }
 }

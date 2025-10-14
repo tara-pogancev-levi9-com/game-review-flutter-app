@@ -24,15 +24,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+		  );
 
 	/// Metadata for the translations of <en>.
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
-
-	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
 
@@ -190,7 +185,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'The provided email is already registered.!'
 	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
-	late final TranslationsNavigationEn navigation = TranslationsNavigationEn._(_root);
+	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
 
 	/// en: 'No games found'
 	String get NoGamesFound => 'No games found';
@@ -201,13 +196,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Failed to load more games'
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn._(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 
 	/// en: 'App failed to start:\n\n@{error}'
 	String get appFailedToStart => 'App failed to start:\n\n@{error}';
 
-	late final TranslationsLibraryEn library = TranslationsLibraryEn._(_root);
-	late final TranslationsBrandingEn branding = TranslationsBrandingEn._(_root);
+	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
+	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 
 	/// en: 'You have already reviewed this game'
 	String get youHaveAlreadyReviewedThisGame => 'You have already reviewed this game';
@@ -284,8 +279,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Not Started (0%)'
 	String get notStarted0 => 'Not Started (0%)';
 
-	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn._(_root);
-	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn._(_root);
+	late final TranslationsGameServiceEn gameService = TranslationsGameServiceEn.internal(_root);
+	late final TranslationsGameDetailsEn gameDetails = TranslationsGameDetailsEn.internal(_root);
 
 	/// en: 'Review'
 	String get gameReview => 'Review';
@@ -308,18 +303,27 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'h on record'
 	String get playingRecord => 'h on record';
 
-	late final TranslationsTimeEn time = TranslationsTimeEn._(_root);
+	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
 
 	/// en: 'Games'
 	String get gamesSection => 'Games';
 
 	/// en: 'Reviews'
 	String get reviewsSection => 'Reviews';
+
+	/// en: 'Recommended'
+	String get recommended => 'Recommended';
+
+	/// en: 'Swipe to see more'
+	String get swipeToSeeMore => 'Swipe to see more';
+
+	/// en: 'No results found for "{{query}}"'
+	String noResultsFound({required Object query}) => 'No results found for "${query}"';
 }
 
 // Path: navigation
 class TranslationsNavigationEn {
-	TranslationsNavigationEn._(this._root);
+	TranslationsNavigationEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -340,7 +344,7 @@ class TranslationsNavigationEn {
 
 // Path: errors
 class TranslationsErrorsEn {
-	TranslationsErrorsEn._(this._root);
+	TranslationsErrorsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -403,7 +407,7 @@ class TranslationsErrorsEn {
 
 // Path: library
 class TranslationsLibraryEn {
-	TranslationsLibraryEn._(this._root);
+	TranslationsLibraryEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -460,7 +464,7 @@ class TranslationsLibraryEn {
 
 // Path: branding
 class TranslationsBrandingEn {
-	TranslationsBrandingEn._(this._root);
+	TranslationsBrandingEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -478,7 +482,7 @@ class TranslationsBrandingEn {
 
 // Path: gameService
 class TranslationsGameServiceEn {
-	TranslationsGameServiceEn._(this._root);
+	TranslationsGameServiceEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -547,7 +551,7 @@ class TranslationsGameServiceEn {
 
 // Path: gameDetails
 class TranslationsGameDetailsEn {
-	TranslationsGameDetailsEn._(this._root);
+	TranslationsGameDetailsEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -628,7 +632,7 @@ class TranslationsGameDetailsEn {
 
 // Path: time
 class TranslationsTimeEn {
-	TranslationsTimeEn._(this._root);
+	TranslationsTimeEn.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -655,194 +659,3 @@ class TranslationsTimeEn {
 	/// en: 'year/s ago'
 	String get yearsAgo => 'year/s ago';
 }
-
-/// Flat map(s) containing all translations.
-/// Only for edge cases! For simple maps, use the map function of this library.
-extension on Translations {
-	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'welcome': return 'Welcome!';
-			case 'greeting': return 'Hello, {name}!';
-			case 'changeLanguage': return 'Change Language';
-			case 'appTitle': return 'Game Review App';
-			case 'home': return 'Home';
-			case 'settings': return 'Settings';
-			case 'searchGames': return 'Search for games';
-			case 'favoriteGames': return 'Favorite Games';
-			case 'recentReviews': return 'Recent Reviews';
-			case 'addReview': return 'Add Review';
-			case 'myProfile': return 'My Profile';
-			case 'logout': return 'Logout';
-			case 'login': return 'Login';
-			case 'goodbye': return 'Goodbye!';
-			case 'king': return 'King';
-			case 'register': return 'Register';
-			case 'email': return 'Email';
-			case 'password': return 'Password';
-			case 'confirmPassword': return 'Confirm Password';
-			case 'submit': return 'Submit';
-			case 'username': return 'Username';
-			case 'profileSettings': return 'Profile Settings';
-			case 'notifications': return 'Notifications';
-			case 'back': return 'Back';
-			case 'next': return 'Next';
-			case 'discover': return 'Discover';
-			case 'details': return 'Details';
-			case 'ratings': return 'Ratings';
-			case 'evaluation': return 'Evaluation';
-			case 'overall': return 'Overall';
-			case 'gameplay': return 'Gameplay';
-			case 'graphics': return 'Graphics';
-			case 'sound': return 'Sound';
-			case 'story': return 'Story';
-			case 'value': return 'Value';
-			case 'pros': return 'Pros';
-			case 'cons': return 'Cons';
-			case 'media': return 'Media';
-			case 'discussions': return 'Discussions';
-			case 'save': return 'Save';
-			case 'edit': return 'Edit';
-			case 'delete': return 'Delete';
-			case 'update': return 'Update';
-			case 'missingApiUrl': return 'Missing API_URL environment variable';
-			case 'registrationError': return 'Error occurred. Try again later';
-			case 'passwordMismatch': return 'Passwords do not match!';
-			case 'passwordLength': return 'Password must be at least 8 characters long!';
-			case 'emailInvalid': return 'Email address is not valid!';
-			case 'registrationSuccessful': return 'Registration successful!';
-			case 'registrationEmailExistsError': return 'The provided email is already registered.!';
-			case 'navigation.home': return 'Home';
-			case 'navigation.search': return 'Search';
-			case 'navigation.library': return 'Library';
-			case 'navigation.profile': return 'Profile';
-			case 'NoGamesFound': return 'No games found';
-			case 'errorLoadingGames': return 'Failed to load games';
-			case 'errorLoadingMoreGames': return 'Failed to load more games';
-			case 'errors.invalidCredentials': return 'Invalid credentials';
-			case 'errors.loginFailed': return 'Login failed. Please try again.';
-			case 'errors.requiredField': return '{field} required';
-			case 'errors.invalidEmail': return 'Invalid email';
-			case 'errors.minLength': return 'Min {n} char';
-			case 'errors.appFailedToStart': return 'The app failed to start. Please restart and try again.';
-			case 'errors.gameNotFound': return 'Game not found';
-			case 'errors.reviewsNotFound': return 'Reviews not found';
-			case 'errors.failedToFetchRecentReviews': return 'Failed to fetch recent reviews';
-			case 'errors.failedToLoadHome': return 'Failed to load home data';
-			case 'errors.failedToLoadComments': return 'Failed to load comments';
-			case 'errors.authenticationFail': return 'Authentication check failed';
-			case 'errors.failedToProcessReview': return 'Failed to process review';
-			case 'errors.unexpectedResponseFormat': return 'Unexpected response format from server';
-			case 'errors.genericError': return 'An error occurred. Please try again.';
-			case 'errors.failedToAddReview': return 'Failed to add review';
-			case 'errors.failedToUpdateReview': return 'Failed to update review';
-			case 'errors.failedToDeleteReview': return 'Failed to delete review';
-			case 'appFailedToStart': return 'App failed to start:\n\n@{error}';
-			case 'library.latest': return 'Latest';
-			case 'library.popular': return 'Popular';
-			case 'library.ownedGames': return 'Owned Games';
-			case 'library.wishlist': return 'Wishlist';
-			case 'library.myLibrary': return 'My Library';
-			case 'library.gameAlreadyInWishlist': return 'Game already in wishlist';
-			case 'library.gameAddedToWishlist': return 'Game added to wishlist';
-			case 'library.failedToAddToWishlist': return 'Failed to add to wishlist';
-			case 'library.gameAlreadyInLibrary': return 'Game already in library';
-			case 'library.gameAddedToLibrary': return 'Game added to library';
-			case 'library.failedToAddToLibrary': return 'Failed to add to library';
-			case 'library.gameNotFoundInWishlist': return 'Game not found in wishlist';
-			case 'library.gameNotFoundInLibrary': return 'Game not found in library';
-			case 'library.wishlistAdditionFailed': return 'Wishlist addition failed';
-			case 'library.libraryAdditionFailed': return 'Library addition failed';
-			case 'library.failedToFetchGames': return 'Failed to fetch games';
-			case 'branding.title': return 'PAW GAMES';
-			case 'branding.tagline': return 'Discover. Rate. Share.';
-			case 'branding.logoLabel': return 'App logo';
-			case 'youHaveAlreadyReviewedThisGame': return 'You have already reviewed this game';
-			case 'completed': return 'Completed';
-			case 'notStarted': return 'Not started';
-			case 'inProgress': return 'In progress';
-			case 'abandoned': return 'Abandoned';
-			case 'failedToSaveReview': return 'Failed to save review';
-			case 'reviewAddedSuccessfully': return 'Review added successfully!';
-			case 'reviewTitle': return 'Review title *';
-			case 'reviewTitleIsRequired': return 'Review title is required';
-			case 'reviewDescription': return 'Review description *';
-			case 'reviewDescriptionIsRequired': return 'Review description is required';
-			case 'prosCons': return 'Pros & Cons';
-			case 'gamePros': return 'Game pros (comma-separated)';
-			case 'gameCons': return 'Game cons (comma-separated)';
-			case 'overallRating': return 'Overall Rating *';
-			case 'individualRatings': return 'Individual Ratings';
-			case 'miscellaneous': return 'Miscellaneous';
-			case 'gameCompletion': return 'Game completion (%)';
-			case 'completionStatus': return 'Completion status';
-			case 'inGameHours': return 'In-game hours';
-			case 'pleaseEnterAValidNumber': return 'Please enter a valid number';
-			case 'iRecommendThisGame': return 'I recommend this game *';
-			case 'selectAGameFromYourLibrary': return 'Select a game from your library...';
-			case 'completed100': return 'Completed (100%)';
-			case 'notStarted0': return 'Not Started (0%)';
-			case 'gameService.noTokenWishlist': return 'Cannot add to wishlist - no token found';
-			case 'gameService.noTokenLibrary': return 'Cannot add to library - no token found';
-			case 'gameService.noTokenFetchWishlist': return 'Cannot fetch wishlist - no token found';
-			case 'gameService.noTokenFetchLibrary': return 'Cannot fetch library - no token found';
-			case 'gameService.noTokenRemoveWishlist': return 'Cannot remove from wishlist - no token found';
-			case 'gameService.noTokenRemoveLibrary': return 'Cannot remove from library - no token found';
-			case 'gameService.gameAddedToWishlistSuccess': return 'Game added to wishlist successfully';
-			case 'gameService.gameAddedToLibrarySuccess': return 'Game added to library successfully';
-			case 'gameService.failedToAddToWishlistStatus': return 'Failed to add to wishlist, status';
-			case 'gameService.failedToAddToLibraryStatus': return 'Failed to add to library, status';
-			case 'gameService.failedToFetchLatestGames': return 'Failed to fetch latest games';
-			case 'gameService.failedToFetchPopularGames': return 'Failed to fetch popular games';
-			case 'gameService.failedToAddGameToWishlist': return 'Failed to add game to wishlist';
-			case 'gameService.failedToAddGameToLibrary': return 'Failed to add game to library';
-			case 'gameService.failedToFetchWishlistGames': return 'Failed to fetch wishlist games';
-			case 'gameService.failedToFetchLibraryGames': return 'Failed to fetch library games';
-			case 'gameService.removedFromWishlist': return 'Removed from wishlist on server';
-			case 'gameService.removedFromLibrary': return 'Removed from library on server';
-			case 'gameService.failedToRemoveFromWishlist': return 'Failed to remove from wishlist';
-			case 'gameService.failedToRemoveFromLibrary': return 'Failed to remove from library';
-			case 'gameDetails.addedToWishlist': return 'Added to Wishlist';
-			case 'gameDetails.gameAlreadyInWishlist': return 'Game already in Wishlist';
-			case 'gameDetails.failedToAddToWishlist': return 'Failed to add to Wishlist';
-			case 'gameDetails.addedToLibrary': return 'Added to My Library';
-			case 'gameDetails.gameAlreadyInLibrary': return 'Game already in Library';
-			case 'gameDetails.failedToAddToLibrary': return 'Failed to add to Library';
-			case 'gameDetails.removedFromWishlist': return 'Removed from Wishlist';
-			case 'gameDetails.failedToRemoveFromWishlist': return 'Failed to remove from Wishlist';
-			case 'gameDetails.removedFromLibrary': return 'Removed from Library';
-			case 'gameDetails.failedToRemoveFromLibrary': return 'Failed to remove from Library';
-			case 'gameDetails.addReviewComingSoon': return 'Add review feature coming soon!';
-			case 'gameDetails.addToWishlist': return 'Add to Wishlist';
-			case 'gameDetails.addToMyLibrary': return 'Add to My Library';
-			case 'gameDetails.removeFromWishlist': return 'Remove from Wishlist';
-			case 'gameDetails.removeFromMyLibrary': return 'Remove from My Library';
-			case 'gameDetails.addReview': return 'Add Review';
-			case 'gameDetails.recommendText': return 'x of players recommend this game';
-			case 'gameDetails.overall': return 'Overall';
-			case 'gameDetails.details': return 'Details';
-			case 'gameDetails.developer': return 'Developer';
-			case 'gameDetails.publisher': return 'Publisher';
-			case 'gameDetails.released': return 'Released';
-			case 'gameDetails.availableOn': return 'Available on';
-			case 'gameDetails.recentReviews': return 'Recent reviews';
-			case 'gameReview': return 'Review';
-			case 'addComment': return 'Add Comment';
-			case 'reviewsNotFound': return 'Reviews not found';
-			case 'wouldRecommend': return 'Would recommend';
-			case 'wouldNotRecommend': return 'Would not recommend';
-			case 'likes': return 'Likes';
-			case 'playingRecord': return 'h on record';
-			case 'time.secondsAgo': return 'second/s ago';
-			case 'time.minutesAgo': return 'minute/s ago';
-			case 'time.hoursAgo': return 'hour/s ago';
-			case 'time.daysAgo': return 'day/s ago';
-			case 'time.weeksAgo': return 'week/s ago';
-			case 'time.monthsAgo': return 'month/s ago';
-			case 'time.yearsAgo': return 'year/s ago';
-			case 'gamesSection': return 'Games';
-			case 'reviewsSection': return 'Reviews';
-			default: return null;
-		}
-	}
-}
-

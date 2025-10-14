@@ -205,5 +205,8 @@
     "yearsAgo": "godina/a"
   },
   "gamesSection": "Igre",
-  "reviewsSection": "Recenzije"
+  "reviewsSection": "Recenzije",
+  "recommended": "Preporučeno",
+  "swipeToSeeMore": "Povucite za više",
+  "noResultsFound": "Nema rezultata za \"{{query}}\""
 }
