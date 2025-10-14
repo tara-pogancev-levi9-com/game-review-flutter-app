@@ -1,15 +1,16 @@
 import 'package:encrypt_shared_preferences/provider.dart';
 
 class SecureStorage {
-  static final EncryptedSharedPreferences _prefs = EncryptedSharedPreferences.getInstance();
+  static final EncryptedSharedPreferences _prefs =
+      EncryptedSharedPreferences.getInstance();
   static const _jwtKey = 'jwt_token';
 
   static Future<void> saveToken(String token) async {
     await _prefs.setString(_jwtKey, token);
   }
 
-  static Future<String?> getToken() async {
-    return await _prefs.getString(_jwtKey);
+  static String? getToken() {
+    return _prefs.getString(_jwtKey);
   }
 
   static Future<void> deleteToken() async {

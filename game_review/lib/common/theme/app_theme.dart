@@ -7,6 +7,17 @@ import 'app_colors.dart';
 class AppTheme {
   AppTheme._();
 
+  static BorderRadius borderRadiusMedium = BorderRadius.circular(20);
+  static BorderRadius borderRadiusSmall = BorderRadius.circular(16);
+  static BorderRadius borderRadiusLarge = BorderRadius.circular(25);
+
+  static const EdgeInsets paddingMedium = EdgeInsets.all(16);
+  static const EdgeInsets paddingLarge = EdgeInsets.all(20);
+  static const EdgeInsets paddingButton = EdgeInsets.symmetric(
+    vertical: 16,
+    horizontal: 20,
+  );
+
   static ThemeData get dark {
     const colorScheme = ColorScheme(
       brightness: Brightness.dark,

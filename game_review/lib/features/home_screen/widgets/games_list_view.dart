@@ -50,7 +50,7 @@ class _GamesListState extends State<GamesList> {
     if (widget.games.isEmpty) {
       return Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Text(t.NoGamesFound),
         ),
       );
