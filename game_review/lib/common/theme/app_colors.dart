@@ -23,6 +23,7 @@ class AppColors {
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
 }
+
 @immutable
 class AppGradients extends ThemeExtension<AppGradients> {
   final LinearGradient background;

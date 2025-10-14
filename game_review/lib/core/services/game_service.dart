@@ -509,7 +509,7 @@ class GameService {
         },
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != HttpStatus.ok) {
         throw Exception(t.library.failedToUpdateGameProgress);
       }
     } catch (e) {

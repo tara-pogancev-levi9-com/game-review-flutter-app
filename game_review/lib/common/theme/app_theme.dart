@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
-import 'package:game_review/common/theme/border_size.dart';
 
 import 'app_colors.dart';
 
@@ -98,18 +97,18 @@ class AppTheme {
         contentPadding: const EdgeInsets.all(16),
         filled: false,
         border: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         hintStyle: const TextStyle(color: AppColors.textSecondary),
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderRadius.circular(999),
           borderSide: const BorderSide(
             color: AppColors.lilacSelected,
             width: 1.8,
@@ -122,7 +121,7 @@ class AppTheme {
           foregroundColor: Colors.black,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderSize.m.radius,
+            borderRadius: BorderRadius.circular(999),
           ),
           textStyle: AppTypography.buttonLarge,
         ),
@@ -133,7 +132,7 @@ class AppTheme {
           side: const BorderSide(color: AppColors.softWhite, width: 2),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderSize.m.radius,
+            borderRadius: BorderRadius.circular(999),
           ),
           textStyle: AppTypography.buttonLarge,
         ),
@@ -162,22 +161,14 @@ class AppTheme {
         circularTrackColor: AppColors.textSecondary,
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return AppColors.primaryPurple;
-          } else {
-            return AppColors.lilacSelected;
-          }
-        }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.lilacSelected;
+            return AppColors.primaryPurple.withValues(alpha: 0.6);
           } else {
-            return AppColors.textSecondary.withValues(
-              alpha: 0.3,
-            );
+            return AppColors.textSecondary.withValues(alpha: 0.3);
           }
         }),
+        thumbColor: const WidgetStatePropertyAll(AppColors.primaryPurple),
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.resolveWith((states) {

@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
-import 'dart:io';
 
 class ApiClient {
   final Dio dio;
