@@ -1,12 +1,11 @@
-// lib/features/home_screen/home_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/home_state.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
-import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/home_screen/widgets/add_game_fab.dart'; // DODAJ OVO
+import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -44,7 +43,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // DODAJ Scaffold
       body: BlocBuilder<HomeCubit, HomeState>(
         bloc: cubit,
         builder: (context, state) {
@@ -116,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
 
-                    SliverToBoxAdapter(child: const SizedBox(height: 24)),
+                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
                   ],
                 ),
               );
@@ -124,10 +122,8 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      // DODAJ OVO - FloatingActionButton
       floatingActionButton: AddGameFab(
         onReviewAdded: () {
-          // Refresh home page kada se doda review
           cubit.refresh();
         },
       ),
