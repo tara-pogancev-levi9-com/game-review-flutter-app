@@ -98,10 +98,12 @@ class GameSearchItem extends StatelessWidget {
               ],
             ),
 
-            const Spacer(),
+            const SizedBox(
+              height: 8,
+            ),
 
             if (game.platforms != null && game.platforms!.isNotEmpty) ...[
-              const Divider(color: AppColors.outline, height: 24),
+              const Divider(color: AppColors.outline, height: 20),
               Row(
                 children: [
                   const Icon(

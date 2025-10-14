@@ -195,6 +195,7 @@
     "reviewsSection": "Reviews",
     "recommended": "Recommended",
     "swipeToSeeMore" : "Swipe to see more",
-    "noResultsFound": "No results found for \"{{query}}\""
+    "noResultsFound": "No results found for \"{{query}}\"",
+    "retry": "Retry"
     
 }

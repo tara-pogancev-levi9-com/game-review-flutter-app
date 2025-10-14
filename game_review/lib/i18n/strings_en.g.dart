@@ -319,6 +319,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// en: 'No results found for "{{query}}"'
 	String noResultsFound({required Object query}) => 'No results found for "${query}"';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
 }
 
 // Path: navigation

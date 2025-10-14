@@ -130,6 +130,7 @@ class TranslationsSr extends Translations {
 	@override String get recommended => 'Preporučeno';
 	@override String get swipeToSeeMore => 'Povucite za više';
 	@override String noResultsFound({required Object query}) => 'Nema rezultata za "${query}"';
+	@override String get retry => 'Pokušaj ponovo';
 }
 
 // Path: navigation

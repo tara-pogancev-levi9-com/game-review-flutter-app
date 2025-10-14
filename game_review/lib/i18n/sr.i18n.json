@@ -208,5 +208,6 @@
   "reviewsSection": "Recenzije",
   "recommended": "Preporučeno",
   "swipeToSeeMore": "Povucite za više",
-  "noResultsFound": "Nema rezultata za \"{{query}}\""
+  "noResultsFound": "Nema rezultata za \"{{query}}\"",
+  "retry": "Pokušaj ponovo"
 }
