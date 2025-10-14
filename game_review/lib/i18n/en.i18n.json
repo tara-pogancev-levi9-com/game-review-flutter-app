@@ -23,6 +23,9 @@
   "displayName": "Display Name",
   "noImage": "No Image",
   "saveImage": "Save Image",
+  "addImages": "Add Images",
+  "noImagesSelected": "No images selected.",
+  "chooseImages": "Choose Images.",
   "profileSettings": "Profile Settings",
   "notifications": "Notifications",
   "back": "Back",
@@ -114,7 +117,4 @@
   "selectAGameFromYourLibrary": "Select a game from your library...",
   "completed100": "Completed (100%)",
   "notStarted0": "Not Started (0%)"
-
-
-
 }

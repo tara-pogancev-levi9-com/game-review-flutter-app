@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
-import 'package:game_review/common/widgets/network_image_widget.dart';
-import 'package:game_review/features/search_screen/search_page.dart';
-import 'package:game_review/features/welcome_screen/welcome_page.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
+import 'package:game_review/common/widgets/network_image_widget.dart';
+import 'package:game_review/features/search_screen/search_page.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:game_review/features/registration_screen/exceptions/email_already_exists.dart';
 
+import '../../common/utils/logger.dart';
 import '../../core/api/api_client.dart';
 import '../../core/storage/secure_storage.dart';
-import '../../common/utils/logger.dart';
 import '../../i18n/strings.g.dart';
 
 // TODO: Clean up endpoints
@@ -60,6 +60,7 @@ class AuthService {
 
       if (response.statusCode == 200 && response.data['access_token'] != null) {
         await SecureStorage.saveToken(response.data['access_token']);
+        print("TOKEN: " + response.data['access_token'].toString());
         Logger.info('Login successful, token saved.');
         return true;
       }

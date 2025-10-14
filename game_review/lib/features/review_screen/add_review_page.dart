@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/review_form_cubit.dart';
@@ -7,17 +9,18 @@ import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
-import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/features/review_screen/widgets/overall_section_widget.dart';
-import 'package:game_review/features/review_screen/widgets/review_dropdown.dart';
-import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/review_screen/widgets/custom_text_form_field.dart';
+import 'package:game_review/features/review_screen/widgets/game_header_widget.dart';
+import 'package:game_review/features/review_screen/widgets/overall_section_widget.dart';
 import 'package:game_review/features/review_screen/widgets/rating_row_widget.dart';
 import 'package:game_review/features/review_screen/widgets/rating_section_widget.dart';
+import 'package:game_review/features/review_screen/widgets/review_dropdown.dart';
 import 'package:game_review/features/review_screen/widgets/section_title_widget.dart';
-import 'package:game_review/features/review_screen/widgets/game_header_widget.dart';
+import 'package:game_review/i18n/strings.g.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
@@ -34,6 +37,8 @@ class AddReviewPage extends StatefulWidget {
 class _AddReviewPageState extends State<AddReviewPage> {
   late final ReviewFormCubit _reviewFormCubit;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ImagePicker _picker = ImagePicker();
+  List<XFile>? _selectedImages;
 
   // Controllers for required fields
   final TextEditingController _titleController = TextEditingController();
@@ -77,10 +82,30 @@ class _AddReviewPageState extends State<AddReviewPage> {
     super.dispose();
   }
 
+  Future<void> _pickMultiImages() async {
+    final List<XFile>? images = await _picker.pickMultiImage();
+    if (images != null && images.isNotEmpty) {
+      setState(() {
+        if (_selectedImages != null) {
+          _selectedImages!.addAll(images);
+        } else {
+          _selectedImages = images;
+        }
+      });
+    }
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      _selectedImages!.removeAt(
+        index,
+      );
+    });
+  }
+
   Future<void> _onSave() async {
     if (!_formKey.currentState!.validate()) {
       setState(() => firstInput = false);
-      // Scroll to first error field
       Future.delayed(const Duration(milliseconds: 300), () {
         Scrollable.ensureVisible(
           _titleKey.currentContext ?? _descriptionKey.currentContext!,
@@ -140,7 +165,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
 
       double clampRating(double value) => (value * 2).clamp(0.0, 9.9);
 
-      await _reviewFormCubit.addReview(
+      final response = await _reviewFormCubit.addReview(
         user_id: userId,
         game_id: widget.game.id,
         title: _titleController.text.trim(),
@@ -157,6 +182,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
         playtime_hours: playtimeHours,
         completion_status: formattedCompletionStatus,
       );
+      if (response != null &&
+          _selectedImages != null &&
+          _selectedImages!.isNotEmpty) {
+        await _reviewFormCubit.addReviewImages(response.id, _selectedImages!);
+      }
     } catch (e) {
       AppSnackbar.showError(context, t.failedToSaveReview, error: e);
     }
@@ -225,6 +255,8 @@ class _AddReviewPageState extends State<AddReviewPage> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     // Game Header with Cover Image
                     GameHeaderWidget(game: widget.game),
@@ -426,8 +458,82 @@ class _AddReviewPageState extends State<AddReviewPage> {
                       firstInput: firstInput,
                     ),
                     const SizedBox(height: 32),
+                    SectionTitleWidget(title: t.addImages),
+                    (_selectedImages != null && _selectedImages!.isNotEmpty)
+                        ? Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.softWhite),
+                            ),
+                            child: SizedBox(
+                              height: 300,
+                              child: GridView.builder(
+                                padding: const EdgeInsets.all(8),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 18,
+                                      mainAxisSpacing: 18,
+                                      childAspectRatio: 1,
+                                    ),
+                                itemCount: _selectedImages!.length,
+                                itemBuilder: (context, index) {
+                                  return Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.file(
+                                          File(_selectedImages![index].path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 6,
+                                        right: 6,
+                                        child: GestureDetector(
+                                          onTap: () => _removeImage(index),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.black54,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            padding: const EdgeInsets.all(4),
+                                            child: const Icon(
+                                              Icons.close,
+                                              size: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.softWhite),
+                            ),
+                            height: 100,
+                            child: InkWell(
+                              onTap: _pickMultiImages,
+                              child: Center(
+                                child: Text(t.noImagesSelected),
+                              ),
+                            ),
+                          ),
+                    const SizedBox(height: 22),
+                    ElevatedButton(
+                      onPressed: () => _pickMultiImages(),
+                      child: Text(t.chooseImages),
+                    ),
+                    const SizedBox(height: 32),
 
-                    // Save Button
                     Center(
                       child: LoadingButton(
                         isLoading: isLoading,

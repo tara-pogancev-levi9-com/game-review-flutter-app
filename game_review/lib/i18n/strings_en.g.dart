@@ -98,6 +98,24 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Username'
 	String get username => 'Username';
 
+	/// en: 'Display Name'
+	String get displayName => 'Display Name';
+
+	/// en: 'No Image'
+	String get noImage => 'No Image';
+
+	/// en: 'Save Image'
+	String get saveImage => 'Save Image';
+
+	/// en: 'Add Images'
+	String get addImages => 'Add Images';
+
+	/// en: 'No images selected.'
+	String get noImagesSelected => 'No images selected.';
+
+	/// en: 'Choose Images.'
+	String get chooseImages => 'Choose Images.';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
@@ -164,14 +182,38 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
-	/// en: 'Error occurred. Try again later'
-	String get registrationError => 'Error occurred. Try again later';
-
 	/// en: 'Passwords do not match!'
 	String get passwordMismatch => 'Passwords do not match!';
 
 	/// en: 'Password must be at least 8 characters long!'
 	String get passwordLength => 'Password must be at least 8 characters long!';
+
+	/// en: 'Change Password'
+	String get changePassword => 'Change Password';
+
+	/// en: 'Add Friend'
+	String get addFriend => 'Add Friend';
+
+	/// en: 'Friends'
+	String get friends => 'Friends';
+
+	/// en: 'User data not loaded!'
+	String get userDataNotLoaded => 'User data not loaded!';
+
+	/// en: 'Password changed successfully.'
+	String get passwordChanged => 'Password changed successfully.';
+
+	/// en: 'Error when changing password.'
+	String get errorChangingPassword => 'Error when changing password.';
+
+	/// en: 'Save Profile'
+	String get saveProfile => 'Save Profile';
+
+	/// en: 'Enter bio'
+	String get enterBio => 'Enter bio';
+
+	/// en: 'Profile Info'
+	String get profileInfo => 'Profile Info';
 
 	/// en: 'Email address is not valid!'
 	String get emailInvalid => 'Email address is not valid!';
@@ -183,6 +225,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get registrationEmailExistsError => 'The provided email is already registered.!';
 
 	late final TranslationsNavigationEn navigation = TranslationsNavigationEn.internal(_root);
+	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 
 	/// en: 'No games found'
 	String get NoGamesFound => 'No games found';
@@ -193,7 +236,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Failed to load more games'
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
 
 	/// en: 'You have already reviewed this game'

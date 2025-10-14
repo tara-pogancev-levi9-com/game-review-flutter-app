@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/review_model.dart';
-import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/common/utils/app_exception.dart';
+import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_image_client.dart';
 
 class ReviewsService {
   final ApiClient _apiClient;
@@ -47,6 +49,34 @@ class ReviewsService {
 
     final List<dynamic> data = response.data as List<dynamic>;
     return data.map((json) => ReviewModel.fromJson(json)).toList();
+  }
+
+  Future<void> addReviewMedia(imagePath, imageBytes, imageExtensions) async {
+    try {
+      await locator<ApiImageClient>().post(
+        '/storage/v1/object/review_media/${imagePath}',
+        imageExtensions,
+        data: imageBytes,
+      );
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> addReviewMediaModel(String reviewId, String imageUrl) async {
+    try {
+      await locator<ApiClient>().post(
+        '/rest/v1/review_media',
+        data: {
+          'review_id': reviewId,
+          'media_type': 'image',
+          'media_url': imageUrl,
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
   }
 
   Future<ReviewModel> addReview({
@@ -132,8 +162,10 @@ class ReviewsService {
     // Create a partial ReviewModel with only the fields we're updating
     final reviewData = ReviewModel(
       id: id,
-      user_id: '', //Not being updated
-      game_id: '', //Not being updated
+      user_id: '',
+      //Not being updated
+      game_id: '',
+      //Not being updated
       title: title,
       content: content,
       overall_rating: overall_rating,

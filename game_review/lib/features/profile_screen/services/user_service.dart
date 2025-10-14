@@ -31,7 +31,8 @@ class UserService {
     try {
       final Response response = await apiClient.patch(
         '/rest/v1/users',
-        userId,
+        queryParameters: {'id': 'eq.$userId'},
+        //userId,
         data: updates,
       );
 
@@ -119,7 +120,8 @@ class UserService {
     try {
       final Response response = await apiClient.patch(
         '/rest/v1/users',
-        userId,
+        queryParameters: {'id': 'eq.$userId'},
+        //userId,
         data: {'avatar_url': null},
       );
 

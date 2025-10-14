@@ -46,8 +46,9 @@ class ApiClient {
     return dio.get(path, queryParameters: queryParameters);
   }
 
-  Future<Response> post(String path, {dynamic data}) {
+  /*Future<Response> post(String path, {dynamic data}) {
     return dio.post(path, data: data);
+  }*/
 
   Future<Response> post(
     String path, {
@@ -67,12 +68,13 @@ class ApiClient {
     return dio.put(path, data: data);
   }
 
-  Future<Response> patch(String path, String id, {dynamic data}) {
+  /*Future<Response> patch(String path, String id, {dynamic data}) {
     return dio.patch(path, queryParameters: {'id': 'eq.$id'}, data: data);
   }
 
   Future<Response> delete(String path, {dynamic data}) {
     return dio.delete(path, data: data);
+  }*/
 
   Future<Response> delete(
     String path, {
