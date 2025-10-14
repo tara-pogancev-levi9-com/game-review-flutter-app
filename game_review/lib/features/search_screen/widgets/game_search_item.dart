@@ -79,7 +79,7 @@ class GameSearchItem extends StatelessWidget {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              game.releaseDate!,
+                              "${game.releaseDate!.year}-${game.releaseDate!.month.toString().padLeft(2, '0')}-${game.releaseDate!.day.toString().padLeft(2, '0')}",
                               style: AppTypography.searchItemSubtitle,
                             ),
                           ],

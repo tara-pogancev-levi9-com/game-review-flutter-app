@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
+
 import 'bloc/auth_cubit.dart';
 import 'bloc/auth_state.dart';
 
@@ -16,6 +17,7 @@ class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -27,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     super.dispose();
   }
+
   void _onSubmit() {
     if (_formKey.currentState?.validate() != true) return;
     locator<AuthCubit>().login(
@@ -34,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
       _passwordController.text,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final topInset = MediaQuery.of(context).padding.top;

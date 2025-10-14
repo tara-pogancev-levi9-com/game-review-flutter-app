@@ -21,7 +21,7 @@ class ReviewDetailsPage extends StatelessWidget {
     final reviewTitle = review.title;
     final content = review.content;
 
-    final likesCount = 0;
+    const likesCount = 0;
 
     return Scaffold(
       extendBodyBehindAppBar: false,

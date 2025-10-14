@@ -3,6 +3,7 @@ import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/auth/services/auth_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
 import 'auth_state.dart';
 
 // TODO: handle token expiration and refresh
@@ -14,15 +15,15 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> checkAuthStatus() async {
     try {
-      final token = await SecureStorage.getToken();
+      final token = SecureStorage.getToken();
       if (token != null) {
         emit(Authenticated());
       } else {
-        emit(Unauthenticated());
+        emit(const Unauthenticated());
       }
-    } catch (e, stackTrace) { 
+    } catch (e, stackTrace) {
       Logger.error(t.errors.authenticationFail, '$e\n$stackTrace');
-      emit(Unauthenticated());
+      emit(const Unauthenticated());
     }
   }
 
@@ -43,6 +44,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> logout() async {
     await _authService.logout();
-    emit(Unauthenticated());
+    emit(const Unauthenticated());
   }
 }
