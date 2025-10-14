@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
@@ -12,6 +11,15 @@ class UserCubit extends Cubit<UserProfileState> {
 
   UserCubit() : super(const UserProfileState.loading());
 
+  Future<void> initData() async {
+    try {
+      final currentUserId = await getCurrentUserId();
+      await locator<UserCubit>().fetchUserProfile(currentUserId, null);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<void> fetchUserProfile(String? userId, String? message) async {
     try {
       emit(UserProfileState.loading());
@@ -23,7 +31,7 @@ class UserCubit extends Cubit<UserProfileState> {
 
       final alreadyFriends = (userId == null)
           ? null
-          : await checkFriendshipStatus(userId, loggedUserId!);
+          : await _userService.checkFriendship(userId, loggedUserId!);
       emit(
         UserProfileState.loaded(
           user: user,
@@ -40,18 +48,20 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> addFriend(requesterId, addresseeId) async {
     try {
       await _userService.addFriend(requesterId, addresseeId);
+      await fetchUserProfile(addresseeId, null);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
   }
 
-  Future<bool> checkFriendshipStatus(String userId, String otherUserId) async {
+  //Commented because: Probably unnecessary
+  /*Future<bool> areFriends(String userId, String otherUserId) async {
     try {
       return await _userService.checkFriendship(userId, otherUserId);
     } on DioException {
       return false;
     }
-  }
+  }*/
 
   Future<String> getCurrentUserId() {
     try {
@@ -65,6 +75,7 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> updateAvatar(userId, imageUrl) async {
     try {
       await _userService.updateUserProfile(userId, {'avatar_url': imageUrl});
+      await fetchUserProfile(null, t.avatarUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
@@ -77,6 +88,7 @@ class UserCubit extends Cubit<UserProfileState> {
         'display_name': data.displayName,
         'bio': data.bio,
       });
+      await fetchUserProfile(null, t.profileUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
@@ -114,7 +126,7 @@ class UserCubit extends Cubit<UserProfileState> {
 
   Future<void> deleteAvatar(userId, imagePath) async {
     try {
-      _userService.deleteAvatar(imagePath, userId);
+      await _userService.deleteAvatar(imagePath, userId);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }

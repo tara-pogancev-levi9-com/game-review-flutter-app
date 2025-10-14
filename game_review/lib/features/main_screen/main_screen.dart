@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
-import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
@@ -27,20 +24,21 @@ class _MainScreenState extends State<MainScreen> {
     const HomePage(),
     const SearchPage(),
     const LibraryPage(),
+    const ProfilePage(currentUserId: null),
   ];
 
-  bool _isDataFetched = false;
+  //bool _isDataFetched = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (!_isDataFetched) {
+    /*if (!_isDataFetched) {
       _isDataFetched = true;
       _fetchUserId();
-    }
+    }*/
   }
-
-  Future<void> _fetchUserId() async {
+  //Commented because: It is possibly not needed since the logic is moved to ProfilePage
+  /*Future<void> _fetchUserId() async {
     try {
       final String fetchedId = await locator<UserCubit>().getCurrentUserId();
       _pages.add(ProfilePage(currentUserId: fetchedId));
@@ -55,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
     }
-  }
+  }*/
 
   void _onDestinationSelected(int index) {
     setState(() {

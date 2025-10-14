@@ -228,6 +228,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
+
+	/// en: 'Avatar updated.'
+	String get avatarUpdated => 'Avatar updated.';
+
+	/// en: 'Profile updated.'
+	String get profileUpdated => 'Profile updated.';
 }
 
 // Path: navigation

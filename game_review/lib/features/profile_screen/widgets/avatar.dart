@@ -1,16 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Avatar extends StatefulWidget {
   const Avatar({
@@ -29,6 +28,7 @@ class Avatar extends StatefulWidget {
 class _AvatarState extends State<Avatar> {
   String? _currentImageUrl;
   XFile? _selectedImage;
+  Size? _imageSize;
   var imageBytes;
   var imagePath;
   var imageExtension;
@@ -82,37 +82,34 @@ class _AvatarState extends State<Avatar> {
                       child: Material(
                         color: Colors.transparent,
                         child: Center(
-                          child: InkWell(
-                            splashColor: AppColors.softWhite,
-                            child: IconButton(
-                              icon: Image.asset(
-                                'lib/common/assets/icons/AddImageButton.png',
-                              ),
-                              color: AppColors.softWhite,
-                              onPressed: () async {
-                                final ImagePicker picker = ImagePicker();
-                                final XFile? image = await picker.pickImage(
-                                  source: ImageSource.gallery,
-                                );
-                                if (image == null) {
-                                  return;
-                                } else {
-                                  setState(() {
-                                    _selectedImage = image;
-                                  });
-                                }
-                                final imgBytes = await image.readAsBytes();
-                                setState(() {
-                                  imageExtension = image.path
-                                      .split('.')
-                                      .last
-                                      .toLowerCase();
-                                  imageBytes = imgBytes;
-                                  imagePath = '/${user.id}/profile';
-                                  imageSelected = true;
-                                });
-                              },
+                          child: IconButton(
+                            icon: Image.asset(
+                              'lib/common/assets/icons/AddImageButton.png',
                             ),
+                            color: AppColors.softWhite,
+                            onPressed: () async {
+                              final ImagePicker picker = ImagePicker();
+                              final XFile? image = await picker.pickImage(
+                                source: ImageSource.gallery,
+                              );
+                              if (image == null) {
+                                return;
+                              } else {
+                                setState(() {
+                                  _selectedImage = image;
+                                });
+                              }
+                              final imgBytes = await image.readAsBytes();
+                              setState(() {
+                                imageExtension = image.path
+                                    .split('.')
+                                    .last
+                                    .toLowerCase();
+                                imageBytes = imgBytes;
+                                imagePath = '/${user.id}/profile';
+                                imageSelected = true;
+                              });
+                            },
                           ),
                         ),
                       ),
@@ -125,24 +122,21 @@ class _AvatarState extends State<Avatar> {
                             child: Material(
                               color: Colors.transparent,
                               child: Center(
-                                child: InkWell(
-                                  splashColor: AppColors.softWhite,
-                                  child: IconButton(
-                                    icon: Image.asset(
-                                      'lib/common/assets/icons/DeleteImageButton.png',
-                                    ),
-                                    color: AppColors.softWhite,
-                                    onPressed: () async {
-                                      await locator<UserCubit>().deleteAvatar(
-                                        user.id,
-                                        '/${user.id}/profile',
-                                      );
-                                      setState(() {
-                                        _currentImageUrl = null;
-                                        _selectedImage = null;
-                                      });
-                                    },
+                                child: IconButton(
+                                  icon: Image.asset(
+                                    'lib/common/assets/icons/DeleteImageButton.png',
                                   ),
+                                  color: AppColors.softWhite,
+                                  onPressed: () async {
+                                    await locator<UserCubit>().deleteAvatar(
+                                      user.id,
+                                      '/${user.id}/profile',
+                                    );
+                                    setState(() {
+                                      _currentImageUrl = null;
+                                      _selectedImage = null;
+                                    });
+                                  },
                                 ),
                               ),
                             ),

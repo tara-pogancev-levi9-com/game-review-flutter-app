@@ -83,6 +83,7 @@
   },
   "NoGamesFound": "Nema pronađenih igara",
   "errorLoadingGames": "Neuspešno učitavanje igara",
-  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara"
-
+  "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara",
+  "avatarUpdated": "Avatar promenjen.",
+  "profileUpdated": "Profil izmenjen."
 }

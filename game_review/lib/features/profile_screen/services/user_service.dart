@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/utils/error_codes.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
@@ -35,15 +37,13 @@ class UserService {
         data: updates,
       );
 
-      if (response.statusCode == 204) {
-        print('User profile updated successfully!');
-      } else {
+      if (response.statusCode != HttpStatus.noContent.value) {
         throw Exception(
           'Failed to update profile: Status ${response.statusCode}',
         );
       }
     } on DioException catch (e) {
-      print('Dio error updating profile: ${e.message}');
+      Logger.error('Dio error updating profile: ${e.message}');
       throw Exception('API error: ${e.response?.data}');
     }
   }
@@ -57,7 +57,7 @@ class UserService {
         },
       );
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != HttpStatus.ok.value) {
         throw Exception(
           'Failed to change password with status: ${response.statusCode}',
         );
@@ -73,37 +73,12 @@ class UserService {
     }
   }
 
-  /*Future<void> uploadNewAvatar(
-      String userId,
-      Map<String, dynamic> updates,
-      ) async {
-    try {
-      final Response response = await apiClient.patch(
-        '/rest/v1/users',
-        userId,
-        data: updates,
-      );
-
-      if (response.statusCode == 204) {
-        print('User profile updated successfully!');
-      } else {
-        throw Exception(
-          'Failed to update profile: Status ${response.statusCode}',
-        );
-      }
-    } on DioException catch (e) {
-      print('Dio error updating profile: ${e.message}');
-      throw Exception('API error: ${e.response?.data}');
-    }
-  }*/
-
   Future<void> deleteAvatar(imagePath, userId) async {
     try {
-      print("DELETE IMAGE PATH: " + imagePath);
       final Response response = await apiImageClient.delete(
         '/storage/v1/object/avatars/$imagePath',
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok.value) {
         await clearUserProfileImage(userId);
       } else {
         throw Exception(
@@ -123,9 +98,7 @@ class UserService {
         data: {'avatar_url': null},
       );
 
-      if (response.statusCode == 204) {
-        print('User profile image field cleared successfully!');
-      } else {
+      if (response.statusCode != HttpStatus.noContent.value) {
         throw Exception(
           'Failed to clear user profile image: ${response.statusCode}',
         );
@@ -155,10 +128,10 @@ class UserService {
         throw Exception("User profile not found.");
       }
     } on DioException catch (e) {
-      print('Dio error fetching current user profile: ${e.message}');
+      Logger.error('Dio error fetching current user profile: ${e.message}');
       rethrow;
     } catch (e) {
-      print('Error fetching current user profile: $e');
+      Logger.error('Error fetching current user profile: $e');
       rethrow;
     }
   }
@@ -181,17 +154,16 @@ class UserService {
         throw Exception("User profile not found.");
       }
     } on DioException catch (e) {
-      print('Dio error fetching current user profile: ${e.message}');
+      Logger.error('Dio error fetching current user profile: ${e.message}');
       rethrow;
     } catch (e) {
-      print('Error fetching current user profile: $e');
+      Logger.error('Error fetching current user profile: $e');
       rethrow;
     }
   }
 
   Future<void> addFriend(requesterId, addresseeId) async {
     try {
-      print("USER DATA: " + requesterId + " --- " + addresseeId);
       await apiClient.post(
         'rest/v1/friendships',
         data: {
@@ -224,10 +196,22 @@ class UserService {
   }
 
   Future<void> uploadAvatar(imagePath, imageBytes, imageExtensions) async {
-    await locator<ApiImageClient>().post(
-      '/storage/v1/object/avatars/${imagePath}',
-      imageExtensions,
-      data: imageBytes,
-    );
+    try {
+      final Response response = await locator<ApiImageClient>().post(
+        '/storage/v1/object/avatars/${imagePath}',
+        imageExtensions,
+        data: imageBytes,
+      );
+      if (response.statusCode != HttpStatus.noContent.value &&
+          response.statusCode != HttpStatus.ok.value &&
+          response.statusCode != HttpStatus.created.value) {
+        throw Exception(
+          'Failed to update profile: Status ${response.statusCode}',
+        );
+      }
+    } on DioException catch (e) {
+      Logger.error('Dio error updating profile: ${e.message}');
+      throw Exception('API error: ${e.response?.data}');
+    }
   }
 }
