@@ -168,21 +168,23 @@ class _AvatarState extends State<Avatar> {
                                 setState(() {
                                   showSaveLoading = true;
                                 });
-                                await locator<UserService>().uploadAvatar(
-                                  imagePath,
-                                  imageBytes,
-                                  imageExtension,
-                                );
-                                String imageUrl =
-                                    '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
+                              }
+                              await locator<UserService>().uploadAvatar(
+                                imagePath,
+                                imageBytes,
+                                imageExtension,
+                              );
+                              String imageUrl =
+                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
 
+                              if (mounted) {
                                 setState(() {
                                   imageSelected = false;
                                   showSaveLoading = false;
                                 });
-
-                                widget.onUpload(imageUrl);
                               }
+
+                              widget.onUpload(imageUrl);
                             },
 
                             child: Text(t.saveImage),
