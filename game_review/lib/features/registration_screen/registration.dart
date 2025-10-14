@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
@@ -53,7 +54,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             Text(
               t.back,
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(
+                fontFamily: AppFonts.josefinSans,
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
