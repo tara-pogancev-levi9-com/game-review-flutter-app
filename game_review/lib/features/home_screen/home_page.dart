@@ -112,18 +112,20 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const GameDetailsPage(
-                            gameId:
-                                '2e41851c-9a17-4bab-bb5a-6ec903b1245c', // test game ID
+                  SliverToBoxAdapter(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const GameDetailsPage(
+                              gameId:
+                                  '2e41851c-9a17-4bab-bb5a-6ec903b1245c', // test game ID
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: const Text('Test Game Details'),
+                        );
+                      },
+                      child: const Text('Test Game Details'),
+                    ),
                   ),
 
                   const SliverToBoxAdapter(child: SizedBox(height: 24)),
