@@ -45,6 +45,7 @@
   "edit": "Edit",
   "delete": "Delete",
   "update": "Update",
+  "avatarRemoved": "Avatar removed.",
   "missingApiUrl": "Missing API_URL environment variable",
   "registrationError": "Error occurred. Try again later",
   "passwordMismatch": "Passwords do not match!",

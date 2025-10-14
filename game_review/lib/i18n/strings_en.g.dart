@@ -173,6 +173,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Avatar removed.'
+	String get avatarRemoved => 'Avatar removed.';
+
 	/// en: 'Missing API_URL environment variable'
 	String get missingApiUrl => 'Missing API_URL environment variable';
 

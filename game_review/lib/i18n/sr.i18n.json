@@ -54,6 +54,7 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "avatarRemoved": "Avatar uklonjen.",
   "missingApiUrl": "Nedostaje API_URL promenljiva",
   "registrationError": "Greška, Pokušajte ponovo kasnije.",
   "passwordMismatch": "Lozinke se ne podudaraju!.",

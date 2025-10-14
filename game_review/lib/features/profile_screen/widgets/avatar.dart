@@ -28,16 +28,22 @@ class Avatar extends StatefulWidget {
 class _AvatarState extends State<Avatar> {
   String? _currentImageUrl;
   XFile? _selectedImage;
-  Size? _imageSize;
+  int? currentVersion;
   var imageBytes;
   var imagePath;
   var imageExtension;
   bool imageSelected = false;
+  bool showSaveLoading = false;
 
   @override
   void initState() {
     super.initState();
     _currentImageUrl = widget.imageUrl;
+    if (_currentImageUrl != null) {
+      final currentUri = Uri.parse(_currentImageUrl!);
+      currentVersion =
+          int.tryParse(currentUri.queryParameters['version'] ?? '0') ?? 0;
+    }
   }
 
   @override
@@ -106,7 +112,13 @@ class _AvatarState extends State<Avatar> {
                                     .last
                                     .toLowerCase();
                                 imageBytes = imgBytes;
-                                imagePath = '/${user.id}/profile';
+                                if (_currentImageUrl != null) {
+                                  final newVersion = currentVersion! + 1;
+                                  imagePath =
+                                      '/${user.id}/profile?version=${newVersion.toString()}';
+                                } else {
+                                  imagePath = '/${user.id}/profile?version=0';
+                                }
                                 imageSelected = true;
                               });
                             },
@@ -132,10 +144,12 @@ class _AvatarState extends State<Avatar> {
                                       user.id,
                                       '/${user.id}/profile',
                                     );
-                                    setState(() {
-                                      _currentImageUrl = null;
-                                      _selectedImage = null;
-                                    });
+                                    if (mounted) {
+                                      setState(() {
+                                        _currentImageUrl = null;
+                                        _selectedImage = null;
+                                      });
+                                    }
                                   },
                                 ),
                               ),
@@ -147,23 +161,33 @@ class _AvatarState extends State<Avatar> {
               ),
 
               ?(imageSelected
-                  ? FilledButton(
-                      onPressed: () async {
-                        await locator<UserService>().uploadAvatar(
-                          imagePath,
-                          imageBytes,
-                          imageExtension,
-                        );
-                        String imageUrl =
-                            '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
-                        setState(() {
-                          imageSelected = false;
-                        });
-                        widget.onUpload(imageUrl);
-                      },
+                  ? (!showSaveLoading)
+                        ? FilledButton(
+                            onPressed: () async {
+                              if (mounted) {
+                                setState(() {
+                                  showSaveLoading = true;
+                                });
+                                await locator<UserService>().uploadAvatar(
+                                  imagePath,
+                                  imageBytes,
+                                  imageExtension,
+                                );
+                                String imageUrl =
+                                    '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
 
-                      child: Text(t.saveImage),
-                    )
+                                setState(() {
+                                  imageSelected = false;
+                                  showSaveLoading = false;
+                                });
+
+                                widget.onUpload(imageUrl);
+                              }
+                            },
+
+                            child: Text(t.saveImage),
+                          )
+                        : CircularProgressIndicator()
                   : null),
             ],
           ),

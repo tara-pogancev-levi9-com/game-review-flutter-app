@@ -127,6 +127,7 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> deleteAvatar(userId, imagePath) async {
     try {
       await _userService.deleteAvatar(imagePath, userId);
+      await fetchUserProfile(null, t.avatarRemoved);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
