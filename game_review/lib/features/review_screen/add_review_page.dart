@@ -6,18 +6,19 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
-import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/features/review_screen/widgets/overall_section_widget.dart';
-import 'package:game_review/features/review_screen/widgets/review_dropdown.dart';
-import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/review_screen/widgets/custom_text_form_field.dart';
+import 'package:game_review/features/review_screen/widgets/game_header_widget.dart';
+import 'package:game_review/features/review_screen/widgets/overall_section_widget.dart';
 import 'package:game_review/features/review_screen/widgets/rating_row_widget.dart';
 import 'package:game_review/features/review_screen/widgets/rating_section_widget.dart';
+import 'package:game_review/features/review_screen/widgets/review_dropdown.dart';
 import 'package:game_review/features/review_screen/widgets/section_title_widget.dart';
-import 'package:game_review/features/review_screen/widgets/game_header_widget.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
@@ -179,7 +180,12 @@ class _AddReviewPageState extends State<AddReviewPage> {
         leading: const BackButton(color: Colors.white),
         title: Text(
           t.back,
-          style: AppTypography.labelSmall,
+          style: const TextStyle(
+            fontFamily: AppFonts.josefinSans,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            color: Colors.white,
+          ),
         ),
       ),
       body: DecoratedBox(

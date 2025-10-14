@@ -16,7 +16,14 @@ class AppColors {
   static const Color surfaceVariant = Color(0xFF1C1522);
 
   static const Color outline = Color(0xFFA88EB9);
+
+  static const Color success = Color(0xFF4CAF50);
+  static const Color error = Color(0xFFF44336);
+
+  static const Color transparent = Colors.transparent;
+  static const Color white = Colors.white;
 }
+
 @immutable
 class AppGradients extends ThemeExtension<AppGradients> {
   final LinearGradient background;

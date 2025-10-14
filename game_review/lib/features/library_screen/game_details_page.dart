@@ -123,7 +123,7 @@ class GameDetailsPage extends StatelessWidget {
                     Text(t.gameDetails.released),
                     Text(
                       game.releaseDate != null
-                          ? game.releaseDate!.split(' ')[0]
+                          ? game.releaseDate!.toIso8601String().split('T')[0]
                           : '-',
                     ),
                   ],

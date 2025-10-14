@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/features/game_details/game_details.dart';
 import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/home_state.dart';
-import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/widgets/review_card.dart';
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
@@ -100,7 +100,9 @@ class _HomePageState extends State<HomePage> {
                             onDetails: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (_) => ReviewDetailsPage(review: r),
+                                  builder: (_) => GameDetailsPage(
+                                    gameId: r.gameId,
+                                  ),
                                 ),
                               );
                             },
@@ -111,7 +113,23 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
-                  SliverToBoxAdapter(child: const SizedBox(height: 24)),
+                  SliverToBoxAdapter(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const GameDetailsPage(
+                              gameId:
+                                  '2e41851c-9a17-4bab-bb5a-6ec903b1245c', // test game ID
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('Test Game Details'),
+                    ),
+                  ),
+
+                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
                 ],
               ),
             );
