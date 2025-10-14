@@ -1,3 +1,4 @@
+// lib/features/home_screen/home_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
@@ -5,6 +6,7 @@ import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/home_state.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/widgets/review_card.dart';
+import 'package:game_review/features/home_screen/widgets/add_game_fab.dart'; // DODAJ OVO
 import 'package:game_review/features/library_screen/widgets/game_section.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -41,83 +43,94 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      bloc: cubit,
-      builder: (context, state) {
-        return state.when(
-          initial: () => const Center(child: CircularProgressIndicator()),
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (message) => Center(child: Text(message)),
-          success: (discoverGames, recentReviews, isLoadingMore, hasMore) {
-            return RefreshIndicator(
-              onRefresh: () => cubit.refresh(),
-              child: CustomScrollView(
-                controller: _scrollController,
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        t.discover,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
-                    ),
-                  ),
-
-                  SliverToBoxAdapter(
-                    child: GameSection(games: discoverGames),
-                  ),
-
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-                      child: Text(
-                        t.recentReviews,
-                        style: Theme.of(context).textTheme.headlineSmall,
+    return Scaffold(
+      // DODAJ Scaffold
+      body: BlocBuilder<HomeCubit, HomeState>(
+        bloc: cubit,
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Center(child: CircularProgressIndicator()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (message) => Center(child: Text(message)),
+            success: (discoverGames, recentReviews, isLoadingMore, hasMore) {
+              return RefreshIndicator(
+                onRefresh: () => cubit.refresh(),
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          t.discover,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
                       ),
                     ),
-                  ),
 
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        if (index >= recentReviews.length) {
-                          if (!hasMore) return const SizedBox.shrink();
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Center(child: CircularProgressIndicator()),
+                    SliverToBoxAdapter(
+                      child: GameSection(games: discoverGames),
+                    ),
+
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+                        child: Text(
+                          t.recentReviews,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                      ),
+                    ),
+
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          if (index >= recentReviews.length) {
+                            if (!hasMore) return const SizedBox.shrink();
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          }
+
+                          final r = recentReviews[index];
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                            child: ReviewCard(
+                              review: r,
+                              onDetails: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        ReviewDetailsPage(review: r),
+                                  ),
+                                );
+                              },
+                            ),
                           );
-                        }
-
-                        final r = recentReviews[index];
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-                          child: ReviewCard(
-                            review: r,
-                            onDetails: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => ReviewDetailsPage(review: r),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      childCount: recentReviews.length + (hasMore ? 1 : 0),
+                        },
+                        childCount: recentReviews.length + (hasMore ? 1 : 0),
+                      ),
                     ),
-                  ),
 
-                  SliverToBoxAdapter(child: const SizedBox(height: 24)),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                    SliverToBoxAdapter(child: const SizedBox(height: 24)),
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
+      // DODAJ OVO - FloatingActionButton
+      floatingActionButton: AddGameFab(
+        onReviewAdded: () {
+          // Refresh home page kada se doda review
+          cubit.refresh();
+        },
+      ),
     );
   }
 }

@@ -25,7 +25,7 @@ class GameSection extends StatelessWidget {
             ),
           ),
         SizedBox(
-          height: 180,
+          height: 260,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
