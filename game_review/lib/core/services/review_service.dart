@@ -208,7 +208,8 @@ class ReviewService {
         },
       );
 
-      return response.statusCode == HttpStatus.ok && (response.data as List).isNotEmpty;
+      return response.statusCode == HttpStatus.ok &&
+          (response.data as List).isNotEmpty;
     } catch (e) {
       return false;
     }

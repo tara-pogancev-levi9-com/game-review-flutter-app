@@ -229,7 +229,7 @@ class ReviewsService {
 
   // reviews_service.dart
   ReviewModel _parseReviewFromResponse(Response response) {
-    if (response.statusCode != HttpStatus.created && response.statusCode != HttpStatus.ok ) {
+    if (response.statusCode != 201 && response.statusCode != 200) {
       throw AppException(
         'errors.failedToProcessReview',
         fallbackMessage:
