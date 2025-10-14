@@ -15,6 +15,8 @@ import 'package:game_review/features/home_screen/services/review_comment_service
 import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
+import 'package:game_review/features/search_screen/bloc/search_cubit.dart';
+import 'package:game_review/features/search_screen/services/search_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:get_it/get_it.dart';
 
@@ -97,5 +99,13 @@ void setupDependencies() {
 
   locator.registerFactory<ReviewsByUserCubit>(
     () => ReviewsByUserCubit(locator<ReviewsService>()),
+  );
+
+  locator.registerLazySingleton<SearchService>(
+    () => SearchService(locator<ApiClient>()),
+  );
+
+  locator.registerFactory<SearchCubit>(
+    () => SearchCubit(locator<SearchService>()),
   );
 }

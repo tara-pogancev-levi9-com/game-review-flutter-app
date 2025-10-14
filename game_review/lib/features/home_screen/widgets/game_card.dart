@@ -1,4 +1,3 @@
-// lib/features/home_screen/widgets/game_card.dart
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
@@ -38,39 +37,42 @@ class GameCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Game Cover Image
-            ClipRRect(
-              borderRadius: BorderSize.m.radius,
-              child: Container(
-                height: 200,
-                width: 150,
-                decoration: BoxDecoration(
-                  color: AppColors.surfaceVariant,
-                  border: Border.all(
-                    color: AppColors.outline.withOpacity(0.2),
-                    width: 1,
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderSize.m.radius,
+                child: Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceVariant,
+                    border: Border.all(
+                      color: AppColors.outline.withOpacity(0.2),
+                      width: 1,
+                    ),
+                    borderRadius: BorderSize.m.radius,
                   ),
-                  borderRadius: BorderSize.m.radius,
-                ),
-                child: NetworkImageWidget(
-                  imageUrl: game.coverImageUrl,
-                  fit: BoxFit.cover,
-                  placeholderIconSize: 48,
+                  child: NetworkImageWidget(
+                    imageUrl: game.coverImageUrl,
+                    fit: BoxFit.cover,
+                    placeholderIconSize: 48,
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 12),
 
-            // Game Title
-            Text(
-              game.title,
-              style: AppTypography.gameTitle.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                game.title,
+                style: AppTypography.gameTitle.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
               ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
             ),
           ],
         ),

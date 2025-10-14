@@ -190,5 +190,7 @@
     "weeksAgo": "week/s ago",
     "monthsAgo": "month/s ago",
     "yearsAgo": "year/s ago"
-  }
+  },
+    "gamesSection": "Games",
+    "reviewsSection": "Reviews"
 }
