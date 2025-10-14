@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/features/library_screen/game_details_page.dart';
+import 'package:game_review/features/game_details/game_details.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;
@@ -20,7 +20,7 @@ class GameCard extends StatelessWidget {
         onTap!();
       } else {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => GameDetailsPage(game: game)),
+          MaterialPageRoute(builder: (_) => GameDetailsPage(gameId: game.id)),
         );
       }
     }
@@ -30,6 +30,8 @@ class GameCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: radius),
+        elevation: 0,
+        color: AppColors.surface,
         child: InkWell(
           borderRadius: radius,
           onTap: handleTap,
@@ -49,21 +51,24 @@ class GameCard extends StatelessWidget {
                         width: double.infinity,
                         fit: BoxFit.cover,
                       )
-                    : SizedBox(
+                    : Container(
                         height: imageHeight,
                         width: double.infinity,
-                        child: Container(
-                          height: 180,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            color: AppColors.surfaceVariant,
-                            border: Border.all(
-                              color: AppColors.outline.withValues(alpha: 0.2),
-                              width: 1,
-                            ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              AppColors.surfaceVariant,
+                              AppColors.surfaceVariant.withValues(alpha: 0.7),
+                            ],
                           ),
-                          alignment: Alignment.center,
-                          child: const Icon(Icons.videogame_asset, size: 40),
+                        ),
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.videogame_asset,
+                          size: 40,
+                          color: AppColors.textSecondary,
                         ),
                       ),
               ),
