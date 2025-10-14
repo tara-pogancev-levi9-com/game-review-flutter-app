@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:sprintf/sprintf.dart';
 
 class Validators {
   Validators._();
@@ -12,7 +13,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.errors.requiredField.replaceAll('{field}', l.email);
+        return sprintf(l.errors.requiredField, [l.email]);
       }
 
       if (!regex.hasMatch(text)) {
@@ -31,11 +32,11 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.errors.requiredField.replaceAll('{field}', l.password);
+        return sprintf(l.errors.requiredField, [l.password]);
       }
 
       if (text.length < minLength) {
-        return l.errors.minLength.replaceAll('{n}', '$minLength');
+        return sprintf(l.errors.minLength, [minLength]);
       }
       return null;
     };
@@ -50,7 +51,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return l.errors.requiredField.replaceAll('{field}', fieldLabel);
+        return sprintf(l.errors.requiredField, [fieldLabel]);
       }
       return null;
     };

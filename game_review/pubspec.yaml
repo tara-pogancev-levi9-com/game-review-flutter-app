@@ -22,6 +22,9 @@ dependencies:
   equatable: ^2.0.7
   cupertino_icons: ^1.0.8
   get_it: ^8.2.0
+  share_plus: ^12.0.0
+  sprintf: ^7.0.0
+
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter

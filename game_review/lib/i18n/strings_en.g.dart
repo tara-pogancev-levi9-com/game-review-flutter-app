@@ -164,6 +164,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Share'
+	String get share => 'Share';
+
+	/// en: 'Check out this game!'
+	String get shareSubject => 'Check out this game!';
+
+	/// en: 'Hey! Check out this cool game I found on PawGames! It's called '%s'. :)'
+	String get shareMessage => 'Hey! Check out this cool game I found on PawGames! It\'s called \'%s\'. :)';
+
 	/// en: 'Missing API_URL environment variable'
 	String get missingApiUrl => 'Missing API_URL environment variable';
 
@@ -324,6 +333,9 @@ class TranslationsGameDetailsEn {
 	/// en: 'Failed to add to Wishlist'
 	String get failedToAddToWishlist => 'Failed to add to Wishlist';
 
+	/// en: 'Failed to add to Share game'
+	String get failedToShare => 'Failed to add to Share game';
+
 	/// en: 'Game already in Library'
 	String get gameAlreadyInLibrary => 'Game already in Library';
 
@@ -372,8 +384,8 @@ class TranslationsGameDetailsEn {
 	/// en: 'Available on'
 	String get availableOn => 'Available on';
 
-	/// en: '{percentage}% of players recommend this game'
-	String get overallRecommendation => '{percentage}% of players recommend this game';
+	/// en: '%d%% of players recommend this game'
+	String get overallRecommendation => '%d%% of players recommend this game';
 
 	/// en: 'Add to Wishlist'
 	String get addToWishlist => 'Add to Wishlist';
@@ -473,6 +485,9 @@ class TranslationsGameDetailsEn {
 
 	/// en: 'Please log in to view game details'
 	String get loginRequiredToView => 'Please log in to view game details';
+
+	/// en: 'Failed to share game: %s'
+	String get failedToShareGame => 'Failed to share game: %s';
 }
 
 // Path: reviews
@@ -606,14 +621,14 @@ class TranslationsErrorsEn {
 	/// en: 'Login failed. Please try again.'
 	String get loginFailed => 'Login failed. Please try again.';
 
-	/// en: '{field} required'
-	String get requiredField => '{field} required';
+	/// en: '%s required'
+	String get requiredField => '%s required';
 
 	/// en: 'Invalid email'
 	String get invalidEmail => 'Invalid email';
 
-	/// en: 'Min {n} char'
-	String get minLength => 'Min {n} char';
+	/// en: 'Min %d char'
+	String get minLength => 'Min %d char';
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
@@ -903,14 +918,14 @@ class TranslationsDateTimeEn {
 
 	// Translations
 
-	/// en: '{days}d ago'
-	String get daysAgo => '{days}d ago';
+	/// en: '%d days ago'
+	String get daysAgo => '%d days ago';
 
-	/// en: '{hours}h ago'
-	String get hoursAgo => '{hours}h ago';
+	/// en: '%d hours ago'
+	String get hoursAgo => '%d hours ago';
 
-	/// en: '{minutes}m ago'
-	String get minutesAgo => '{minutes}m ago';
+	/// en: '%d minutes ago'
+	String get minutesAgo => '%d minutes ago';
 
 	/// en: 'just now'
 	String get justNow => 'just now';

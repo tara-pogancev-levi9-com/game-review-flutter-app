@@ -42,6 +42,9 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "share": "Podeli",
+  "shareSubject": "Pogledaj ovu igru!",
+  "shareMessage": "Hej! Pogledaj ovu kul igru koju sam pronašao na PawGames! Zove se '%s'. :)",
   "missingApiUrl": "Nedostaje API_URL promenljiva",
   "registrationError": "Greška, Pokušajte ponovo kasnije.",
   "passwordMismatch": "Lozinke se ne podudaraju!.",
@@ -60,14 +63,15 @@
     "addReviewComingSoon": "Funkcija dodavanja recenzije uskoro stiže!",
     "addToMyLibrary": "Dodaj u moju biblioteku",
     "removeFromMyLibrary": "Ukloni iz moje biblioteke",
+    "failedToShare": "Deljenje neuspešno",
     "addReview": "Dodaj recenziju",
     "recommendText": "x% igrača preporučuje ovu igru",
     "overall": "Sveukupno",
     "details": "Detalji",
     "recentReviews": "Nedavne recenzije",
-    "requiredField": "{field} je obavezno",
+    "requiredField": "%s je obavezno",
     "invalidEmail": "Neispravan email",
-    "minLength": "Minimum {n} karaktera",
+    "minLength": "Minimum %d karaktera",
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava nije uspela, pokušaj ponovo",
     "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.",
@@ -100,7 +104,7 @@
     "publisher": "Izdavač",
     "released": "Izdato",
     "availableOn": "Dostupno na",
-    "overallRecommendation": "{percentage}% igrača preporučuje ovu igru",
+    "overallRecommendation": "%d%% igrača preporučuje ovu igru",
     "addToWishlist": "Dodaj u Listu Želja",
     "removeFromWishlist": "Ukloni iz Liste Želja",
     "addToLibrary": "Dodaj u Biblioteku",
@@ -131,7 +135,8 @@
     "alreadyInWishlist": "Već je u listi želja!",
     "loginRequiredWishlist": "Molimo prijavite se da biste dodali igre u listu želja",
     "loginRequiredLibrary": "Molimo prijavite se da biste dodali igre u biblioteku",
-    "loginRequiredToView": "Molimo prijavite se da biste videli detalje igre"
+    "loginRequiredToView": "Molimo prijavite se da biste videli detalje igre",
+    "failedToShareGame": "Neuspešno deljenje igre: %s"
   },
   "reviews": {
     "title": "Recenzije",
@@ -293,9 +298,9 @@
   "completed100": "Završeno (100%)",
   "notStarted0": "Nije započeto (0%)",
   "dateTime": {
-    "daysAgo": "pre {days}d",
-    "hoursAgo": "pre {hours}h",
-    "minutesAgo": "pre {minutes}m",
+    "daysAgo": "pre %d dana",
+    "hoursAgo": "pre %d sati",
+    "minutesAgo": "pre %d minuta",
     "justNow": "upravo sada"
   }
 }

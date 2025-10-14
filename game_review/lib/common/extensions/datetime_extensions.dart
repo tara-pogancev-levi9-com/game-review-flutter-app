@@ -1,4 +1,5 @@
 import 'package:game_review/i18n/strings.g.dart';
+import 'package:sprintf/sprintf.dart';
 
 extension DateTimeX on DateTime {
   String get formattedDate => '$day/$month/$year';
@@ -8,20 +9,11 @@ extension DateTimeX on DateTime {
     final difference = now.difference(this);
 
     if (difference.inDays > 0) {
-      return t.dateTime.daysAgo.replaceAll(
-        '{days}',
-        difference.inDays.toString(),
-      );
+      return sprintf(t.dateTime.daysAgo, [difference.inDays]);
     } else if (difference.inHours > 0) {
-      return t.dateTime.hoursAgo.replaceAll(
-        '{hours}',
-        difference.inHours.toString(),
-      );
+      return sprintf(t.dateTime.hoursAgo, [difference.inHours]);
     } else if (difference.inMinutes > 0) {
-      return t.dateTime.minutesAgo.replaceAll(
-        '{minutes}',
-        difference.inMinutes.toString(),
-      );
+      return sprintf(t.dateTime.minutesAgo, [difference.inMinutes]);
     } else {
       return t.dateTime.justNow;
     }

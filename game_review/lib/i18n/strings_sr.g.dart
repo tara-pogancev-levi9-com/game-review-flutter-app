@@ -75,6 +75,9 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get share => 'Podeli';
+	@override String get shareSubject => 'Pogledaj ovu igru!';
+	@override String get shareMessage => 'Hej! Pogledaj ovu kul igru koju sam pronašao na PawGames! Zove se \'%s\'. :)';
 	@override String get missingApiUrl => 'Nedostaje API_URL promenljiva';
 	@override String get registrationError => 'Greška, Pokušajte ponovo kasnije.';
 	@override String get passwordMismatch => 'Lozinke se ne podudaraju!.';
@@ -148,14 +151,15 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get addReviewComingSoon => 'Funkcija dodavanja recenzije uskoro stiže!';
 	@override String get addToMyLibrary => 'Dodaj u moju biblioteku';
 	@override String get removeFromMyLibrary => 'Ukloni iz moje biblioteke';
+	@override String get failedToShare => 'Deljenje neuspešno';
 	@override String get addReview => 'Dodaj recenziju';
 	@override String get recommendText => 'x% igrača preporučuje ovu igru';
 	@override String get overall => 'Sveukupno';
 	@override String get details => 'Detalji';
 	@override String get recentReviews => 'Nedavne recenzije';
-	@override String get requiredField => '{field} je obavezno';
+	@override String get requiredField => '%s je obavezno';
 	@override String get invalidEmail => 'Neispravan email';
-	@override String get minLength => 'Minimum {n} karaktera';
+	@override String get minLength => 'Minimum %d karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
@@ -188,7 +192,7 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get publisher => 'Izdavač';
 	@override String get released => 'Izdato';
 	@override String get availableOn => 'Dostupno na';
-	@override String get overallRecommendation => '{percentage}% igrača preporučuje ovu igru';
+	@override String get overallRecommendation => '%d%% igrača preporučuje ovu igru';
 	@override String get addToWishlist => 'Dodaj u Listu Želja';
 	@override String get removeFromWishlist => 'Ukloni iz Liste Želja';
 	@override String get addToLibrary => 'Dodaj u Biblioteku';
@@ -220,6 +224,7 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get loginRequiredWishlist => 'Molimo prijavite se da biste dodali igre u listu želja';
 	@override String get loginRequiredLibrary => 'Molimo prijavite se da biste dodali igre u biblioteku';
 	@override String get loginRequiredToView => 'Molimo prijavite se da biste videli detalje igre';
+	@override String get failedToShareGame => 'Neuspešno deljenje igre: %s';
 }
 
 // Path: reviews
@@ -415,8 +420,8 @@ class TranslationsDateTimeSr extends TranslationsDateTimeEn {
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String get daysAgo => 'pre {days}d';
-	@override String get hoursAgo => 'pre {hours}h';
-	@override String get minutesAgo => 'pre {minutes}m';
+	@override String get daysAgo => 'pre %d dana';
+	@override String get hoursAgo => 'pre %d sati';
+	@override String get minutesAgo => 'pre %d minuta';
 	@override String get justNow => 'upravo sada';
 }
