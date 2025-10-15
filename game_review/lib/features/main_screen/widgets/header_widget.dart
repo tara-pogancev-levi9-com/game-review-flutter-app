@@ -36,7 +36,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.language,
             color: AppColors.textPrimary,
             size: 28,

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:game_review/common/constants.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 
 // TODO: Error handling, generic responses
@@ -11,12 +11,11 @@ class ApiImageClient {
     : dio = Dio(
         BaseOptions(
           baseUrl: baseUrl,
-          connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 10),
+          connectTimeout: const Duration(seconds: 30),
+          receiveTimeout: const Duration(seconds: 30),
           headers: {
             //'Content-Type': 'application/json',
-            'apiKey': dotenv.env['API_KEY']!,
-            //'x-upsert': 'true',
+            'apiKey': ApiConstants.apiKey,
           },
         ),
       ) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'app_colors.dart';
 import 'app_fonts.dart';
 
@@ -63,5 +64,10 @@ class AppTypography {
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: AppColors.lilacSelected,
+  );
+
+  static const TextStyle searchItemSubtitle = TextStyle(
+    fontSize: 12,
+    color: AppColors.textSecondary,
   );
 }

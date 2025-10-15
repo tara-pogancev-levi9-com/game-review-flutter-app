@@ -1,12 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/games_state.dart';
-import 'package:game_review/common/services/games_service.dart';
-import 'dart:developer' as developer;
-import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/services/game_service.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class GamesCubit extends Cubit<GamesState> {
-  final GamesService _service;
+  final GameService _service;
   static const int _pageSize = 10;
 
   GamesCubit(this._service) : super(const GamesState.initial());
@@ -61,7 +60,6 @@ class GamesCubit extends Cubit<GamesState> {
             ),
           );
         } catch (e) {
-
           Logger.error('Failed to load more games', e);
           emit(GamesState.error(t.errorLoadingMoreGames));
         }

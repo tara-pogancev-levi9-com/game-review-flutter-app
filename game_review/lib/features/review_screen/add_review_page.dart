@@ -8,6 +8,7 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
@@ -23,6 +24,7 @@ import 'package:game_review/i18n/strings.g.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../common/theme/app_styles.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
@@ -211,7 +213,12 @@ class _AddReviewPageState extends State<AddReviewPage> {
         leading: const BackButton(color: Colors.white),
         title: Text(
           t.back,
-          style: AppTypography.labelSmall,
+          style: const TextStyle(
+            fontFamily: AppFonts.josefinSans,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            color: Colors.white,
+          ),
         ),
       ),
       body: DecoratedBox(

@@ -15,7 +15,7 @@ A social app for game reviewing built with Flutter.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/tara-pogancev-levi9-com/game-review-flutter-app.git
+git clone https://github.com/tara-pogancev-levi9-com/game-review-flutter-app.git 
 cd game-review-flutter-app
 ```
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ReviewModel {
 
- String get id; String get user_id; String get game_id; String? get title; String? get content; double? get overall_rating; double? get gameplay_rating; double? get graphics_rating; double? get story_rating; double? get sound_rating; double? get value_rating; List<String>? get pros; List<String>? get cons; int? get playtime_hours; String? get completion_status; bool? get recommended; DateTime? get created_at; DateTime? get updated_at;
+ String get id; String get userId; String get gameId; String? get title; String? get content; double? get overallRating; double? get gameplayRating; double? get graphicsRating; double? get storyRating; double? get soundRating; double? get valueRating; List<String>? get pros; List<String>? get cons; int? get playtimeHours; String? get completionStatus; bool? get recommended; DateTime? get createdAt; DateTime? get updatedAt; GameModel? get game;
 /// Create a copy of ReviewModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ReviewModelCopyWith<ReviewModel> get copyWith => _$ReviewModelCopyWithImpl<Revi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.user_id, user_id) || other.user_id == user_id)&&(identical(other.game_id, game_id) || other.game_id == game_id)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content)&&(identical(other.overall_rating, overall_rating) || other.overall_rating == overall_rating)&&(identical(other.gameplay_rating, gameplay_rating) || other.gameplay_rating == gameplay_rating)&&(identical(other.graphics_rating, graphics_rating) || other.graphics_rating == graphics_rating)&&(identical(other.story_rating, story_rating) || other.story_rating == story_rating)&&(identical(other.sound_rating, sound_rating) || other.sound_rating == sound_rating)&&(identical(other.value_rating, value_rating) || other.value_rating == value_rating)&&const DeepCollectionEquality().equals(other.pros, pros)&&const DeepCollectionEquality().equals(other.cons, cons)&&(identical(other.playtime_hours, playtime_hours) || other.playtime_hours == playtime_hours)&&(identical(other.completion_status, completion_status) || other.completion_status == completion_status)&&(identical(other.recommended, recommended) || other.recommended == recommended)&&(identical(other.created_at, created_at) || other.created_at == created_at)&&(identical(other.updated_at, updated_at) || other.updated_at == updated_at));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.gameId, gameId) || other.gameId == gameId)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content)&&(identical(other.overallRating, overallRating) || other.overallRating == overallRating)&&(identical(other.gameplayRating, gameplayRating) || other.gameplayRating == gameplayRating)&&(identical(other.graphicsRating, graphicsRating) || other.graphicsRating == graphicsRating)&&(identical(other.storyRating, storyRating) || other.storyRating == storyRating)&&(identical(other.soundRating, soundRating) || other.soundRating == soundRating)&&(identical(other.valueRating, valueRating) || other.valueRating == valueRating)&&const DeepCollectionEquality().equals(other.pros, pros)&&const DeepCollectionEquality().equals(other.cons, cons)&&(identical(other.playtimeHours, playtimeHours) || other.playtimeHours == playtimeHours)&&(identical(other.completionStatus, completionStatus) || other.completionStatus == completionStatus)&&(identical(other.recommended, recommended) || other.recommended == recommended)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.game, game) || other.game == game));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,user_id,game_id,title,content,overall_rating,gameplay_rating,graphics_rating,story_rating,sound_rating,value_rating,const DeepCollectionEquality().hash(pros),const DeepCollectionEquality().hash(cons),playtime_hours,completion_status,recommended,created_at,updated_at);
+int get hashCode => Object.hashAll([runtimeType,id,userId,gameId,title,content,overallRating,gameplayRating,graphicsRating,storyRating,soundRating,valueRating,const DeepCollectionEquality().hash(pros),const DeepCollectionEquality().hash(cons),playtimeHours,completionStatus,recommended,createdAt,updatedAt,game]);
 
 @override
 String toString() {
-  return 'ReviewModel(id: $id, user_id: $user_id, game_id: $game_id, title: $title, content: $content, overall_rating: $overall_rating, gameplay_rating: $gameplay_rating, graphics_rating: $graphics_rating, story_rating: $story_rating, sound_rating: $sound_rating, value_rating: $value_rating, pros: $pros, cons: $cons, playtime_hours: $playtime_hours, completion_status: $completion_status, recommended: $recommended, created_at: $created_at, updated_at: $updated_at)';
+  return 'ReviewModel(id: $id, userId: $userId, gameId: $gameId, title: $title, content: $content, overallRating: $overallRating, gameplayRating: $gameplayRating, graphicsRating: $graphicsRating, storyRating: $storyRating, soundRating: $soundRating, valueRating: $valueRating, pros: $pros, cons: $cons, playtimeHours: $playtimeHours, completionStatus: $completionStatus, recommended: $recommended, createdAt: $createdAt, updatedAt: $updatedAt, game: $game)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $ReviewModelCopyWith<$Res>  {
   factory $ReviewModelCopyWith(ReviewModel value, $Res Function(ReviewModel) _then) = _$ReviewModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String user_id, String game_id, String? title, String? content, double? overall_rating, double? gameplay_rating, double? graphics_rating, double? story_rating, double? sound_rating, double? value_rating, List<String>? pros, List<String>? cons, int? playtime_hours, String? completion_status, bool? recommended, DateTime? created_at, DateTime? updated_at
+ String id, String userId, String gameId, String? title, String? content, double? overallRating, double? gameplayRating, double? graphicsRating, double? storyRating, double? soundRating, double? valueRating, List<String>? pros, List<String>? cons, int? playtimeHours, String? completionStatus, bool? recommended, DateTime? createdAt, DateTime? updatedAt, GameModel? game
 });
 
 
-
+$GameModelCopyWith<$Res>? get game;
 
 }
 /// @nodoc
@@ -65,30 +65,43 @@ class _$ReviewModelCopyWithImpl<$Res>
 
 /// Create a copy of ReviewModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? user_id = null,Object? game_id = null,Object? title = freezed,Object? content = freezed,Object? overall_rating = freezed,Object? gameplay_rating = freezed,Object? graphics_rating = freezed,Object? story_rating = freezed,Object? sound_rating = freezed,Object? value_rating = freezed,Object? pros = freezed,Object? cons = freezed,Object? playtime_hours = freezed,Object? completion_status = freezed,Object? recommended = freezed,Object? created_at = freezed,Object? updated_at = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? gameId = null,Object? title = freezed,Object? content = freezed,Object? overallRating = freezed,Object? gameplayRating = freezed,Object? graphicsRating = freezed,Object? storyRating = freezed,Object? soundRating = freezed,Object? valueRating = freezed,Object? pros = freezed,Object? cons = freezed,Object? playtimeHours = freezed,Object? completionStatus = freezed,Object? recommended = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? game = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,user_id: null == user_id ? _self.user_id : user_id // ignore: cast_nullable_to_non_nullable
-as String,game_id: null == game_id ? _self.game_id : game_id // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,gameId: null == gameId ? _self.gameId : gameId // ignore: cast_nullable_to_non_nullable
 as String,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,overall_rating: freezed == overall_rating ? _self.overall_rating : overall_rating // ignore: cast_nullable_to_non_nullable
-as double?,gameplay_rating: freezed == gameplay_rating ? _self.gameplay_rating : gameplay_rating // ignore: cast_nullable_to_non_nullable
-as double?,graphics_rating: freezed == graphics_rating ? _self.graphics_rating : graphics_rating // ignore: cast_nullable_to_non_nullable
-as double?,story_rating: freezed == story_rating ? _self.story_rating : story_rating // ignore: cast_nullable_to_non_nullable
-as double?,sound_rating: freezed == sound_rating ? _self.sound_rating : sound_rating // ignore: cast_nullable_to_non_nullable
-as double?,value_rating: freezed == value_rating ? _self.value_rating : value_rating // ignore: cast_nullable_to_non_nullable
+as String?,overallRating: freezed == overallRating ? _self.overallRating : overallRating // ignore: cast_nullable_to_non_nullable
+as double?,gameplayRating: freezed == gameplayRating ? _self.gameplayRating : gameplayRating // ignore: cast_nullable_to_non_nullable
+as double?,graphicsRating: freezed == graphicsRating ? _self.graphicsRating : graphicsRating // ignore: cast_nullable_to_non_nullable
+as double?,storyRating: freezed == storyRating ? _self.storyRating : storyRating // ignore: cast_nullable_to_non_nullable
+as double?,soundRating: freezed == soundRating ? _self.soundRating : soundRating // ignore: cast_nullable_to_non_nullable
+as double?,valueRating: freezed == valueRating ? _self.valueRating : valueRating // ignore: cast_nullable_to_non_nullable
 as double?,pros: freezed == pros ? _self.pros : pros // ignore: cast_nullable_to_non_nullable
 as List<String>?,cons: freezed == cons ? _self.cons : cons // ignore: cast_nullable_to_non_nullable
-as List<String>?,playtime_hours: freezed == playtime_hours ? _self.playtime_hours : playtime_hours // ignore: cast_nullable_to_non_nullable
-as int?,completion_status: freezed == completion_status ? _self.completion_status : completion_status // ignore: cast_nullable_to_non_nullable
+as List<String>?,playtimeHours: freezed == playtimeHours ? _self.playtimeHours : playtimeHours // ignore: cast_nullable_to_non_nullable
+as int?,completionStatus: freezed == completionStatus ? _self.completionStatus : completionStatus // ignore: cast_nullable_to_non_nullable
 as String?,recommended: freezed == recommended ? _self.recommended : recommended // ignore: cast_nullable_to_non_nullable
-as bool?,created_at: freezed == created_at ? _self.created_at : created_at // ignore: cast_nullable_to_non_nullable
-as DateTime?,updated_at: freezed == updated_at ? _self.updated_at : updated_at // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,game: freezed == game ? _self.game : game // ignore: cast_nullable_to_non_nullable
+as GameModel?,
   ));
 }
+/// Create a copy of ReviewModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GameModelCopyWith<$Res>? get game {
+    if (_self.game == null) {
+    return null;
+  }
 
+  return $GameModelCopyWith<$Res>(_self.game!, (value) {
+    return _then(_self.copyWith(game: value));
+  });
+}
 }
 
 
@@ -170,10 +183,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String user_id,  String game_id,  String? title,  String? content,  double? overall_rating,  double? gameplay_rating,  double? graphics_rating,  double? story_rating,  double? sound_rating,  double? value_rating,  List<String>? pros,  List<String>? cons,  int? playtime_hours,  String? completion_status,  bool? recommended,  DateTime? created_at,  DateTime? updated_at)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String userId,  String gameId,  String? title,  String? content,  double? overallRating,  double? gameplayRating,  double? graphicsRating,  double? storyRating,  double? soundRating,  double? valueRating,  List<String>? pros,  List<String>? cons,  int? playtimeHours,  String? completionStatus,  bool? recommended,  DateTime? createdAt,  DateTime? updatedAt,  GameModel? game)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReviewModel() when $default != null:
-return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_that.overall_rating,_that.gameplay_rating,_that.graphics_rating,_that.story_rating,_that.sound_rating,_that.value_rating,_that.pros,_that.cons,_that.playtime_hours,_that.completion_status,_that.recommended,_that.created_at,_that.updated_at);case _:
+return $default(_that.id,_that.userId,_that.gameId,_that.title,_that.content,_that.overallRating,_that.gameplayRating,_that.graphicsRating,_that.storyRating,_that.soundRating,_that.valueRating,_that.pros,_that.cons,_that.playtimeHours,_that.completionStatus,_that.recommended,_that.createdAt,_that.updatedAt,_that.game);case _:
   return orElse();
 
 }
@@ -191,10 +204,10 @@ return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String user_id,  String game_id,  String? title,  String? content,  double? overall_rating,  double? gameplay_rating,  double? graphics_rating,  double? story_rating,  double? sound_rating,  double? value_rating,  List<String>? pros,  List<String>? cons,  int? playtime_hours,  String? completion_status,  bool? recommended,  DateTime? created_at,  DateTime? updated_at)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String userId,  String gameId,  String? title,  String? content,  double? overallRating,  double? gameplayRating,  double? graphicsRating,  double? storyRating,  double? soundRating,  double? valueRating,  List<String>? pros,  List<String>? cons,  int? playtimeHours,  String? completionStatus,  bool? recommended,  DateTime? createdAt,  DateTime? updatedAt,  GameModel? game)  $default,) {final _that = this;
 switch (_that) {
 case _ReviewModel():
-return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_that.overall_rating,_that.gameplay_rating,_that.graphics_rating,_that.story_rating,_that.sound_rating,_that.value_rating,_that.pros,_that.cons,_that.playtime_hours,_that.completion_status,_that.recommended,_that.created_at,_that.updated_at);case _:
+return $default(_that.id,_that.userId,_that.gameId,_that.title,_that.content,_that.overallRating,_that.gameplayRating,_that.graphicsRating,_that.storyRating,_that.soundRating,_that.valueRating,_that.pros,_that.cons,_that.playtimeHours,_that.completionStatus,_that.recommended,_that.createdAt,_that.updatedAt,_that.game);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +224,10 @@ return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String user_id,  String game_id,  String? title,  String? content,  double? overall_rating,  double? gameplay_rating,  double? graphics_rating,  double? story_rating,  double? sound_rating,  double? value_rating,  List<String>? pros,  List<String>? cons,  int? playtime_hours,  String? completion_status,  bool? recommended,  DateTime? created_at,  DateTime? updated_at)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String userId,  String gameId,  String? title,  String? content,  double? overallRating,  double? gameplayRating,  double? graphicsRating,  double? storyRating,  double? soundRating,  double? valueRating,  List<String>? pros,  List<String>? cons,  int? playtimeHours,  String? completionStatus,  bool? recommended,  DateTime? createdAt,  DateTime? updatedAt,  GameModel? game)?  $default,) {final _that = this;
 switch (_that) {
 case _ReviewModel() when $default != null:
-return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_that.overall_rating,_that.gameplay_rating,_that.graphics_rating,_that.story_rating,_that.sound_rating,_that.value_rating,_that.pros,_that.cons,_that.playtime_hours,_that.completion_status,_that.recommended,_that.created_at,_that.updated_at);case _:
+return $default(_that.id,_that.userId,_that.gameId,_that.title,_that.content,_that.overallRating,_that.gameplayRating,_that.graphicsRating,_that.storyRating,_that.soundRating,_that.valueRating,_that.pros,_that.cons,_that.playtimeHours,_that.completionStatus,_that.recommended,_that.createdAt,_that.updatedAt,_that.game);case _:
   return null;
 
 }
@@ -226,20 +239,20 @@ return $default(_that.id,_that.user_id,_that.game_id,_that.title,_that.content,_
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _ReviewModel implements ReviewModel {
-  const _ReviewModel({required this.id, required this.user_id, required this.game_id, this.title, this.content, this.overall_rating, this.gameplay_rating, this.graphics_rating, this.story_rating, this.sound_rating, this.value_rating, final  List<String>? pros, final  List<String>? cons, this.playtime_hours, this.completion_status, this.recommended, this.created_at, this.updated_at}): _pros = pros,_cons = cons;
+  const _ReviewModel({required this.id, required this.userId, required this.gameId, this.title, this.content, this.overallRating, this.gameplayRating, this.graphicsRating, this.storyRating, this.soundRating, this.valueRating, final  List<String>? pros, final  List<String>? cons, this.playtimeHours, this.completionStatus, this.recommended, this.createdAt, this.updatedAt, this.game}): _pros = pros,_cons = cons;
   factory _ReviewModel.fromJson(Map<String, dynamic> json) => _$ReviewModelFromJson(json);
 
 @override final  String id;
-@override final  String user_id;
-@override final  String game_id;
+@override final  String userId;
+@override final  String gameId;
 @override final  String? title;
 @override final  String? content;
-@override final  double? overall_rating;
-@override final  double? gameplay_rating;
-@override final  double? graphics_rating;
-@override final  double? story_rating;
-@override final  double? sound_rating;
-@override final  double? value_rating;
+@override final  double? overallRating;
+@override final  double? gameplayRating;
+@override final  double? graphicsRating;
+@override final  double? storyRating;
+@override final  double? soundRating;
+@override final  double? valueRating;
  final  List<String>? _pros;
 @override List<String>? get pros {
   final value = _pros;
@@ -258,11 +271,12 @@ class _ReviewModel implements ReviewModel {
   return EqualUnmodifiableListView(value);
 }
 
-@override final  int? playtime_hours;
-@override final  String? completion_status;
+@override final  int? playtimeHours;
+@override final  String? completionStatus;
 @override final  bool? recommended;
-@override final  DateTime? created_at;
-@override final  DateTime? updated_at;
+@override final  DateTime? createdAt;
+@override final  DateTime? updatedAt;
+@override final  GameModel? game;
 
 /// Create a copy of ReviewModel
 /// with the given fields replaced by the non-null parameter values.
@@ -277,16 +291,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.user_id, user_id) || other.user_id == user_id)&&(identical(other.game_id, game_id) || other.game_id == game_id)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content)&&(identical(other.overall_rating, overall_rating) || other.overall_rating == overall_rating)&&(identical(other.gameplay_rating, gameplay_rating) || other.gameplay_rating == gameplay_rating)&&(identical(other.graphics_rating, graphics_rating) || other.graphics_rating == graphics_rating)&&(identical(other.story_rating, story_rating) || other.story_rating == story_rating)&&(identical(other.sound_rating, sound_rating) || other.sound_rating == sound_rating)&&(identical(other.value_rating, value_rating) || other.value_rating == value_rating)&&const DeepCollectionEquality().equals(other._pros, _pros)&&const DeepCollectionEquality().equals(other._cons, _cons)&&(identical(other.playtime_hours, playtime_hours) || other.playtime_hours == playtime_hours)&&(identical(other.completion_status, completion_status) || other.completion_status == completion_status)&&(identical(other.recommended, recommended) || other.recommended == recommended)&&(identical(other.created_at, created_at) || other.created_at == created_at)&&(identical(other.updated_at, updated_at) || other.updated_at == updated_at));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReviewModel&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.gameId, gameId) || other.gameId == gameId)&&(identical(other.title, title) || other.title == title)&&(identical(other.content, content) || other.content == content)&&(identical(other.overallRating, overallRating) || other.overallRating == overallRating)&&(identical(other.gameplayRating, gameplayRating) || other.gameplayRating == gameplayRating)&&(identical(other.graphicsRating, graphicsRating) || other.graphicsRating == graphicsRating)&&(identical(other.storyRating, storyRating) || other.storyRating == storyRating)&&(identical(other.soundRating, soundRating) || other.soundRating == soundRating)&&(identical(other.valueRating, valueRating) || other.valueRating == valueRating)&&const DeepCollectionEquality().equals(other._pros, _pros)&&const DeepCollectionEquality().equals(other._cons, _cons)&&(identical(other.playtimeHours, playtimeHours) || other.playtimeHours == playtimeHours)&&(identical(other.completionStatus, completionStatus) || other.completionStatus == completionStatus)&&(identical(other.recommended, recommended) || other.recommended == recommended)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.game, game) || other.game == game));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,user_id,game_id,title,content,overall_rating,gameplay_rating,graphics_rating,story_rating,sound_rating,value_rating,const DeepCollectionEquality().hash(_pros),const DeepCollectionEquality().hash(_cons),playtime_hours,completion_status,recommended,created_at,updated_at);
+int get hashCode => Object.hashAll([runtimeType,id,userId,gameId,title,content,overallRating,gameplayRating,graphicsRating,storyRating,soundRating,valueRating,const DeepCollectionEquality().hash(_pros),const DeepCollectionEquality().hash(_cons),playtimeHours,completionStatus,recommended,createdAt,updatedAt,game]);
 
 @override
 String toString() {
-  return 'ReviewModel(id: $id, user_id: $user_id, game_id: $game_id, title: $title, content: $content, overall_rating: $overall_rating, gameplay_rating: $gameplay_rating, graphics_rating: $graphics_rating, story_rating: $story_rating, sound_rating: $sound_rating, value_rating: $value_rating, pros: $pros, cons: $cons, playtime_hours: $playtime_hours, completion_status: $completion_status, recommended: $recommended, created_at: $created_at, updated_at: $updated_at)';
+  return 'ReviewModel(id: $id, userId: $userId, gameId: $gameId, title: $title, content: $content, overallRating: $overallRating, gameplayRating: $gameplayRating, graphicsRating: $graphicsRating, storyRating: $storyRating, soundRating: $soundRating, valueRating: $valueRating, pros: $pros, cons: $cons, playtimeHours: $playtimeHours, completionStatus: $completionStatus, recommended: $recommended, createdAt: $createdAt, updatedAt: $updatedAt, game: $game)';
 }
 
 
@@ -297,11 +311,11 @@ abstract mixin class _$ReviewModelCopyWith<$Res> implements $ReviewModelCopyWith
   factory _$ReviewModelCopyWith(_ReviewModel value, $Res Function(_ReviewModel) _then) = __$ReviewModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String user_id, String game_id, String? title, String? content, double? overall_rating, double? gameplay_rating, double? graphics_rating, double? story_rating, double? sound_rating, double? value_rating, List<String>? pros, List<String>? cons, int? playtime_hours, String? completion_status, bool? recommended, DateTime? created_at, DateTime? updated_at
+ String id, String userId, String gameId, String? title, String? content, double? overallRating, double? gameplayRating, double? graphicsRating, double? storyRating, double? soundRating, double? valueRating, List<String>? pros, List<String>? cons, int? playtimeHours, String? completionStatus, bool? recommended, DateTime? createdAt, DateTime? updatedAt, GameModel? game
 });
 
 
-
+@override $GameModelCopyWith<$Res>? get game;
 
 }
 /// @nodoc
@@ -314,31 +328,44 @@ class __$ReviewModelCopyWithImpl<$Res>
 
 /// Create a copy of ReviewModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? user_id = null,Object? game_id = null,Object? title = freezed,Object? content = freezed,Object? overall_rating = freezed,Object? gameplay_rating = freezed,Object? graphics_rating = freezed,Object? story_rating = freezed,Object? sound_rating = freezed,Object? value_rating = freezed,Object? pros = freezed,Object? cons = freezed,Object? playtime_hours = freezed,Object? completion_status = freezed,Object? recommended = freezed,Object? created_at = freezed,Object? updated_at = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? gameId = null,Object? title = freezed,Object? content = freezed,Object? overallRating = freezed,Object? gameplayRating = freezed,Object? graphicsRating = freezed,Object? storyRating = freezed,Object? soundRating = freezed,Object? valueRating = freezed,Object? pros = freezed,Object? cons = freezed,Object? playtimeHours = freezed,Object? completionStatus = freezed,Object? recommended = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? game = freezed,}) {
   return _then(_ReviewModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,user_id: null == user_id ? _self.user_id : user_id // ignore: cast_nullable_to_non_nullable
-as String,game_id: null == game_id ? _self.game_id : game_id // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,gameId: null == gameId ? _self.gameId : gameId // ignore: cast_nullable_to_non_nullable
 as String,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String?,content: freezed == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String?,overall_rating: freezed == overall_rating ? _self.overall_rating : overall_rating // ignore: cast_nullable_to_non_nullable
-as double?,gameplay_rating: freezed == gameplay_rating ? _self.gameplay_rating : gameplay_rating // ignore: cast_nullable_to_non_nullable
-as double?,graphics_rating: freezed == graphics_rating ? _self.graphics_rating : graphics_rating // ignore: cast_nullable_to_non_nullable
-as double?,story_rating: freezed == story_rating ? _self.story_rating : story_rating // ignore: cast_nullable_to_non_nullable
-as double?,sound_rating: freezed == sound_rating ? _self.sound_rating : sound_rating // ignore: cast_nullable_to_non_nullable
-as double?,value_rating: freezed == value_rating ? _self.value_rating : value_rating // ignore: cast_nullable_to_non_nullable
+as String?,overallRating: freezed == overallRating ? _self.overallRating : overallRating // ignore: cast_nullable_to_non_nullable
+as double?,gameplayRating: freezed == gameplayRating ? _self.gameplayRating : gameplayRating // ignore: cast_nullable_to_non_nullable
+as double?,graphicsRating: freezed == graphicsRating ? _self.graphicsRating : graphicsRating // ignore: cast_nullable_to_non_nullable
+as double?,storyRating: freezed == storyRating ? _self.storyRating : storyRating // ignore: cast_nullable_to_non_nullable
+as double?,soundRating: freezed == soundRating ? _self.soundRating : soundRating // ignore: cast_nullable_to_non_nullable
+as double?,valueRating: freezed == valueRating ? _self.valueRating : valueRating // ignore: cast_nullable_to_non_nullable
 as double?,pros: freezed == pros ? _self._pros : pros // ignore: cast_nullable_to_non_nullable
 as List<String>?,cons: freezed == cons ? _self._cons : cons // ignore: cast_nullable_to_non_nullable
-as List<String>?,playtime_hours: freezed == playtime_hours ? _self.playtime_hours : playtime_hours // ignore: cast_nullable_to_non_nullable
-as int?,completion_status: freezed == completion_status ? _self.completion_status : completion_status // ignore: cast_nullable_to_non_nullable
+as List<String>?,playtimeHours: freezed == playtimeHours ? _self.playtimeHours : playtimeHours // ignore: cast_nullable_to_non_nullable
+as int?,completionStatus: freezed == completionStatus ? _self.completionStatus : completionStatus // ignore: cast_nullable_to_non_nullable
 as String?,recommended: freezed == recommended ? _self.recommended : recommended // ignore: cast_nullable_to_non_nullable
-as bool?,created_at: freezed == created_at ? _self.created_at : created_at // ignore: cast_nullable_to_non_nullable
-as DateTime?,updated_at: freezed == updated_at ? _self.updated_at : updated_at // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,game: freezed == game ? _self.game : game // ignore: cast_nullable_to_non_nullable
+as GameModel?,
   ));
 }
 
+/// Create a copy of ReviewModel
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GameModelCopyWith<$Res>? get game {
+    if (_self.game == null) {
+    return null;
+  }
 
+  return $GameModelCopyWith<$Res>(_self.game!, (value) {
+    return _then(_self.copyWith(game: value));
+  });
+}
 }
 
 // dart format on

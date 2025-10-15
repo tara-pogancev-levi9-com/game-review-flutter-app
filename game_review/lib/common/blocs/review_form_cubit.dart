@@ -1,4 +1,3 @@
-// review_form_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/blocs/review_form_state.dart';
@@ -87,16 +86,16 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
         id: id,
         title: title,
         content: content,
-        overall_rating: overall_rating,
-        gameplay_rating: gameplay_rating,
-        graphics_rating: graphics_rating,
-        story_rating: story_rating,
-        sound_rating: sound_rating,
-        value_rating: value_rating,
+        overallRating: overall_rating,
+        gameplayRating: gameplay_rating,
+        graphicsRating: graphics_rating,
+        storyRating: story_rating,
+        soundRating: sound_rating,
+        valueRating: value_rating,
         pros: pros,
         cons: cons,
-        playtime_hours: playtime_hours,
-        completion_status: completion_status,
+        playtimeHours: playtime_hours,
+        completionStatus: completion_status,
         recommended: recommended,
       );
       emit(const ReviewFormState.success(null));

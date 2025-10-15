@@ -14,7 +14,7 @@ abstract class GameModel with _$GameModel {
     String? description,
     String? developer,
     String? publisher,
-    String? releaseDate,
+    DateTime? releaseDate,
     String? coverImageUrl,
   }) = _GameModel;
 

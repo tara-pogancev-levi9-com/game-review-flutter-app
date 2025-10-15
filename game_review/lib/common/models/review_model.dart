@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:game_review/common/models/game_model.dart';
 
 part 'review_model.freezed.dart';
 part 'review_model.g.dart';
@@ -8,27 +9,39 @@ abstract class ReviewModel with _$ReviewModel {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory ReviewModel({
     required String id,
-    required String user_id,
-    required String game_id,
+    required String userId,
+    required String gameId,
     String? title,
     String? content,
-    double? overall_rating,
-    double? gameplay_rating,
-    double? graphics_rating,
-    double? story_rating,
-    double? sound_rating,
-    double? value_rating,
+    double? overallRating,
+    double? gameplayRating,
+    double? graphicsRating,
+    double? storyRating,
+    double? soundRating,
+    double? valueRating,
     List<String>? pros,
     List<String>? cons,
-    int? playtime_hours,
-    String? completion_status,
+    int? playtimeHours,
+    String? completionStatus,
     bool? recommended,
-    DateTime? created_at,
-    DateTime? updated_at,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    GameModel? game,
   }) = _ReviewModel;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>
       _$ReviewModelFromJson(json);
+
+  static ReviewModel fromJsonWithNestedGame(Map<String, dynamic> json) {
+    final review = ReviewModel.fromJson(json);
+    final gameJson = json['games'];
+    if (gameJson != null && gameJson is Map<String, dynamic>) {
+      return review.copyWith(
+        game: GameModel.fromJson(Map<String, dynamic>.from(gameJson)),
+      );
+    }
+    return review;
+  }
 }
 
 extension ReviewModelExtension on ReviewModel {

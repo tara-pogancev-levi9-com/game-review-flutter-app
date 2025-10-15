@@ -37,8 +37,12 @@ class _GamesListState extends State<GamesList> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
+    if (!_scrollController.hasClients) return;
+
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+
+    if (currentScroll >= maxScroll - 200) {
       if (widget.hasMore && !widget.isLoadingMore) {
         widget.onLoadMore();
       }
@@ -50,7 +54,7 @@ class _GamesListState extends State<GamesList> {
     if (widget.games.isEmpty) {
       return Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Text(t.NoGamesFound),
         ),
       );
@@ -59,7 +63,7 @@ class _GamesListState extends State<GamesList> {
     final itemCount = widget.games.length + (widget.hasMore ? 1 : 0);
 
     return SizedBox(
-      height: 240,
+      height: 260,
       child: ListView.separated(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,

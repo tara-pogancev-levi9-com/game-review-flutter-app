@@ -4,18 +4,19 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 import 'package:game_review/features/auth/login_page.dart';
-import 'package:game_review/features/main_screen/widgets/appScaffold.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
+import '../main_screen/widgets/app_scaffold.dart';
+
 class ProfilePage extends StatefulWidget {
-  final String currentUserId;
+  final String? currentUserId;
   final bool isStandalone;
 
   const ProfilePage({
     super.key,
-    required this.currentUserId,
+    this.currentUserId = null,
     this.isStandalone = false,
   });
 
@@ -27,7 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    locator<UserCubit>().fetchUserProfile(widget.currentUserId, null);
+    locator<UserCubit>().initData();
+    //locator<UserCubit>().fetchUserProfile(widget.currentUserId, null);
   }
 
   @override
@@ -81,11 +83,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             IconButton(
                               onPressed: () async {
                                 await locator<AuthCubit>().logout();
-                                Navigator.pushReplacement(
+                                Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => LoginPage(),
                                   ),
+                                  (Route<dynamic> route) => false,
                                 );
                               },
                               icon: Icon(
@@ -172,10 +175,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                           loggedUserId,
                                           widget.currentUserId,
                                         );
-                                        locator<UserCubit>().fetchUserProfile(
+                                        /*locator<UserCubit>().fetchUserProfile(
                                           widget.currentUserId,
                                           null,
-                                        );
+                                        );*/
                                       },
                                       child: Text(t.addFriend),
                                     )

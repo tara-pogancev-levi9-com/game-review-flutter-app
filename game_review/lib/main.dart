@@ -1,16 +1,16 @@
 import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:game_review/features/auth/screens/auth_gate.dart';
-
-import 'i18n/strings.g.dart';
-import 'package:game_review/common/theme/app_theme.dart';
-import 'package:game_review/screens/error_screen.dart';
-import 'package:game_review/common/utils/logger.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart'
     as di;
+import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
+import 'package:game_review/screens/error_screen.dart';
+
+import 'features/auth/screens/auth_gate.dart';
+import 'i18n/strings.g.dart';
 
 Future<void> main() async {
   try {

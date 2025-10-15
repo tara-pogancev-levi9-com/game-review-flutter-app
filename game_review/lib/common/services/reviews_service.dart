@@ -1,6 +1,13 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/review_model.dart';
+import 'package:game_review/common/utils/app_exception.dart';
+import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/endpoints.dart';
+import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/utils/app_exception.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
@@ -13,11 +20,11 @@ class ReviewsService {
 
   Future<List<ReviewModel>> fetchReviewsByGame({
     required String game_id,
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
         'game_id': 'eq.$game_id',
@@ -33,11 +40,11 @@ class ReviewsService {
 
   Future<List<ReviewModel>> fetchReviewsByUser({
     required String user_id,
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
         'user_id': 'eq.$user_id',
@@ -51,31 +58,31 @@ class ReviewsService {
     return data.map((json) => ReviewModel.fromJson(json)).toList();
   }
 
-  Future<void> addReviewMedia(imagePath, imageBytes, imageExtensions) async {
+  Future<List<ReviewModel>> getRecentReviews({
+    int limit = Endpoints.limitRecentReviews,
+    int offset = 0,
+  }) async {
     try {
-      await locator<ApiImageClient>().post(
-        '/storage/v1/object/review_media/${imagePath}',
-        imageExtensions,
-        data: imageBytes,
-      );
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<void> addReviewMediaModel(String reviewId, String imageUrl) async {
-    try {
-      await locator<ApiClient>().post(
-        '/rest/v1/review_media',
-        data: {
-          'review_id': reviewId,
-          'media_type': 'image',
-          'media_url': imageUrl,
+      final response = await _apiClient.get(
+        Endpoints.gameReviews,
+        queryParameters: {
+          'select': '*,games(*)',
+          'order': 'created_at.desc',
+          'limit': limit,
+          'offset': offset,
         },
       );
+
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List).map((r) {
+          final map = Map<String, dynamic>.from(r as Map);
+          return ReviewModel.fromJsonWithNestedGame(map);
+        }).toList();
+      }
+      return [];
     } catch (e) {
-      print(e.toString());
-      throw Exception(e.toString());
+      Logger.error(t.errors.failedToFetchRecentReviews, e);
+      return [];
     }
   }
 
@@ -98,20 +105,20 @@ class ReviewsService {
   }) async {
     final reviewData = ReviewModel(
       id: '',
-      user_id: user_id,
-      game_id: game_id,
+      userId: user_id,
+      gameId: game_id,
       title: title,
       content: content,
-      overall_rating: overall_rating,
-      gameplay_rating: gameplay_rating,
-      graphics_rating: graphics_rating,
-      story_rating: story_rating,
-      sound_rating: sound_rating,
-      value_rating: value_rating,
+      overallRating: overall_rating,
+      gameplayRating: gameplay_rating,
+      graphicsRating: graphics_rating,
+      storyRating: story_rating,
+      soundRating: sound_rating,
+      valueRating: value_rating,
       pros: pros,
       cons: cons,
-      playtime_hours: playtime_hours,
-      completion_status: completion_status,
+      playtimeHours: playtime_hours,
+      completionStatus: completion_status,
       recommended: recommended,
     );
 
@@ -124,7 +131,7 @@ class ReviewsService {
     Logger.info('DATA: $data');
 
     final response = await _apiClient.post(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       data: data,
       queryParameters: {
         'select': '*',
@@ -147,44 +154,42 @@ class ReviewsService {
     required String id,
     String? title,
     String? content,
-    double? overall_rating,
-    double? gameplay_rating,
-    double? graphics_rating,
-    double? story_rating,
-    double? sound_rating,
-    double? value_rating,
+    double? overallRating,
+    double? gameplayRating,
+    double? graphicsRating,
+    double? storyRating,
+    double? soundRating,
+    double? valueRating,
     List<String>? pros,
     List<String>? cons,
-    int? playtime_hours,
-    String? completion_status,
+    int? playtimeHours,
+    String? completionStatus,
     bool? recommended,
   }) async {
     // Create a partial ReviewModel with only the fields we're updating
     final reviewData = ReviewModel(
       id: id,
-      user_id: '',
-      //Not being updated
-      game_id: '',
-      //Not being updated
+      userId: '', //Not being updated
+      gameId: '', //Not being updated
       title: title,
       content: content,
-      overall_rating: overall_rating,
-      gameplay_rating: gameplay_rating,
-      graphics_rating: graphics_rating,
-      story_rating: story_rating,
-      sound_rating: sound_rating,
-      value_rating: value_rating,
+      overallRating: overallRating,
+      gameplayRating: gameplayRating,
+      graphicsRating: graphicsRating,
+      storyRating: storyRating,
+      soundRating: soundRating,
+      valueRating: valueRating,
       pros: pros,
       cons: cons,
-      playtime_hours: playtime_hours,
-      completion_status: completion_status,
+      playtimeHours: playtimeHours,
+      completionStatus: completionStatus,
       recommended: recommended,
     );
 
     final data = reviewData.toJsonForApi();
 
     final response = await _apiClient.patch(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       data: data,
       queryParameters: {
         'id': 'eq.$id',
@@ -202,7 +207,7 @@ class ReviewsService {
 
   Future<void> deleteReview(String reviewId) async {
     await _apiClient.delete(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'id': 'eq.$reviewId',
       },
@@ -214,7 +219,7 @@ class ReviewsService {
     required String gameId,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': 'id',
         'user_id': 'eq.$userId',
@@ -229,7 +234,7 @@ class ReviewsService {
 
   // reviews_service.dart
   ReviewModel _parseReviewFromResponse(Response response) {
-    if (response.statusCode != 201 && response.statusCode != 200) {
+    if (response.statusCode != HttpStatus.created && response.statusCode != HttpStatus.ok ) {
       throw AppException(
         'errors.failedToProcessReview',
         fallbackMessage:
