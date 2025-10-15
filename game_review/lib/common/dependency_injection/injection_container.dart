@@ -7,7 +7,6 @@ import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/core/services/game_service.dart';
-import 'package:game_review/core/services/review_service.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 import 'package:game_review/features/auth/services/auth_service.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
@@ -64,12 +63,6 @@ void setupDependencies() {
     ),
   );
 
-  locator.registerLazySingleton<GameService>(
-    () => GameService(locator<ApiClient>(), locator<AuthService>()),
-  );
-
-  locator.registerLazySingleton<ReviewService>(
-    () => ReviewService(locator<ApiClient>(), locator<AuthService>()),
   locator.registerLazySingleton<UserService>(
     () => UserService(locator<ApiClient>(), locator<ApiImageClient>()),
   );
@@ -118,9 +111,5 @@ void setupDependencies() {
 
   locator.registerFactory<GameDetailsCubit>(
     () => GameDetailsCubit(gameService: locator<GameService>()),
-  );
-
-  locator.registerLazySingleton<ReviewService>(
-    () => ReviewService(locator<ApiClient>(), locator<AuthService>()),
   );
 }
