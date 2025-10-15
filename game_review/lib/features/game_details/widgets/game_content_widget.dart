@@ -7,6 +7,16 @@ import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:game_review/common/extensions/datetime_extensions.dart';
 
+enum GameMenuAction {
+  wishlist('wishlist'),
+  library('library'),
+  review('review'),
+  share('share');
+
+  const GameMenuAction(this.value);
+  final String value;
+}
+
 class GameContentWidget extends StatelessWidget {
   final GameModel game;
   final String gameId;
@@ -52,7 +62,7 @@ class GameContentWidget extends StatelessWidget {
                 onSelected: (value) => _handleMenuAction(context, value),
                 itemBuilder: (context) => [
                   PopupMenuItem<String>(
-                    value: 'wishlist',
+                    value: GameMenuAction.wishlist.value,
                     child: Row(
                       children: [
                         Icon(
@@ -73,7 +83,7 @@ class GameContentWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem<String>(
-                    value: 'library',
+                    value: GameMenuAction.library.value,
                     child: Row(
                       children: [
                         Icon(
@@ -96,7 +106,7 @@ class GameContentWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem<String>(
-                    value: 'review',
+                    value: GameMenuAction.review.value,
                     child: Row(
                       children: [
                         const Icon(
@@ -115,7 +125,7 @@ class GameContentWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuItem<String>(
-                    value: 'share',
+                    value: GameMenuAction.share.value,
                     child: Row(
                       children: [
                         const Icon(
@@ -337,8 +347,6 @@ class GameContentWidget extends StatelessWidget {
         cubit.toggleLibrary(gameId);
         break;
       case 'review':
-        // TODO: Navigate to review writing page
-        _showComingSoonSnackBar(context, t.gameDetails.reviewComingSoon);
         break;
       case 'share':
         // TODO: Implement share functionality
