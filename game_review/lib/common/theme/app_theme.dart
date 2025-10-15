@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/theme/border_size.dart';
 
 import 'app_colors.dart';
 
@@ -104,11 +105,11 @@ class AppTheme {
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderSize.m.radius,
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderSize.m.radius,
           borderSide: const BorderSide(
             color: AppColors.lilacSelected,
             width: 1.8,
@@ -163,12 +164,18 @@ class AppTheme {
       switchTheme: SwitchThemeData(
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return AppColors.primaryPurple.withValues(alpha: 0.6);
+            return AppColors.lilacSelected;
           } else {
-            return AppColors.textSecondary.withValues(alpha: 0.3);
+            return AppColors.textSecondary;
           }
         }),
-        thumbColor: const WidgetStatePropertyAll(AppColors.primaryPurple),
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.primaryPurple;
+          } else {
+            return AppColors.lilacSelected;
+          }
+        }),
       ),
       checkboxTheme: CheckboxThemeData(
         fillColor: WidgetStateProperty.resolveWith((states) {

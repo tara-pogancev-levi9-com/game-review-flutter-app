@@ -383,6 +383,8 @@ class _AddReviewPageState extends State<AddReviewPage> {
                           divisions: 100,
                           onChanged: (value) =>
                               setState(() => _completionPercentage = value),
+                          activeColor: AppColors.lilacSelected,
+                          inactiveColor: AppColors.textTertiary,
                         ),
                       ],
                     ),
