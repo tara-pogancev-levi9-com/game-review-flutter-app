@@ -54,9 +54,9 @@ class UserCubit extends Cubit<UserProfileState> {
     }
   }
 
-  Future<String> getCurrentUserId() {
+  Future<String> getCurrentUserId() async {
     try {
-      final userId = _userService.getCurrentUserUid();
+      final userId = await _userService.getCurrentUserUid();
       return userId;
     } catch (e) {
       throw Exception(e.toString());

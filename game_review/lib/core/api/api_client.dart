@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
+import 'package:game_review/features/auth/login_page.dart';
 
 // TODO: Error handling, generic responses
 
 class ApiClient {
   final Dio dio;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   ApiClient({required String baseUrl})
     : dio = Dio(
@@ -35,15 +38,58 @@ class ApiClient {
         onResponse: (response, handler) {
           return handler.next(response);
         },
-        onError: (DioException e, handler) {
+        onError: (DioException e, handler) async {
           if (e.response?.statusCode == HttpStatus.unauthorized) {
-            // TODO: Handle unauthorized error
+            String? refreshToken = SecureStorage.getRefreshToken();
+
+            if (refreshToken == null) {
+              await _handleLogoutAndNavigate();
+              return handler.next(e);
+            }
+
+            try {
+              String newAccessToken = await refreshAccessToken(refreshToken);
+              SecureStorage.saveToken(newAccessToken);
+
+              e.requestOptions.headers['Authorization'] =
+                  'Bearer $newAccessToken';
+
+              return handler.resolve(await dio.fetch(e.requestOptions));
+            } catch (refreshError) {
+              await _handleLogoutAndNavigate();
+              return handler.next(e);
+            }
           }
           return handler.next(e);
         },
       ),
     );
   }
+
+  Future<void> _handleLogoutAndNavigate() async {
+    await SecureStorage.deleteRefreshToken();
+    await SecureStorage.deleteToken();
+
+    navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => LoginPage()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  Future<String> refreshAccessToken(String refreshToken) async {
+    try {
+      final response = await post(
+        '/auth/v1/token?grant_type=refresh_token',
+        data: {
+          'refresh_token': refreshToken,
+        },
+      );
+      return response.data['access_token'];
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
 
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
