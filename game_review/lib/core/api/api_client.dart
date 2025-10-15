@@ -90,7 +90,6 @@ class ApiClient {
     }
   }
 
-
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
   }

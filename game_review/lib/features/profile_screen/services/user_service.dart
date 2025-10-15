@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';

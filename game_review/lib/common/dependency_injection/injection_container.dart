@@ -26,10 +26,10 @@ final locator = GetIt.instance;
 void setupDependencies() {
   locator.registerLazySingleton<ApiImageClient>(
     () => ApiImageClient(
-      baseUrl: ApiConstants.apiKey,
+      baseUrl: ApiConstants.apiUrl,
     ),
   );
-  final apiUrl = ApiConstants.apiKey;
+  final apiUrl = ApiConstants.apiUrl;
   if (apiUrl.isEmpty) {
     throw StateError(t.missingApiUrl);
   }
@@ -41,12 +41,11 @@ void setupDependencies() {
     ),
   );
 
-  locator.registerLazySingleton<AuthCubit>(
-    () => AuthCubit(locator<AuthService>()),
-  );
-
   locator.registerLazySingleton<GameService>(
     () => GameService(locator<ApiClient>(), locator<AuthService>()),
+  );
+  locator.registerLazySingleton<AuthCubit>(
+    () => AuthCubit(locator<AuthService>()),
   );
 
   locator.registerFactory<GamesCubit>(
