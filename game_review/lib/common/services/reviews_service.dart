@@ -15,11 +15,11 @@ class ReviewsService {
 
   Future<List<ReviewModel>> fetchReviewsByGame({
     required String game_id,
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
         'game_id': 'eq.$game_id',
@@ -35,11 +35,11 @@ class ReviewsService {
 
   Future<List<ReviewModel>> fetchReviewsByUser({
     required String user_id,
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
         'user_id': 'eq.$user_id',
@@ -126,7 +126,7 @@ class ReviewsService {
     Logger.info('DATA: $data');
 
     final response = await _apiClient.post(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       data: data,
       queryParameters: {
         'select': '*',
@@ -184,7 +184,7 @@ class ReviewsService {
     final data = reviewData.toJsonForApi();
 
     final response = await _apiClient.patch(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       data: data,
       queryParameters: {
         'id': 'eq.$id',
@@ -202,7 +202,7 @@ class ReviewsService {
 
   Future<void> deleteReview(String reviewId) async {
     await _apiClient.delete(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'id': 'eq.$reviewId',
       },
@@ -214,7 +214,7 @@ class ReviewsService {
     required String gameId,
   }) async {
     final response = await _apiClient.get(
-      '/rest/v1/game_reviews',
+      Endpoints.gameReviews,
       queryParameters: {
         'select': 'id',
         'user_id': 'eq.$userId',
@@ -229,7 +229,7 @@ class ReviewsService {
 
   // reviews_service.dart
   ReviewModel _parseReviewFromResponse(Response response) {
-    if (response.statusCode != 201 && response.statusCode != 200) {
+    if (response.statusCode != HttpStatus.created && response.statusCode != HttpStatus.ok ) {
       throw AppException(
         'errors.failedToProcessReview',
         fallbackMessage:

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/home_screen/widgets/games_list_view.dart';
 import 'package:game_review/common/widgets/error_view.dart';
 import 'package:game_review/common/widgets/section_header.dart';
@@ -14,7 +15,7 @@ class GamesListWidget extends StatelessWidget {
   const GamesListWidget({
     super.key,
     required this.title,
-    this.limit = 10,
+    this.limit = Endpoints.limitGames,
   });
 
   @override
