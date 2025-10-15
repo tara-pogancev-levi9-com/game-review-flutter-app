@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/features/auth/bloc/auth_cubit.dart';
-import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class SearchPage extends StatelessWidget {
@@ -23,31 +19,6 @@ class SearchPage extends StatelessWidget {
           Text(
             context.t.navigation.search,
             style: Theme.of(context).textTheme.titleLarge,
-          ),
-          IconButton(
-            onPressed: () async {
-              await locator<AuthCubit>().logout();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
-                (Route<dynamic> route) => false,
-              );
-            },
-            icon: Icon(
-              Icons.logout,
-              size: 30,
-            ),
-          ),
-          FilledButton(
-            onPressed: () async {
-              final response = await locator<ApiClient>().refreshAccessToken(
-                'kqnb7y3bphqm',
-              );
-              //print("Refresh Token RESPONSE: " + response.toString());
-            },
-            child: Text("Refresh token"),
           ),
         ],
       ),

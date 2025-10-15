@@ -1,13 +1,13 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/utils/error_codes.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
+import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
+import 'package:jose/jose.dart';
 
 class UserService {
   final ApiClient apiClient;
@@ -16,13 +16,15 @@ class UserService {
   UserService(this.apiClient, this.apiImageClient);
 
   Future<String> getCurrentUserUid() async {
+    String? accessToken = SecureStorage.getToken();
     try {
-      final userData = await apiClient.get('auth/v1/user');
-      final val = jsonDecode(userData.toString());
-
-      return val['id'];
+      final jwt = JsonWebToken.unverified(accessToken!);
+      final claims = jwt.claims.toJson();
+      return claims['sub'] as String;
     } on DioException catch (e) {
       throw Exception('Failed to get authenticated user ID: ${e.message}');
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 

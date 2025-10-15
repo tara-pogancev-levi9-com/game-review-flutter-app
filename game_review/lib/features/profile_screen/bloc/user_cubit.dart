@@ -54,18 +54,9 @@ class UserCubit extends Cubit<UserProfileState> {
     }
   }
 
-  //Commented because: Probably unnecessary
-  /*Future<bool> areFriends(String userId, String otherUserId) async {
+  Future<String> getCurrentUserId() async {
     try {
-      return await _userService.checkFriendship(userId, otherUserId);
-    } on DioException {
-      return false;
-    }
-  }*/
-
-  Future<String> getCurrentUserId() {
-    try {
-      final userId = _userService.getCurrentUserUid();
+      final userId = await _userService.getCurrentUserUid();
       return userId;
     } catch (e) {
       throw Exception(e.toString());
