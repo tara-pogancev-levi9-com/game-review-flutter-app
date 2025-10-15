@@ -50,14 +50,6 @@ class ApiImageClient {
   }
 
   Future<Response> post(String path, String imageExtensions, {dynamic data}) {
-    print(
-      "PATH: " +
-          path +
-          " IMAGE EXTENSION: " +
-          imageExtensions +
-          " DATA: " +
-          data.toString(),
-    );
     Options options = Options(
       headers: {'Content-Type': 'image/${imageExtensions}'},
     );

@@ -22,6 +22,8 @@ import 'package:game_review/features/review_screen/widgets/section_title_widget.
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../common/theme/app_styles.dart';
+
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
 
@@ -529,6 +531,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                           ),
                     const SizedBox(height: 22),
                     ElevatedButton(
+                      style: elevatedButtonSmallStyle,
                       onPressed: () => _pickMultiImages(),
                       child: Text(t.chooseImages),
                     ),
