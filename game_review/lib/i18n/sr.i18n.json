@@ -311,8 +311,7 @@
     "genericError": "Došlo je do greške. Molimo pokušajte ponovo.",
     "failedToAddReview": "Nije uspelo da se doda recenzija",
     "failedToUpdateReview": "Nije uspelo da se ažurira recenzija",
-    "failedToDeleteReview": "Nije uspelo da se obriše recenzija"
-    "reviewsNotFound": "Recenzije nisu pronađene",
+    "failedToDeleteReview": "Nije uspelo da se obriše recenzija",
     "failedToFetchGame": "Neuspešno učitavanje igre",
     "failedToFetchGames": "Neuspešno učitavanje igara",
     "failedToFetchGameStatistics": "Neuspešno učitavanje statistika igre",
@@ -332,7 +331,6 @@
     "confirmPassword": "Molimo potvrdite vašu lozinku",
     "passwordMismatch": "Lozinke se ne podudaraju"
   },
-
   "common": {
     "goBack": "Nazad"
   },
@@ -368,10 +366,9 @@
   "iRecommendThisGame": "Preporučujem ovu igru *",
   "selectAGameFromYourLibrary": "Izaberite igru iz vaše biblioteke...",
   "completed100": "Završeno (100%)",
-  "notStarted0": "Nije započeto (0%)"
+  "notStarted0": "Nije započeto (0%)",
   "avatarUpdated": "Avatar promenjen.",
   "profileUpdated": "Profil izmenjen.",
-
   "gameReview": "Recenzija",
   "addComment": "Dodaj komentar",
   "reviewsNotFound": "Recenzije nisu pronađene",

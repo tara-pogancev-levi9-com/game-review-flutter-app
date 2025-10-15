@@ -2,16 +2,15 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/models/review_media_model.dart';
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/utils/app_exception.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/common/utils/app_exception.dart';
-import 'package:game_review/common/utils/logger.dart';
-import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/core/api/api_image_client.dart';
+
+import '../../core/api/api_image_client.dart';
 
 class ReviewsService {
   final ApiClient _apiClient;
@@ -169,8 +168,10 @@ class ReviewsService {
     // Create a partial ReviewModel with only the fields we're updating
     final reviewData = ReviewModel(
       id: id,
-      userId: '', //Not being updated
-      gameId: '', //Not being updated
+      userId: '',
+      //Not being updated
+      gameId: '',
+      //Not being updated
       title: title,
       content: content,
       overallRating: overallRating,
@@ -205,6 +206,57 @@ class ReviewsService {
     return _parseReviewFromResponse(response);
   }
 
+  Future<void> addReviewMedia(imagePath, imageBytes, imageExtensions) async {
+    try {
+      await locator<ApiImageClient>().post(
+        '${Endpoints.storageReviewMedia}${imagePath}',
+        imageExtensions,
+        data: imageBytes,
+      );
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> addReviewMediaModel(String reviewId, String imageUrl) async {
+    try {
+      await locator<ApiClient>().post(
+        Endpoints.reviewMedia,
+        data: {
+          'review_id': reviewId,
+          'media_type': 'image',
+          'media_url': imageUrl,
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<List<ReviewMediaModel>> getReviewMedia(reviewId) async {
+    try {
+      final response = await _apiClient.get(
+        '/rest/v1/review_media',
+        queryParameters: {'review_id': 'eq.$reviewId', 'select': '*'},
+      );
+      final data = response.data;
+
+      if (data is List && data.isNotEmpty) {
+        List<ReviewMediaModel> result = [];
+        for (dynamic reviewMedia in data) {
+          result.add(
+            ReviewMediaModel.fromJson(reviewMedia as Map<String, dynamic>),
+          );
+        }
+        return result;
+      }
+      return [];
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<void> deleteReview(String reviewId) async {
     await _apiClient.delete(
       Endpoints.gameReviews,
@@ -234,7 +286,8 @@ class ReviewsService {
 
   // reviews_service.dart
   ReviewModel _parseReviewFromResponse(Response response) {
-    if (response.statusCode != HttpStatus.created && response.statusCode != HttpStatus.ok ) {
+    if (response.statusCode != HttpStatus.created &&
+        response.statusCode != HttpStatus.ok) {
       throw AppException(
         'errors.failedToProcessReview',
         fallbackMessage:
@@ -244,7 +297,6 @@ class ReviewsService {
 
     final data = response.data;
 
-    // Supabase with 'Prefer: return=representation' always returns a list
     if (data is List && data.isNotEmpty && data.first is Map<String, dynamic>) {
       return ReviewModel.fromJson(data.first as Map<String, dynamic>);
     }

@@ -180,7 +180,7 @@ class UserService {
     }
   }
 
-  Future<bool> checkFriendship(String userId, String otherUserId) async {
+  Future<bool> areFriends(String userId, String otherUserId) async {
     try {
       final response = await apiClient.get(
         '/rest/v1/friendships',

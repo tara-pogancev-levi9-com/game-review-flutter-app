@@ -1,6 +1,7 @@
 class Endpoints {
   static const String authSignup = 'auth/v1/signup';
-  static const String authToken = 'auth/v1/token'; // append ?grant_type=password where needed
+  static const String authToken =
+      'auth/v1/token'; // append ?grant_type=password where needed
   static const String authUser = 'auth/v1/user';
   static const String authLogout = 'auth/v1/logout';
 
@@ -8,6 +9,8 @@ class Endpoints {
   static const String userWishlist = 'rest/v1/user_wishlist';
   static const String userLibrary = 'rest/v1/user_library';
   static const String gameReviews = 'rest/v1/game_reviews';
+  static const String reviewMedia = '/rest/v1/review_media';
+  static const String storageReviewMedia = '/storage/v1/object/review_media/';
   static const String users = 'rest/v1/users';
   static const String reviewComments = 'rest/v1/review_comments';
 

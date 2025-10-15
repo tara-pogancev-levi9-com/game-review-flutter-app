@@ -24,7 +24,6 @@ import 'package:game_review/i18n/strings.g.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../common/theme/app_styles.dart';
-import 'package:game_review/i18n/strings.g.dart';
 
 class AddReviewPage extends StatefulWidget {
   final GameModel game;
