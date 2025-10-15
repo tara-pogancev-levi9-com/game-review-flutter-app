@@ -15,6 +15,7 @@ class ReviewService {
 
   Future<List<GameReviewModel>> getGameReviews(
     String gameId, {
+    //int limit = 10,
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
@@ -208,7 +209,8 @@ class ReviewService {
         },
       );
 
-      return response.statusCode == HttpStatus.ok && (response.data as List).isNotEmpty;
+      return response.statusCode == HttpStatus.ok &&
+          (response.data as List).isNotEmpty;
     } catch (e) {
       return false;
     }

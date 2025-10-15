@@ -308,6 +308,24 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	late final TranslationsTimeEn time = TranslationsTimeEn.internal(_root);
 	late final TranslationsDateTimeEn dateTime = TranslationsDateTimeEn.internal(_root);
+
+	/// en: 'Games'
+	String get gamesSection => 'Games';
+
+	/// en: 'Reviews'
+	String get reviewsSection => 'Reviews';
+
+	/// en: 'Recommended'
+	String get recommended => 'Recommended';
+
+	/// en: 'Swipe to see more'
+	String get swipeToSeeMore => 'Swipe to see more';
+
+	/// en: 'No results found for "{{query}}"'
+	String noResultsFound({required Object query}) => 'No results found for "${query}"';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
 }
 
 // Path: gameDetails
