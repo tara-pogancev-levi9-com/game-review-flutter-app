@@ -4,7 +4,7 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/search_screen/bloc/search_cubit.dart';
 import 'package:game_review/features/search_screen/bloc/search_state.dart';
-import 'package:game_review/features/search_screen/widgets/empty_state.dart';
+import 'package:game_review/features/search_screen/widgets/empty_search_view.dart';
 import 'package:game_review/features/search_screen/widgets/horizontal_games_list.dart';
 import 'package:game_review/features/search_screen/widgets/horizontal_reviews_list.dart';
 import 'package:game_review/features/search_screen/widgets/no_resaults.dart';
@@ -66,7 +66,7 @@ class _SearchPageState extends State<SearchPage> {
             bloc: _searchCubit,
             builder: (context, state) {
               return state.when(
-                initial: () => EmptyState(t: t),
+                initial: () => EmptySearchView(),
                 loading: () => const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -75,39 +75,36 @@ class _SearchPageState extends State<SearchPage> {
                     return NoResaults(t: t, query: query);
                   }
 
-                  return SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Games Section
-                        if (games.isNotEmpty) ...[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: SectionHeader(
-                              title: t.gamesSection,
-                              count: games.length,
-                            ),
+                  return ListView(
+                    children: [
+                      // Games Section
+                      if (games.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: SectionHeader(
+                            title: t.gamesSection,
+                            count: games.length,
                           ),
-                          const SizedBox(height: 16),
-                          HorizontalGamesList(games: games),
-                          const SizedBox(height: 32),
-                        ],
-
-                        // Reviews Section
-                        if (reviews.isNotEmpty) ...[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: SectionHeader(
-                              title: t.reviewsSection,
-                              count: reviews.length,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          HorizontalReviewsList(reviews: reviews),
-                          const SizedBox(height: 24),
-                        ],
+                        ),
+                        const SizedBox(height: 16),
+                        HorizontalGamesList(games: games),
+                        const SizedBox(height: 32),
                       ],
-                    ),
+
+                      // Reviews Section
+                      if (reviews.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: SectionHeader(
+                            title: t.reviewsSection,
+                            count: reviews.length,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        HorizontalReviewsList(reviews: reviews),
+                        const SizedBox(height: 24),
+                      ],
+                    ],
                   );
                 },
                 error: (message) {

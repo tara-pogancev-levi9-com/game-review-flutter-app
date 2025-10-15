@@ -4,6 +4,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
+import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewSearchItem extends StatelessWidget {
@@ -175,7 +176,7 @@ class ReviewSearchItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  _formatDate(review.createdAt),
+                  review.createdAt?.timeAgo ?? '',
                   style: AppTypography.searchItemSubtitle,
                 ),
               ],
@@ -184,23 +185,5 @@ class ReviewSearchItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatDate(DateTime? date) {
-    if (date == null) return '';
-    final now = DateTime.now();
-    final difference = now.difference(date);
-
-    if (difference.inDays > 365) {
-      return '${(difference.inDays / 365).floor()}y ago';
-    } else if (difference.inDays > 30) {
-      return '${(difference.inDays / 30).floor()}mo ago';
-    } else if (difference.inDays > 0) {
-      return '${difference.inDays}d ago';
-    } else if (difference.inHours > 0) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${difference.inMinutes}m ago';
-    }
   }
 }
