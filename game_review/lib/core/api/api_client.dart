@@ -35,15 +35,40 @@ class ApiClient {
         onResponse: (response, handler) {
           return handler.next(response);
         },
-        onError: (DioException e, handler) {
+        onError: (DioException e, handler) async {
           if (e.response?.statusCode == HttpStatus.unauthorized) {
-            // TODO: Handle unauthorized error
+            String? refreshToken = SecureStorage.getRefreshToken();
+            if (refreshToken != null) {
+              String newAccessToken = await refreshAccessToken(refreshToken);
+              SecureStorage.saveToken(newAccessToken);
+
+              e.requestOptions.headers['Authorization'] =
+                  'Bearer $newAccessToken';
+
+              // Repeat the request with the updated header
+              return handler.resolve(await dio.fetch(e.requestOptions));
+            }
           }
           return handler.next(e);
         },
       ),
     );
   }
+
+  Future<String> refreshAccessToken(String refreshToken) async {
+    try {
+      final response = await post(
+        '/auth/v1/token?grant_type=refresh_token',
+        data: {
+          'refresh_token': refreshToken,
+        },
+      );
+      return response.data['access_token'];
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
   }

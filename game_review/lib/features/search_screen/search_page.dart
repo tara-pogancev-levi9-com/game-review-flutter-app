@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
@@ -38,6 +39,15 @@ class SearchPage extends StatelessWidget {
               Icons.logout,
               size: 30,
             ),
+          ),
+          FilledButton(
+            onPressed: () async {
+              final response = await locator<ApiClient>().refreshAccessToken(
+                'kqnb7y3bphqm',
+              );
+              //print("Refresh Token RESPONSE: " + response.toString());
+            },
+            child: Text("Refresh token"),
           ),
         ],
       ),
