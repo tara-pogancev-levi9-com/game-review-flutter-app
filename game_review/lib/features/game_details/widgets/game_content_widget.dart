@@ -49,7 +49,7 @@ class GameContentWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              PopupMenuButton<String>(
+              PopupMenuButton<GameMenuAction>(
                 icon: const Icon(
                   Icons.more_vert,
                   color: AppColors.textPrimary,
@@ -61,8 +61,8 @@ class GameContentWidget extends StatelessWidget {
                 ),
                 onSelected: (value) => _handleMenuAction(context, value),
                 itemBuilder: (context) => [
-                  PopupMenuItem<String>(
-                    value: GameMenuAction.wishlist.value,
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.wishlist,
                     child: Row(
                       children: [
                         Icon(
@@ -82,8 +82,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: GameMenuAction.library.value,
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.library,
                     child: Row(
                       children: [
                         Icon(
@@ -105,8 +105,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: GameMenuAction.review.value,
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.review,
                     child: Row(
                       children: [
                         const Icon(
@@ -124,8 +124,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: GameMenuAction.share.value,
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.share,
                     child: Row(
                       children: [
                         const Icon(
@@ -336,19 +336,19 @@ class GameContentWidget extends StatelessWidget {
     );
   }
 
-  void _handleMenuAction(BuildContext context, String action) {
+  void _handleMenuAction(BuildContext context, GameMenuAction action) {
     final cubit = context.read<GameDetailsCubit>();
 
     switch (action) {
-      case 'wishlist':
+      case GameMenuAction.wishlist:
         cubit.toggleWishlist(gameId);
         break;
-      case 'library':
+      case GameMenuAction.library:
         cubit.toggleLibrary(gameId);
         break;
-      case 'review':
+      case GameMenuAction.review:
         break;
-      case 'share':
+      case GameMenuAction.share:
         // TODO: Implement share functionality
         _showComingSoonSnackBar(context, t.gameDetails.shareComingSoon);
         break;
