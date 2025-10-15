@@ -53,8 +53,20 @@ class TranslationsSr extends Translations {
 	@override String get confirmPassword => 'Potvrdi Lozinku';
 	@override String get submit => 'Pošalji';
 	@override String get username => 'Korisničko Ime';
+	@override String get displayName => 'Prikazno ime';
+	@override String get noImage => 'Nema Slike';
+	@override String get saveImage => 'Sačuvaj Sliku ';
+	@override String get changePassword => 'Promeni Lozinku';
+	@override String get passwordChanged => 'Lozinka uspesno promenjena.';
+	@override String get errorChangingPassword => 'Greska prilikom promene lozinke';
+	@override String get userDataNotLoaded => 'Podatci korisnika nisu ucitani!';
+	@override String get saveProfile => 'Sacuvaj profil';
+	@override String get enterBio => 'Unesi biografiju';
+	@override String get profileInfo => 'Informacije o profilu';
 	@override String get profileSettings => 'Podešavanja Profila';
 	@override String get notifications => 'Obaveštenja';
+	@override String get addFriend => 'Dodaj prijatelja';
+	@override String get friends => 'Prijatelji';
 	@override String get back => 'Nazad';
 	@override String get next => 'Dalje';
 	@override String get discover => 'Istraži';
@@ -75,6 +87,7 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get avatarRemoved => 'Avatar uklonjen.';
 	@override String get missingApiUrl => 'Nedostaje API_URL promenljiva';
 	@override String get registrationError => 'Greška, Pokušajte ponovo kasnije.';
 	@override String get passwordMismatch => 'Lozinke se ne podudaraju!.';
@@ -120,6 +133,8 @@ class TranslationsSr extends Translations {
 	@override String get completed100 => 'Završeno (100%)';
 	@override String get notStarted0 => 'Nije započeto (0%)';
 	@override late final TranslationsGameServiceSr gameService = TranslationsGameServiceSr._(_root);
+	@override String get avatarUpdated => 'Avatar promenjen.';
+	@override String get profileUpdated => 'Profil izmenjen.';
 	@override String get gameReview => 'Recenzija';
 	@override String get addComment => 'Dodaj komentar';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
@@ -292,11 +307,11 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
-	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
 	@override String get requiredField => '{field} je obavezan';
 	@override String get invalidEmail => 'Nevalidna email adresa';
 	@override String get minLength => 'Minimalno {n} karaktera';
+	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
+	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Molimo vas da ponovo pokrenete i pokušate ponovo.';
 	@override String get gameNotFound => 'Igra nije pronađena';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
@@ -372,8 +387,8 @@ class TranslationsBrandingSr extends TranslationsBrandingEn {
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'PAW GAMES';
-	@override String get tagline => 'Otkrijte. Ocijenite. Podelite.';
+	@override String get title => 'PAW IGRE';
+	@override String get tagline => 'Istraži. Oceni. Deli.';
 	@override String get logoLabel => 'Logo aplikacije';
 }
 
