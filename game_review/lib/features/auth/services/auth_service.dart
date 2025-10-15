@@ -70,6 +70,7 @@ class AuthService {
 
       if (response.statusCode == HttpStatus.ok &&
           response.data['access_token'] != null) {
+        await SecureStorage.saveRefreshToken(response.data['refresh_token']);
         await SecureStorage.saveToken(response.data['access_token']);
         Logger.info('Login successful, token saved.');
 

@@ -1,10 +1,11 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/review_form_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_game_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_user_cubit.dart';
+import 'package:game_review/common/constants.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/core/services/game_service.dart';
 import 'package:game_review/core/services/review_service.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:game_review/features/home_screen/bloc/home_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
 import 'package:game_review/features/home_screen/services/review_comment_service.dart';
 import 'package:game_review/features/library_screen/bloc/library_cubit.dart';
+import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/features/registration_screen/bloc/register_cubit.dart';
 import 'package:game_review/features/search_screen/bloc/search_cubit.dart';
@@ -24,8 +26,13 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void setupDependencies() {
-  final apiUrl = dotenv.env['API_URL'];
-  if (apiUrl == null || apiUrl.isEmpty) {
+  locator.registerLazySingleton<ApiImageClient>(
+    () => ApiImageClient(
+      baseUrl: ApiConstants.apiUrl,
+    ),
+  );
+  final apiUrl = ApiConstants.apiUrl;
+  if (apiUrl.isEmpty) {
     throw StateError(t.missingApiUrl);
   }
   locator.registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiUrl));
@@ -36,12 +43,11 @@ void setupDependencies() {
     ),
   );
 
-  locator.registerLazySingleton<AuthCubit>(
-    () => AuthCubit(locator<AuthService>()),
-  );
-
   locator.registerLazySingleton<GameService>(
     () => GameService(locator<ApiClient>(), locator<AuthService>()),
+  );
+  locator.registerLazySingleton<AuthCubit>(
+    () => AuthCubit(locator<AuthService>()),
   );
 
   locator.registerFactory<GamesCubit>(
@@ -56,6 +62,13 @@ void setupDependencies() {
     () => LibraryCubit(
       locator<GameService>(),
     ),
+  );
+
+  locator.registerLazySingleton<UserService>(
+    () => UserService(locator<ApiClient>(), locator<ApiImageClient>()),
+  );
+  locator.registerLazySingleton<UserCubit>(
+    () => UserCubit(),
   );
 
   locator.registerLazySingleton<HomeCubit>(
@@ -75,10 +88,6 @@ void setupDependencies() {
 
   locator.registerLazySingleton<ReviewsService>(
     () => ReviewsService(locator<ApiClient>()),
-  );
-
-  locator.registerLazySingleton<UserService>(
-    () => UserService(locator<ApiClient>()),
   );
 
   locator.registerFactory<ReviewFormCubit>(
