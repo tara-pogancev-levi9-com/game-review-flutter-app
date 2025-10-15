@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/common/dependency_injection/injection_container.dart';
 
 import 'bloc/auth_cubit.dart';
 import 'bloc/auth_state.dart';

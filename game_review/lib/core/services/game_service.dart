@@ -1,10 +1,12 @@
 import 'dart:io';
-import 'package:game_review/core/api/api_client.dart';
-import 'package:game_review/core/api/api_constants.dart';
+
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/api_constants.dart';
+import 'package:game_review/core/api/endpoints.dart';
+import 'package:game_review/features/auth/services/auth_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/features/auth/auth_service.dart';
 
 class GameService {
   final ApiClient _apiClient;
@@ -49,7 +51,7 @@ class GameService {
 
   Future<List<GameModel>> getRecentGames({
     int page = 0,
-    int limit = 20,
+    int limit = Endpoints.limitDiscoverGames,
   }) async {
     try {
       final response = await _apiClient.get(
@@ -78,14 +80,145 @@ class GameService {
           .map((json) => GameModel.fromJson(json))
           .toList();
     } catch (e) {
-      Logger.error('Failed to fetch recent games', e);
+      throw Exception(t.errors.failedToFetchGames);
+    }
+  }
+
+  Future<List<GameModel>> getLatestGames({
+    int limit = Endpoints.limitPopularGames,
+  }) async {
+    try {
+      final response = await _apiClient.get(
+        Endpoints.games,
+        queryParameters: {
+          'select': '*',
+          'order': 'release_date.desc',
+          'limit': limit,
+        },
+      );
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List)
+            .map((gameJson) => GameModel.fromJson(gameJson))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchLatestGames, e);
+      return [];
+    }
+  }
+
+  Future<List<GameModel>> getPopularGames({
+    int limit = Endpoints.limitPopularGames,
+  }) async {
+    try {
+      final response = await _apiClient.get(
+        Endpoints.games,
+        queryParameters: {
+          'select': '*',
+          'order': 'title.asc',
+          'limit': limit,
+        },
+      );
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List)
+            .map((gameJson) => GameModel.fromJson(gameJson))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchPopularGames, e);
+      return [];
+    }
+  }
+
+  Future<List<GameModel>> fetchGames({
+    //int limit = 10,
+    int limit = Endpoints.limitGames,
+    int offset = 0,
+  }) async {
+    try {
+      final response = await _apiClient.get(
+        '/rest/v1/games',
+        queryParameters: {
+          'select': '*',
+          'limit': limit,
+          'offset': offset,
+          'order': 'release_date.desc',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List)
+            .map((json) => GameModel.fromJson(json))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error('Failed to fetch games', e);
+      return [];
+    }
+  }
+
+  Future<List<GameModel>> getUserWishlistGames() async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenWishlist);
+        return [];
+      }
+
+      final response = await _apiClient.get(
+        Endpoints.userWishlist,
+        queryParameters: {
+          'select': 'games(*)',
+          'user_id': 'eq.$userId',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List)
+            .map((entry) => GameModel.fromJson(entry['games']))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchWishlistGames, e);
+      return [];
+    }
+  }
+
+  Future<List<GameModel>> getUserLibraryGames() async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenLibrary);
+        return [];
+      }
+
+      final response = await _apiClient.get(
+        Endpoints.userLibrary,
+        queryParameters: {
+          'select': 'games(*)',
+          'user_id': 'eq.$userId',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
+        return (response.data as List)
+            .map((entry) => GameModel.fromJson(entry['games']))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      Logger.error(t.gameService.failedToFetchLibraryGames, e);
       throw Exception(t.errors.failedToFetchGames);
     }
   }
 
   Future<List<GameReviewModel>> getRecentReviews(
     String gameId, {
-    int limit = 5,
+    int limit = Endpoints.limitRecentReviews,
   }) async {
     try {
       final response = await _apiClient.get(
@@ -143,15 +276,37 @@ class GameService {
         throw Exception(t.errors.failedToAddToWishlist);
       }
     } catch (e) {
-      Logger.error('Failed to add game to wishlist', e);
+      throw Exception(t.gameDetails.failedToAddToWishlist);
+    }
+  }
 
-      if (e.toString().contains('409') || e.toString().contains('Conflict')) {
-        throw Exception('Game is already in your wishlist');
-      } else if (e.toString().contains('Failed to add to wishlist')) {
-        throw Exception(t.errors.failedToAddToWishlist);
-      } else {
-        throw Exception(t.errors.failedToAddToWishlist);
+  Future<bool> addToWishlistSimple(String gameId) async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenWishlist);
+        return false;
       }
+
+      final response = await _apiClient.post(
+        Endpoints.userWishlist,
+        data: {
+          'user_id': userId,
+          'game_id': gameId,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.created ||
+          response.statusCode == HttpStatus.ok) {
+        Logger.info(t.gameService.gameAddedToWishlistSuccess);
+        return true;
+      } else {
+        Logger.warning(t.errors.failedToAddToWishlist);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.errors.failedToAddToWishlist, e);
+      return false;
     }
   }
 
@@ -171,8 +326,34 @@ class GameService {
         throw Exception(t.errors.failedToRemoveFromWishlist);
       }
     } catch (e) {
-      Logger.error('Failed to remove game from wishlist', e);
-      throw Exception(t.errors.failedToRemoveFromWishlist);
+      throw Exception(t.gameDetails.failedToRemoveFromWishlist);
+    }
+  }
+
+  Future<bool> removeFromWishlistSimple(String gameId) async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenWishlist);
+        return false;
+      }
+
+      final path =
+          '${Endpoints.userWishlist}?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+
+      final response = await _apiClient.delete(path);
+
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.noContent) {
+        Logger.info(t.gameService.removedFromWishlist);
+        return true;
+      } else {
+        Logger.warning(t.gameService.failedToRemoveFromWishlist);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.gameService.failedToRemoveFromWishlist, e);
+      return false;
     }
   }
 
@@ -274,6 +455,36 @@ class GameService {
     }
   }
 
+  Future<bool> addToLibrarySimple(String gameId) async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenLibrary);
+        return false;
+      }
+
+      final response = await _apiClient.post(
+        Endpoints.userLibrary,
+        data: {
+          'user_id': userId,
+          'game_id': gameId,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.created ||
+          response.statusCode == HttpStatus.ok) {
+        Logger.info(t.gameService.gameAddedToLibrarySuccess);
+        return true;
+      } else {
+        Logger.warning(t.errors.failedToAddToLibrary);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.errors.failedToAddToLibrary, e);
+      return false;
+    }
+  }
+
   Future<void> updateGameProgress(
     String gameId,
     int hoursPlayed,
@@ -299,7 +510,6 @@ class GameService {
         throw Exception(t.errors.failedToUpdateGameProgress);
       }
     } catch (e) {
-      Logger.error('Failed to update game progress', e);
       throw Exception(t.errors.failedToUpdateGameProgress);
     }
   }
@@ -320,8 +530,34 @@ class GameService {
         throw Exception(t.errors.failedToRemoveFromLibrary);
       }
     } catch (e) {
-      Logger.error('Failed to remove game from library', e);
-      throw Exception(t.errors.failedToRemoveFromLibrary);
+      throw Exception(t.gameDetails.failedToRemoveFromLibrary);
+    }
+  }
+
+  Future<bool> removeFromLibrarySimple(String gameId) async {
+    try {
+      final userId = await _authService.getUserId();
+      if (userId == null) {
+        Logger.warning(t.gameService.noTokenLibrary);
+        return false;
+      }
+
+      final path =
+          '${Endpoints.userLibrary}?user_id=eq.${Uri.encodeComponent(userId)}&game_id=eq.${Uri.encodeComponent(gameId)}';
+
+      final response = await _apiClient.delete(path);
+
+      if (response.statusCode == HttpStatus.ok ||
+          response.statusCode == HttpStatus.noContent) {
+        Logger.info(t.gameDetails.removedFromLibrary);
+        return true;
+      } else {
+        Logger.warning(t.gameDetails.failedToRemoveFromLibrary);
+        return false;
+      }
+    } catch (e) {
+      Logger.error(t.gameDetails.failedToRemoveFromLibrary, e);
+      return false;
     }
   }
 

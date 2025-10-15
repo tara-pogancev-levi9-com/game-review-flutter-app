@@ -3,6 +3,7 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/core/services/game_service.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
 import 'game_details_state.dart';
 
 class _ErrorMessages {

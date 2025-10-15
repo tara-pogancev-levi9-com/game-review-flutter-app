@@ -3,6 +3,7 @@ import 'package:game_review/common/extensions/datetime_extensions.dart';
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/core/services/review_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:get_it/get_it.dart';
@@ -41,7 +42,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
     try {
       final reviews = await _reviewService.getGameReviews(
         widget.gameId,
-        limit: 5,
+        limit: Endpoints.limitRecentReviews,
       );
       setState(() {
         _reviews = reviews;

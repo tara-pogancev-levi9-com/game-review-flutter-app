@@ -1,38 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/models/game_model.dart';
-import 'package:game_review/features/welcome_screen/welcome_page.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
+import 'package:game_review/common/widgets/network_image_widget.dart';
+import 'package:game_review/features/game_details/game_details_page.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;
+  final VoidCallback? onTap;
 
-  const GameCard({super.key, required this.game});
+  const GameCard({
+    super.key,
+    required this.game,
+    this.onTap,
+  });
+
+  void _handleTap(BuildContext context) {
+    if (onTap != null) {
+      onTap!();
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => GameDetailsPage(
+            gameId: game.id,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 150,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
-            borderRadius: BorderSize.m.radius,
-            onTap: () {
-              // TODO: Implement navigation to game details page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const WelcomePage(), //GameDetailsScreen(game: game)
-                ),
-              );
-            },
-            child: ClipRRect(
+    return GestureDetector(
+      onTap: () => _handleTap(context),
+      child: SizedBox(
+        width: 150,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
               borderRadius: BorderSize.m.radius,
               child: Container(
-                height: 180,
+                height: 185,
                 width: 150,
                 decoration: BoxDecoration(
                   color: AppColors.surfaceVariant,
@@ -42,40 +53,35 @@ class GameCard extends StatelessWidget {
                   ),
                   borderRadius: BorderSize.m.radius,
                 ),
-                child: game.coverImageUrl != null
-                    ? Image.network(
-                        game.coverImageUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _placeholder(),
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return _placeholder();
-                        },
-                      )
-                    : _placeholder(),
+                child: NetworkImageWidget(
+                  imageUrl: game.coverImageUrl,
+                  fit: BoxFit.cover,
+                  placeholderIconSize: 48,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: Text(
-              game.title,
-              style: AppTypography.gameTitle,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
+            const SizedBox(height: 4),
+
+            // Game Title
+            SizedBox(
+              height: 40,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(
+                  game.title,
+                  style: AppTypography.gameTitle.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
-
-  Widget _placeholder() => const Center(
-    child: Icon(
-      Icons.gamepad_rounded,
-      size: 48,
-      color: AppColors.textSecondary,
-    ),
-  );
 }

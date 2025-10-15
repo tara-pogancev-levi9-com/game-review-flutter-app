@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
@@ -32,7 +34,7 @@ class ApiClient {
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          if (e.response?.statusCode == 401) {
+          if (e.response?.statusCode == HttpStatus.unauthorized) {
             // TODO: Handle unauthorized error
           }
           return handler.next(e);
@@ -44,8 +46,18 @@ class ApiClient {
     return dio.get(path, queryParameters: queryParameters);
   }
 
-  Future<Response> post(String path, {dynamic data}) {
-    return dio.post(path, data: data);
+  Future<Response> post(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) {
+    return dio.post(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+    );
   }
 
   Future<Response> put(
@@ -62,5 +74,19 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) {
     return dio.delete(path, data: data, queryParameters: queryParameters);
+  }
+
+  Future<Response> patch(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) {
+    return dio.patch(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+    );
   }
 }

@@ -17,6 +17,7 @@ class AppColors {
 
   static const Color outline = Color(0xFFA88EB9);
 
+  static const Color successBackground = Color(0x33228B22);
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFF44336);
 

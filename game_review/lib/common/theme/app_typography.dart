@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'app_colors.dart';
 import 'app_fonts.dart';
 
@@ -41,5 +42,32 @@ class AppTypography {
     fontFamily: AppFonts.josefinSans,
     fontWeight: FontWeight.w500,
     fontSize: 28,
+  );
+
+  static const TextStyle labelSmall = TextStyle(
+    fontSize: 16,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle bodyTextSecondary = TextStyle(
+    fontSize: 16,
+    color: AppColors.textSecondary,
+  );
+
+  static const TextStyle gameTitle28 = TextStyle(
+    fontSize: 28,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle smallText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lilacSelected,
+  );
+
+  static const TextStyle searchItemSubtitle = TextStyle(
+    fontSize: 12,
+    color: AppColors.textSecondary,
   );
 }
