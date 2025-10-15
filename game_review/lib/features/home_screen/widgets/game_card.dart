@@ -36,17 +36,16 @@ class GameCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => _handleTap(context),
       child: SizedBox(
-        width: 150, // Fiksna širina
+        width: 150,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min, // DODAJ OVO
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // Game Cover - BEZ Expanded
             ClipRRect(
               borderRadius: BorderSize.m.radius,
               child: Container(
-                height: 200, // Fiksna visina
-                width: 150, // Fiksna širina
+                height: 185,
+                width: 150,
                 color: AppColors.surfaceVariant,
                 child: NetworkImageWidget(
                   imageUrl: game.coverImageUrl,
@@ -55,9 +54,9 @@ class GameCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 4),
 
-            // Game Title - Fiksna visina
+            // Game Title
             SizedBox(
               height: 40,
               child: Padding(

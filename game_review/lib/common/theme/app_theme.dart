@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/theme/border_size.dart';
 
 import 'app_colors.dart';
 
@@ -104,7 +105,7 @@ class AppTheme {
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderSize.m.radius,
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(

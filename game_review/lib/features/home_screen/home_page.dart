@@ -50,75 +50,84 @@ class _HomePageState extends State<HomePage> {
             initial: () => const Center(child: CircularProgressIndicator()),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (message) => Center(child: Text(message)),
-            success: (discoverGames, recentReviews, isLoadingMore, hasMore) {
-              return RefreshIndicator(
-                onRefresh: () => cubit.refresh(),
-                child: CustomScrollView(
-                  controller: _scrollController,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
+            success:
+                (
+                  discoverGames,
+                  recentReviews,
+                  isLoadingMore,
+                  hasMore,
+                  isLoadingMoreGames,
+                  hasMoreGames,
+                ) {
+                  return RefreshIndicator(
+                    onRefresh: () => cubit.refresh(),
+                    child: CustomScrollView(
+                      controller: _scrollController,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: GameSection(
+                            games: discoverGames,
+                            title: t.discover,
+                            hasMore: hasMoreGames,
+                            isLoadingMore: isLoadingMoreGames,
+                            onLoadMore: () => cubit.loadMoreGames(),
+                          ),
                         ),
-                        child: Text(
-                          t.discover,
-                          style: Theme.of(context).textTheme.headlineSmall,
+
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
+                            child: Text(
+                              t.recentReviews,
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
 
-                    SliverToBoxAdapter(
-                      child: GameSection(games: discoverGames),
-                    ),
-
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-                        child: Text(
-                          t.recentReviews,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ),
-                    ),
-
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          if (index >= recentReviews.length) {
-                            if (!hasMore) return const SizedBox.shrink();
-                            return const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
-                          }
-
-                          final r = recentReviews[index];
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-                            child: ReviewCard(
-                              review: r,
-                              onDetails: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        ReviewDetailsPage(review: r),
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              if (index >= recentReviews.length) {
+                                if (!hasMore) return const SizedBox.shrink();
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
                                   ),
                                 );
-                              },
-                            ),
-                          );
-                        },
-                        childCount: recentReviews.length + (hasMore ? 1 : 0),
-                      ),
-                    ),
+                              }
 
-                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                  ],
-                ),
-              );
-            },
+                              final r = recentReviews[index];
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                  16,
+                                  0,
+                                  16,
+                                  12,
+                                ),
+                                child: ReviewCard(
+                                  review: r,
+                                  onDetails: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            ReviewDetailsPage(review: r),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            childCount:
+                                recentReviews.length + (hasMore ? 1 : 0),
+                          ),
+                        ),
+
+                        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                      ],
+                    ),
+                  );
+                },
           );
         },
       ),
