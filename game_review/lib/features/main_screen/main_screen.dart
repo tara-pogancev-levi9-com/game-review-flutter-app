@@ -5,6 +5,7 @@ import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/app_scaffold.dart';
 import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/profile_page.dart';
+import 'package:game_review/features/profile_screen/widgets/edit_profile_page.dart';
 import 'package:game_review/features/search_screen/search_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -17,14 +18,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  String? currentUserId;
   final List<int> _history = [0];
 
   final List<Widget> _pages = [
     const HomePage(),
     const SearchPage(),
     const LibraryPage(),
-    const ProfilePage(),
+    const ProfilePage(currentUserId: null),
   ];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
 
   void _onDestinationSelected(int index) {
     setState(() {
@@ -32,6 +39,23 @@ class _MainScreenState extends State<MainScreen> {
       _history.remove(index);
       _history.add(index);
     });
+  }
+
+  Widget? _getFloatingActionButton() {
+    if (_selectedIndex == 3) {
+      return FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditProfilePage(),
+            ),
+          );
+        },
+        child: Icon(Icons.edit),
+      );
+    }
+    return null;
   }
 
   void _onBackPressed() {
@@ -50,6 +74,7 @@ class _MainScreenState extends State<MainScreen> {
     final translations = context.t;
 
     return AppScaffold(
+      floatingActionButton: _getFloatingActionButton(),
       body: SafeArea(
         child: Column(
           children: [

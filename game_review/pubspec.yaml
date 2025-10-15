@@ -27,10 +27,14 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
+  image_picker: ^1.2.0
+  freezed: ^3.2.3
+  build_runner: ^2.9.0
   jwt_decoder: ^2.0.1
 
   freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
+  jose: ^0.3.5
 
 dev_dependencies:
   flutter_test:
@@ -51,12 +55,24 @@ flutter_launcher_icons:
   adaptive_icon_background: "#2A0144"
   adaptive_icon_foreground: "lib/common/assets/icons/SizedForegroundLogo.png"
 
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+
+  flutter_lints: ^5.0.0
+
 flutter:
+
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
   assets:
     - .env
     - lib/common/assets/icons/
     - lib/common/assets/images/
+    - lib/common/assets/icons/
   #   - images/a_dot_ham.jpeg
 
   fonts:

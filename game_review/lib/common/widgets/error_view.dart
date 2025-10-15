@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/i18n/strings.g.dart';
 
 class ErrorView extends StatelessWidget {
   final String message;
@@ -23,7 +24,7 @@ class ErrorView extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Retry'),
+              child: Text(t.retry),
             ),
           ],
         ),

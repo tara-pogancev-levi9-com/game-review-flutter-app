@@ -1,4 +1,3 @@
-// review_form_cubit.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/review_form_state.dart';
 import 'package:game_review/common/models/review_model.dart';

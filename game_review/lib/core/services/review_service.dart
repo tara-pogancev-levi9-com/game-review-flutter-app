@@ -16,6 +16,7 @@ class ReviewService {
 
   Future<List<ReviewModel>> getGameReviews(
     String gameId, {
+    //int limit = 10,
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {

@@ -1,88 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/theme/border_size.dart';
+import 'package:game_review/common/widgets/network_image_widget.dart';
 import 'package:game_review/features/game_details/game_details.dart';
 
 class GameCard extends StatelessWidget {
   final GameModel game;
   final VoidCallback? onTap;
 
-  const GameCard({super.key, required this.game, this.onTap});
+  const GameCard({
+    super.key,
+    required this.game,
+    this.onTap,
+  });
+
+  void _handleTap(BuildContext context) {
+    if (onTap != null) {
+      onTap!();
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => GameDetailsPage(
+            gameId: game.id,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    const double cardWidth = 140;
-    const double imageHeight = 100;
-    final BorderRadius radius = BorderRadius.circular(12);
-
-    void handleTap() {
-      if (onTap != null) {
-        onTap!();
-      } else {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => GameDetailsPage(gameId: game.id)),
-        );
-      }
-    }
-
-    return SizedBox(
-      width: cardWidth,
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: radius),
-        elevation: 0,
-        color: AppColors.surface,
-        child: InkWell(
-          borderRadius: radius,
-          onTap: handleTap,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
+    return GestureDetector(
+      onTap: () => _handleTap(context),
+      child: SizedBox(
+        width: 150,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ClipRRect(
+              borderRadius: BorderSize.m.radius,
+              child: Container(
+                height: 185,
+                width: 150,
+                color: AppColors.surfaceVariant,
+                child: NetworkImageWidget(
+                  imageUrl: game.coverImageUrl,
+                  fit: BoxFit.cover,
+                  placeholderIconSize: 48,
                 ),
-                child:
-                    (game.coverImageUrl != null &&
-                        game.coverImageUrl!.isNotEmpty)
-                    ? Image.network(
-                        game.coverImageUrl!,
-                        height: imageHeight,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        height: imageHeight,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              AppColors.surfaceVariant,
-                              AppColors.surfaceVariant.withValues(alpha: 0.7),
-                            ],
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.videogame_asset,
-                          size: 40,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+            ),
+            const SizedBox(height: 4),
+
+            // Game Title
+            SizedBox(
+              height: 40,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: Text(
                   game.title,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: AppTypography.gameTitle.copyWith(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -157,9 +157,9 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get overall => 'Sveukupno';
 	@override String get details => 'Detalji';
 	@override String get recentReviews => 'Nedavne recenzije';
-	@override String requiredField({required Object field}) => '${field} je obavezno';
+	@override String get requiredField => '\$field je obavezno';
 	@override String get invalidEmail => 'Neispravan email';
-	@override String minLength({required Object count}) => 'Minimum ${count} karaktera';
+	@override String get minLength => 'Minimum \$count karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';

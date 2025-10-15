@@ -1,9 +1,8 @@
-// lib/common/widgets/app_snackbar.dart (renamed from error_snackbar.dart)
 import 'package:flutter/material.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 
 class AppSnackbar {
-  AppSnackbar._(); // Private constructor to prevent instantiation
+  AppSnackbar._();
 
   /// Show an error snackbar
   static void showError(

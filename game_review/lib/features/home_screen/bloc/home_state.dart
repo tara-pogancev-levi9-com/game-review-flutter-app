@@ -13,6 +13,8 @@ class HomeState with _$HomeState {
     @Default([]) List<ReviewModel> recentReviews,
     @Default(false) bool isLoadingMore,
     @Default(true) bool hasMore,
+    @Default(false) bool isLoadingMoreGames,
+    @Default(true) bool hasMoreGames,
   }) = HomeSuccess;
   const factory HomeState.error(String message) = HomeError;
 }

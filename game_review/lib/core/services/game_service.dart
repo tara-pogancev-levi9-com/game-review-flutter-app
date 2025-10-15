@@ -24,7 +24,6 @@ class GameService {
           'select': '*',
         },
       );
-
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
           'HTTP ${response.statusCode}: ${t.library.failedToFetchGame}',
@@ -126,6 +125,7 @@ class GameService {
   }
 
   Future<List<GameModel>> fetchGames({
+    //int limit = 10,
     int limit = Endpoints.limitGames,
     int offset = 0,
   }) async {
