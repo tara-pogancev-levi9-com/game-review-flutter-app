@@ -290,5 +290,11 @@
     "hoursAgo": "{hours}h ago",
     "minutesAgo": "{minutes}m ago",
     "justNow": "just now"
-  }
+  },
+    "gamesSection": "Games",
+    "reviewsSection": "Reviews",
+    "recommended": "Recommended",
+    "swipeToSeeMore" : "Swipe to see more",
+    "noResultsFound": "No results found for \"{{query}}\"",
+    "retry": "Retry"
 }

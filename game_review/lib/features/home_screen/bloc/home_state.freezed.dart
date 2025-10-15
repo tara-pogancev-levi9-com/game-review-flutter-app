@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore,  bool isLoadingMoreGames,  bool hasMoreGames)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
 return initial();case HomeLoading() when loading != null:
 return loading();case HomeSuccess() when success != null:
-return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore);case HomeError() when error != null:
+return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore,_that.isLoadingMoreGames,_that.hasMoreGames);case HomeError() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore,  bool isLoadingMoreGames,  bool hasMoreGames)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case HomeInitial():
 return initial();case HomeLoading():
 return loading();case HomeSuccess():
-return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore);case HomeError():
+return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore,_that.isLoadingMoreGames,_that.hasMoreGames);case HomeError():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> discoverGames,  List<ReviewModel> recentReviews,  bool isLoadingMore,  bool hasMore,  bool isLoadingMoreGames,  bool hasMoreGames)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case HomeInitial() when initial != null:
 return initial();case HomeLoading() when loading != null:
 return loading();case HomeSuccess() when success != null:
-return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore);case HomeError() when error != null:
+return success(_that.discoverGames,_that.recentReviews,_that.isLoadingMore,_that.hasMore,_that.isLoadingMoreGames,_that.hasMoreGames);case HomeError() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -257,7 +257,7 @@ String toString() {
 
 
 class HomeSuccess implements HomeState {
-  const HomeSuccess({required final  List<GameModel> discoverGames, final  List<ReviewModel> recentReviews = const [], this.isLoadingMore = false, this.hasMore = true}): _discoverGames = discoverGames,_recentReviews = recentReviews;
+  const HomeSuccess({required final  List<GameModel> discoverGames, final  List<ReviewModel> recentReviews = const [], this.isLoadingMore = false, this.hasMore = true, this.isLoadingMoreGames = false, this.hasMoreGames = true}): _discoverGames = discoverGames,_recentReviews = recentReviews;
   
 
  final  List<GameModel> _discoverGames;
@@ -276,6 +276,8 @@ class HomeSuccess implements HomeState {
 
 @JsonKey() final  bool isLoadingMore;
 @JsonKey() final  bool hasMore;
+@JsonKey() final  bool isLoadingMoreGames;
+@JsonKey() final  bool hasMoreGames;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -287,16 +289,16 @@ $HomeSuccessCopyWith<HomeSuccess> get copyWith => _$HomeSuccessCopyWithImpl<Home
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeSuccess&&const DeepCollectionEquality().equals(other._discoverGames, _discoverGames)&&const DeepCollectionEquality().equals(other._recentReviews, _recentReviews)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeSuccess&&const DeepCollectionEquality().equals(other._discoverGames, _discoverGames)&&const DeepCollectionEquality().equals(other._recentReviews, _recentReviews)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMoreGames, isLoadingMoreGames) || other.isLoadingMoreGames == isLoadingMoreGames)&&(identical(other.hasMoreGames, hasMoreGames) || other.hasMoreGames == hasMoreGames));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_discoverGames),const DeepCollectionEquality().hash(_recentReviews),isLoadingMore,hasMore);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_discoverGames),const DeepCollectionEquality().hash(_recentReviews),isLoadingMore,hasMore,isLoadingMoreGames,hasMoreGames);
 
 @override
 String toString() {
-  return 'HomeState.success(discoverGames: $discoverGames, recentReviews: $recentReviews, isLoadingMore: $isLoadingMore, hasMore: $hasMore)';
+  return 'HomeState.success(discoverGames: $discoverGames, recentReviews: $recentReviews, isLoadingMore: $isLoadingMore, hasMore: $hasMore, isLoadingMoreGames: $isLoadingMoreGames, hasMoreGames: $hasMoreGames)';
 }
 
 
@@ -307,7 +309,7 @@ abstract mixin class $HomeSuccessCopyWith<$Res> implements $HomeStateCopyWith<$R
   factory $HomeSuccessCopyWith(HomeSuccess value, $Res Function(HomeSuccess) _then) = _$HomeSuccessCopyWithImpl;
 @useResult
 $Res call({
- List<GameModel> discoverGames, List<ReviewModel> recentReviews, bool isLoadingMore, bool hasMore
+ List<GameModel> discoverGames, List<ReviewModel> recentReviews, bool isLoadingMore, bool hasMore, bool isLoadingMoreGames, bool hasMoreGames
 });
 
 
@@ -324,12 +326,14 @@ class _$HomeSuccessCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? discoverGames = null,Object? recentReviews = null,Object? isLoadingMore = null,Object? hasMore = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? discoverGames = null,Object? recentReviews = null,Object? isLoadingMore = null,Object? hasMore = null,Object? isLoadingMoreGames = null,Object? hasMoreGames = null,}) {
   return _then(HomeSuccess(
 discoverGames: null == discoverGames ? _self._discoverGames : discoverGames // ignore: cast_nullable_to_non_nullable
 as List<GameModel>,recentReviews: null == recentReviews ? _self._recentReviews : recentReviews // ignore: cast_nullable_to_non_nullable
 as List<ReviewModel>,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
 as bool,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMoreGames: null == isLoadingMoreGames ? _self.isLoadingMoreGames : isLoadingMoreGames // ignore: cast_nullable_to_non_nullable
+as bool,hasMoreGames: null == hasMoreGames ? _self.hasMoreGames : hasMoreGames // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -124,6 +124,7 @@ class GameService {
   }
 
   Future<List<GameModel>> fetchGames({
+    //int limit = 10,
     int limit = Endpoints.limitGames,
     int offset = 0,
   }) async {
@@ -264,7 +265,7 @@ class GameService {
           'priority': priority,
         },
       );
-      
+
       if (response.statusCode != HttpStatus.created) {
         throw Exception(t.library.failedToAddToWishlist);
       }
