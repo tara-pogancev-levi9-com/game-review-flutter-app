@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:game_review/common/models/models.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_constants.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/auth/services/auth_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -12,7 +15,7 @@ class ReviewService {
 
   Future<List<GameReviewModel>> getGameReviews(
     String gameId, {
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
     try {
@@ -27,7 +30,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         final reviews = (response.data as List)
             .map((json) => GameReviewModel.fromJson(json))
             .toList();
@@ -62,7 +65,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode == 200 && response.data is List) {
+      if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List)
             .map((json) => ReviewCommentModel.fromJson(json))
             .toList();
@@ -110,7 +113,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == HttpStatus.created) {
         return GameReviewModel.fromJson(response.data);
       }
       throw Exception(t.library.failedToCreateReview);
@@ -134,7 +137,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == HttpStatus.created) {
         return ReviewCommentModel.fromJson(response.data);
       }
       throw Exception(t.library.failedToAddComment);
@@ -158,7 +161,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != HttpStatus.created) {
         throw Exception(t.library.failedToLikeReview);
       }
     } catch (e) {
@@ -181,7 +184,7 @@ class ReviewService {
         },
       );
 
-      if (response.statusCode != 204) {
+      if (response.statusCode != HttpStatus.noContent) {
         throw Exception(t.library.failedToUnlikeReview);
       }
     } catch (e) {
@@ -205,7 +208,7 @@ class ReviewService {
         },
       );
 
-      return response.statusCode == 200 && (response.data as List).isNotEmpty;
+      return response.statusCode == HttpStatus.ok && (response.data as List).isNotEmpty;
     } catch (e) {
       return false;
     }

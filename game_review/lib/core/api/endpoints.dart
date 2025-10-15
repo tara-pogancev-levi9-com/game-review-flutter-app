@@ -11,7 +11,7 @@ class Endpoints {
   static const String users = 'rest/v1/users';
   static const String reviewComments = 'rest/v1/review_comments';
 
-
+  static const int limitGames = 15;
   static const int limitLatestGames = 15;
   static const int limitPopularGames = 15;
   static const int limitRecentReviews = 10;

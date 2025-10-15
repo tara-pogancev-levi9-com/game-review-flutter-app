@@ -43,7 +43,7 @@ class GameService {
 
   Future<List<GameModel>> getRecentGames({
     int page = 0,
-    int limit = 20,
+    int limit = Endpoints.limitDiscoverGames,
   }) async {
     try {
       final response = await _apiClient.get(
@@ -125,7 +125,7 @@ class GameService {
   }
 
   Future<List<GameModel>> fetchGames({
-    int limit = 10,
+    int limit = Endpoints.limitGames,
     int offset = 0,
   }) async {
     try {
@@ -209,7 +209,7 @@ class GameService {
 
   Future<List<GameReviewModel>> getRecentReviews(
     String gameId, {
-    int limit = 5,
+    int limit = Endpoints.limitRecentReviews,
   }) async {
     try {
       final response = await _apiClient.get(
@@ -265,7 +265,7 @@ class GameService {
           'priority': priority,
         },
       );
-      ////////
+      
       if (response.statusCode != HttpStatus.created) {
         throw Exception(t.library.failedToAddToWishlist);
       }

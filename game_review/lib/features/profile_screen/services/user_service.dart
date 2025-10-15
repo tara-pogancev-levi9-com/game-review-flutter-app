@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/core/api/api_image_client.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
@@ -17,7 +19,7 @@ class UserService {
 
   Future<String> getCurrentUserUid() async {
     try {
-      final userData = await apiClient.get('auth/v1/user');
+      final userData = await apiClient.get(Endpoints.authUser);
       final val = jsonDecode(userData.toString());
 
       return val['id'];
