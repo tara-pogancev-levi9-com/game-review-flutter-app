@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
 
 class UserService {
@@ -10,7 +12,7 @@ class UserService {
 
   Future<String> getCurrentUserUid() async {
     try {
-      final userData = await apiClient.get('auth/v1/user');
+      final userData = await apiClient.get(Endpoints.authUser);
       final val = jsonDecode(userData.toString());
 
       return val['id'];
@@ -39,10 +41,10 @@ class UserService {
         throw Exception("User profile not found.");
       }
     } on DioException catch (e) {
-      print('Dio error fetching current user profile: ${e.message}');
+      Logger.error('Dio error fetching current user profile: ${e.message}');
       rethrow;
     } catch (e) {
-      print('Error fetching current user profile: $e');
+      Logger.error('Error fetching current user profile: $e');
       rethrow;
     }
   }
