@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_constants.dart';
 import 'package:game_review/core/api/endpoints.dart';
@@ -13,7 +14,7 @@ class ReviewService {
 
   ReviewService(this._apiClient, this._authService);
 
-  Future<List<GameReviewModel>> getGameReviews(
+  Future<List<ReviewModel>> getGameReviews(
     String gameId, {
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
@@ -32,7 +33,7 @@ class ReviewService {
 
       if (response.statusCode == HttpStatus.ok && response.data is List) {
         final reviews = (response.data as List)
-            .map((json) => GameReviewModel.fromJson(json))
+            .map((json) => ReviewModel.fromJson(json))
             .toList();
 
         final reviewsWithLikes = await Future.wait(
@@ -76,7 +77,7 @@ class ReviewService {
     }
   }
 
-  Future<GameReviewModel> createReview({
+  Future<ReviewModel> createReview({
     required String gameId,
     required String title,
     required String content,
@@ -114,7 +115,7 @@ class ReviewService {
       );
 
       if (response.statusCode == HttpStatus.created) {
-        return GameReviewModel.fromJson(response.data);
+        return ReviewModel.fromJson(response.data);
       }
       throw Exception(t.library.failedToCreateReview);
     } catch (e) {

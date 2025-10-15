@@ -26,6 +26,8 @@ abstract class ReviewModel with _$ReviewModel {
     bool? recommended,
     DateTime? createdAt,
     DateTime? updatedAt,
+    bool? isLiked,
+    int? likesCount,
     GameModel? game,
     String? username,
   }) = _ReviewModel;
