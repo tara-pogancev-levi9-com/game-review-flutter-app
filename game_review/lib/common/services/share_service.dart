@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:sprintf/sprintf.dart';
 
 class ShareService {
   static Future<void> shareGame(
@@ -27,7 +26,7 @@ class ShareService {
   }
 
   static String _createShareMessage(GameModel game) {
-    return sprintf(t.shareMessage, [game.title]);
+    return t.shareMessage(gameTitle: game.title);
   }
 
   static Rect _getSharePositionOrigin(GlobalKey key) {

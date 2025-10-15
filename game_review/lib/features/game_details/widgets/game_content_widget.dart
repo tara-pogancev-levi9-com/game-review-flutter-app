@@ -8,7 +8,6 @@ import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:sprintf/sprintf.dart';
 
 class GameContentWidget extends StatelessWidget {
   final GameModel game;
@@ -183,7 +182,7 @@ class GameContentWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                sprintf(t.gameDetails.overallRecommendation, [99]),
+                t.gameDetails.overallRecommendation(percentage: 99),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.textPrimary,
                 ),
@@ -329,7 +328,7 @@ class GameContentWidget extends StatelessWidget {
       if (context.mounted) {
         AppSnackbar.showError(
           context,
-          sprintf(t.gameDetails.failedToShareGame, [e.toString()]),
+          t.gameDetails.failedToShareGame(error: e.toString()),
         );
       }
     }

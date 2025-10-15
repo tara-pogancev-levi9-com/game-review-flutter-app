@@ -170,8 +170,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Check out this game!'
 	String get shareSubject => 'Check out this game!';
 
-	/// en: 'Hey! Check out this cool game I found on PawGames! It's called '%s'. :)'
-	String get shareMessage => 'Hey! Check out this cool game I found on PawGames! It\'s called \'%s\'. :)';
+	/// en: 'Hey! Check out this cool game I found on PawGames! It's called '{{gameTitle}}'. :)'
+	String shareMessage({required Object gameTitle}) => 'Hey! Check out this cool game I found on PawGames! It\'s called \'${gameTitle}\'. :)';
 
 	/// en: 'Missing API_URL environment variable'
 	String get missingApiUrl => 'Missing API_URL environment variable';
@@ -384,8 +384,8 @@ class TranslationsGameDetailsEn {
 	/// en: 'Available on'
 	String get availableOn => 'Available on';
 
-	/// en: '%d%% of players recommend this game'
-	String get overallRecommendation => '%d%% of players recommend this game';
+	/// en: '{{percentage}}% of players recommend this game'
+	String overallRecommendation({required Object percentage}) => '${percentage}% of players recommend this game';
 
 	/// en: 'Add to Wishlist'
 	String get addToWishlist => 'Add to Wishlist';
@@ -486,8 +486,8 @@ class TranslationsGameDetailsEn {
 	/// en: 'Please log in to view game details'
 	String get loginRequiredToView => 'Please log in to view game details';
 
-	/// en: 'Failed to share game: %s'
-	String get failedToShareGame => 'Failed to share game: %s';
+	/// en: 'Failed to share game: {{error}}'
+	String failedToShareGame({required Object error}) => 'Failed to share game: ${error}';
 }
 
 // Path: reviews
@@ -621,14 +621,14 @@ class TranslationsErrorsEn {
 	/// en: 'Login failed. Please try again.'
 	String get loginFailed => 'Login failed. Please try again.';
 
-	/// en: '%s required'
-	String get requiredField => '%s required';
+	/// en: '{{field}} required'
+	String requiredField({required Object field}) => '${field} required';
 
 	/// en: 'Invalid email'
 	String get invalidEmail => 'Invalid email';
 
-	/// en: 'Min %d char'
-	String get minLength => 'Min %d char';
+	/// en: 'Min {{count}} char'
+	String minLength({required Object count}) => 'Min ${count} char';
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
@@ -918,14 +918,14 @@ class TranslationsDateTimeEn {
 
 	// Translations
 
-	/// en: '%d days ago'
-	String get daysAgo => '%d days ago';
+	/// en: '{{count}} days ago'
+	String daysAgo({required Object count}) => '${count} days ago';
 
-	/// en: '%d hours ago'
-	String get hoursAgo => '%d hours ago';
+	/// en: '{{count}} hours ago'
+	String hoursAgo({required Object count}) => '${count} hours ago';
 
-	/// en: '%d minutes ago'
-	String get minutesAgo => '%d minutes ago';
+	/// en: '{{count}} minutes ago'
+	String minutesAgo({required Object count}) => '${count} minutes ago';
 
 	/// en: 'just now'
 	String get justNow => 'just now';

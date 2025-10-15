@@ -44,7 +44,7 @@
   "update": "Ažuriraj",
   "share": "Podeli",
   "shareSubject": "Pogledaj ovu igru!",
-  "shareMessage": "Hej! Pogledaj ovu kul igru koju sam pronašao na PawGames! Zove se '%s'. :)",
+  "shareMessage": "Hej! Pogledaj ovu kul igru koju sam pronašao na PawGames! Zove se '{{gameTitle}}'. :)",
   "missingApiUrl": "Nedostaje API_URL promenljiva",
   "registrationError": "Greška, Pokušajte ponovo kasnije.",
   "passwordMismatch": "Lozinke se ne podudaraju!.",
@@ -69,9 +69,9 @@
     "overall": "Sveukupno",
     "details": "Detalji",
     "recentReviews": "Nedavne recenzije",
-    "requiredField": "%s je obavezno",
+    "requiredField": "{{field}} je obavezno",
     "invalidEmail": "Neispravan email",
-    "minLength": "Minimum %d karaktera",
+    "minLength": "Minimum {{count}} karaktera",
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava nije uspela, pokušaj ponovo",
     "appFailedToStart": "Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.",
@@ -104,7 +104,7 @@
     "publisher": "Izdavač",
     "released": "Izdato",
     "availableOn": "Dostupno na",
-    "overallRecommendation": "%d%% igrača preporučuje ovu igru",
+    "overallRecommendation": "{{percentage}}% igrača preporučuje ovu igru",
     "addToWishlist": "Dodaj u Listu Želja",
     "removeFromWishlist": "Ukloni iz Liste Želja",
     "addToLibrary": "Dodaj u Biblioteku",
@@ -136,7 +136,7 @@
     "loginRequiredWishlist": "Molimo prijavite se da biste dodali igre u listu želja",
     "loginRequiredLibrary": "Molimo prijavite se da biste dodali igre u biblioteku",
     "loginRequiredToView": "Molimo prijavite se da biste videli detalje igre",
-    "failedToShareGame": "Neuspešno deljenje igre: %s"
+    "failedToShareGame": "Neuspešno deljenje igre: {{error}}"
   },
   "reviews": {
     "title": "Recenzije",
@@ -298,9 +298,9 @@
   "completed100": "Završeno (100%)",
   "notStarted0": "Nije započeto (0%)",
   "dateTime": {
-    "daysAgo": "pre %d dana",
-    "hoursAgo": "pre %d sati",
-    "minutesAgo": "pre %d minuta",
+    "daysAgo": "pre {{count}} dana",
+    "hoursAgo": "pre {{count}} sati",
+    "minutesAgo": "pre {{count}} minuta",
     "justNow": "upravo sada"
   }
 }

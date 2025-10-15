@@ -44,7 +44,7 @@
   "update": "Update",
   "share": "Share",
   "shareSubject": "Check out this game!",
-  "shareMessage": "Hey! Check out this cool game I found on PawGames! It's called '%s'. :)",
+  "shareMessage": "Hey! Check out this cool game I found on PawGames! It's called '{{gameTitle}}'. :)",
   "missingApiUrl": "Missing API_URL environment variable",
   "registrationError": "Error occurred. Try again later",
   "passwordMismatch": "Passwords do not match!",
@@ -72,7 +72,7 @@
     "publisher": "Publisher",
     "released": "Released",
     "availableOn": "Available on",
-    "overallRecommendation": "%d%% of players recommend this game",
+    "overallRecommendation": "{{percentage}}% of players recommend this game",
     "addToWishlist": "Add to Wishlist",
     "removeFromWishlist": "Remove from Wishlist",
     "addToLibrary": "Add to Library",
@@ -106,7 +106,7 @@
     "loginRequiredWishlist": "Please log in to add games to your wishlist",
     "loginRequiredLibrary": "Please log in to add games to your library",
     "loginRequiredToView": "Please log in to view game details",
-    "failedToShareGame": "Failed to share game: %s"
+    "failedToShareGame": "Failed to share game: {{error}}"
   },
   "reviews": {
     "title": "Reviews",
@@ -150,9 +150,9 @@
   "errors": {
     "invalidCredentials": "Invalid credentials",
     "loginFailed": "Login failed. Please try again.",
-    "requiredField": "%s required",
+    "requiredField": "{{field}} required",
     "invalidEmail": "Invalid email",
-    "minLength": "Min %d char",
+    "minLength": "Min {{count}} char",
     "appFailedToStart": "The app failed to start. Please restart and try again.",
     "gameNotFound": "Game not found",
     "reviewsNotFound": "Reviews not found",
@@ -276,9 +276,9 @@
     "yearsAgo": "year/s ago"
   },
   "dateTime": {
-    "daysAgo": "%d days ago",
-    "hoursAgo": "%d hours ago", 
-    "minutesAgo": "%d minutes ago",
+    "daysAgo": "{{count}} days ago",
+    "hoursAgo": "{{count}} hours ago",
+    "minutesAgo": "{{count}} minutes ago",
     "justNow": "just now"
   }
 }
