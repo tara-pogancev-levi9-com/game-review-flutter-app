@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/blocs/review_state.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewsByUserCubit extends Cubit<ReviewState> {
@@ -13,7 +14,7 @@ class ReviewsByUserCubit extends Cubit<ReviewState> {
 
   Future<void> loadReviews({
     required String userId,
-    int limit = 10,
+    int limit = Endpoints.limitRecentReviews,
   }) async {
     _currentUserId = userId;
     emit(const ReviewState.loading());

@@ -6,6 +6,7 @@ import 'package:game_review/common/blocs/games_state.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/widgets/error_view.dart';
 import 'package:game_review/common/widgets/section_header.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/features/home_screen/widgets/games_list_view.dart';
 
 class GamesListWidget extends StatefulWidget {
@@ -15,7 +16,7 @@ class GamesListWidget extends StatefulWidget {
   const GamesListWidget({
     super.key,
     required this.title,
-    this.limit = 10,
+    this.limit = Endpoints.limitGames,
   });
 
   @override

@@ -45,7 +45,8 @@ class AuthService {
           e.response?.statusCode == HttpStatus.unprocessableEntity) {
         throw EmailAlreadyExistsException(t.registrationEmailExistsError);
       }
-      if (e.response?.statusCode != null && e.response?.statusCode == 422) {
+      if (e.response?.statusCode != null &&
+          e.response?.statusCode == HttpStatus.unprocessableEntity) {
         throw EmailAlreadyExistsException(
           t.library.registrationEmailExistsError,
         );
@@ -123,7 +124,7 @@ class AuthService {
   Future<String?> getCurrentUserId() async {
     try {
       final response = await apiClient.get(ApiConstants.authUser);
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         return response.data['id'] as String?;
       }
     } catch (e) {
@@ -145,7 +146,7 @@ class AuthService {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == HttpStatus.ok) {
         final List<dynamic> users = response.data as List<dynamic>;
         if (users.isEmpty) {
           await apiClient.post(
