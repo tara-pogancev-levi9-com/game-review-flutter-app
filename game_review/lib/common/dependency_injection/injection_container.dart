@@ -1,8 +1,8 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/blocs/games_cubit.dart';
 import 'package:game_review/common/blocs/review_form_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_game_cubit.dart';
 import 'package:game_review/common/blocs/reviews_by_user_cubit.dart';
+import 'package:game_review/common/constants.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
@@ -26,11 +26,11 @@ final locator = GetIt.instance;
 void setupDependencies() {
   locator.registerLazySingleton<ApiImageClient>(
     () => ApiImageClient(
-      baseUrl: dotenv.env['API_URL']!,
+      baseUrl: ApiConstants.apiKey,
     ),
   );
-  final apiUrl = dotenv.env['API_URL'];
-  if (apiUrl == null || apiUrl.isEmpty) {
+  final apiUrl = ApiConstants.apiKey;
+  if (apiUrl.isEmpty) {
     throw StateError(t.missingApiUrl);
   }
   locator.registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiUrl));

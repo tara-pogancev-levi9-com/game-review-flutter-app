@@ -27,34 +27,10 @@ class _MainScreenState extends State<MainScreen> {
     const ProfilePage(currentUserId: null),
   ];
 
-  //bool _isDataFetched = false;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    /*if (!_isDataFetched) {
-      _isDataFetched = true;
-      _fetchUserId();
-    }*/
   }
-
-  //Commented because: It is possibly not needed since the logic is moved to ProfilePage
-  /*Future<void> _fetchUserId() async {
-    try {
-      final String fetchedId = await locator<UserCubit>().getCurrentUserId();
-      _pages.add(ProfilePage(currentUserId: fetchedId));
-      setState(() {
-        currentUserId = fetchedId;
-      });
-    } catch (e) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(),
-        ),
-      );
-    }
-  }*/
 
   void _onDestinationSelected(int index) {
     setState(() {
@@ -96,11 +72,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final translations = context.t;
 
-    /*if (currentUserId == null) {
-      return Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    } else {*/
     return AppScaffold(
       floatingActionButton: _getFloatingActionButton(),
       body: SafeArea(

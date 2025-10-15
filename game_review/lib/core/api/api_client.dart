@@ -23,8 +23,8 @@ class ApiClient {
       ) {
     dio.interceptors.add(
       InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          final token = await SecureStorage.getToken();
+        onRequest: (options, handler) {
+          final token = SecureStorage.getToken();
 
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
@@ -44,6 +44,7 @@ class ApiClient {
       ),
     );
   }
+
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
     return dio.get(path, queryParameters: queryParameters);
   }
@@ -77,14 +78,6 @@ class ApiClient {
   }) {
     return dio.delete(path, data: data, queryParameters: queryParameters);
   }
-
-  /*Future<Response> patch(String path, String id, {dynamic data}) {
-    return dio.patch(path, queryParameters: {'id': 'eq.$id'}, data: data);
-  }*/
-
-  /*Future<Response> delete(String path, {dynamic data}) {
-    return dio.delete(path, data: data);
-  }*/
 
   Future<Response> patch(
     String path, {

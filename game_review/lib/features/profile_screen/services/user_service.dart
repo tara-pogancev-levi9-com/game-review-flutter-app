@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
-import 'package:game_review/common/utils/error_codes.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
@@ -37,7 +37,7 @@ class UserService {
         data: updates,
       );
 
-      if (response.statusCode != HttpStatus.noContent.value) {
+      if (response.statusCode != HttpStatus.noContent) {
         throw Exception(
           'Failed to update profile: Status ${response.statusCode}',
         );
@@ -57,7 +57,7 @@ class UserService {
         },
       );
 
-      if (response.statusCode != HttpStatus.ok.value) {
+      if (response.statusCode != HttpStatus.ok) {
         throw Exception(
           'Failed to change password with status: ${response.statusCode}',
         );
@@ -78,7 +78,7 @@ class UserService {
       final Response response = await apiImageClient.delete(
         '/storage/v1/object/avatars/$imagePath',
       );
-      if (response.statusCode == HttpStatus.ok.value) {
+      if (response.statusCode == HttpStatus.ok) {
         await clearUserProfileImage(userId);
       } else {
         throw Exception(
@@ -98,7 +98,7 @@ class UserService {
         data: {'avatar_url': null},
       );
 
-      if (response.statusCode != HttpStatus.noContent.value) {
+      if (response.statusCode != HttpStatus.noContent) {
         throw Exception(
           'Failed to clear user profile image: ${response.statusCode}',
         );
@@ -177,7 +177,7 @@ class UserService {
     }
   }
 
-  Future<bool> checkFriendship(userId, otherUserId) async {
+  Future<bool> checkFriendship(String userId, String otherUserId) async {
     try {
       final response = await apiClient.get(
         '/rest/v1/friendships',
@@ -189,8 +189,7 @@ class UserService {
       );
       final List<dynamic> friendships = response.data;
       return friendships.isNotEmpty;
-    } on DioException catch (e) {
-      print('Failed to check friendship status: ${e.message}');
+    } on DioException {
       return false;
     }
   }
@@ -202,9 +201,9 @@ class UserService {
         imageExtensions,
         data: imageBytes,
       );
-      if (response.statusCode != HttpStatus.noContent.value &&
-          response.statusCode != HttpStatus.ok.value &&
-          response.statusCode != HttpStatus.created.value) {
+      if (response.statusCode != HttpStatus.noContent &&
+          response.statusCode != HttpStatus.ok &&
+          response.statusCode != HttpStatus.created) {
         throw Exception(
           'Failed to update profile: Status ${response.statusCode}',
         );

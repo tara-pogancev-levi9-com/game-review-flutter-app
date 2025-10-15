@@ -14,7 +14,7 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> initData() async {
     try {
       final currentUserId = await getCurrentUserId();
-      await locator<UserCubit>().fetchUserProfile(currentUserId, null);
+      await fetchUserProfile(currentUserId, null);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -53,15 +53,6 @@ class UserCubit extends Cubit<UserProfileState> {
       emit(UserProfileState.error(message: e.toString()));
     }
   }
-
-  //Commented because: Probably unnecessary
-  /*Future<bool> areFriends(String userId, String otherUserId) async {
-    try {
-      return await _userService.checkFriendship(userId, otherUserId);
-    } on DioException {
-      return false;
-    }
-  }*/
 
   Future<String> getCurrentUserId() {
     try {
