@@ -31,7 +31,6 @@ class GameService {
           'select': '*',
         },
       );
-
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
           'HTTP ${response.statusCode}: ${t.errors.failedToFetchGame}',

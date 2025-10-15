@@ -20,8 +20,20 @@
   "confirmPassword": "Potvrdi Lozinku",
   "submit": "Pošalji",
   "username": "Korisničko Ime",
+  "displayName": "Prikazno ime",
+  "noImage": "Nema Slike",
+  "saveImage": "Sačuvaj Sliku ",
+  "changePassword": "Promeni Lozinku",
+  "passwordChanged": "Lozinka uspesno promenjena.",
+  "errorChangingPassword": "Greska prilikom promene lozinke",
+  "userDataNotLoaded": "Podatci korisnika nisu ucitani!",
+  "saveProfile": "Sacuvaj profil",
+  "enterBio": "Unesi biografiju",
+  "profileInfo": "Informacije o profilu",
   "profileSettings": "Podešavanja Profila",
   "notifications": "Obaveštenja",
+  "addFriend": "Dodaj prijatelja",
+  "friends": "Prijatelji",
   "back": "Nazad",
   "next": "Dalje",
   "discover": "Istraži",
@@ -42,6 +54,7 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "update": "Ažuriraj",
+  "avatarRemoved": "Avatar uklonjen.",
   "missingApiUrl": "Nedostaje API_URL promenljiva",
   "registrationError": "Greška, Pokušajte ponovo kasnije",
   "passwordMismatch": "Lozinke se ne podudaraju!",
@@ -143,6 +156,9 @@
   "errorLoadingGames": "Neuspešno učitavanje igara",
   "errorLoadingMoreGames": "Neuspešno učitavanje dodatnih igara",
   "errors": {
+    "requiredField": "{field} je obavezno",
+    "invalidEmail": "Neispravan email",
+    "minLength": "Minimum {n} karaktera",
     "invalidCredentials": "Neispravni podaci za prijavu",
     "loginFailed": "Prijava neuspešna. Pokušajte ponovo.",
     "requiredField": "{field} je obavezan",
@@ -266,6 +282,18 @@
     "failedToRemoveFromWishlist": "Neuspešno uklanjanje iz liste želja",
     "failedToRemoveFromLibrary": "Neuspešno uklanjanje iz biblioteke"
   },
+
+  "common": {
+    "goBack": "Nazad"
+  },
+  "branding": {
+    "title": "PAW IGRE",
+    "tagline": "Istraži. Oceni. Deli.",
+    "logoLabel": "Logo aplikacije"
+  },
+  "avatarUpdated": "Avatar promenjen.",
+  "profileUpdated": "Profil izmenjen.",
+
   "gameReview": "Recenzija",
   "addComment": "Dodaj komentar",
   "reviewsNotFound": "Recenzije nisu pronađene",
