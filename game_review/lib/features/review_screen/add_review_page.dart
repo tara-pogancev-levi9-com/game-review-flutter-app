@@ -107,7 +107,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(t.youHaveAlreadyReviewedThisGame),
-              backgroundColor: Colors.orange,
+              backgroundColor: AppColors.warning,
             ),
           );
         }
@@ -172,19 +172,19 @@ class _AddReviewPageState extends State<AddReviewPage> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
+        surfaceTintColor: AppColors.transparent,
         elevation: 0,
         centerTitle: false,
         titleSpacing: 0,
-        leading: const BackButton(color: Colors.white),
+        leading: const BackButton(color: AppColors.white),
         title: Text(
           t.back,
           style: const TextStyle(
             fontFamily: AppFonts.josefinSans,
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            color: Colors.white,
+            color: AppColors.white,
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/services/share_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/i18n/strings.g.dart';
 import 'package:sprintf/sprintf.dart';
@@ -318,13 +319,7 @@ class GameContentWidget extends StatelessWidget {
   }
 
   void _showComingSoonSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
-    );
+    AppSnackbar.show(context, message);
   }
 
   void _shareGame(BuildContext context) async {
@@ -332,15 +327,9 @@ class GameContentWidget extends StatelessWidget {
       await ShareService.shareGame(game, popupMenuKey: _popupMenuKey);
     } catch (e) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              sprintf(t.gameDetails.failedToShareGame, [e.toString()]),
-            ),
-            backgroundColor: AppColors.error,
-            duration: const Duration(seconds: 3),
-          ),
+        AppSnackbar.showError(
+          context,
+          sprintf(t.gameDetails.failedToShareGame, [e.toString()]),
         );
       }
     }
