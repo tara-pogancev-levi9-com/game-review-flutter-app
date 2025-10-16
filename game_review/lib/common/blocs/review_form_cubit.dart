@@ -1,9 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:game_review/common/blocs/review_form_state.dart';
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/utils/app_exception.dart';
 import 'package:game_review/common/utils/logger.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ReviewFormCubit extends Cubit<ReviewFormState> {
   final ReviewsService _service;
@@ -106,6 +109,42 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
       Logger.error('Error updating review', e);
       emit(ReviewFormState.error(e.toString()));
       return false;
+    }
+  }
+
+  Future<void> addReviewImages(String reviewId, List<XFile> images) async {
+    var uploadedPaths = <String>[];
+    try {
+      for (final image in images) {
+        final imageBytes = await image.readAsBytes();
+        final uniqueImageName = '${Uuid().v4()}';
+
+        await _service.addReviewMedia(
+          '/${reviewId}/${uniqueImageName}',
+          imageBytes,
+          image.path.split('.').last.toLowerCase(),
+        );
+
+        String imageUrl =
+            '${dotenv.env['API_URL']}/storage/v1/object/review_media/${reviewId}/${uniqueImageName}';
+        uploadedPaths.add(imageUrl);
+      }
+      await uploadReviewMediaModel(reviewId, uploadedPaths);
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> uploadReviewMediaModel(
+    String reviewId,
+    List<String> uploadedUrls,
+  ) async {
+    try {
+      uploadedUrls.forEach((imageUrl) async {
+        await _service.addReviewMediaModel(reviewId, imageUrl);
+      });
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 

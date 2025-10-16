@@ -176,7 +176,7 @@ class _AvatarState extends State<Avatar> {
                                 imageExtension,
                               );
                               String imageUrl =
-                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/$imagePath';
+                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
 
                               if (mounted) {
                                 setState(() {

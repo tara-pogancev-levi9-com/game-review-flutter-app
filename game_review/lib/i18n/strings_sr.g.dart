@@ -53,8 +53,20 @@ class TranslationsSr extends Translations {
 	@override String get confirmPassword => 'Potvrdi Lozinku';
 	@override String get submit => 'Pošalji';
 	@override String get username => 'Korisničko Ime';
+	@override String get displayName => 'Prikazno ime';
+	@override String get noImage => 'Nema Slike';
+	@override String get saveImage => 'Sačuvaj Sliku ';
+	@override String get changePassword => 'Promeni Lozinku';
+	@override String get passwordChanged => 'Lozinka uspesno promenjena.';
+	@override String get errorChangingPassword => 'Greska prilikom promene lozinke';
+	@override String get userDataNotLoaded => 'Podatci korisnika nisu ucitani!';
+	@override String get saveProfile => 'Sacuvaj profil';
+	@override String get enterBio => 'Unesi biografiju';
+	@override String get profileInfo => 'Informacije o profilu';
 	@override String get profileSettings => 'Podešavanja Profila';
 	@override String get notifications => 'Obaveštenja';
+	@override String get addFriend => 'Dodaj prijatelja';
+	@override String get friends => 'Prijatelji';
 	@override String get back => 'Nazad';
 	@override String get next => 'Dalje';
 	@override String get discover => 'Istraži';
@@ -75,6 +87,7 @@ class TranslationsSr extends Translations {
 	@override String get edit => 'Izmeni';
 	@override String get delete => 'Obriši';
 	@override String get update => 'Ažuriraj';
+	@override String get avatarRemoved => 'Avatar uklonjen.';
 	@override String get share => 'Podeli';
 	@override String get shareSubject => 'Pogledaj ovu igru!';
 	@override String shareMessage({required Object gameTitle}) => 'Hej! Pogledaj ovu kul igru koju sam pronašao na PawGames! Zove se \'${gameTitle}\'. :)';
@@ -82,6 +95,9 @@ class TranslationsSr extends Translations {
 	@override String get registrationError => 'Greška, Pokušajte ponovo kasnije';
 	@override String get passwordMismatch => 'Lozinke se ne podudaraju!';
 	@override String get passwordLength => 'Lozinka mora imati minimum 8 karaktera!';
+	@override String get addImages => 'Dodaj slike';
+	@override String get noImagesSelected => 'Nema odabranih slika.';
+	@override String get chooseImages => 'Odaberi slike.';
 	@override String get emailInvalid => 'Email adresa nije validna!';
 	@override String get registrationSuccessful => 'Registracija uspešna!';
 	@override String get registrationEmailExistsError => 'Navedeni email je registrovan!';
@@ -89,13 +105,13 @@ class TranslationsSr extends Translations {
 	@override late final TranslationsReviewsSr reviews = TranslationsReviewsSr._(_root);
 	@override late final TranslationsActionsSr actions = TranslationsActionsSr._(_root);
 	@override late final TranslationsNavigationSr navigation = TranslationsNavigationSr._(_root);
-	@override String get NoGamesFound => 'Nema pronađenih igara';
-	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
-	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 	@override late final TranslationsErrorsSr errors = TranslationsErrorsSr._(_root);
 	@override late final TranslationsLibrarySr library = TranslationsLibrarySr._(_root);
 	@override late final TranslationsGameServiceSr gameService = TranslationsGameServiceSr._(_root);
 	@override late final TranslationsBrandingSr branding = TranslationsBrandingSr._(_root);
+	@override String get NoGamesFound => 'Nema pronađenih igara';
+	@override String get errorLoadingGames => 'Neuspešno učitavanje igara';
+	@override String get errorLoadingMoreGames => 'Neuspešno učitavanje dodatnih igara';
 	@override String get gameReview => 'Recenzija';
 	@override String get addComment => 'Dodaj komentar';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
@@ -166,7 +182,6 @@ class TranslationsGameDetailsSr extends TranslationsGameDetailsEn {
 	@override String get recentReviews => 'Nedavne recenzije';
 	@override String get requiredField => '{field} je obavezno';
 	@override String get invalidEmail => 'Neispravan email';
-	@override String get minLength => 'Minimum \$count karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
@@ -298,11 +313,11 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	final TranslationsSr _root; // ignore: unused_field
 
 	// Translations
+	@override String requiredField({required Object field}) => '${field} je obavezno';
+	@override String get invalidEmail => 'Neispravan email';
+	@override String minLength({required Object n}) => 'Minimum ${n} karaktera';
 	@override String get invalidCredentials => 'Neispravni podaci za prijavu';
 	@override String get loginFailed => 'Prijava neuspešna. Pokušajte ponovo.';
-	@override String requiredField({required Object field}) => '${field} je obavezan';
-	@override String get invalidEmail => 'Nevalidna email adresa';
-	@override String minLength({required Object n}) => 'Min ${n} karaktera';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Molimo vas da ponovo pokrenete i pokušate ponovo.';
 	@override String get gameNotFound => 'Igra nije pronađena';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
@@ -329,6 +344,12 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get failedToLoadHome => 'Učitavanje početnih podataka nije uspelo.';
 	@override String get failedToLoadComments => 'Učitavanje komentara nije uspelo.';
 	@override String get authenticationFail => 'Autentifikacija nije uspela.';
+	@override String get failedToProcessReview => 'Nije uspelo obrada recenzije';
+	@override String get unexpectedResponseFormat => 'Neočekivani format odgovora sa servera';
+	@override String get genericError => 'Došlo je do greške. Molimo pokušajte ponovo.';
+	@override String get failedToAddReview => 'Nije uspelo dodavanje recenzije';
+	@override String get failedToUpdateReview => 'Nije uspelo ažuriranje recenzije';
+	@override String get failedToDeleteReview => 'Nije uspelo brisanje recenzije';
 }
 
 // Path: library
@@ -381,18 +402,24 @@ class TranslationsGameServiceSr extends TranslationsGameServiceEn {
 	@override String get failedToFetchLibraryGames => 'Učitavanje igara iz biblioteke nije uspelo';
 	@override String get removedFromWishlist => 'Uklonjeno sa liste želja na serveru';
 	@override String get removedFromLibrary => 'Uklonjeno iz biblioteke na serveru';
+	@override String get failedToRemoveFromWishlist => 'Neuspešno uklanjanje iz liste želja';
+	@override String get failedToRemoveFromLibrary => 'Neuspešno uklanjanje iz biblioteke';
 	@override String get loginFailed => 'Prijava nije uspela, pokušaj ponovo';
 	@override String get appFailedToStart => 'Aplikacija nije uspela da se pokrene. Ponovo pokreni i pokušaj opet.';
 	@override String get gameNotFound => 'Igra nije pronađena';
 	@override String get reviewsNotFound => 'Recenzije nisu pronađene';
+	@override String get failedToProcessReview => 'Nije uspelo da se obradi recenzija';
+	@override String get unexpectedResponseFormat => 'Neočekivani format odgovora sa servera';
+	@override String get genericError => 'Došlo je do greške. Molimo pokušajte ponovo.';
+	@override String get failedToAddReview => 'Nije uspelo da se doda recenzija';
+	@override String get failedToUpdateReview => 'Nije uspelo da se ažurira recenzija';
+	@override String get failedToDeleteReview => 'Nije uspelo da se obriše recenzija';
 	@override String get failedToFetchGame => 'Neuspešno učitavanje igre';
 	@override String get failedToFetchGames => 'Neuspešno učitavanje igara';
 	@override String get failedToFetchGameStatistics => 'Neuspešno učitavanje statistika igre';
 	@override String get failedToFetchRecentReviews => 'Neuspešno učitavanje nedavnih recenzija';
 	@override String get failedToAddToWishlist => 'Neuspešno dodavanje u listu želja';
-	@override String get failedToRemoveFromWishlist => 'Neuspešno uklanjanje iz liste želja';
 	@override String get failedToAddToLibrary => 'Neuspešno dodavanje u biblioteku';
-	@override String get failedToRemoveFromLibrary => 'Neuspešno uklanjanje iz biblioteke';
 	@override String get failedToUpdateGameProgress => 'Neuspešno ažuriranje napretka igre';
 	@override String get failedToFetchGameReviews => 'Neuspešno učitavanje recenzija igre';
 	@override String get failedToFetchReviewComments => 'Neuspešno učitavanje komentara recenzije';

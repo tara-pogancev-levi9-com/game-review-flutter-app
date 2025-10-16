@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
@@ -17,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 
   const ProfilePage({
     super.key,
-    this.currentUserId,
+    this.currentUserId = null,
     this.isStandalone = false,
   });
 
@@ -60,7 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   right: 30,
                   child: CircleAvatar(
                     radius: 100,
-                    backgroundColor: AppColors.textTertiary,
                     backgroundImage: (user.avatarUrl != null)
                         ? NetworkImage(user.avatarUrl!) as ImageProvider
                         : null,
@@ -144,12 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               width: 20,
                             ),
-                            Expanded(
-                              child: Text(
-                                user.email,
-                                style: AppTypography.bodyTextSecondary,
-                              ),
-                            ),
+                            Expanded(child: Text(user.email)),
                           ],
                         ),
                         SizedBox(
@@ -167,10 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 20,
                             ),
                             Expanded(
-                              child: Text(
-                                (user.bio != null) ? user.bio! : ' ',
-                                style: AppTypography.bodyTextSecondary,
-                              ),
+                              child: Text((user.bio != null) ? user.bio! : ' '),
                             ),
                           ],
                         ),
