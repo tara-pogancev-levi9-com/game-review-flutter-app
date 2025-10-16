@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
+import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/i18n/strings.g.dart';
+
 import 'review_state.dart';
-import 'package:game_review/common/utils/logger.dart';
 
 class ReviewsByGameCubit extends Cubit<ReviewState> {
   final ReviewsService _service;
@@ -21,7 +22,7 @@ class ReviewsByGameCubit extends Cubit<ReviewState> {
     emit(const ReviewState.loading());
     try {
       final reviews = await _service.fetchReviewsByGame(
-        game_id: gameId,
+        gameId: gameId,
         limit: limit,
       );
       final hasMore = reviews.length >= limit;
@@ -51,7 +52,7 @@ class ReviewsByGameCubit extends Cubit<ReviewState> {
         try {
           final offset = reviews.length;
           final newReviews = await _service.fetchReviewsByGame(
-            game_id: _currentGameId!,
+            gameId: _currentGameId!,
             limit: _pageSize,
             offset: offset,
           );

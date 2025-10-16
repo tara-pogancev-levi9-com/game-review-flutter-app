@@ -14,7 +14,7 @@ class WelcomePage extends StatelessWidget {
         Theme.of(context).extension<AppGradients>() ?? AppGradients.dark;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       extendBodyBehindAppBar: true,
       body: DecoratedBox(
         decoration: BoxDecoration(gradient: gradients.background),

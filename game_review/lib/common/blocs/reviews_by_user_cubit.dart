@@ -20,7 +20,7 @@ class ReviewsByUserCubit extends Cubit<ReviewState> {
     emit(const ReviewState.loading());
     try {
       final reviews = await _service.fetchReviewsByUser(
-        user_id: userId,
+        userId: userId,
         limit: limit,
       );
       final hasMore = reviews.length >= limit;
@@ -50,7 +50,7 @@ class ReviewsByUserCubit extends Cubit<ReviewState> {
         try {
           final offset = reviews.length;
           final newReviews = await _service.fetchReviewsByUser(
-            user_id: _currentUserId!,
+            userId: _currentUserId!,
             limit: _pageSize,
             offset: offset,
           );

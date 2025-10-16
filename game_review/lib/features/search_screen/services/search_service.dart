@@ -70,7 +70,7 @@ class SearchService {
 
       final List<dynamic> reviewsData = reviewsResponse.data as List<dynamic>;
       final reviews = reviewsData
-          .map((json) => ReviewModel.fromJsonWithNestedGame(json))
+          .map((json) => ReviewModel.fromJsonWithNestedGameAndUser(json))
           .toList();
 
       final gamesResponse = await _apiClient.get(
@@ -99,7 +99,7 @@ class SearchService {
         final List<dynamic> gameReviewsData =
             gameReviewsResponse.data as List<dynamic>;
         final gameReviews = gameReviewsData
-            .map((json) => ReviewModel.fromJsonWithNestedGame(json))
+            .map((json) => ReviewModel.fromJsonWithNestedGameAndUser(json))
             .toList();
 
         final allReviews = [...reviews, ...gameReviews];
@@ -126,7 +126,7 @@ class SearchService {
 
       final List<dynamic> data = response.data as List<dynamic>;
       return data
-          .map((json) => ReviewModel.fromJsonWithNestedGame(json))
+          .map((json) => ReviewModel.fromJsonWithNestedGameAndUser(json))
           .toList();
     }
   }

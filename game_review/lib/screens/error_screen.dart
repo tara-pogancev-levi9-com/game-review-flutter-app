@@ -9,11 +9,10 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final gradients = theme.extension<AppGradients>()!;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       body: Container(
         decoration: BoxDecoration(gradient: gradients.background),
         padding: const EdgeInsets.all(16),
@@ -22,7 +21,7 @@ class ErrorScreen extends StatelessWidget {
           '${t.errors.appFailedToStart}\n\n$error',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: colorScheme.error,
+            color: AppColors.error,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

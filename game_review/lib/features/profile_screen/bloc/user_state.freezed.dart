@@ -125,7 +125,7 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( User user,  String? loggedUserId,  bool? alreadyFriends,  String? message)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( UserModel user,  String? loggedUserId,  bool? alreadyFriends,  String? message)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserProfileLoading() when loading != null:
 return loading();case _UserProfileLoaded() when loaded != null:
@@ -148,7 +148,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( User user,  String? loggedUserId,  bool? alreadyFriends,  String? message)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( UserModel user,  String? loggedUserId,  bool? alreadyFriends,  String? message)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _UserProfileLoading():
 return loading();case _UserProfileLoaded():
@@ -170,7 +170,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( User user,  String? loggedUserId,  bool? alreadyFriends,  String? message)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( UserModel user,  String? loggedUserId,  bool? alreadyFriends,  String? message)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _UserProfileLoading() when loading != null:
 return loading();case _UserProfileLoaded() when loaded != null:
@@ -222,7 +222,7 @@ class _UserProfileLoaded implements UserProfileState {
   const _UserProfileLoaded({required this.user, required this.loggedUserId, required this.alreadyFriends, required this.message});
   
 
- final  User user;
+ final  UserModel user;
  final  String? loggedUserId;
  final  bool? alreadyFriends;
  final  String? message;
@@ -257,11 +257,11 @@ abstract mixin class _$UserProfileLoadedCopyWith<$Res> implements $UserProfileSt
   factory _$UserProfileLoadedCopyWith(_UserProfileLoaded value, $Res Function(_UserProfileLoaded) _then) = __$UserProfileLoadedCopyWithImpl;
 @useResult
 $Res call({
- User user, String? loggedUserId, bool? alreadyFriends, String? message
+ UserModel user, String? loggedUserId, bool? alreadyFriends, String? message
 });
 
 
-
+$UserModelCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -277,14 +277,23 @@ class __$UserProfileLoadedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? loggedUserId = freezed,Object? alreadyFriends = freezed,Object? message = freezed,}) {
   return _then(_UserProfileLoaded(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as User,loggedUserId: freezed == loggedUserId ? _self.loggedUserId : loggedUserId // ignore: cast_nullable_to_non_nullable
+as UserModel,loggedUserId: freezed == loggedUserId ? _self.loggedUserId : loggedUserId // ignore: cast_nullable_to_non_nullable
 as String?,alreadyFriends: freezed == alreadyFriends ? _self.alreadyFriends : alreadyFriends // ignore: cast_nullable_to_non_nullable
 as bool?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
 
-
+/// Create a copy of UserProfileState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res> get user {
+  
+  return $UserModelCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}
 }
 
 /// @nodoc

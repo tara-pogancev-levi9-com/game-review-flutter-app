@@ -15,7 +15,6 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      //backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
       leading: !isHome
