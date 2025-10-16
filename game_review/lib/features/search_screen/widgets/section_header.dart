@@ -19,7 +19,7 @@ class SectionHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.gameTitle28,
+          style: AppTypography.heading,
         ),
         const SizedBox(width: 8),
         Container(

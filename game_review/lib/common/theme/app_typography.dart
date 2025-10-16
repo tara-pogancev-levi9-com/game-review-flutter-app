@@ -54,12 +54,6 @@ class AppTypography {
     color: AppColors.textSecondary,
   );
 
-  static const TextStyle gameTitle28 = TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-  );
-
   static const TextStyle smallText = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
