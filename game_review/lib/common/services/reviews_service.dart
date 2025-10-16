@@ -237,7 +237,7 @@ class ReviewsService {
   Future<List<ReviewMediaModel>> getReviewMedia(reviewId) async {
     try {
       final response = await _apiClient.get(
-        '/rest/v1/review_media',
+        Endpoints.reviewMedia,
         queryParameters: {'review_id': 'eq.$reviewId', 'select': '*'},
       );
       final data = response.data;

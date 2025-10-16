@@ -336,10 +336,25 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
-                    child: Row(
-                      children: reviewMedia.map((image) {
-                        return MediaThumb();
-                      }).toList(),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 1.0,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: reviewMedia.length,
+                      itemBuilder: (context, index) {
+                        final mediaItem = reviewMedia[index];
+                        return GestureDetector(
+                          onTap: () {
+                            _showImagePopup(context, mediaItem.mediaUrl);
+                          },
+                          child: MediaThumb(image: mediaItem),
+                        );
+                      },
                     ),
                   ),
                   Padding(
@@ -352,6 +367,31 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
               ),
             );
           },
+        );
+      },
+    );
+  }
+
+  void _showImagePopup(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Image.network(
+                imageUrl,
+                fit: BoxFit.contain,
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.close, color: Colors.white),
+              ),
+            ],
+          ),
         );
       },
     );

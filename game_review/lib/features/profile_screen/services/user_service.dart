@@ -5,6 +5,7 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_image_client.dart';
+import 'package:game_review/core/api/endpoints.dart';
 import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
 import 'package:game_review/features/profile_screen/models/user.dart';
@@ -54,7 +55,7 @@ class UserService {
   Future<void> changePassword(String newPassword) async {
     try {
       Response response = await apiClient.put(
-        'auth/v1/user',
+        Endpoints.authUser,
         data: {
           'password': newPassword,
         },
@@ -79,7 +80,7 @@ class UserService {
   Future<void> deleteAvatar(imagePath, userId) async {
     try {
       final Response response = await apiImageClient.delete(
-        '/storage/v1/object/avatars/$imagePath',
+        '${Endpoints.storageAvatarMedia}$imagePath',
       );
       if (response.statusCode == HttpStatus.ok) {
         await clearUserProfileImage(userId);
@@ -96,7 +97,7 @@ class UserService {
   Future<void> clearUserProfileImage(String userId) async {
     try {
       final Response response = await apiClient.patch(
-        '/rest/v1/users',
+        Endpoints.users,
         queryParameters: {'id': 'eq.$userId'},
         data: {'avatar_url': null},
       );
@@ -116,7 +117,7 @@ class UserService {
       final String userUid = await getCurrentUserUid();
 
       final Response response = await apiClient.get(
-        'rest/v1/users',
+        Endpoints.users,
         queryParameters: {
           'id': 'eq.$userUid',
         },
@@ -142,7 +143,7 @@ class UserService {
   Future<User> getUser(userId) async {
     try {
       final Response response = await apiClient.get(
-        'rest/v1/users',
+        Endpoints.users,
         queryParameters: {
           'id': 'eq.$userId',
         },
@@ -183,7 +184,7 @@ class UserService {
   Future<bool> areFriends(String userId, String otherUserId) async {
     try {
       final response = await apiClient.get(
-        '/rest/v1/friendships',
+        Endpoints.friendships,
         queryParameters: {
           'or':
               '(and(requester_id.eq.$userId,addressee_id.eq.$otherUserId),and(requester_id.eq.$otherUserId,addressee_id.eq.$userId))',
@@ -199,8 +200,8 @@ class UserService {
 
   Future<void> uploadAvatar(imagePath, imageBytes, imageExtensions) async {
     try {
-      final Response response = await locator<ApiImageClient>().post(
-        '/storage/v1/object/avatars/$imagePath',
+      final Response response = await locator<ApiImageClient>().put(
+        '${Endpoints.storageAvatarMedia}$imagePath',
         imageExtensions,
         data: imageBytes,
       );

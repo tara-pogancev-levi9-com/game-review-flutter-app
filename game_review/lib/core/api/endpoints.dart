@@ -11,6 +11,8 @@ class Endpoints {
   static const String gameReviews = 'rest/v1/game_reviews';
   static const String reviewMedia = '/rest/v1/review_media';
   static const String storageReviewMedia = '/storage/v1/object/review_media/';
+  static const String storageAvatarMedia = '/storage/v1/object/avatars/';
+  static const String friendships = '/rest/v1/friendships';
   static const String users = 'rest/v1/users';
   static const String reviewComments = 'rest/v1/review_comments';
 
