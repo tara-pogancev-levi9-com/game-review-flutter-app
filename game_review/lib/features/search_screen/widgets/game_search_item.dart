@@ -4,7 +4,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/widgets/network_image_widget.dart';
-import 'package:game_review/features/library_screen/game_details_page.dart';
+import 'package:game_review/features/game_details/game_details.dart';
 
 class GameSearchItem extends StatelessWidget {
   final GameModel game;
@@ -20,7 +20,7 @@ class GameSearchItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => GameDetailsPage(game: game),
+            builder: (_) => GameDetailsPage(gameId: game.id),
           ),
         );
       },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/models/profile_Info_model.dart';
@@ -69,7 +70,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 400,
                       child: Stack(
                         children: [
@@ -137,16 +138,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       autocorrect: false,
                                       autofillHints: null,
                                       enableSuggestions: false,
+                                      style: TextStyle(
+                                        color: AppColors.textPrimary,
+                                      ),
 
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(
                                           Icons.person_2_outlined,
                                         ),
                                         labelText: t.username,
-                                        labelStyle: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                        labelStyle: AppTypography.editUser,
                                       ),
                                     ),
                                     SizedBox(
@@ -156,6 +157,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       controller: _displayNameController,
                                       autocorrect: false,
                                       autofillHints: null,
+                                      style: TextStyle(
+                                        color: AppColors.textPrimary,
+                                      ),
 
                                       enableSuggestions: false,
                                       decoration: InputDecoration(
@@ -163,10 +167,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           Icons.person_2_outlined,
                                         ),
                                         labelText: t.displayName,
-                                        labelStyle: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                        labelStyle: AppTypography.editUser,
                                       ),
                                     ),
                                     SizedBox(
@@ -177,22 +178,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       controller: _bioController,
                                       minLines: 5,
                                       maxLines: null,
+                                      style: TextStyle(
+                                        color: AppColors.textPrimary,
+                                      ),
                                       decoration: InputDecoration(
                                         alignLabelWithHint: true,
                                         label: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
                                             t.enterBio,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w100,
-                                              fontStyle: FontStyle.italic,
-                                            ),
+                                            style: AppTypography.editUser,
                                           ),
                                         ),
-                                        labelStyle: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                        labelStyle: AppTypography.editUser,
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             20,
@@ -219,7 +217,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             20,
                                           ),
                                           borderSide: const BorderSide(
-                                            color: AppColors.primaryPurple,
+                                            color: AppColors.lilacSelected,
                                             width: 1.2,
                                           ),
                                         ),
@@ -250,13 +248,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               "Profile data saved.",
                                             );
                                       },
-                                      child: Text(t.saveProfile),
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 80,
                                           vertical: 10,
                                         ),
                                       ),
+                                      child: Text(t.saveProfile),
                                     ),
                                   ],
                                 ),
@@ -284,6 +282,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       autocorrect: false,
                                       autofillHints: null,
                                       enableSuggestions: false,
+                                      style: TextStyle(
+                                        color: AppColors.textPrimary,
+                                      ),
                                       obscureText: !showPassword,
                                       onChanged: (value) {
                                         if (!firstInput) {
@@ -314,10 +315,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         ),
                                         errorStyle: null,
                                         labelText: t.password,
-                                        labelStyle: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                        labelStyle: AppTypography.editUser,
                                       ),
                                     ),
                                     SizedBox(
@@ -328,6 +326,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       autocorrect: false,
                                       autofillHints: null,
                                       enableSuggestions: false,
+                                      style: TextStyle(
+                                        color: AppColors.textPrimary,
+                                      ),
                                       controller: _confirmPasswordController,
                                       keyboardType: TextInputType.text,
                                       obscureText: !showConfirmPassword,
@@ -361,10 +362,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           ),
                                         ),
                                         labelText: t.confirmPassword,
-                                        labelStyle: TextStyle(
-                                          fontWeight: FontWeight.w100,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                        labelStyle: AppTypography.editUser,
                                       ),
                                     ),
 
@@ -394,13 +392,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           });
                                         }
                                       },
-                                      child: Text(t.changePassword),
                                       style: ElevatedButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 50,
                                           vertical: 10,
                                         ),
                                       ),
+                                      child: Text(t.changePassword),
                                     ),
                                   ],
                                 ),

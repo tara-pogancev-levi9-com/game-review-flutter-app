@@ -7,6 +7,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
+import 'package:game_review/features/home_screen/widgets/game_selector_bottom_sheet.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class GameContentWidget extends StatelessWidget {
@@ -334,7 +335,7 @@ class GameContentWidget extends StatelessWidget {
     }
   }
 
-  void _handleMenuAction(BuildContext context, String action) {
+  Future<void> _handleMenuAction(BuildContext context, String action) async {
     final cubit = context.read<GameDetailsCubit>();
 
     switch (action) {
@@ -345,8 +346,12 @@ class GameContentWidget extends StatelessWidget {
         cubit.toggleLibrary(gameId);
         break;
       case 'review':
-        // TODO: Navigate to review writing page
-        _showComingSoonSnackBar(context, t.gameDetails.reviewComingSoon);
+        final result = await showModalBottomSheet<bool>(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => const GameSelectorBottomSheet(),
+        );
         break;
       case 'share':
         _shareGame(context);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_state.dart';
 import 'package:game_review/features/home_screen/models/review_comment.dart';
@@ -30,18 +31,29 @@ class _CommentsSectionState extends State<CommentsSection> {
     return BlocBuilder<ReviewCommentsCubit, ReviewCommentsState>(
       bloc: _cubit,
       builder: (context, state) {
-        final count = state.maybeWhen(success: (list) => list.length, orElse: () => 0);
+        final count = state.maybeWhen(
+          success: (list) => list.length,
+          orElse: () => 0,
+        );
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${t.discussions} ($count)', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              '${t.discussions} ($count)',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             state.when(
               initial: () => const SizedBox.shrink(),
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (msg) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text('${t.errors.failedToLoadComments}: $msg', style: Theme.of(context).textTheme.bodySmall),
+                child: Text(
+                  '${t.errors.failedToLoadComments}: $msg',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
               success: (comments) {
                 if (comments.isEmpty) {
@@ -59,33 +71,48 @@ class _CommentsSectionState extends State<CommentsSection> {
                             // TODO: open comment composer
                           },
                           style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 28),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(999),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 28,
                             ),
                           ),
-                          child: Text(t.addComment, style: Theme.of(context).textTheme.titleLarge),
+                          child: Text(
+                            t.addComment,
+                            style: AppTypography.buttonLarge,
+                          ),
                         ),
                       ),
-
                     ],
                   );
                 }
 
                 return Column(
                   children: [
-                    ...comments.map((ReviewComment c) => Column(
-                          children: [
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const CircleAvatar(child: Icon(Icons.person)),
-                              title: Text(c.userId ?? 'User', style: Theme.of(context).textTheme.bodySmall),
-                              subtitle: Text(c.content ?? '', style: Theme.of(context).textTheme.bodyMedium),
-                              trailing: Text(c.createdAt?.formattedIso ?? '', style: Theme.of(context).textTheme.bodySmall),
+                    ...comments.map(
+                      (ReviewComment c) => Column(
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const CircleAvatar(
+                              child: Icon(Icons.person),
                             ),
-                            const SizedBox(height: 8),
-                          ],
-                        )),
+                            title: Text(
+                              c.userId ?? 'User',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            subtitle: Text(
+                              c.content ?? '',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            trailing: Text(
+                              c.createdAt?.formattedIso ?? '',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 12),
 
                     Center(
@@ -94,15 +121,20 @@ class _CommentsSectionState extends State<CommentsSection> {
                           // TODO: open comment composer
                         },
                         style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 28),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 28,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(999),
                           ),
                         ),
-                        child: Text(t.addComment, style: Theme.of(context).textTheme.titleLarge),
+                        child: Text(
+                          t.addComment,
+                          style: AppTypography.buttonLarge,
+                        ),
                       ),
                     ),
-
                   ],
                 );
               },

@@ -91,7 +91,7 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
                 Expanded(
                   child: Text(
                     t.selectAGameFromYourLibrary,
-                    style: AppTypography.gameTitle28,
+                    style: AppTypography.heading,
                   ),
                 ),
                 IconButton(

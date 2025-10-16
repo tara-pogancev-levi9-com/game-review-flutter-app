@@ -6,10 +6,10 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/services/reviews_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
-import 'package:game_review/common/theme/app_fonts.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
+import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/features/review_screen/widgets/custom_text_form_field.dart';
 import 'package:game_review/features/review_screen/widgets/game_header_widget.dart';
@@ -166,39 +166,23 @@ class _AddReviewPageState extends State<AddReviewPage> {
   @override
   Widget build(BuildContext context) {
     final t = context.t;
-    final topInset = MediaQuery.of(context).padding.top;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        backgroundColor: AppColors.transparent,
-        surfaceTintColor: AppColors.transparent,
-        elevation: 0,
-        centerTitle: false,
-        titleSpacing: 0,
-        leading: const BackButton(color: AppColors.white),
-        title: Text(
-          t.back,
-          style: const TextStyle(
-            fontFamily: AppFonts.josefinSans,
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-            color: AppColors.white,
-          ),
-        ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: Theme.of(context).extension<AppGradients>()?.background,
       ),
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: Theme.of(context).extension<AppGradients>()?.background,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: CustomHeader(
+          isHome: false,
+          onBack: () => Navigator.pop(context),
         ),
-        child: BlocConsumer<ReviewFormCubit, ReviewFormState>(
+        body: BlocConsumer<ReviewFormCubit, ReviewFormState>(
           bloc: _reviewFormCubit,
           listener: (context, state) {
             state.maybeWhen(
               success: (review) {
                 AppSnackbar.showSuccess(context, t.reviewAddedSuccessfully);
-
                 Navigator.of(context).pop(true);
               },
               error: (message) {
@@ -223,12 +207,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                   ? AutovalidateMode.onUserInteraction
                   : AutovalidateMode.disabled,
               child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(
-                  24,
-                  topInset + kToolbarHeight + 16,
-                  24,
-                  24,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -239,7 +218,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     // Game Title
                     Text(
                       widget.game.title,
-                      style: AppTypography.gameTitle28,
+                      style: AppTypography.heading,
                     ),
                     const SizedBox(height: 24),
 
@@ -383,6 +362,8 @@ class _AddReviewPageState extends State<AddReviewPage> {
                           divisions: 100,
                           onChanged: (value) =>
                               setState(() => _completionPercentage = value),
+                          activeColor: AppColors.lilacSelected,
+                          inactiveColor: AppColors.textTertiary,
                         ),
                       ],
                     ),
