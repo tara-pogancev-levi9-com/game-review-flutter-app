@@ -15,6 +15,14 @@ class GameService {
 
   GameService(this._apiClient, this._authService);
 
+  Future<String> _getAuthenticatedUserId() async {
+    final userId = await _authService.getCurrentUserId();
+    if (userId == null) {
+      throw Exception(t.errors.userNotAuthenticated);
+    }
+    return userId;
+  }
+
   Future<GameModel?> getGameById(String gameId) async {
     try {
       final response = await _apiClient.get(
@@ -26,7 +34,7 @@ class GameService {
       );
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
-          'HTTP ${response.statusCode}: ${t.library.failedToFetchGame}',
+          'HTTP ${response.statusCode}: ${t.errors.failedToFetchGame}',
         );
       }
 
@@ -37,7 +45,7 @@ class GameService {
       return GameModel.fromJson((response.data as List).first);
     } catch (e) {
       Logger.error('Failed to fetch game details', e);
-      throw Exception(t.library.failedToFetchGame);
+      throw Exception(t.errors.failedToFetchGame);
     }
   }
 
@@ -58,13 +66,13 @@ class GameService {
 
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
-          'HTTP ${response.statusCode}: ${t.library.failedToFetchGames}',
+          'HTTP ${response.statusCode}: ${t.errors.failedToFetchGames}',
         );
       }
 
       if (response.data is! List) {
         throw Exception(
-          'Invalid response format: ${t.library.failedToFetchGames}',
+          'Invalid response format: ${t.errors.failedToFetchGames}',
         );
       }
 
@@ -72,7 +80,7 @@ class GameService {
           .map((json) => GameModel.fromJson(json))
           .toList();
     } catch (e) {
-      throw Exception(t.library.failedToFetchGames);
+      throw Exception(t.errors.failedToFetchGames);
     }
   }
 
@@ -204,7 +212,7 @@ class GameService {
       return [];
     } catch (e) {
       Logger.error(t.gameService.failedToFetchLibraryGames, e);
-      throw Exception(t.library.failedToFetchGames);
+      throw Exception(t.errors.failedToFetchGames);
     }
   }
 
@@ -245,12 +253,9 @@ class GameService {
   }
 
   Future<void> addToWishlist(String gameId, int priority) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       await _authService.createUserDataIfNotPresent();
 
       final isAlreadyInWishlist = await isInWishlist(gameId);
@@ -268,7 +273,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.created) {
-        throw Exception(t.library.failedToAddToWishlist);
+        throw Exception(t.errors.failedToAddToWishlist);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToAddToWishlist);
@@ -296,22 +301,19 @@ class GameService {
         Logger.info(t.gameService.gameAddedToWishlistSuccess);
         return true;
       } else {
-        Logger.warning(t.library.failedToAddToWishlist);
+        Logger.warning(t.errors.failedToAddToWishlist);
         return false;
       }
     } catch (e) {
-      Logger.error(t.library.failedToAddToWishlist, e);
+      Logger.error(t.errors.failedToAddToWishlist, e);
       return false;
     }
   }
 
   Future<void> removeFromWishlist(String gameId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.delete(
         ApiConstants.userWishlist,
         queryParameters: {
@@ -321,7 +323,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.noContent) {
-        throw Exception(t.library.failedToRemoveFromWishlist);
+        throw Exception(t.errors.failedToRemoveFromWishlist);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToRemoveFromWishlist);
@@ -407,12 +409,9 @@ class GameService {
   }
 
   Future<void> addToLibrary(String gameId, String? platformId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final isAlreadyInLibrary = await isInLibrary(gameId);
       if (isAlreadyInLibrary) {
         throw Exception('Game already in library');
@@ -441,7 +440,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.created) {
-        throw Exception(t.library.failedToAddToLibrary);
+        throw Exception(t.errors.failedToAddToLibrary);
       }
     } catch (e) {
       Logger.error('Failed to add game to library', e);
@@ -449,9 +448,9 @@ class GameService {
       if (e.toString().contains('duplicate key value')) {
         throw Exception(t.gameDetails.alreadyInLibrary);
       } else if (e.toString().contains('Failed to add to library')) {
-        throw Exception(t.library.failedToAddToLibrary);
+        throw Exception(t.errors.failedToAddToLibrary);
       } else {
-        throw Exception(t.library.failedToAddToLibrary);
+        throw Exception(t.errors.failedToAddToLibrary);
       }
     }
   }
@@ -474,14 +473,14 @@ class GameService {
 
       if (response.statusCode == HttpStatus.created ||
           response.statusCode == HttpStatus.ok) {
-        Logger.info(t.library.gameAddedToLibrary);
+        Logger.info(t.gameService.gameAddedToLibrarySuccess);
         return true;
       } else {
-        Logger.warning(t.library.failedToAddToLibrary);
+        Logger.warning(t.errors.failedToAddToLibrary);
         return false;
       }
     } catch (e) {
-      Logger.error(t.library.failedToAddToLibrary, e);
+      Logger.error(t.errors.failedToAddToLibrary, e);
       return false;
     }
   }
@@ -491,12 +490,9 @@ class GameService {
     int hoursPlayed,
     double completionPercentage,
   ) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.put(
         ApiConstants.userLibrary,
         data: {
@@ -511,20 +507,17 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.ok) {
-        throw Exception(t.library.failedToUpdateGameProgress);
+        throw Exception(t.errors.failedToUpdateGameProgress);
       }
     } catch (e) {
-      throw Exception(t.library.failedToUpdateGameProgress);
+      throw Exception(t.errors.failedToUpdateGameProgress);
     }
   }
 
   Future<void> removeFromLibrary(String gameId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.delete(
         ApiConstants.userLibrary,
         queryParameters: {
@@ -534,7 +527,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.noContent) {
-        throw Exception(t.library.failedToRemoveFromLibrary);
+        throw Exception(t.errors.failedToRemoveFromLibrary);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToRemoveFromLibrary);

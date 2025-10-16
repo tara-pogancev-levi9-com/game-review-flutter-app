@@ -91,8 +91,8 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
           SnackBar(
             content: Text(
               review.isLiked == true
-                  ? t.library.failedToUnlikeReview
-                  : t.library.failedToLikeReview,
+                  ? t.errors.failedToUnlikeReview
+                  : t.errors.failedToLikeReview,
             ),
             backgroundColor: AppColors.error,
             duration: const Duration(seconds: 2),
@@ -154,7 +154,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    t.library.failedToFetchGameReviews,
+                    t.errors.failedToFetchGameReviews,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColors.textSecondary,
                     ),

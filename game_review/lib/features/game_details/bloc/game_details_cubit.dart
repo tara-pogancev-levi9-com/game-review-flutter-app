@@ -34,17 +34,17 @@ class GameDetailsCubit extends Cubit<GameDetailsState> {
     final errorString = error.toString();
 
     if (errorString.contains(_ErrorMessages.failedToAddToWishlist)) {
-      return t.library.failedToAddToWishlist;
+      return t.errors.failedToAddToWishlist;
     } else if (errorString.contains(
       _ErrorMessages.failedToRemoveFromWishlist,
     )) {
-      return t.library.failedToRemoveFromWishlist;
+      return t.errors.failedToRemoveFromWishlist;
     } else if (errorString.contains(_ErrorMessages.gameAlreadyInLibrary)) {
       return t.gameDetails.alreadyInLibrary;
     } else if (errorString.contains(_ErrorMessages.failedToAddToLibrary)) {
-      return t.library.failedToAddToLibrary;
+      return t.errors.failedToAddToLibrary;
     } else if (errorString.contains(_ErrorMessages.failedToRemoveFromLibrary)) {
-      return t.library.failedToRemoveFromLibrary;
+      return t.errors.failedToRemoveFromLibrary;
     }
 
     return errorString;

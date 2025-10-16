@@ -45,7 +45,14 @@ class GameCard extends StatelessWidget {
               child: Container(
                 height: 185,
                 width: 150,
-                color: AppColors.surfaceVariant,
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceVariant,
+                  border: Border.all(
+                    color: AppColors.outline.withValues(alpha: 0.2),
+                    width: 1,
+                  ),
+                  borderRadius: BorderSize.m.radius,
+                ),
                 child: NetworkImageWidget(
                   imageUrl: game.coverImageUrl,
                   fit: BoxFit.cover,

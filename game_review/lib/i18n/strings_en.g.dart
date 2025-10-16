@@ -257,10 +257,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get errorLoadingMoreGames => 'Failed to load more games';
 
 	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-
-	/// en: 'App failed to start:\n\n@{error}'
-	String get appFailedToStart => 'App failed to start:\n\n@{error}';
-
 	late final TranslationsLibraryEn library = TranslationsLibraryEn.internal(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
 	late final TranslationsBrandingEn branding = TranslationsBrandingEn.internal(_root);
@@ -699,95 +695,14 @@ class TranslationsErrorsEn {
 	/// en: 'Invalid email'
 	String get invalidEmail => 'Invalid email';
 
-	/// en: 'Min {{count}} char'
-	String minLength({required Object count}) => 'Min ${count} char';
+	/// en: 'Min {{n}} char'
+	String minLength({required Object n}) => 'Min ${n} char';
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
 
 	/// en: 'Game not found'
 	String get gameNotFound => 'Game not found';
-
-	/// en: 'Reviews not found'
-	String get reviewsNotFound => 'Reviews not found';
-
-	/// en: 'Failed to fetch recent reviews'
-	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
-
-	/// en: 'Failed to load home data'
-	String get failedToLoadHome => 'Failed to load home data';
-
-	/// en: 'Failed to load comments'
-	String get failedToLoadComments => 'Failed to load comments';
-
-	/// en: 'Authentication check failed'
-	String get authenticationFail => 'Authentication check failed';
-
-	/// en: 'Failed to process review'
-	String get failedToProcessReview => 'Failed to process review';
-
-	/// en: 'Unexpected response format from server'
-	String get unexpectedResponseFormat => 'Unexpected response format from server';
-
-	/// en: 'An error occurred. Please try again.'
-	String get genericError => 'An error occurred. Please try again.';
-
-	/// en: 'Failed to add review'
-	String get failedToAddReview => 'Failed to add review';
-
-	/// en: 'Failed to update review'
-	String get failedToUpdateReview => 'Failed to update review';
-
-	/// en: 'Failed to delete review'
-	String get failedToDeleteReview => 'Failed to delete review';
-}
-
-// Path: library
-class TranslationsLibraryEn {
-	TranslationsLibraryEn.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Latest'
-	String get latest => 'Latest';
-
-	/// en: 'Popular'
-	String get popular => 'Popular';
-
-	/// en: 'Owned Games'
-	String get ownedGames => 'Owned Games';
-
-	/// en: 'Wishlist'
-	String get wishlist => 'Wishlist';
-
-	/// en: 'My Library'
-	String get myLibrary => 'My Library';
-
-	/// en: 'Game already in wishlist'
-	String get gameAlreadyInWishlist => 'Game already in wishlist';
-
-	/// en: 'Game added to wishlist'
-	String get gameAddedToWishlist => 'Game added to wishlist';
-
-	/// en: 'Game already in library'
-	String get gameAlreadyInLibrary => 'Game already in library';
-
-	/// en: 'Game added to library'
-	String get gameAddedToLibrary => 'Game added to library';
-
-	/// en: 'Game not found in wishlist'
-	String get gameNotFoundInWishlist => 'Game not found in wishlist';
-
-	/// en: 'Game not found in library'
-	String get gameNotFoundInLibrary => 'Game not found in library';
-
-	/// en: 'Wishlist addition failed'
-	String get wishlistAdditionFailed => 'Wishlist addition failed';
-
-	/// en: 'Library addition failed'
-	String get libraryAdditionFailed => 'Library addition failed';
 
 	/// en: 'Reviews not found'
 	String get reviewsNotFound => 'Reviews not found';
@@ -845,6 +760,126 @@ class TranslationsLibraryEn {
 
 	/// en: 'Password must be at least 8 characters long'
 	String get passwordLength => 'Password must be at least 8 characters long';
+
+	/// en: 'Please confirm your password'
+	String get confirmPassword => 'Please confirm your password';
+
+	/// en: 'Passwords do not match'
+	String get passwordMismatch => 'Passwords do not match';
+
+	/// en: 'Authentication failed'
+	String get authenticationFail => 'Authentication failed';
+
+	/// en: 'Failed to load home data'
+	String get failedToLoadHome => 'Failed to load home data';
+
+	/// en: 'Failed to load comments'
+	String get failedToLoadComments => 'Failed to load comments';
+}
+
+// Path: library
+class TranslationsLibraryEn {
+	TranslationsLibraryEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Latest'
+	String get latest => 'Latest';
+
+	/// en: 'Popular'
+	String get popular => 'Popular';
+
+	/// en: 'My Games'
+	String get ownedGames => 'My Games';
+
+	/// en: 'Wishlist'
+	String get wishlist => 'Wishlist';
+
+	/// en: 'My Library'
+	String get myLibrary => 'My Library';
+
+	/// en: 'Game already in wishlist'
+	String get gameAlreadyInWishlist => 'Game already in wishlist';
+
+	/// en: 'Game added to wishlist'
+	String get gameAddedToWishlist => 'Game added to wishlist';
+
+	/// en: 'Game already in library'
+	String get gameAlreadyInLibrary => 'Game already in library';
+
+	/// en: 'Game added to library'
+	String get gameAddedToLibrary => 'Game added to library';
+
+	/// en: 'Game not found in wishlist'
+	String get gameNotFoundInWishlist => 'Game not found in wishlist';
+
+	/// en: 'Game not found in library'
+	String get gameNotFoundInLibrary => 'Game not found in library';
+
+	/// en: 'Failed to add to wishlist'
+	String get wishlistAdditionFailed => 'Failed to add to wishlist';
+
+	/// en: 'Failed to add to library'
+	String get libraryAdditionFailed => 'Failed to add to library';
+
+	/// en: 'Reviews not found'
+	String get reviewsNotFound => 'Reviews not found';
+
+	/// en: 'Failed to fetch game'
+	String get failedToFetchGame => 'Failed to fetch game';
+
+	/// en: 'Failed to fetch games'
+	String get failedToFetchGames => 'Failed to fetch games';
+
+	/// en: 'Failed to fetch game statistics'
+	String get failedToFetchGameStatistics => 'Failed to fetch game statistics';
+
+	/// en: 'Failed to fetch recent reviews'
+	String get failedToFetchRecentReviews => 'Failed to fetch recent reviews';
+
+	/// en: 'Failed to add to wishlist'
+	String get failedToAddToWishlist => 'Failed to add to wishlist';
+
+	/// en: 'Failed to remove from wishlist'
+	String get failedToRemoveFromWishlist => 'Failed to remove from wishlist';
+
+	/// en: 'Failed to add to library'
+	String get failedToAddToLibrary => 'Failed to add to library';
+
+	/// en: 'Failed to remove from library'
+	String get failedToRemoveFromLibrary => 'Failed to remove from library';
+
+	/// en: 'Failed to update game progress'
+	String get failedToUpdateGameProgress => 'Failed to update game progress';
+
+	/// en: 'Failed to fetch game reviews'
+	String get failedToFetchGameReviews => 'Failed to fetch game reviews';
+
+	/// en: 'Failed to fetch review comments'
+	String get failedToFetchReviewComments => 'Failed to fetch review comments';
+
+	/// en: 'Failed to create review'
+	String get failedToCreateReview => 'Failed to create review';
+
+	/// en: 'Failed to add comment'
+	String get failedToAddComment => 'Failed to add comment';
+
+	/// en: 'Failed to like review'
+	String get failedToLikeReview => 'Failed to like review';
+
+	/// en: 'Failed to unlike review'
+	String get failedToUnlikeReview => 'Failed to unlike review';
+
+	/// en: 'User not authenticated'
+	String get userNotAuthenticated => 'User not authenticated';
+
+	/// en: 'Account with this email already exists'
+	String get registrationEmailExistsError => 'Account with this email already exists';
+
+	/// en: 'Password must be at least 8 characters'
+	String get passwordLength => 'Password must be at least 8 characters';
 
 	/// en: 'Please confirm your password'
 	String get confirmPassword => 'Please confirm your password';

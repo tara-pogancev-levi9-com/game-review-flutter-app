@@ -57,7 +57,9 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8.0),
+
+                SizedBox(height: 8.0),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

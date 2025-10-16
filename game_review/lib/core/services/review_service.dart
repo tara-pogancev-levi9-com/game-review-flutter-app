@@ -16,7 +16,6 @@ class ReviewService {
 
   Future<List<ReviewModel>> getGameReviews(
     String gameId, {
-    //int limit = 10,
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
@@ -52,7 +51,7 @@ class ReviewService {
       }
       return [];
     } catch (e) {
-      throw Exception(t.library.failedToFetchGameReviews);
+      throw Exception(t.errors.failedToFetchGameReviews);
     }
   }
 
@@ -74,7 +73,7 @@ class ReviewService {
       }
       return [];
     } catch (e) {
-      throw Exception(t.library.failedToFetchReviewComments);
+      throw Exception(t.errors.failedToFetchReviewComments);
     }
   }
 
@@ -118,9 +117,9 @@ class ReviewService {
       if (response.statusCode == HttpStatus.created) {
         return ReviewModel.fromJson(response.data);
       }
-      throw Exception(t.library.failedToCreateReview);
+      throw Exception(t.errors.failedToCreateReview);
     } catch (e) {
-      throw Exception(t.library.failedToCreateReview);
+      throw Exception(t.errors.failedToCreateReview);
     }
   }
 
@@ -142,9 +141,9 @@ class ReviewService {
       if (response.statusCode == HttpStatus.created) {
         return ReviewCommentModel.fromJson(response.data);
       }
-      throw Exception(t.library.failedToAddComment);
+      throw Exception(t.errors.failedToAddComment);
     } catch (e) {
-      throw Exception(t.library.failedToAddComment);
+      throw Exception(t.errors.failedToAddComment);
     }
   }
 
@@ -152,7 +151,7 @@ class ReviewService {
     try {
       final userId = await _authService.getCurrentUserId();
       if (userId == null) {
-        throw Exception(t.library.userNotAuthenticated);
+        throw Exception(t.errors.userNotAuthenticated);
       }
 
       final response = await _apiClient.post(
@@ -164,10 +163,10 @@ class ReviewService {
       );
 
       if (response.statusCode != HttpStatus.created) {
-        throw Exception(t.library.failedToLikeReview);
+        throw Exception(t.errors.failedToLikeReview);
       }
     } catch (e) {
-      throw Exception(t.library.failedToLikeReview);
+      throw Exception(t.errors.failedToLikeReview);
     }
   }
 
@@ -175,7 +174,7 @@ class ReviewService {
     try {
       final userId = await _authService.getCurrentUserId();
       if (userId == null) {
-        throw Exception(t.library.userNotAuthenticated);
+        throw Exception(t.errors.userNotAuthenticated);
       }
 
       final response = await _apiClient.delete(
@@ -187,10 +186,10 @@ class ReviewService {
       );
 
       if (response.statusCode != HttpStatus.noContent) {
-        throw Exception(t.library.failedToUnlikeReview);
+        throw Exception(t.errors.failedToUnlikeReview);
       }
     } catch (e) {
-      throw Exception(t.library.failedToUnlikeReview);
+      throw Exception(t.errors.failedToUnlikeReview);
     }
   }
 

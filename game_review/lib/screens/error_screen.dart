@@ -9,12 +9,24 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final gradients = theme.extension<AppGradients>()!;
+    final colorScheme = theme.colorScheme;
+    final gradients = theme.extension<AppGradients>();
 
     return Scaffold(
       backgroundColor: AppColors.transparent,
       body: Container(
-        decoration: BoxDecoration(gradient: gradients.background),
+        decoration: BoxDecoration(
+          gradient:
+              gradients?.background ??
+              LinearGradient(
+                colors: [
+                  colorScheme.surface,
+                  colorScheme.surfaceContainerHighest,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+        ),
         padding: const EdgeInsets.all(16),
         alignment: Alignment.center,
         child: Text(

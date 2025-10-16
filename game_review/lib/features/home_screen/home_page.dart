@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.t;
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(
         bloc: cubit,

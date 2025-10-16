@@ -48,7 +48,7 @@ class AuthService {
       if (e.response?.statusCode != null &&
           e.response?.statusCode == HttpStatus.unprocessableEntity) {
         throw EmailAlreadyExistsException(
-          t.library.registrationEmailExistsError,
+          t.errors.registrationEmailExistsError,
         );
       }
     } catch (e) {
