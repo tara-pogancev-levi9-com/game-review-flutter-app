@@ -39,6 +39,7 @@ class _LibraryPageState extends State<LibraryPage> {
               popularGames: final popular,
               userLibraryGames: final userLib,
               userWishlistGames: final wishlist,
+              user: final user,
             ) =>
               RefreshIndicator(
                 onRefresh: () => locator<LibraryCubit>().fetchGames(),
@@ -48,11 +49,13 @@ class _LibraryPageState extends State<LibraryPage> {
                       padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
                       child: Row(
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 28,
                             backgroundImage: NetworkImage(
                               // Replace with actual user profile image if available (Temporary placeholder for now)
-                              'https://i.pravatar.cc/150?img=8',
+                              (user?.avatarUrl != null)
+                                  ? user!.avatarUrl!
+                                  : 'https://i.pravatar.cc/150?img=8',
                             ),
                           ),
                           const SizedBox(width: 16),

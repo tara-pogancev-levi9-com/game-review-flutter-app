@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames,  UserModel? user)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LibraryInitial() when initial != null:
 return initial();case LibraryLoading() when loading != null:
 return loading();case LibrarySuccess() when success != null:
-return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames);case LibraryError() when error != null:
+return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames,_that.user);case LibraryError() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames,  UserModel? user)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case LibraryInitial():
 return initial();case LibraryLoading():
 return loading();case LibrarySuccess():
-return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames);case LibraryError():
+return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames,_that.user);case LibraryError():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<GameModel> latestGames,  List<GameModel> popularGames,  List<GameModel> userLibraryGames,  List<GameModel> userWishlistGames,  UserModel? user)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case LibraryInitial() when initial != null:
 return initial();case LibraryLoading() when loading != null:
 return loading();case LibrarySuccess() when success != null:
-return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames);case LibraryError() when error != null:
+return success(_that.latestGames,_that.popularGames,_that.userLibraryGames,_that.userWishlistGames,_that.user);case LibraryError() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -257,7 +257,7 @@ String toString() {
 
 
 class LibrarySuccess implements LibraryState {
-  const LibrarySuccess({required final  List<GameModel> latestGames, required final  List<GameModel> popularGames, final  List<GameModel> userLibraryGames = const [], final  List<GameModel> userWishlistGames = const []}): _latestGames = latestGames,_popularGames = popularGames,_userLibraryGames = userLibraryGames,_userWishlistGames = userWishlistGames;
+  const LibrarySuccess({required final  List<GameModel> latestGames, required final  List<GameModel> popularGames, final  List<GameModel> userLibraryGames = const [], final  List<GameModel> userWishlistGames = const [], this.user = null}): _latestGames = latestGames,_popularGames = popularGames,_userLibraryGames = userLibraryGames,_userWishlistGames = userWishlistGames;
   
 
  final  List<GameModel> _latestGames;
@@ -288,6 +288,7 @@ class LibrarySuccess implements LibraryState {
   return EqualUnmodifiableListView(_userWishlistGames);
 }
 
+@JsonKey() final  UserModel? user;
 
 /// Create a copy of LibraryState
 /// with the given fields replaced by the non-null parameter values.
@@ -299,16 +300,16 @@ $LibrarySuccessCopyWith<LibrarySuccess> get copyWith => _$LibrarySuccessCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LibrarySuccess&&const DeepCollectionEquality().equals(other._latestGames, _latestGames)&&const DeepCollectionEquality().equals(other._popularGames, _popularGames)&&const DeepCollectionEquality().equals(other._userLibraryGames, _userLibraryGames)&&const DeepCollectionEquality().equals(other._userWishlistGames, _userWishlistGames));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LibrarySuccess&&const DeepCollectionEquality().equals(other._latestGames, _latestGames)&&const DeepCollectionEquality().equals(other._popularGames, _popularGames)&&const DeepCollectionEquality().equals(other._userLibraryGames, _userLibraryGames)&&const DeepCollectionEquality().equals(other._userWishlistGames, _userWishlistGames)&&(identical(other.user, user) || other.user == user));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_latestGames),const DeepCollectionEquality().hash(_popularGames),const DeepCollectionEquality().hash(_userLibraryGames),const DeepCollectionEquality().hash(_userWishlistGames));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_latestGames),const DeepCollectionEquality().hash(_popularGames),const DeepCollectionEquality().hash(_userLibraryGames),const DeepCollectionEquality().hash(_userWishlistGames),user);
 
 @override
 String toString() {
-  return 'LibraryState.success(latestGames: $latestGames, popularGames: $popularGames, userLibraryGames: $userLibraryGames, userWishlistGames: $userWishlistGames)';
+  return 'LibraryState.success(latestGames: $latestGames, popularGames: $popularGames, userLibraryGames: $userLibraryGames, userWishlistGames: $userWishlistGames, user: $user)';
 }
 
 
@@ -319,11 +320,11 @@ abstract mixin class $LibrarySuccessCopyWith<$Res> implements $LibraryStateCopyW
   factory $LibrarySuccessCopyWith(LibrarySuccess value, $Res Function(LibrarySuccess) _then) = _$LibrarySuccessCopyWithImpl;
 @useResult
 $Res call({
- List<GameModel> latestGames, List<GameModel> popularGames, List<GameModel> userLibraryGames, List<GameModel> userWishlistGames
+ List<GameModel> latestGames, List<GameModel> popularGames, List<GameModel> userLibraryGames, List<GameModel> userWishlistGames, UserModel? user
 });
 
 
-
+$UserModelCopyWith<$Res>? get user;
 
 }
 /// @nodoc
@@ -336,17 +337,30 @@ class _$LibrarySuccessCopyWithImpl<$Res>
 
 /// Create a copy of LibraryState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? latestGames = null,Object? popularGames = null,Object? userLibraryGames = null,Object? userWishlistGames = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? latestGames = null,Object? popularGames = null,Object? userLibraryGames = null,Object? userWishlistGames = null,Object? user = freezed,}) {
   return _then(LibrarySuccess(
 latestGames: null == latestGames ? _self._latestGames : latestGames // ignore: cast_nullable_to_non_nullable
 as List<GameModel>,popularGames: null == popularGames ? _self._popularGames : popularGames // ignore: cast_nullable_to_non_nullable
 as List<GameModel>,userLibraryGames: null == userLibraryGames ? _self._userLibraryGames : userLibraryGames // ignore: cast_nullable_to_non_nullable
 as List<GameModel>,userWishlistGames: null == userWishlistGames ? _self._userWishlistGames : userWishlistGames // ignore: cast_nullable_to_non_nullable
-as List<GameModel>,
+as List<GameModel>,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as UserModel?,
   ));
 }
 
+/// Create a copy of LibraryState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserModelCopyWith<$Res>? get user {
+    if (_self.user == null) {
+    return null;
+  }
 
+  return $UserModelCopyWith<$Res>(_self.user!, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}
 }
 
 /// @nodoc

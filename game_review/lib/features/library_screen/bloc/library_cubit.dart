@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/services/game_service.dart';
+import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'library_state.dart';
@@ -22,6 +24,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         _gameService.getUserLibraryGames(),
         _gameService.getUserWishlistGames(),
       ]);
+      final user = await locator<UserService>().getCurrentUser();
 
       emit(
         LibraryState.success(
@@ -29,6 +32,7 @@ class LibraryCubit extends Cubit<LibraryState> {
           popularGames: results[1],
           userLibraryGames: results[2],
           userWishlistGames: results[3],
+          user: user,
         ),
       );
     } catch (e) {
