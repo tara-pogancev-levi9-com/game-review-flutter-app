@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 
 class ReviewChip extends StatelessWidget {
   final String label;
@@ -10,9 +11,15 @@ class ReviewChip extends StatelessWidget {
     return Chip(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       label: Text(label, style: const TextStyle(fontSize: 12)),
-      avatar: icon != null ? Icon(icon, size: 14) : null,
+      avatar: icon != null
+          ? Icon(
+              icon,
+              size: 14,
+              color: AppColors.lilacSelected,
+            )
+          : null,
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:game_review/common/dependency_injection/injection_container.dart
 import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/features/home_screen/bloc/review_details_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_details_state.dart';
+import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'utils/formatters.dart';
@@ -37,6 +39,9 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
     final content = widget.review.content;
 
     const likesCount = 0;
+    final gradients =
+        Theme.of(context).extension<AppGradients>() ?? AppGradients.dark;
+
 
     return BlocConsumer<ReviewDetailsCubit, ReviewDetailsState>(
       bloc: locator<ReviewDetailsCubit>(),
@@ -47,7 +52,11 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
             child: CircularProgressIndicator(),
           ),
           loaded: (reviewMedia) {
-            return Scaffold(
+            return Container(
+                decoration: BoxDecoration(
+                  gradient: gradients.background,
+                ),
+                child: Scaffold(
               extendBodyBehindAppBar: false,
               appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(64),
@@ -136,6 +145,16 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     ),
                   ),
 
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: Row(
+                children: [
+                  const Icon(Icons.person, size: 16),
+                  const SizedBox(width: 8),
+                  Text(reviewer, style: Theme.of(context).textTheme.bodySmall),
+                ],
+              ),
+            ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
                     child: Row(
@@ -150,6 +169,34 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     ),
                   ),
 
+            // review title & content
+            if (reviewTitle != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 6,
+                ),
+                child: Text(
+                  reviewTitle,
+                  style:
+                      Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+            if (content != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Text(
+                  content,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
                   // review title & content
                   if (reviewTitle != null)
                     Padding(
@@ -179,6 +226,35 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                       ),
                     ),
 
+            // chips
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: [
+                  ReviewChip(
+                    '${widget.review.playtimeHours ?? 0} ${t.playingRecord}',
+                    icon: Icons.schedule,
+                  ),
+                  ReviewChip(
+                    widget.review.completionStatus ?? '-',
+                    icon: Icons.check_circle_outline,
+                  ),
+                  ReviewChip(
+                    widget.review.recommended == true
+                        ? t.wouldRecommend
+                        : t.wouldNotRecommend,
+                    icon: Icons.thumb_up,
+                  ),
+                  ReviewChip(
+                    '$likesCount ${t.likes}',
+                    icon: Icons.favorite_outline,
+                  ),
+                  // Comments count in CommentsSection / CommentsChip inside that widget
+                ],
+              ),
+            ),
                   // chips
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -212,6 +288,29 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     ),
                   ),
 
+            // ratings header + rows
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: Text(
+                t.ratings,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  RatingRow(label: t.overall, value: widget.review.overallRating),
+                  RatingRow(label: t.gameplay, value: widget.review.gameplayRating),
+                  RatingRow(label: t.graphics, value: widget.review.graphicsRating),
+                  RatingRow(label: t.story, value: widget.review.storyRating),
+                  RatingRow(label: t.sound, value: widget.review.soundRating),
+                  RatingRow(label: t.value, value: widget.review.valueRating),
+                ],
+              ),
+            ),
                   // ratings header + rows
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -257,6 +356,64 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     ),
                   ),
 
+            // evaluation (pros/cons)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: Text(
+                t.evaluation,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            if (widget.review.pros != null && widget.review.pros!.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.check_circle_outline),
+                        const SizedBox(width: 8),
+                        Text(
+                          t.pros,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      widget.review.pros!.toString(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            if (widget.review.cons != null && widget.review.cons!.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.block_outlined),
+                        const SizedBox(width: 8),
+                        Text(
+                          t.cons,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      widget.review.cons!.toString(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
                   // evaluation (pros/cons)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -365,10 +522,14 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                   const SizedBox(height: 24),
                 ],
               ),
+                ),
             );
+
           },
         );
+
       },
+
     );
   }
 

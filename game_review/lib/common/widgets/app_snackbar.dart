@@ -21,7 +21,7 @@ class AppSnackbar {
           message,
           style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: AppColors.error,
         duration: duration,
         behavior: SnackBarBehavior.floating,
         action: SnackBarAction(
@@ -47,7 +47,7 @@ class AppSnackbar {
           message,
           style: const TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.success,
         duration: duration,
         behavior: SnackBarBehavior.floating,
       ),
@@ -84,9 +84,9 @@ class AppSnackbar {
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: AppColors.white),
         ),
-        backgroundColor: Colors.orange,
+        backgroundColor: AppColors.warning,
         duration: duration,
         behavior: SnackBarBehavior.floating,
       ),

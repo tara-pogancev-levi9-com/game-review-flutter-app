@@ -55,7 +55,7 @@ class _AvatarState extends State<Avatar> {
           loading: () => CircularProgressIndicator(),
           loaded: (user, loggedUserId, alreadyFriends, message) => Column(
             children: [
-              Container(
+              SizedBox(
                 height: 250,
                 child: Stack(
                   children: [
@@ -65,6 +65,7 @@ class _AvatarState extends State<Avatar> {
                       right: 30,
                       child: CircleAvatar(
                         radius: 100,
+                        backgroundColor: AppColors.textTertiary,
                         backgroundImage: _selectedImage != null
                             ? FileImage(File(_selectedImage!.path))
                                   as ImageProvider

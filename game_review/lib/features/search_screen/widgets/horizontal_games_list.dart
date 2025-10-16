@@ -21,7 +21,7 @@ class HorizontalGamesList extends StatelessWidget {
             itemCount: games.length,
             itemBuilder: (context, index) {
               return Container(
-                width: 320,
+                width: 340,
                 margin: EdgeInsets.only(
                   right: index < games.length - 1 ? 16 : 0,
                 ),

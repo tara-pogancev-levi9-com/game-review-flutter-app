@@ -18,7 +18,7 @@ class ReviewsService {
   ReviewsService(this._apiClient);
 
   Future<List<ReviewModel>> fetchReviewsByGame({
-    required String game_id,
+    required String gameId,
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
@@ -26,7 +26,7 @@ class ReviewsService {
       Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
-        'game_id': 'eq.$game_id',
+        'game_id': 'eq.$gameId',
         'limit': limit,
         'offset': offset,
         'order': 'created_at.desc',
@@ -38,7 +38,7 @@ class ReviewsService {
   }
 
   Future<List<ReviewModel>> fetchReviewsByUser({
-    required String user_id,
+    required String userId,
     int limit = Endpoints.limitRecentReviews,
     int offset = 0,
   }) async {
@@ -46,7 +46,7 @@ class ReviewsService {
       Endpoints.gameReviews,
       queryParameters: {
         'select': '*',
-        'user_id': 'eq.$user_id',
+        'user_id': 'eq.$userId',
         'limit': limit,
         'offset': offset,
         'order': 'created_at.desc',
@@ -65,7 +65,7 @@ class ReviewsService {
       final response = await _apiClient.get(
         Endpoints.gameReviews,
         queryParameters: {
-          'select': '*,games(*)',
+          'select': '*,games(*),users(username)',
           'order': 'created_at.desc',
           'limit': limit,
           'offset': offset,
@@ -75,7 +75,7 @@ class ReviewsService {
       if (response.statusCode == HttpStatus.ok && response.data is List) {
         return (response.data as List).map((r) {
           final map = Map<String, dynamic>.from(r as Map);
-          return ReviewModel.fromJsonWithNestedGame(map);
+          return ReviewModel.fromJsonWithNestedGameAndUser(map);
         }).toList();
       }
       return [];
@@ -86,38 +86,38 @@ class ReviewsService {
   }
 
   Future<ReviewModel> addReview({
-    required String user_id,
-    required String game_id,
+    required String userId,
+    required String gameId,
     String? title,
     String? content,
-    double? overall_rating,
-    double? gameplay_rating,
-    double? graphics_rating,
-    double? story_rating,
-    double? sound_rating,
-    double? value_rating,
+    double? overallRating,
+    double? gameplayRating,
+    double? graphicsRating,
+    double? storyRating,
+    double? soundRating,
+    double? valueRating,
     List<String>? pros,
     List<String>? cons,
-    int? playtime_hours,
-    String? completion_status,
+    int? playtimeHours,
+    String? completionStatus,
     bool? recommended,
   }) async {
     final reviewData = ReviewModel(
       id: '',
-      userId: user_id,
-      gameId: game_id,
+      userId: userId,
+      gameId: gameId,
       title: title,
       content: content,
-      overallRating: overall_rating,
-      gameplayRating: gameplay_rating,
-      graphicsRating: graphics_rating,
-      storyRating: story_rating,
-      soundRating: sound_rating,
-      valueRating: value_rating,
+      overallRating: overallRating,
+      gameplayRating: gameplayRating,
+      graphicsRating: graphicsRating,
+      storyRating: storyRating,
+      soundRating: soundRating,
+      valueRating: valueRating,
       pros: pros,
       cons: cons,
-      playtimeHours: playtime_hours,
-      completionStatus: completion_status,
+      playtimeHours: playtimeHours,
+      completionStatus: completionStatus,
       recommended: recommended,
     );
 
@@ -125,8 +125,8 @@ class ReviewsService {
     final data = reviewData.toJsonForApi();
 
     Logger.info('🟣 ADD REVIEW DEBUG');
-    Logger.info('user_id: $user_id');
-    Logger.info('game_id: $game_id');
+    Logger.info('user_id: $userId');
+    Logger.info('game_id: $gameId');
     Logger.info('DATA: $data');
 
     final response = await _apiClient.post(
@@ -168,10 +168,8 @@ class ReviewsService {
     // Create a partial ReviewModel with only the fields we're updating
     final reviewData = ReviewModel(
       id: id,
-      userId: '',
-      //Not being updated
-      gameId: '',
-      //Not being updated
+      userId: '', //Not being updated
+      gameId: '', //Not being updated
       title: title,
       content: content,
       overallRating: overallRating,
@@ -297,6 +295,7 @@ class ReviewsService {
 
     final data = response.data;
 
+    // Supabase with 'Prefer: return=representation' always returns a list
     if (data is List && data.isNotEmpty && data.first is Map<String, dynamic>) {
       return ReviewModel.fromJson(data.first as Map<String, dynamic>);
     }

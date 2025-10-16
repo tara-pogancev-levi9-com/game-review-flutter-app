@@ -41,7 +41,7 @@ class AppTypography {
   static const TextStyle buttonLarge = TextStyle(
     fontFamily: AppFonts.josefinSans,
     fontWeight: FontWeight.w500,
-    fontSize: 28,
+    fontSize: 20,
   );
 
   static const TextStyle labelSmall = TextStyle(
@@ -54,12 +54,6 @@ class AppTypography {
     color: AppColors.textSecondary,
   );
 
-  static const TextStyle gameTitle28 = TextStyle(
-    fontSize: 28,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-  );
-
   static const TextStyle smallText = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -69,5 +63,12 @@ class AppTypography {
   static const TextStyle searchItemSubtitle = TextStyle(
     fontSize: 12,
     color: AppColors.textSecondary,
+  );
+
+  static const TextStyle editUser = TextStyle(
+    fontWeight: FontWeight.w100,
+    fontStyle: FontStyle.italic,
+    color: AppColors.textSecondary,
+    fontSize: 14,
   );
 }
