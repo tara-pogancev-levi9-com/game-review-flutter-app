@@ -34,6 +34,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailKey = GlobalKey<FormFieldState>();
 
   bool firstInput = true;
+
   @override
   Widget build(BuildContext context) {
     final gradients = Theme.of(context).extension<AppGradients>()!;
@@ -158,6 +159,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autocorrect: false,
                                   autofillHints: null,
                                   enableSuggestions: false,
+
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.person_2_outlined,

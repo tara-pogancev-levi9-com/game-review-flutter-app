@@ -98,9 +98,13 @@ class AppTheme {
         contentPadding: const EdgeInsets.all(16),
         filled: false,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderSize.m.radius,
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
+        floatingLabelStyle: TextStyle(
+          color: AppColors.textPrimary,
+        ),
+        helperStyle: TextStyle(color: AppColors.textPrimary),
         hintStyle: const TextStyle(color: AppColors.textSecondary),
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,
