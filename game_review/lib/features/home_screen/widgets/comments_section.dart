@@ -40,7 +40,7 @@ class _CommentsSectionState extends State<CommentsSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${t.discussions} ($count)',
+              '${t.media.discussions} ($count)',
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -62,7 +62,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(t.reviewsNotFound),
+                        child: Text(t.reviews.reviewsNotFound),
                       ),
                       const SizedBox(height: 12),
 
@@ -78,7 +78,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                             ),
                           ),
                           child: Text(
-                            t.addComment,
+                            t.reviews.addComment,
                             style: AppTypography.buttonLarge,
                           ),
                         ),
@@ -98,11 +98,11 @@ class _CommentsSectionState extends State<CommentsSection> {
                               child: Icon(Icons.person),
                             ),
                             title: Text(
-                              c.userId ?? 'User',
+                              c.userId,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             subtitle: Text(
-                              c.content ?? '',
+                              c.content,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             trailing: Text(
@@ -131,7 +131,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                           ),
                         ),
                         child: Text(
-                          t.addComment,
+                          t.reviews.addComment,
                           style: AppTypography.buttonLarge,
                         ),
                       ),

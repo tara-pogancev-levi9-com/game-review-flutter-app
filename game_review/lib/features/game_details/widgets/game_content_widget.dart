@@ -172,7 +172,7 @@ class GameContentWidget extends StatelessWidget {
           ],
 
           Text(
-            t.overall,
+            t.ratings.overall,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
@@ -209,7 +209,7 @@ class GameContentWidget extends StatelessWidget {
           ],
 
           Text(
-            t.details,
+            t.gameDetails.details,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
@@ -318,10 +318,6 @@ class GameContentWidget extends StatelessWidget {
     );
   }
 
-  void _showComingSoonSnackBar(BuildContext context, String message) {
-    AppSnackbar.show(context, message);
-  }
-
   void _shareGame(BuildContext context) async {
     try {
       await ShareService.shareGame(game, popupMenuKey: _popupMenuKey);
@@ -346,7 +342,7 @@ class GameContentWidget extends StatelessWidget {
         cubit.toggleLibrary(gameId);
         break;
       case 'review':
-        final result = await showModalBottomSheet<bool>(
+        await showModalBottomSheet<bool>(
           context: context,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,

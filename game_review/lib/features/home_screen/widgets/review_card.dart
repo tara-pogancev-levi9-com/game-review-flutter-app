@@ -122,7 +122,7 @@ class ReviewCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(999),
                     ),
                   ),
-                  child: Text(t.details),
+                  child: Text(t.gameDetails.details),
                 ),
               ],
             ),

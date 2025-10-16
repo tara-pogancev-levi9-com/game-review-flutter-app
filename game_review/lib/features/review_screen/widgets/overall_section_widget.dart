@@ -20,7 +20,7 @@ class OverallSectionWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          t.overall,
+          t.ratings.overall,
           style: AppTypography.heading,
         ),
         const SizedBox(height: 12),
@@ -37,7 +37,7 @@ class OverallSectionWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                t.iRecommendThisGame,
+                t.reviews.iRecommendThisGame,
                 style: AppTypography.labelSmall,
               ),
               Switch(

@@ -65,7 +65,7 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> updateAvatar(userId, imageUrl) async {
     try {
       await _userService.updateUserProfile(userId, {'avatar_url': imageUrl});
-      await fetchUserProfile(null, t.avatarUpdated);
+      await fetchUserProfile(null, t.profile.avatarUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
@@ -78,7 +78,7 @@ class UserCubit extends Cubit<UserProfileState> {
         'display_name': data.displayName,
         'bio': data.bio,
       });
-      await fetchUserProfile(null, t.profileUpdated);
+      await fetchUserProfile(null, t.profile.profileUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
@@ -93,7 +93,7 @@ class UserCubit extends Cubit<UserProfileState> {
           user: user,
           loggedUserId: null,
           alreadyFriends: null,
-          message: t.passwordChanged,
+          message: t.auth.passwordChanged,
         ),
       );
     } on PasswordSameAsOldException catch (e) {
@@ -108,7 +108,7 @@ class UserCubit extends Cubit<UserProfileState> {
     } catch (e) {
       emit(
         UserProfileState.error(
-          message: t.errorChangingPassword,
+          message: t.auth.errorChangingPassword,
         ),
       );
     }
@@ -117,7 +117,7 @@ class UserCubit extends Cubit<UserProfileState> {
   Future<void> deleteAvatar(userId, imagePath) async {
     try {
       await _userService.deleteAvatar(imagePath, userId);
-      await fetchUserProfile(null, t.avatarRemoved);
+      await fetchUserProfile(null, t.profile.avatarRemoved);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }

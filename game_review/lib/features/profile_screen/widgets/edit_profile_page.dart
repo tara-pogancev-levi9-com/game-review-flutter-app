@@ -61,7 +61,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       },
                     ),
                     Text(
-                      t.back,
+                      t.common.back,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -116,296 +116,287 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ],
                       ),
                     ),
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(28.0, 0, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              t.profileInfo,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(28.0, 0, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            t.profile.profileInfo,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
 
-                            Form(
-                              key: _profileInfoFormKey,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      controller: _usernameController,
-                                      autocorrect: false,
-                                      autofillHints: null,
-                                      enableSuggestions: false,
-                                      style: TextStyle(
-                                        color: AppColors.textPrimary,
-                                      ),
+                          Form(
+                            key: _profileInfoFormKey,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    controller: _usernameController,
+                                    autocorrect: false,
+                                    autofillHints: null,
+                                    enableSuggestions: false,
+                                    style: TextStyle(
+                                      color: AppColors.textPrimary,
+                                    ),
 
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.person_2_outlined,
-                                        ),
-                                        labelText: t.username,
-                                        labelStyle: AppTypography.editUser,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.person_2_outlined,
                                       ),
+                                      labelText: t.auth.username,
+                                      labelStyle: AppTypography.editUser,
                                     ),
-                                    SizedBox(
-                                      height: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    controller: _displayNameController,
+                                    autocorrect: false,
+                                    autofillHints: null,
+                                    style: TextStyle(
+                                      color: AppColors.textPrimary,
                                     ),
-                                    TextFormField(
-                                      controller: _displayNameController,
-                                      autocorrect: false,
-                                      autofillHints: null,
-                                      style: TextStyle(
-                                        color: AppColors.textPrimary,
-                                      ),
 
-                                      enableSuggestions: false,
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.person_2_outlined,
-                                        ),
-                                        labelText: t.displayName,
-                                        labelStyle: AppTypography.editUser,
+                                    enableSuggestions: false,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.person_2_outlined,
                                       ),
+                                      labelText: t.auth.displayName,
+                                      labelStyle: AppTypography.editUser,
                                     ),
-                                    SizedBox(
-                                      height: 20,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    keyboardType: TextInputType.multiline,
+                                    controller: _bioController,
+                                    minLines: 5,
+                                    maxLines: null,
+                                    style: TextStyle(
+                                      color: AppColors.textPrimary,
                                     ),
-                                    TextFormField(
-                                      keyboardType: TextInputType.multiline,
-                                      controller: _bioController,
-                                      minLines: 5,
-                                      maxLines: null,
-                                      style: TextStyle(
-                                        color: AppColors.textPrimary,
-                                      ),
-                                      decoration: InputDecoration(
-                                        alignLabelWithHint: true,
-                                        label: Align(
-                                          alignment: Alignment.topLeft,
-                                          child: Text(
-                                            t.enterBio,
-                                            style: AppTypography.editUser,
-                                          ),
-                                        ),
-                                        labelStyle: AppTypography.editUser,
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColors.outline,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        hintStyle: const TextStyle(
-                                          color: AppColors.textSecondary,
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColors.outline,
-                                            width: 1,
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                          borderSide: const BorderSide(
-                                            color: AppColors.lilacSelected,
-                                            width: 1.2,
-                                          ),
+                                    decoration: InputDecoration(
+                                      alignLabelWithHint: true,
+                                      label: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          t.profile.enterBio,
+                                          style: AppTypography.editUser,
                                         ),
                                       ),
+                                      labelStyle: AppTypography.editUser,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: AppColors.outline,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      hintStyle: const TextStyle(
+                                        color: AppColors.textSecondary,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: AppColors.outline,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide: const BorderSide(
+                                          color: AppColors.lilacSelected,
+                                          width: 1.2,
+                                        ),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        final profileInfoData =
-                                            ProfileInfoModel(
-                                              username:
-                                                  _usernameController.text,
-                                              displayName:
-                                                  _displayNameController.text,
-                                              bio: _bioController.text,
-                                            );
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      final profileInfoData = ProfileInfoModel(
+                                        username: _usernameController.text,
+                                        displayName:
+                                            _displayNameController.text,
+                                        bio: _bioController.text,
+                                      );
 
-                                        await locator<UserCubit>()
-                                            .updateProfileInfo(
-                                              user.id,
-                                              profileInfoData,
-                                            );
-                                        await locator<UserCubit>()
-                                            .fetchUserProfile(
-                                              null,
-                                              "Profile data saved.",
-                                            );
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 80,
-                                          vertical: 10,
-                                        ),
+                                      await locator<UserCubit>()
+                                          .updateProfileInfo(
+                                            user.id,
+                                            profileInfoData,
+                                          );
+                                      await locator<UserCubit>()
+                                          .fetchUserProfile(
+                                            null,
+                                            "Profile data saved.",
+                                          );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 80,
+                                        vertical: 10,
                                       ),
-                                      child: Text(t.saveProfile),
                                     ),
-                                  ],
-                                ),
+                                    child: Text(t.profile.saveProfile),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            Text(
-                              t.changePassword,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            Form(
-                              key: _passwordFormKey,
-                              autovalidateMode: !firstInput
-                                  ? AutovalidateMode.onUserInteraction
-                                  : AutovalidateMode.disabled,
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
-                                child: Column(
-                                  children: [
-                                    TextFormField(
-                                      key: _passwordKey,
-                                      controller: _passwordController,
-                                      autocorrect: false,
-                                      autofillHints: null,
-                                      enableSuggestions: false,
-                                      style: TextStyle(
-                                        color: AppColors.textPrimary,
-                                      ),
-                                      obscureText: !showPassword,
-                                      onChanged: (value) {
-                                        if (!firstInput) {
-                                          _passwordKey.currentState?.validate();
-                                          _confirmPasswordKey.currentState
-                                              ?.validate();
-                                        }
-                                      },
-                                      validator: (value) {
-                                        if (value == null ||
-                                            value.isEmpty ||
-                                            value.length < 8) {
-                                          return t.passwordLength;
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.password),
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              showPassword = !showPassword;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.remove_red_eye_outlined,
-                                          ),
-                                        ),
-                                        errorStyle: null,
-                                        labelText: t.password,
-                                        labelStyle: AppTypography.editUser,
-                                      ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Text(
+                            t.auth.changePassword,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          Form(
+                            key: _passwordFormKey,
+                            autovalidateMode: !firstInput
+                                ? AutovalidateMode.onUserInteraction
+                                : AutovalidateMode.disabled,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 20, 20, 0),
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    key: _passwordKey,
+                                    controller: _passwordController,
+                                    autocorrect: false,
+                                    autofillHints: null,
+                                    enableSuggestions: false,
+                                    style: TextStyle(
+                                      color: AppColors.textPrimary,
                                     ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    TextFormField(
-                                      key: _confirmPasswordKey,
-                                      autocorrect: false,
-                                      autofillHints: null,
-                                      enableSuggestions: false,
-                                      style: TextStyle(
-                                        color: AppColors.textPrimary,
-                                      ),
-                                      controller: _confirmPasswordController,
-                                      keyboardType: TextInputType.text,
-                                      obscureText: !showConfirmPassword,
-                                      onChanged: (value) {
-                                        if (!firstInput) {
-                                          _confirmPasswordKey.currentState
-                                              ?.validate();
-                                        }
-                                      },
-                                      validator: (value) {
-                                        if (value == null || value.isEmpty) {
-                                          return t.confirmPassword;
-                                        }
-                                        if (value != _passwordController.text) {
-                                          return t.passwordMismatch;
-                                        }
-                                        return null;
-                                      },
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.password),
-
-                                        suffixIcon: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              showConfirmPassword =
-                                                  !showConfirmPassword;
-                                            });
-                                          },
-                                          icon: Icon(
-                                            Icons.remove_red_eye_outlined,
-                                          ),
-                                        ),
-                                        labelText: t.confirmPassword,
-                                        labelStyle: AppTypography.editUser,
-                                      ),
-                                    ),
-
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        if (_passwordFormKey.currentState!
-                                            .validate()) {
-                                          final registrationData =
-                                              _passwordController.text;
-
-                                          await locator<UserCubit>()
-                                              .changePassword(
-                                                registrationData,
-                                                user,
-                                              );
-                                          /*await locator<UserCubit>()
-                                              .fetchUserProfile(
-                                                null,
-                                                "Password changed successfully.",
-                                              );*/
-                                        } else {
+                                    obscureText: !showPassword,
+                                    onChanged: (value) {
+                                      if (!firstInput) {
+                                        _passwordKey.currentState?.validate();
+                                        _confirmPasswordKey.currentState
+                                            ?.validate();
+                                      }
+                                    },
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.isEmpty ||
+                                          value.length < 8) {
+                                        return t.auth.passwordLength;
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.password),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
                                           setState(() {
-                                            firstInput = false;
+                                            showPassword = !showPassword;
                                           });
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 50,
-                                          vertical: 10,
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_red_eye_outlined,
                                         ),
                                       ),
-                                      child: Text(t.changePassword),
+                                      errorStyle: null,
+                                      labelText: t.auth.password,
+                                      labelStyle: AppTypography.editUser,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    key: _confirmPasswordKey,
+                                    autocorrect: false,
+                                    autofillHints: null,
+                                    enableSuggestions: false,
+                                    style: TextStyle(
+                                      color: AppColors.textPrimary,
+                                    ),
+                                    controller: _confirmPasswordController,
+                                    keyboardType: TextInputType.text,
+                                    obscureText: !showConfirmPassword,
+                                    onChanged: (value) {
+                                      if (!firstInput) {
+                                        _confirmPasswordKey.currentState
+                                            ?.validate();
+                                      }
+                                    },
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return t.auth.confirmPassword;
+                                      }
+                                      if (value != _passwordController.text) {
+                                        return t.auth.passwordMismatch;
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.password),
+
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            showConfirmPassword =
+                                                !showConfirmPassword;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.remove_red_eye_outlined,
+                                        ),
+                                      ),
+                                      labelText: t.auth.confirmPassword,
+                                      labelStyle: AppTypography.editUser,
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      if (_passwordFormKey.currentState!
+                                          .validate()) {
+                                        final registrationData =
+                                            _passwordController.text;
+
+                                        await locator<UserCubit>()
+                                            .changePassword(
+                                              registrationData,
+                                              user,
+                                            );
+                                      } else {
+                                        setState(() {
+                                          firstInput = false;
+                                        });
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 50,
+                                        vertical: 10,
+                                      ),
+                                    ),
+                                    child: Text(t.auth.changePassword),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

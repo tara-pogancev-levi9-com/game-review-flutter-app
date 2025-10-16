@@ -11,7 +11,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return t.errors.requiredField(field: t.email);
+        return t.errors.requiredField(field: t.auth.email);
       }
 
       if (!regex.hasMatch(text)) {
@@ -29,7 +29,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return t.errors.requiredField(field: t.password);
+        return t.errors.requiredField(field: t.auth.password);
       }
 
       if (text.length < minLength) {

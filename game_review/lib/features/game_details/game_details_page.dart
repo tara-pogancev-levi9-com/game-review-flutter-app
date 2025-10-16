@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/core/storage/secure_storage.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/features/game_details/bloc/game_details_state.dart';
 import 'package:game_review/features/game_details/widgets/game_content_widget.dart';
 import 'package:game_review/features/game_details/widgets/login_required_widget.dart';
 import 'package:game_review/features/game_details/widgets/reviews_section_widget.dart';
 import 'package:game_review/i18n/strings.g.dart';
-import 'package:game_review/core/storage/secure_storage.dart';
 
 class GameDetailsPage extends StatelessWidget {
   final String gameId;
@@ -78,7 +78,7 @@ class GameDetailsPage extends StatelessWidget {
                                   onPressed: () {
                                     cubit.loadGameDetails(gameId);
                                   },
-                                  child: Text(t.gameDetails.retry),
+                                  child: Text(t.common.retry),
                                 ),
                               ],
                             ),

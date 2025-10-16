@@ -76,7 +76,7 @@ class _AvatarState extends State<Avatar> {
                             _selectedImage == null && _currentImageUrl == null
                             ? Center(
                                 child: Text(
-                                  t.noImage,
+                                  t.profile.noImage,
                                 ),
                               )
                             : null,
@@ -188,7 +188,7 @@ class _AvatarState extends State<Avatar> {
                               widget.onUpload(imageUrl);
                             },
 
-                            child: Text(t.saveImage),
+                            child: Text(t.profile.saveImage),
                           )
                         : CircularProgressIndicator()
                   : null),

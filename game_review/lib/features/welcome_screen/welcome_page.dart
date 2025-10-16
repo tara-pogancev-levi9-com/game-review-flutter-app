@@ -50,7 +50,7 @@ class WelcomePage extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            t.login,
+                            t.auth.login,
                           ),
                         ),
                       ),
@@ -74,7 +74,7 @@ class WelcomePage extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            t.register,
+                            t.auth.register,
                           ),
                         ),
                       ),
@@ -96,7 +96,7 @@ class WelcomePage extends StatelessWidget {
                               LocaleSettings.setLocale(AppLocale.en);
                             }
                           },
-                          child: Text(t.changeLanguage),
+                          child: Text(t.settings.changeLanguage),
                         ),
                       ),
                     ),

@@ -16,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 
   const ProfilePage({
     super.key,
-    this.currentUserId = null,
+    this.currentUserId,
     this.isStandalone = false,
   });
 
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: user.avatarUrl == null
                         ? Center(
                             child: Text(
-                              t.noImage,
+                              t.profile.noImage,
                             ),
                           )
                         : null,
@@ -95,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 size: 30,
                               ),
                             ),
-                            Text(t.logout),
+                            Text(t.auth.logout),
                           ],
                         ),
                       )
@@ -174,16 +174,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                           loggedUserId,
                                           widget.currentUserId,
                                         );
-                                        /*locator<UserCubit>().fetchUserProfile(
-                                          widget.currentUserId,
-                                          null,
-                                        );*/
                                       },
-                                      child: Text(t.addFriend),
+                                      child: Text(t.profile.addFriend),
                                     )
                                   : OutlinedButton(
                                       onPressed: () {},
-                                      child: Text(t.friends),
+                                      child: Text(t.profile.friends),
                                     )
                             : null,
                       ],
@@ -207,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                       ),
                       Text(
-                        t.back,
+                        t.common.back,
                         style: TextStyle(fontSize: 18),
                       ),
                     ],
@@ -240,7 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 30,
                     ),
                   ),
-                  Text(t.logout),
+                  Text(t.auth.logout),
                 ],
               ),
             );

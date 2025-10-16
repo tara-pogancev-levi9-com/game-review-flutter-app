@@ -54,7 +54,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               },
             ),
             Text(
-              t.back,
+              t.common.back,
               style: const TextStyle(
                 fontFamily: AppFonts.josefinSans,
                 fontWeight: FontWeight.w400,
@@ -144,7 +144,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     prefixIcon: const Icon(
                                       Icons.email_outlined,
                                     ),
-                                    labelText: t.email,
+                                    labelText: t.auth.email,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
@@ -164,7 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     prefixIcon: const Icon(
                                       Icons.person_2_outlined,
                                     ),
-                                    labelText: t.username,
+                                    labelText: t.auth.username,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
@@ -192,7 +192,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     if (value == null ||
                                         value.isEmpty ||
                                         value.length < 8) {
-                                      return t.passwordLength;
+                                      return t.auth.passwordLength;
                                     }
                                     return null;
                                   },
@@ -209,7 +209,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       ),
                                     ),
                                     errorStyle: null,
-                                    labelText: t.password,
+                                    labelText: t.auth.password,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
@@ -235,10 +235,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return t.confirmPassword;
+                                      return t.auth.confirmPassword;
                                     }
                                     if (value != _passwordController.text) {
-                                      return t.passwordMismatch;
+                                      return t.auth.passwordMismatch;
                                     }
                                     return null;
                                   },
@@ -256,7 +256,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         Icons.remove_red_eye_outlined,
                                       ),
                                     ),
-                                    labelText: t.confirmPassword,
+                                    labelText: t.auth.confirmPassword,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
@@ -304,7 +304,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                             }
                                           },
                                           child: Text(
-                                            t.register,
+                                            t.auth.register,
                                           ),
                                         ),
                                       ),

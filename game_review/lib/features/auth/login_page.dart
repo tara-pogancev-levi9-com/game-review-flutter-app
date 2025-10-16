@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
         titleSpacing: 0,
         leading: const BackButton(color: Colors.white),
         title: Text(
-          t.back,
+          t.common.back,
           style: const TextStyle(
             fontFamily: AppFonts.josefinSans,
             fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                            hintText: t.email,
+                            hintText: t.auth.email,
                             prefixIcon: const Icon(
                               Icons.alternate_email,
                               color: AppColors.lilacSelected,
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           autofillHints: const [AutofillHints.password],
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
-                            hintText: t.password,
+                            hintText: t.auth.password,
                             prefixIcon: const Icon(
                               Icons.password,
                             ),
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                         LoadingButton(
                           isLoading: isLoading,
                           onPressed: _onSubmit,
-                          text: t.login,
+                          text: t.auth.login,
                         ),
                       ],
                     ),

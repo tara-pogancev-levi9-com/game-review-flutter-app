@@ -162,7 +162,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: _loadReviews,
-                    child: Text(t.gameDetails.retry),
+                    child: Text(t.common.retry),
                   ),
                 ],
               ),
