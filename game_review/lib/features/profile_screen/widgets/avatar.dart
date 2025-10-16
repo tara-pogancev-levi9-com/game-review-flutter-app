@@ -30,8 +30,8 @@ class _AvatarState extends State<Avatar> {
   XFile? _selectedImage;
   int? currentVersion;
   var imageBytes;
-  var imagePath;
-  var imageExtension;
+  String? imagePath;
+  String? imageExtension;
   bool imageSelected = false;
   bool showSaveLoading = false;
 
@@ -171,12 +171,12 @@ class _AvatarState extends State<Avatar> {
                                 });
                               }
                               await locator<UserService>().uploadAvatar(
-                                imagePath,
-                                imageBytes,
-                                imageExtension,
+                                imagePath!,
+                                imageBytes!,
+                                imageExtension!,
                               );
                               String imageUrl =
-                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
+                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/$imagePath';
 
                               if (mounted) {
                                 setState(() {

@@ -5,7 +5,7 @@ import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
-import 'package:game_review/features/profile_screen/models/profile_Info_model.dart';
+import 'package:game_review/features/profile_screen/models/profile_info_model.dart';
 import 'package:game_review/features/profile_screen/widgets/avatar.dart';
 import 'package:game_review/i18n/strings.g.dart';
 

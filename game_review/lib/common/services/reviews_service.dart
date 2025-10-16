@@ -204,10 +204,14 @@ class ReviewsService {
     return _parseReviewFromResponse(response);
   }
 
-  Future<void> addReviewMedia(imagePath, imageBytes, imageExtensions) async {
+  Future<void> addReviewMedia(
+    String imagePath,
+    imageBytes,
+    String imageExtensions,
+  ) async {
     try {
       await locator<ApiImageClient>().post(
-        '${Endpoints.storageReviewMedia}${imagePath}',
+        '${Endpoints.storageReviewMedia}$imagePath',
         imageExtensions,
         data: imageBytes,
       );
@@ -227,12 +231,12 @@ class ReviewsService {
         },
       );
     } catch (e) {
-      print(e.toString());
+      Logger.error('Error adding review media model', e);
       throw Exception(e.toString());
     }
   }
 
-  Future<List<ReviewMediaModel>> getReviewMedia(reviewId) async {
+  Future<List<ReviewMediaModel>> getReviewMedia(String reviewId) async {
     try {
       final response = await _apiClient.get(
         Endpoints.reviewMedia,

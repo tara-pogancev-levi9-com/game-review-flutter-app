@@ -117,16 +117,16 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
     try {
       for (final image in images) {
         final imageBytes = await image.readAsBytes();
-        final uniqueImageName = '${Uuid().v4()}';
+        final uniqueImageName = '$Uuid().v4()';
 
         await _service.addReviewMedia(
-          '/${reviewId}/${uniqueImageName}',
+          '/$reviewId/$uniqueImageName',
           imageBytes,
           image.path.split('.').last.toLowerCase(),
         );
 
         String imageUrl =
-            '${dotenv.env['API_URL']}/storage/v1/object/review_media/${reviewId}/${uniqueImageName}';
+            '${dotenv.env['API_URL']}/storage/v1/object/review_media/$reviewId/$uniqueImageName';
         uploadedPaths.add(imageUrl);
       }
       await uploadReviewMediaModel(reviewId, uploadedPaths);
@@ -140,9 +140,9 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
     List<String> uploadedUrls,
   ) async {
     try {
-      uploadedUrls.forEach((imageUrl) async {
+      for (final imageUrl in uploadedUrls) {
         await _service.addReviewMediaModel(reviewId, imageUrl);
-      });
+      }
     } catch (e) {
       throw Exception(e.toString());
     }
