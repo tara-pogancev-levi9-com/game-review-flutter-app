@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/extensions/datetime_extensions.dart';
 import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/services/share_service.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/widgets/app_snackbar.dart';
 import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/features/home_screen/widgets/game_selector_bottom_sheet.dart';
 import 'package:game_review/i18n/strings.g.dart';
@@ -13,8 +15,9 @@ class GameContentWidget extends StatelessWidget {
   final String gameId;
   final bool isInWishlist;
   final bool isInLibrary;
+  final GlobalKey _popupMenuKey = GlobalKey();
 
-  const GameContentWidget({
+  GameContentWidget({
     super.key,
     required this.game,
     required this.gameId,
@@ -41,6 +44,7 @@ class GameContentWidget extends StatelessWidget {
                 ),
               ),
               PopupMenuButton<String>(
+                key: _popupMenuKey,
                 icon: const Icon(
                   Icons.more_vert,
                   color: AppColors.textPrimary,
@@ -179,10 +183,7 @@ class GameContentWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                t.gameDetails.overallRecommendation.replaceAll(
-                  '{percentage}',
-                  '99',
-                ),
+                t.gameDetails.overallRecommendation(percentage: 99),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.textPrimary,
                 ),
@@ -318,13 +319,20 @@ class GameContentWidget extends StatelessWidget {
   }
 
   void _showComingSoonSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
-    );
+    AppSnackbar.show(context, message);
+  }
+
+  void _shareGame(BuildContext context) async {
+    try {
+      await ShareService.shareGame(game, popupMenuKey: _popupMenuKey);
+    } catch (e) {
+      if (context.mounted) {
+        AppSnackbar.showError(
+          context,
+          t.gameDetails.failedToShareGame(error: e.toString()),
+        );
+      }
+    }
   }
 
   Future<void> _handleMenuAction(BuildContext context, String action) async {
@@ -346,8 +354,7 @@ class GameContentWidget extends StatelessWidget {
         );
         break;
       case 'share':
-        // TODO: Implement share functionality
-        _showComingSoonSnackBar(context, t.gameDetails.shareComingSoon);
+        _shareGame(context);
         break;
     }
   }

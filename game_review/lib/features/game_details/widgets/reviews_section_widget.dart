@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/extensions/datetime_extensions.dart';
-import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/core/api/endpoints.dart';
@@ -22,7 +22,7 @@ class ReviewsSectionWidget extends StatefulWidget {
 
 class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
   final ReviewService _reviewService = GetIt.instance<ReviewService>();
-  List<GameReviewModel> _reviews = [];
+  List<ReviewModel> _reviews = [];
   bool _isLoading = false;
   bool _hasError = false;
   final Set<String> _likingInProgress = {};
@@ -56,7 +56,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
     }
   }
 
-  Future<void> _toggleLike(GameReviewModel review) async {
+  Future<void> _toggleLike(ReviewModel review) async {
     if (_likingInProgress.contains(review.id)) {
       return;
     }
@@ -108,7 +108,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
     }
   }
 
-  void _updateReview(GameReviewModel updatedReview) {
+  void _updateReview(ReviewModel updatedReview) {
     setState(() {
       final index = _reviews.indexWhere((r) => r.id == updatedReview.id);
       if (index != -1) {
@@ -202,7 +202,7 @@ class _ReviewsSectionWidgetState extends State<ReviewsSectionWidget> {
     );
   }
 
-  Widget _buildReviewCard(BuildContext context, GameReviewModel review) {
+  Widget _buildReviewCard(BuildContext context, ReviewModel review) {
     return Container(
       padding: AppTheme.paddingLarge,
       decoration: BoxDecoration(

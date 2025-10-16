@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/home_screen/home_page.dart';
 import 'package:game_review/features/library_screen/library_page.dart';
 import 'package:game_review/features/main_screen/widgets/app_scaffold.dart';
@@ -91,8 +92,8 @@ class _MainScreenState extends State<MainScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.transparent,
-              Colors.black.withValues(alpha: 0.5),
+              AppColors.transparent,
+              AppColors.black.withValues(alpha: 0.5),
             ],
           ),
         ),

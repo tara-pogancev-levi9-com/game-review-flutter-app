@@ -8,20 +8,11 @@ extension DateTimeX on DateTime {
     final difference = now.difference(this);
 
     if (difference.inDays > 0) {
-      return t.dateTime.daysAgo.replaceAll(
-        '{days}',
-        difference.inDays.toString(),
-      );
+      return t.dateTime.daysAgo(count: difference.inDays);
     } else if (difference.inHours > 0) {
-      return t.dateTime.hoursAgo.replaceAll(
-        '{hours}',
-        difference.inHours.toString(),
-      );
+      return t.dateTime.hoursAgo(count: difference.inHours);
     } else if (difference.inMinutes > 0) {
-      return t.dateTime.minutesAgo.replaceAll(
-        '{minutes}',
-        difference.inMinutes.toString(),
-      );
+      return t.dateTime.minutesAgo(count: difference.inMinutes);
     } else {
       return t.dateTime.justNow;
     }

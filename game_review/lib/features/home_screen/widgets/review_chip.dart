@@ -11,7 +11,7 @@ class ReviewChip extends StatelessWidget {
     return Chip(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       visualDensity: VisualDensity.compact,
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       label: Text(label, style: const TextStyle(fontSize: 12)),
       avatar: icon != null
           ? Icon(

@@ -107,7 +107,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(t.youHaveAlreadyReviewedThisGame),
-              backgroundColor: Colors.orange,
+              backgroundColor: AppColors.warning,
             ),
           );
         }
@@ -142,21 +142,21 @@ class _AddReviewPageState extends State<AddReviewPage> {
       double clampRating(double value) => (value * 2).clamp(0.0, 9.9);
 
       await _reviewFormCubit.addReview(
-        user_id: userId,
-        game_id: widget.game.id,
+        userId: userId,
+        gameId: widget.game.id,
         title: _titleController.text.trim(),
         content: _descriptionController.text.trim(),
-        overall_rating: clampRating(_overallRating),
+        overallRating: clampRating(_overallRating),
         recommended: _recommended,
-        gameplay_rating: clampRating(_gameplayRating),
-        graphics_rating: clampRating(_graphicsRating),
-        story_rating: clampRating(_storyRating),
-        sound_rating: clampRating(_soundRating),
-        value_rating: clampRating(_valueRating),
+        gameplayRating: clampRating(_gameplayRating),
+        graphicsRating: clampRating(_graphicsRating),
+        storyRating: clampRating(_storyRating),
+        soundRating: clampRating(_soundRating),
+        valueRating: clampRating(_valueRating),
         pros: pros,
         cons: cons,
-        playtime_hours: playtimeHours,
-        completion_status: formattedCompletionStatus,
+        playtimeHours: playtimeHours,
+        completionStatus: formattedCompletionStatus,
       );
     } catch (e) {
       AppSnackbar.showError(context, t.failedToSaveReview, error: e);
