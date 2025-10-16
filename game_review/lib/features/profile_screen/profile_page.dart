@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
-import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
+import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import '../main_screen/widgets/app_scaffold.dart';
@@ -28,8 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    locator<UserCubit>().initData();
-    //locator<UserCubit>().fetchUserProfile(widget.currentUserId, null);
+    locator<UserCubit>().initData(widget.currentUserId);
   }
 
   @override
@@ -86,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
+                                    builder: (context) => WelcomePage(),
                                   ),
                                   (Route<dynamic> route) => false,
                                 );
@@ -167,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(
                           height: 50,
                         ),
-                        ?(widget.isStandalone)
+                        ?(widget.isStandalone && loggedUserId != user.id)
                             ? (alreadyFriends != null && !alreadyFriends)
                                   ? ElevatedButton(
                                       onPressed: () {
@@ -221,7 +220,30 @@ class _ProfilePageState extends State<ProfilePage> {
             }
           },
           error: (message) {
-            return Center(child: Text(message));
+            return Center(
+              child: Column(
+                children: [
+                  Text(message),
+                  IconButton(
+                    onPressed: () async {
+                      await locator<AuthCubit>().logout();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WelcomePage(),
+                        ),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    icon: Icon(
+                      Icons.logout,
+                      size: 30,
+                    ),
+                  ),
+                  Text(t.logout),
+                ],
+              ),
+            );
           },
         );
       },

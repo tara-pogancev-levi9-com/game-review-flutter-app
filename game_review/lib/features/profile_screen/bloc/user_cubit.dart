@@ -11,10 +11,9 @@ class UserCubit extends Cubit<UserProfileState> {
 
   UserCubit() : super(const UserProfileState.loading());
 
-  Future<void> initData() async {
+  Future<void> initData(String? userId) async {
     try {
-      final currentUserId = await getCurrentUserId();
-      await fetchUserProfile(currentUserId, null);
+      await fetchUserProfile(userId, null);
     } catch (e) {
       throw Exception(e.toString());
     }

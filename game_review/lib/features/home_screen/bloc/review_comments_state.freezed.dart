@@ -128,7 +128,7 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ReviewComment> comments)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<ReviewCommentModel> comments)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ReviewCommentsInitial() when initial != null:
 return initial();case ReviewCommentsLoading() when loading != null:
@@ -152,7 +152,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ReviewComment> comments)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<ReviewCommentModel> comments)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case ReviewCommentsInitial():
 return initial();case ReviewCommentsLoading():
@@ -175,7 +175,7 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ReviewComment> comments)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<ReviewCommentModel> comments)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case ReviewCommentsInitial() when initial != null:
 return initial();case ReviewCommentsLoading() when loading != null:
@@ -257,11 +257,11 @@ String toString() {
 
 
 class ReviewCommentsSuccess implements ReviewCommentsState {
-  const ReviewCommentsSuccess(final  List<ReviewComment> comments): _comments = comments;
+  const ReviewCommentsSuccess(final  List<ReviewCommentModel> comments): _comments = comments;
   
 
- final  List<ReviewComment> _comments;
- List<ReviewComment> get comments {
+ final  List<ReviewCommentModel> _comments;
+ List<ReviewCommentModel> get comments {
   if (_comments is EqualUnmodifiableListView) return _comments;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_comments);
@@ -298,7 +298,7 @@ abstract mixin class $ReviewCommentsSuccessCopyWith<$Res> implements $ReviewComm
   factory $ReviewCommentsSuccessCopyWith(ReviewCommentsSuccess value, $Res Function(ReviewCommentsSuccess) _then) = _$ReviewCommentsSuccessCopyWithImpl;
 @useResult
 $Res call({
- List<ReviewComment> comments
+ List<ReviewCommentModel> comments
 });
 
 
@@ -318,7 +318,7 @@ class _$ReviewCommentsSuccessCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? comments = null,}) {
   return _then(ReviewCommentsSuccess(
 null == comments ? _self._comments : comments // ignore: cast_nullable_to_non_nullable
-as List<ReviewComment>,
+as List<ReviewCommentModel>,
   ));
 }
 

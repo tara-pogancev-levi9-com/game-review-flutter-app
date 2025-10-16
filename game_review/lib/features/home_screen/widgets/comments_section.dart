@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_state.dart';
-import 'package:game_review/features/home_screen/models/review_comment.dart';
 import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class CommentsSection extends StatefulWidget {
   final String reviewId;
+
   const CommentsSection({super.key, required this.reviewId});
 
   @override
@@ -89,7 +90,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                 return Column(
                   children: [
                     ...comments.map(
-                      (ReviewComment c) => Column(
+                      (ReviewCommentModel c) => Column(
                         children: [
                           ListTile(
                             contentPadding: EdgeInsets.zero,
