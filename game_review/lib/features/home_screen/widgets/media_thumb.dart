@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:game_review/common/models/review_media_model.dart';
 
 class MediaThumb extends StatelessWidget {
-  const MediaThumb({super.key});
+  final ReviewMediaModel image;
+
+  const MediaThumb({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,13 @@ class MediaThumb extends StatelessWidget {
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(12),
       ),
-      child: const Center(child: Icon(Icons.play_circle_outline)),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Image(
+          fit: BoxFit.cover,
+          image: NetworkImage(image.mediaUrl) as ImageProvider,
+        ),
+      ),
     );
   }
 }

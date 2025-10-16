@@ -31,7 +31,7 @@ class UserCubit extends Cubit<UserProfileState> {
 
       final alreadyFriends = (userId == null)
           ? null
-          : await _userService.checkFriendship(userId, loggedUserId!);
+          : await _userService.areFriends(userId, loggedUserId!);
       emit(
         UserProfileState.loaded(
           user: user,

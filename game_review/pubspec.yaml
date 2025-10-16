@@ -30,6 +30,7 @@ dependencies:
   image_picker: ^1.2.0
   freezed: ^3.2.3
   build_runner: ^2.9.0
+  uuid: ^4.5.1
   jwt_decoder: ^2.0.1
 
   freezed_annotation: ^3.1.0

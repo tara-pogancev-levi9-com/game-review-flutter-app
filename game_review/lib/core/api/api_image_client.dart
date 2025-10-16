@@ -16,7 +16,6 @@ class ApiImageClient {
           headers: {
             //'Content-Type': 'application/json',
             'apiKey': ApiConstants.apiKey,
-            'x-upsert': 'true',
           },
         ),
       ) {
@@ -57,7 +56,9 @@ class ApiImageClient {
   }
 
   Future<Response> put(String path, String imageExtensions, {dynamic data}) {
-    Options options = Options(headers: {'Content-Type': imageExtensions});
+    Options options = Options(
+      headers: {'Content-Type': 'image/$imageExtensions'},
+    );
     return dio.put(path, data: data, options: options);
   }
 

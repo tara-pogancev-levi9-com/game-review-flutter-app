@@ -107,6 +107,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Save Image'
 	String get saveImage => 'Save Image';
 
+	/// en: 'Add Images'
+	String get addImages => 'Add Images';
+
+	/// en: 'No images selected.'
+	String get noImagesSelected => 'No images selected.';
+
+	/// en: 'Choose Images.'
+	String get chooseImages => 'Choose Images.';
+
 	/// en: 'Profile Settings'
 	String get profileSettings => 'Profile Settings';
 
