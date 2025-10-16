@@ -13,7 +13,13 @@ class ReviewChip extends StatelessWidget {
       visualDensity: VisualDensity.compact,
       backgroundColor: AppColors.transparent,
       label: Text(label, style: const TextStyle(fontSize: 12)),
-      avatar: icon != null ? Icon(icon, size: 14) : null,
+      avatar: icon != null
+          ? Icon(
+              icon,
+              size: 14,
+              color: AppColors.lilacSelected,
+            )
+          : null,
     );
   }
 }
