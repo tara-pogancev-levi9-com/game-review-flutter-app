@@ -173,6 +173,15 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	/// en: 'Update'
 	String get update => 'Update';
 
+	/// en: 'Share'
+	String get share => 'Share';
+
+	/// en: 'Check out this game!'
+	String get shareSubject => 'Check out this game!';
+
+	/// en: 'Hey! Check out this cool game I found on PawGames! It's called '{{gameTitle}}'. :)'
+	String shareMessage({required Object gameTitle}) => 'Hey! Check out this cool game I found on PawGames! It\'s called \'${gameTitle}\'. :)';
+
 	/// en: 'Avatar removed.'
 	String get avatarRemoved => 'Avatar removed.';
 
@@ -383,6 +392,9 @@ class TranslationsGameDetailsEn {
 	/// en: 'Failed to add to Wishlist'
 	String get failedToAddToWishlist => 'Failed to add to Wishlist';
 
+	/// en: 'Failed to add to Share game'
+	String get failedToShare => 'Failed to add to Share game';
+
 	/// en: 'Game already in Library'
 	String get gameAlreadyInLibrary => 'Game already in Library';
 
@@ -431,8 +443,8 @@ class TranslationsGameDetailsEn {
 	/// en: 'Available on'
 	String get availableOn => 'Available on';
 
-	/// en: '{percentage}% of players recommend this game'
-	String get overallRecommendation => '{percentage}% of players recommend this game';
+	/// en: '{{percentage}}% of players recommend this game'
+	String overallRecommendation({required Object percentage}) => '${percentage}% of players recommend this game';
 
 	/// en: 'Add to Wishlist'
 	String get addToWishlist => 'Add to Wishlist';
@@ -532,6 +544,9 @@ class TranslationsGameDetailsEn {
 
 	/// en: 'Please log in to view game details'
 	String get loginRequiredToView => 'Please log in to view game details';
+
+	/// en: 'Failed to share game: {{error}}'
+	String failedToShareGame({required Object error}) => 'Failed to share game: ${error}';
 }
 
 // Path: reviews
@@ -659,20 +674,20 @@ class TranslationsErrorsEn {
 
 	// Translations
 
-	/// en: '{field} required'
-	String get requiredField => '{field} required';
+	/// en: 'Invalid credentials'
+	String get invalidCredentials => 'Invalid credentials';
+
+	/// en: 'Login failed. Please try again.'
+	String get loginFailed => 'Login failed. Please try again.';
+
+	/// en: '{{field}} required'
+	String requiredField({required Object field}) => '${field} required';
 
 	/// en: 'Invalid email'
 	String get invalidEmail => 'Invalid email';
 
-	/// en: 'Min {n} char'
-	String get minLength => 'Min {n} char';
-
-	/// en: 'Invalid credentials'
-	String get invalidCredentials => 'Invalid credentials';
-
-	/// en: 'Login failed, please try again'
-	String get loginFailed => 'Login failed, please try again';
+	/// en: 'Min {{n}} char'
+	String minLength({required Object n}) => 'Min ${n} char';
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';
@@ -1001,14 +1016,14 @@ class TranslationsDateTimeEn {
 
 	// Translations
 
-	/// en: '{days}d ago'
-	String get daysAgo => '{days}d ago';
+	/// en: '{{count}} days ago'
+	String daysAgo({required Object count}) => '${count} days ago';
 
-	/// en: '{hours}h ago'
-	String get hoursAgo => '{hours}h ago';
+	/// en: '{{count}} hours ago'
+	String hoursAgo({required Object count}) => '${count} hours ago';
 
-	/// en: '{minutes}m ago'
-	String get minutesAgo => '{minutes}m ago';
+	/// en: '{{count}} minutes ago'
+	String minutesAgo({required Object count}) => '${count} minutes ago';
 
 	/// en: 'just now'
 	String get justNow => 'just now';

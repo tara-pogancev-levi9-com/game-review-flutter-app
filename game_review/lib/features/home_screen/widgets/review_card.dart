@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_review/common/models/review_model.dart';
+import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
@@ -29,15 +30,15 @@ class ReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cover = review.game?.coverImageUrl;
-    final gameTitle =
-        review.game?.title ?? review.gameId;
+    final gameTitle = review.game?.title ?? review.gameId;
     final excerpt = (review.content ?? '').trim();
     final createdAgo = formatTimeAgo(review.createdAt);
-    final username = review.userId;
+    final username = review.username ?? review.userId;
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       clipBehavior: Clip.hardEdge,
+      color: AppColors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -57,7 +58,12 @@ class ReviewCard extends StatelessWidget {
                     : null,
               ),
               child: cover == null
-                  ? const Center(child: Icon(Icons.image, size: 48))
+                  ? const Center(
+                      child: Icon(
+                        Icons.image,
+                        size: 48,
+                      ),
+                    )
                   : null,
             ),
 

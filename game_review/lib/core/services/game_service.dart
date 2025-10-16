@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:game_review/common/models/models.dart';
+import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/api/api_client.dart';
 import 'package:game_review/core/api/api_constants.dart';
@@ -215,7 +216,7 @@ class GameService {
     }
   }
 
-  Future<List<GameReviewModel>> getRecentReviews(
+  Future<List<ReviewModel>> getRecentReviews(
     String gameId, {
     int limit = Endpoints.limitRecentReviews,
   }) async {
@@ -243,7 +244,7 @@ class GameService {
       }
 
       return (response.data as List)
-          .map((json) => GameReviewModel.fromJson(json))
+          .map((json) => ReviewModel.fromJson(json))
           .toList();
     } catch (e) {
       Logger.error('Failed to fetch recent reviews', e);

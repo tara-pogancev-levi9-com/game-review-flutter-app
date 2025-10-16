@@ -13,14 +13,19 @@ class ErrorScreen extends StatelessWidget {
     final gradients = theme.extension<AppGradients>();
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       body: Container(
         decoration: BoxDecoration(
-          gradient: gradients?.background ?? LinearGradient(
-            colors: [colorScheme.surface, colorScheme.surfaceContainerHighest],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient:
+              gradients?.background ??
+              LinearGradient(
+                colors: [
+                  colorScheme.surface,
+                  colorScheme.surfaceContainerHighest,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
         ),
         padding: const EdgeInsets.all(16),
         alignment: Alignment.center,
@@ -28,7 +33,7 @@ class ErrorScreen extends StatelessWidget {
           '${t.errors.appFailedToStart}\n\n$error',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: colorScheme.error,
+            color: AppColors.error,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

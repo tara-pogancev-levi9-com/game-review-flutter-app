@@ -20,9 +20,11 @@ class AppColors {
   static const Color successBackground = Color(0x33228B22);
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFF44336);
+  static const Color warning = Colors.orange;
 
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
+  static const Color black = Colors.black;
 }
 
 @immutable

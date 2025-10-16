@@ -57,7 +57,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     final gradients = Theme.of(context).extension<AppGradients>()!;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.transparent,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leadingWidth: 100,
@@ -76,7 +76,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 fontFamily: AppFonts.josefinSans,
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
-                color: Colors.white,
+                color: AppColors.white,
               ),
             ),
           ],
