@@ -28,7 +28,7 @@ class NoResaults extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              t.noResultsFound,
+              t.noResultsFound(query: query),
               style: AppTypography.heading.copyWith(
                 color: AppColors.textSecondary,
               ),

@@ -52,7 +52,6 @@
   "shareSubject": "Check out this game!",
   "shareMessage": "Hey! Check out this cool game I found on PawGames! It's called '{{gameTitle}}'. :)",
   "avatarRemoved": "Avatar removed.",
-  "avatarRemoved": "Avatar removed.",
   "missingApiUrl": "Missing API_URL environment variable",
   "registrationError": "Error occurred. Try again later",
   "passwordMismatch": "Passwords do not match!",
