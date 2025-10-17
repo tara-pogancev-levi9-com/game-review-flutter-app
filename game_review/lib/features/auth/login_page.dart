@@ -16,6 +16,7 @@ import 'bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -25,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -72,7 +74,11 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state is Unauthenticated && state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage!)),
+                SnackBar(
+                  content: Text(state.errorMessage!),
+                  backgroundColor: AppColors.error,
+                  duration: const Duration(seconds: 3),
+                ),
               );
             }
             if (state is Authenticated) {
@@ -143,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             borderRadius: BorderSize.infinite.radius,
                           ),
-                          validator: Validators.password(context, minLength: 6),
+                          validator: Validators.password(context, minLength: 8),
                         ),
                         const SizedBox(height: 180),
                         LoadingButton(

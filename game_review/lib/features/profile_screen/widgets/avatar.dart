@@ -74,9 +74,15 @@ class _AvatarState extends State<Avatar> {
                             : null,
                         child:
                             _selectedImage == null && _currentImageUrl == null
-                            ? Center(
-                                child: Text(
-                                  t.profile.noImage,
+                            ? ClipOval(
+                                child: Image(
+                                  fit: BoxFit.contain,
+                                  image: (user.avatarUrl != null)
+                                      ? NetworkImage(user.avatarUrl!)
+                                            as ImageProvider
+                                      : const AssetImage(
+                                          'lib/common/assets/images/blankAvatarSmall.png',
+                                        ),
                                 ),
                               )
                             : null,

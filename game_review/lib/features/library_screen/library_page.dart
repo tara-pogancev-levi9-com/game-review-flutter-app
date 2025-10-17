@@ -51,12 +51,17 @@ class _LibraryPageState extends State<LibraryPage> {
                         children: [
                           CircleAvatar(
                             radius: 28,
-                            backgroundImage: NetworkImage(
-                              // Replace with actual user profile image if available (Temporary placeholder for now)
-                              (user?.avatarUrl != null)
-                                  ? user!.avatarUrl!
-                                  : 'https://i.pravatar.cc/150?img=8',
-                            ),
+                            backgroundImage: (user?.avatarUrl != null)
+                                ? NetworkImage(
+                                    // Replace with actual user profile image if available (Temporary placeholder for now)
+                                    (user?.avatarUrl != null)
+                                        ? user!.avatarUrl!
+                                        : 'https://i.pravatar.cc/150?img=8',
+                                  )
+                                : const AssetImage(
+                                        'lib/common/assets/images/blankAvatar.png',
+                                      )
+                                      as ImageProvider,
                           ),
                           const SizedBox(width: 16),
                           Text(

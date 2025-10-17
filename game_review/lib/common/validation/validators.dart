@@ -23,7 +23,7 @@ class Validators {
 
   static FormFieldValidator<String> password(
     BuildContext context, {
-    int minLength = 6,
+    int minLength = 8,
   }) {
     return (value) {
       final text = (value ?? '').trim();
