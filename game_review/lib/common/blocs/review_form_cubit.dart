@@ -117,7 +117,7 @@ class ReviewFormCubit extends Cubit<ReviewFormState> {
     try {
       for (final image in images) {
         final imageBytes = await image.readAsBytes();
-        final uniqueImageName = '$Uuid().v4()';
+        final uniqueImageName = Uuid().v4();
 
         await _service.addReviewMedia(
           '/$reviewId/$uniqueImageName',
