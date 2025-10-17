@@ -4,6 +4,8 @@ import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
+import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
@@ -14,6 +16,7 @@ import 'bloc/auth_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -23,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -52,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         titleSpacing: 0,
         leading: const BackButton(color: Colors.white),
         title: Text(
-          t.back,
+          t.common.back,
           style: const TextStyle(
             fontFamily: AppFonts.josefinSans,
             fontWeight: FontWeight.w400,
@@ -70,7 +74,11 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state is Unauthenticated && state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage!)),
+                SnackBar(
+                  content: Text(state.errorMessage!),
+                  backgroundColor: AppColors.error,
+                  duration: const Duration(seconds: 3),
+                ),
               );
             }
             if (state is Authenticated) {
@@ -107,14 +115,16 @@ class _LoginPageState extends State<LoginPage> {
                             AutofillHints.username,
                             AutofillHints.email,
                           ],
-                          keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            hintText: t.email,
+
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: AppTheme.createInputDecoration(
+                            hintText: t.auth.email,
                             prefixIcon: const Icon(
                               Icons.alternate_email,
                               color: AppColors.lilacSelected,
                             ),
+                            borderRadius: BorderSize.infinite.radius,
                           ),
                           validator: Validators.email(context),
                         ),
@@ -125,8 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: _obscurePassword,
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (_) => _onSubmit(),
-                          decoration: InputDecoration(
-                            hintText: t.password,
+                          decoration: AppTheme.createInputDecoration(
+                            hintText: t.auth.password,
                             prefixIcon: const Icon(
                               Icons.password,
                             ),
@@ -141,14 +151,15 @@ class _LoginPageState extends State<LoginPage> {
                                 () => _obscurePassword = !_obscurePassword,
                               ),
                             ),
+                            borderRadius: BorderSize.infinite.radius,
                           ),
-                          validator: Validators.password(context, minLength: 6),
+                          validator: Validators.password(context, minLength: 8),
                         ),
                         const SizedBox(height: 180),
                         LoadingButton(
                           isLoading: isLoading,
                           onPressed: _onSubmit,
-                          text: t.login,
+                          text: t.auth.login,
                         ),
                       ],
                     ),

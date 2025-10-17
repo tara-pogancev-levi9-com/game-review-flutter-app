@@ -50,16 +50,14 @@ class WelcomePage extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            t.login,
+                            t.auth.login,
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-
-                SizedBox(height: 8.0),
-
+                const SizedBox(height: 8.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -76,7 +74,7 @@ class WelcomePage extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            t.register,
+                            t.auth.register,
                           ),
                         ),
                       ),
@@ -87,18 +85,20 @@ class WelcomePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            if (LocaleSettings.currentLocale == AppLocale.en) {
-                              LocaleSettings.setLocale(AppLocale.sr);
-                            } else {
-                              LocaleSettings.setLocale(AppLocale.en);
-                            }
-                          },
-                          child: Text(t.changeLanguage),
+                    SizedBox(
+                      width: 200,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          if (LocaleSettings.currentLocale == AppLocale.en) {
+                            LocaleSettings.setLocale(AppLocale.sr);
+                          } else {
+                            LocaleSettings.setLocale(AppLocale.en);
+                          }
+                        },
+                        child: Text(
+                          t.settings.changeLanguage,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ),
                     ),

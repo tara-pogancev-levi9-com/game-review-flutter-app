@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                         SliverToBoxAdapter(
                           child: GameSection(
                             games: discoverGames,
-                            title: t.discover,
+                            title: t.navigation.discover,
                             hasMore: hasMoreGames,
                             isLoadingMore: isLoadingMoreGames,
                             onLoadMore: () => cubit.loadMoreGames(),
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
                             child: Text(
-                              t.recentReviews,
+                              t.home.recentReviews,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),

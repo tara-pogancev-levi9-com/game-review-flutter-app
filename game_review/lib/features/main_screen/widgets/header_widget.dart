@@ -47,7 +47,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
               LocaleSettings.setLocale(AppLocale.en);
             }
           },
-          tooltip: context.t.changeLanguage,
+          tooltip: context.t.settings.changeLanguage,
         ),
       ],
     );

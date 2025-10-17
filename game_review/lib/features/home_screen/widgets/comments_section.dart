@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/models/models.dart';
 import 'package:game_review/common/theme/app_typography.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_cubit.dart';
 import 'package:game_review/features/home_screen/bloc/review_comments_state.dart';
-import 'package:game_review/features/home_screen/models/review_comment.dart';
 import 'package:game_review/features/home_screen/utils/formatters.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class CommentsSection extends StatefulWidget {
   final String reviewId;
+
   const CommentsSection({super.key, required this.reviewId});
 
   @override
@@ -39,7 +40,7 @@ class _CommentsSectionState extends State<CommentsSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${t.discussions} ($count)',
+              '${t.media.discussions} ($count)',
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -61,7 +62,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(t.reviewsNotFound),
+                        child: Text(t.reviews.reviewsNotFound),
                       ),
                       const SizedBox(height: 12),
 
@@ -77,7 +78,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                             ),
                           ),
                           child: Text(
-                            t.addComment,
+                            t.reviews.addComment,
                             style: AppTypography.buttonLarge,
                           ),
                         ),
@@ -89,7 +90,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                 return Column(
                   children: [
                     ...comments.map(
-                      (ReviewComment c) => Column(
+                      (ReviewCommentModel c) => Column(
                         children: [
                           ListTile(
                             contentPadding: EdgeInsets.zero,
@@ -97,11 +98,11 @@ class _CommentsSectionState extends State<CommentsSection> {
                               child: Icon(Icons.person),
                             ),
                             title: Text(
-                              c.userId ?? 'User',
+                              c.userId,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                             subtitle: Text(
-                              c.content ?? '',
+                              c.content,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             trailing: Text(
@@ -130,7 +131,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                           ),
                         ),
                         child: Text(
-                          t.addComment,
+                          t.reviews.addComment,
                           style: AppTypography.buttonLarge,
                         ),
                       ),

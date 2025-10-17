@@ -21,7 +21,7 @@ class EmptySearchView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            t.searchGames,
+            t.home.searchGames,
             style: AppTypography.heading.copyWith(
               color: AppColors.textSecondary,
             ),

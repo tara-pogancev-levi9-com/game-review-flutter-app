@@ -24,7 +24,7 @@ class ErrorView extends StatelessWidget {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: onRetry,
-              child: Text(t.retry),
+              child: Text(t.common.retry),
             ),
           ],
         ),

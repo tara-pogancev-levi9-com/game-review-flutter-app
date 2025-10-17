@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
@@ -71,7 +73,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               },
             ),
             Text(
-              t.back,
+              t.common.back,
               style: const TextStyle(
                 fontFamily: AppFonts.josefinSans,
                 fontWeight: FontWeight.w400,
@@ -95,7 +97,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
           } else if (state is RegistrationInitial) {
           } else if (state is RegistrationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              SnackBar(
+                content: Text(state.error),
+                backgroundColor: AppColors.error,
+                duration: const Duration(seconds: 3),
+              ),
             );
           } else if (state is LoginAfterRegistrationSuccess) {
             final navigator = Navigator.of(context);
@@ -158,15 +164,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     }
                                   },
                                   validator: Validators.email(context),
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.email_outlined,
                                     ),
-                                    labelText: t.email,
+                                    labelText: t.auth.email,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -186,17 +193,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   },
                                   validator: Validators.required(
                                     context,
-                                    fieldLabel: t.username,
+                                    fieldLabel: t.auth.username,
                                   ),
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.person_2_outlined,
                                     ),
-                                    labelText: t.username,
+                                    labelText: t.auth.username,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -221,7 +229,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     context,
                                     minLength: 8,
                                   ),
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(Icons.password),
                                     suffixIcon: IconButton(
                                       onPressed: () {
@@ -229,16 +237,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                           showPassword = !showPassword;
                                         });
                                       },
-                                      icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                      ),
+                                      icon: (!showPassword)
+                                          ? Icon(
+                                              Icons.remove_red_eye_outlined,
+                                            )
+                                          : Icon(Icons.visibility_off),
                                     ),
-                                    errorStyle: null,
-                                    labelText: t.password,
+                                    labelText: t.auth.password,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -262,16 +272,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return t.confirmPassword;
+                                      return t.auth.confirmPassword;
                                     }
                                     if (value != _passwordController.text) {
-                                      return t.errors.passwordMismatch;
+                                      return t.auth.passwordMismatch;
                                     }
                                     return null;
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(Icons.password),
-
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -279,15 +288,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               !showConfirmPassword;
                                         });
                                       },
-                                      icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                      ),
+                                      icon: (!showConfirmPassword)
+                                          ? Icon(
+                                              Icons.remove_red_eye_outlined,
+                                            )
+                                          : Icon(Icons.visibility_off),
                                     ),
-                                    labelText: t.confirmPassword,
+                                    labelText: t.auth.confirmPassword,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -305,7 +317,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         child: ElevatedButton(
                                           onPressed: _onSubmit,
                                           child: Text(
-                                            t.register,
+                                            t.auth.register,
                                           ),
                                         ),
                                       ),

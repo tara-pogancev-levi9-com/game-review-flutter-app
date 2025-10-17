@@ -25,13 +25,13 @@ class AppLogo extends StatelessWidget {
         ),
         const SizedBox(height: _spacingBetween),
         Text(
-          t.branding.title,
+          t.app.branding.title,
           textAlign: TextAlign.center,
           style: AppTypography.logoTitle,
         ),
         const SizedBox(height: 8),
         Text(
-          t.branding.tagline,
+          t.app.branding.tagline,
           textAlign: TextAlign.center,
           style: AppTypography.logoTagline,
         ),

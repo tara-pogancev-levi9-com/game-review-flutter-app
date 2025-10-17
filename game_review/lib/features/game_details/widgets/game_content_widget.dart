@@ -182,7 +182,7 @@ class GameContentWidget extends StatelessWidget {
           ],
 
           Text(
-            t.overall,
+            t.ratings.overall,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
@@ -219,7 +219,7 @@ class GameContentWidget extends StatelessWidget {
           ],
 
           Text(
-            t.details,
+            t.gameDetails.details,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,

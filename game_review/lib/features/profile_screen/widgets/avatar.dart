@@ -30,8 +30,8 @@ class _AvatarState extends State<Avatar> {
   XFile? _selectedImage;
   int? currentVersion;
   var imageBytes;
-  var imagePath;
-  var imageExtension;
+  String? imagePath;
+  String? imageExtension;
   bool imageSelected = false;
   bool showSaveLoading = false;
 
@@ -74,9 +74,15 @@ class _AvatarState extends State<Avatar> {
                             : null,
                         child:
                             _selectedImage == null && _currentImageUrl == null
-                            ? Center(
-                                child: Text(
-                                  t.noImage,
+                            ? ClipOval(
+                                child: Image(
+                                  fit: BoxFit.contain,
+                                  image: (user.avatarUrl != null)
+                                      ? NetworkImage(user.avatarUrl!)
+                                            as ImageProvider
+                                      : const AssetImage(
+                                          'lib/common/assets/images/blankAvatarSmall.png',
+                                        ),
                                 ),
                               )
                             : null,
@@ -171,12 +177,12 @@ class _AvatarState extends State<Avatar> {
                                 });
                               }
                               await locator<UserService>().uploadAvatar(
-                                imagePath,
-                                imageBytes,
-                                imageExtension,
+                                imagePath!,
+                                imageBytes!,
+                                imageExtension!,
                               );
                               String imageUrl =
-                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/${imagePath}';
+                                  '${dotenv.env['API_URL']}/storage/v1/object/avatars/$imagePath';
 
                               if (mounted) {
                                 setState(() {
@@ -188,7 +194,7 @@ class _AvatarState extends State<Avatar> {
                               widget.onUpload(imageUrl);
                             },
 
-                            child: Text(t.saveImage),
+                            child: Text(t.profile.saveImage),
                           )
                         : CircularProgressIndicator()
                   : null),
