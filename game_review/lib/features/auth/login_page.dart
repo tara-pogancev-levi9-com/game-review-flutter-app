@@ -109,6 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                             AutofillHints.username,
                             AutofillHints.email,
                           ],
+                          textInputAction: TextInputAction.next,
+
                           keyboardType: TextInputType.emailAddress,
                           decoration: AppTheme.createInputDecoration(
                             hintText: t.auth.email,
@@ -125,6 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _passwordController,
                           autofillHints: const [AutofillHints.password],
                           obscureText: _obscurePassword,
+                          textInputAction: TextInputAction.done,
+                          onFieldSubmitted: (_) => _onSubmit(),
                           decoration: AppTheme.createInputDecoration(
                             hintText: t.auth.password,
                             prefixIcon: const Icon(

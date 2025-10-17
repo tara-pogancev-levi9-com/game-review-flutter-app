@@ -95,6 +95,10 @@ void setupDependencies() {
     () => ReviewsService(locator<ApiClient>()),
   );
 
+  locator.registerLazySingleton<ReviewService>(
+    () => ReviewService(locator<ApiClient>(), locator<AuthService>()),
+  );
+
   locator.registerFactory<ReviewFormCubit>(
     () => ReviewFormCubit(locator<ReviewsService>()),
   );
@@ -117,9 +121,5 @@ void setupDependencies() {
 
   locator.registerFactory<GameDetailsCubit>(
     () => GameDetailsCubit(gameService: locator<GameService>()),
-  );
-
-  locator.registerLazySingleton<ReviewService>(
-    () => ReviewService(locator<ApiClient>(), locator<AuthService>()),
   );
 }

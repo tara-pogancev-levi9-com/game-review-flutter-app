@@ -33,7 +33,7 @@ class Validators {
       }
 
       if (text.length < minLength) {
-        return t.errors.minLength(count: minLength);
+        return t.errors.minLength(n: minLength);
       }
       return null;
     };

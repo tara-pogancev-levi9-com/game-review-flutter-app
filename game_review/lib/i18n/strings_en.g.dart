@@ -992,8 +992,8 @@ class TranslationsErrorsEn {
 	/// en: 'Invalid email'
 	String get invalidEmail => 'Invalid email';
 
-	/// en: 'Min {{count}} char'
-	String minLength({required Object count}) => 'Min ${count} char';
+	/// en: 'Min {{n}} char'
+	String minLength({required Object n}) => 'Min ${n} char';
 
 	/// en: 'The app failed to start. Please restart and try again.'
 	String get appFailedToStart => 'The app failed to start. Please restart and try again.';

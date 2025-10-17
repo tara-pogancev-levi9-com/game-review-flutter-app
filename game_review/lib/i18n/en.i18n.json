@@ -298,7 +298,7 @@
     "loginFailed": "Login failed. Please try again.",
     "requiredField": "{{field}} required",
     "invalidEmail": "Invalid email",
-    "minLength": "Min {{count}} char",
+    "minLength": "Min {{n}} char",
     "appFailedToStart": "The app failed to start. Please restart and try again.",
     "gameNotFound": "Game not found",
     "failedToProcessReview": "Failed to process review",

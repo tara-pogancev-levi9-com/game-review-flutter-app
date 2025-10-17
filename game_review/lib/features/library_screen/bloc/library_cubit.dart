@@ -70,14 +70,14 @@ class LibraryCubit extends Cubit<LibraryState> {
 
     if (currentState is LibrarySuccess) {
       if (currentState.userWishlistGames.any((g) => g.id == game.id)) {
-        Logger.warning(t.library.gameAlreadyInWishlist);
+        Logger.warning(t.gameDetails.gameAlreadyInWishlist);
         return AddResult.alreadyExists;
       }
 
       try {
         final success = await _gameService.addToWishlistSimple(game.id);
         if (success) {
-          Logger.info(t.library.gameAddedToWishlist);
+          Logger.info(t.gameService.gameAddedToWishlistSuccess);
           emit(
             currentState.copyWith(
               userWishlistGames: [...currentState.userWishlistGames, game],
@@ -97,7 +97,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     try {
       final success = await _gameService.addToWishlistSimple(game.id);
       if (success) {
-        Logger.info(t.library.gameAddedToWishlist);
+        Logger.info(t.gameService.gameAddedToWishlistSuccess);
         await _fetchAll();
         // Alternative: await _fetchUserLists();   // if you want only user lists
         return AddResult.added;
@@ -116,14 +116,14 @@ class LibraryCubit extends Cubit<LibraryState> {
 
     if (currentState is LibrarySuccess) {
       if (currentState.userLibraryGames.any((g) => g.id == game.id)) {
-        Logger.warning(t.library.gameAlreadyInLibrary);
+        Logger.warning(t.gameDetails.gameAlreadyInLibrary);
         return AddResult.alreadyExists;
       }
 
       try {
         final success = await _gameService.addToLibrarySimple(game.id);
         if (success) {
-          Logger.info(t.library.gameAddedToLibrary);
+          Logger.info(t.gameService.gameAddedToLibrarySuccess);
           emit(
             currentState.copyWith(
               userLibraryGames: [...currentState.userLibraryGames, game],
@@ -143,7 +143,7 @@ class LibraryCubit extends Cubit<LibraryState> {
     try {
       final success = await _gameService.addToLibrarySimple(game.id);
       if (success) {
-        Logger.info(t.library.gameAddedToLibrary);
+        Logger.info(t.gameService.gameAddedToLibrarySuccess);
         await _fetchAll();
         // Alternative: await _fetchUserLists(); // if desired
         return AddResult.added;

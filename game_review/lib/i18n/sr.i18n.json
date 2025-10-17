@@ -298,7 +298,7 @@
     "loginFailed": "Neuspešna prijava. Molimo pokušajte ponovo.",
     "requiredField": "{{field}} je obavezno",
     "invalidEmail": "Neispravna email adresa",
-    "minLength": "Min {{count}} karaktera",
+    "minLength": "Min {{n}} karaktera",
     "appFailedToStart": "Aplikacija se nije uspešno pokrenula. Molimo restartujte i pokušajte ponovo.",
     "gameNotFound": "Igra nije pronađena",
     "failedToProcessReview": "Neuspešno procesiranje recenzije",

@@ -15,6 +15,14 @@ class GameService {
 
   GameService(this._apiClient, this._authService);
 
+  Future<String> _getAuthenticatedUserId() async {
+    final userId = await _authService.getCurrentUserId();
+    if (userId == null) {
+      throw Exception(t.library.userNotAuthenticated);
+    }
+    return userId;
+  }
+
   Future<GameModel?> getGameById(String gameId) async {
     try {
       final response = await _apiClient.get(
@@ -245,12 +253,9 @@ class GameService {
   }
 
   Future<void> addToWishlist(String gameId, int priority) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       await _authService.createUserDataIfNotPresent();
 
       final isAlreadyInWishlist = await isInWishlist(gameId);
@@ -306,12 +311,9 @@ class GameService {
   }
 
   Future<void> removeFromWishlist(String gameId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.delete(
         ApiConstants.userWishlist,
         queryParameters: {
@@ -407,12 +409,9 @@ class GameService {
   }
 
   Future<void> addToLibrary(String gameId, String? platformId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final isAlreadyInLibrary = await isInLibrary(gameId);
       if (isAlreadyInLibrary) {
         throw Exception('Game already in library');
@@ -474,7 +473,7 @@ class GameService {
 
       if (response.statusCode == HttpStatus.created ||
           response.statusCode == HttpStatus.ok) {
-        Logger.info(t.library.gameAddedToLibrary);
+        Logger.info(t.gameService.gameAddedToLibrarySuccess);
         return true;
       } else {
         Logger.warning(t.library.failedToAddToLibrary);
@@ -491,12 +490,9 @@ class GameService {
     int hoursPlayed,
     double completionPercentage,
   ) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.put(
         ApiConstants.userLibrary,
         data: {
@@ -519,12 +515,9 @@ class GameService {
   }
 
   Future<void> removeFromLibrary(String gameId) async {
-    try {
-      final userId = await _authService.getCurrentUserId();
-      if (userId == null) {
-        throw Exception('User not authenticated');
-      }
+    final userId = await _getAuthenticatedUserId();
 
+    try {
       final response = await _apiClient.delete(
         ApiConstants.userLibrary,
         queryParameters: {

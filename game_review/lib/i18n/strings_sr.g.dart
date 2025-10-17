@@ -466,7 +466,7 @@ class TranslationsErrorsSr extends TranslationsErrorsEn {
 	@override String get loginFailed => 'Neuspešna prijava. Molimo pokušajte ponovo.';
 	@override String requiredField({required Object field}) => '${field} je obavezno';
 	@override String get invalidEmail => 'Neispravna email adresa';
-	@override String minLength({required Object count}) => 'Min ${count} karaktera';
+	@override String minLength({required Object n}) => 'Min ${n} karaktera';
 	@override String get appFailedToStart => 'Aplikacija se nije uspešno pokrenula. Molimo restartujte i pokušajte ponovo.';
 	@override String get gameNotFound => 'Igra nije pronađena';
 	@override String get failedToProcessReview => 'Neuspešno procesiranje recenzije';

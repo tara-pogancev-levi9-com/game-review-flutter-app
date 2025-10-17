@@ -10,6 +10,16 @@ import 'package:game_review/features/game_details/bloc/game_details_cubit.dart';
 import 'package:game_review/features/home_screen/widgets/game_selector_bottom_sheet.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
+enum GameMenuAction {
+  wishlist('wishlist'),
+  library('library'),
+  review('review'),
+  share('share');
+
+  const GameMenuAction(this.value);
+  final String value;
+}
+
 class GameContentWidget extends StatelessWidget {
   final GameModel game;
   final String gameId;
@@ -43,7 +53,7 @@ class GameContentWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              PopupMenuButton<String>(
+              PopupMenuButton<GameMenuAction>(
                 key: _popupMenuKey,
                 icon: const Icon(
                   Icons.more_vert,
@@ -56,8 +66,8 @@ class GameContentWidget extends StatelessWidget {
                 ),
                 onSelected: (value) => _handleMenuAction(context, value),
                 itemBuilder: (context) => [
-                  PopupMenuItem<String>(
-                    value: 'wishlist',
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.wishlist,
                     child: Row(
                       children: [
                         Icon(
@@ -77,8 +87,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'library',
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.library,
                     child: Row(
                       children: [
                         Icon(
@@ -100,8 +110,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'review',
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.review,
                     child: Row(
                       children: [
                         const Icon(
@@ -119,8 +129,8 @@ class GameContentWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PopupMenuItem<String>(
-                    value: 'share',
+                  PopupMenuItem<GameMenuAction>(
+                    value: GameMenuAction.share,
                     child: Row(
                       children: [
                         const Icon(
@@ -331,17 +341,20 @@ class GameContentWidget extends StatelessWidget {
     }
   }
 
-  Future<void> _handleMenuAction(BuildContext context, String action) async {
+  Future<void> _handleMenuAction(
+    BuildContext context,
+    GameMenuAction action,
+  ) async {
     final cubit = context.read<GameDetailsCubit>();
 
     switch (action) {
-      case 'wishlist':
+      case GameMenuAction.wishlist:
         cubit.toggleWishlist(gameId);
         break;
-      case 'library':
+      case GameMenuAction.library:
         cubit.toggleLibrary(gameId);
         break;
-      case 'review':
+      case GameMenuAction.review:
         await showModalBottomSheet<bool>(
           context: context,
           isScrollControlled: true,
@@ -349,7 +362,7 @@ class GameContentWidget extends StatelessWidget {
           builder: (context) => const GameSelectorBottomSheet(),
         );
         break;
-      case 'share':
+      case GameMenuAction.share:
         _shareGame(context);
         break;
     }
