@@ -97,7 +97,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
           } else if (state is RegistrationInitial) {
           } else if (state is RegistrationFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              SnackBar(
+                content: Text(state.error),
+                backgroundColor: AppColors.error,
+                duration: const Duration(seconds: 3),
+              ),
             );
           } else if (state is LoginAfterRegistrationSuccess) {
             final navigator = Navigator.of(context);
@@ -233,9 +237,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                           showPassword = !showPassword;
                                         });
                                       },
-                                      icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                      ),
+                                      icon: (!showPassword)
+                                          ? Icon(
+                                              Icons.remove_red_eye_outlined,
+                                            )
+                                          : Icon(Icons.visibility_off),
                                     ),
                                     labelText: t.auth.password,
                                     labelStyle: const TextStyle(
@@ -282,9 +288,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                               !showConfirmPassword;
                                         });
                                       },
-                                      icon: const Icon(
-                                        Icons.remove_red_eye_outlined,
-                                      ),
+                                      icon: (!showConfirmPassword)
+                                          ? Icon(
+                                              Icons.remove_red_eye_outlined,
+                                            )
+                                          : Icon(Icons.visibility_off),
                                     ),
                                     labelText: t.auth.confirmPassword,
                                     labelStyle: const TextStyle(

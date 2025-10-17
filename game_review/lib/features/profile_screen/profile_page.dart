@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
+import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/welcome_screen/welcome_page.dart';
@@ -40,7 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
           loaded: (user, loggedUserId, alreadyFriends, message) {
             if (message != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: AppColors.success,
+                  duration: Duration(seconds: 2),
+                ),
               );
             }
           },
@@ -58,13 +63,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   right: 30,
                   child: CircleAvatar(
                     radius: 100,
+                    backgroundColor: AppColors.textTertiary,
                     backgroundImage: (user.avatarUrl != null)
                         ? NetworkImage(user.avatarUrl!) as ImageProvider
                         : null,
-                    child: user.avatarUrl == null
-                        ? Center(
-                            child: Text(
-                              t.profile.noImage,
+                    child: (user.avatarUrl == null)
+                        ? ClipOval(
+                            child: Image(
+                              fit: BoxFit.contain,
+                              image: (user.avatarUrl != null)
+                                  ? NetworkImage(user.avatarUrl!)
+                                        as ImageProvider
+                                  : const AssetImage(
+                                      'lib/common/assets/images/blankAvatarSmall.png',
+                                    ),
                             ),
                           )
                         : null,
@@ -189,27 +201,16 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             );
             if (widget.isStandalone) {
-              return AppScaffold(
-                appBar: AppBar(
-                  backgroundColor: AppColors.primaryPurple,
-                  leadingWidth: 100,
-                  leading: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      Text(
-                        t.common.back,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+              return Container(
+                decoration: BoxDecoration(color: AppColors.primaryPurple),
+                child: AppScaffold(
+                  appBar: CustomHeader(
+                    isHome: false,
+                    onBack: () => Navigator.pop(context),
                   ),
+
+                  body: pageContent,
                 ),
-                body: pageContent,
               );
             } else {
               return pageContent;
