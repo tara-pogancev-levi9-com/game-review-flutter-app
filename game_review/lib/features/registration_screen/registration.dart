@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/features/auth/login_page.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
@@ -140,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     }
                                   },
                                   validator: Validators.email(context),
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.email_outlined,
                                     ),
@@ -149,6 +151,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -160,7 +163,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   autofillHints: null,
                                   enableSuggestions: false,
 
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.person_2_outlined,
                                     ),
@@ -169,6 +172,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -196,7 +200,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     }
                                     return null;
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(Icons.password),
                                     suffixIcon: IconButton(
                                       onPressed: () {
@@ -208,12 +212,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                         Icons.remove_red_eye_outlined,
                                       ),
                                     ),
-                                    errorStyle: null,
                                     labelText: t.auth.password,
                                     labelStyle: const TextStyle(
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -242,9 +246,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     }
                                     return null;
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: AppTheme.createInputDecoration(
                                     prefixIcon: const Icon(Icons.password),
-
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -261,6 +264,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       fontWeight: FontWeight.w100,
                                       fontStyle: FontStyle.italic,
                                     ),
+                                    borderRadius: BorderSize.infinite.radius,
                                   ),
                                 ),
                                 const SizedBox(
@@ -296,8 +300,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                     registrationData,
                                                   );
                                             } else {
-                                              //locator<RegistrationCubit>()
-                                              //  .formValidationFailed();
                                               setState(() {
                                                 firstInput = false;
                                               });

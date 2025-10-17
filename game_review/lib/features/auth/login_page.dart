@@ -4,6 +4,8 @@ import 'package:game_review/common/app_logo.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/common/theme/app_fonts.dart';
+import 'package:game_review/common/theme/app_theme.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/common/validation/validators.dart';
 import 'package:game_review/common/widgets/loading_button.dart';
 import 'package:game_review/features/main_screen/main_screen.dart';
@@ -108,12 +110,13 @@ class _LoginPageState extends State<LoginPage> {
                             AutofillHints.email,
                           ],
                           keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
+                          decoration: AppTheme.createInputDecoration(
                             hintText: t.auth.email,
                             prefixIcon: const Icon(
                               Icons.alternate_email,
                               color: AppColors.lilacSelected,
                             ),
+                            borderRadius: BorderSize.infinite.radius,
                           ),
                           validator: Validators.email(context),
                         ),
@@ -122,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _passwordController,
                           autofillHints: const [AutofillHints.password],
                           obscureText: _obscurePassword,
-                          decoration: InputDecoration(
+                          decoration: AppTheme.createInputDecoration(
                             hintText: t.auth.password,
                             prefixIcon: const Icon(
                               Icons.password,
@@ -138,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                                 () => _obscurePassword = !_obscurePassword,
                               ),
                             ),
+                            borderRadius: BorderSize.infinite.radius,
                           ),
                           validator: Validators.password(context, minLength: 6),
                         ),

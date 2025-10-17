@@ -12,6 +12,44 @@ class AppTheme {
   static BorderRadius borderRadiusSmall = BorderRadius.circular(16);
   static BorderRadius borderRadiusLarge = BorderRadius.circular(25);
 
+  static InputDecoration createInputDecoration({
+    String? hintText,
+    String? labelText,
+    TextStyle? labelStyle,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
+    BorderRadius? borderRadius,
+    bool alignLabelWithHint = false,
+    Widget? label,
+  }) {
+    final radius = borderRadius ?? BorderSize.s.radius;
+
+    return InputDecoration(
+      hintText: hintText,
+      labelText: labelText,
+      labelStyle: labelStyle,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      alignLabelWithHint: alignLabelWithHint,
+      label: label,
+      border: OutlineInputBorder(
+        borderRadius: radius,
+        borderSide: const BorderSide(color: AppColors.outline, width: 1),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: radius,
+        borderSide: const BorderSide(color: AppColors.outline, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: radius,
+        borderSide: const BorderSide(
+          color: AppColors.lilacSelected,
+          width: 1.8,
+        ),
+      ),
+    );
+  }
+
   static const EdgeInsets paddingMedium = EdgeInsets.all(16);
   static const EdgeInsets paddingLarge = EdgeInsets.all(20);
   static const EdgeInsets paddingButton = EdgeInsets.symmetric(
@@ -98,7 +136,7 @@ class AppTheme {
         contentPadding: const EdgeInsets.all(16),
         filled: false,
         border: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderSize.s.radius,
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         floatingLabelStyle: TextStyle(
@@ -109,11 +147,11 @@ class AppTheme {
         prefixIconColor: AppColors.lilacSelected,
         suffixIconColor: AppColors.lilacSelected,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderSize.s.radius,
           borderSide: const BorderSide(color: AppColors.outline, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderSize.m.radius,
+          borderRadius: BorderSize.s.radius,
           borderSide: const BorderSide(
             color: AppColors.lilacSelected,
             width: 1.8,

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
+import 'package:game_review/common/theme/app_theme.dart';
 import 'package:game_review/common/theme/app_typography.dart';
+import 'package:game_review/common/theme/border_size.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/models/profile_info_model.dart';
@@ -141,12 +143,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       color: AppColors.textPrimary,
                                     ),
 
-                                    decoration: InputDecoration(
+                                    decoration: AppTheme.createInputDecoration(
                                       prefixIcon: Icon(
                                         Icons.person_2_outlined,
                                       ),
                                       labelText: t.auth.username,
                                       labelStyle: AppTypography.editUser,
+                                      borderRadius: BorderSize.infinite.radius,
                                     ),
                                   ),
                                   SizedBox(
@@ -161,12 +164,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     ),
 
                                     enableSuggestions: false,
-                                    decoration: InputDecoration(
+                                    decoration: AppTheme.createInputDecoration(
                                       prefixIcon: Icon(
                                         Icons.person_2_outlined,
                                       ),
                                       labelText: t.auth.displayName,
                                       labelStyle: AppTypography.editUser,
+                                      borderRadius: BorderSize.infinite.radius,
                                     ),
                                   ),
                                   SizedBox(
@@ -180,7 +184,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     style: TextStyle(
                                       color: AppColors.textPrimary,
                                     ),
-                                    decoration: InputDecoration(
+                                    decoration: AppTheme.createInputDecoration(
                                       alignLabelWithHint: true,
                                       label: Align(
                                         alignment: Alignment.topLeft,
@@ -190,36 +194,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         ),
                                       ),
                                       labelStyle: AppTypography.editUser,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide: const BorderSide(
-                                          color: AppColors.outline,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      hintStyle: const TextStyle(
-                                        color: AppColors.textSecondary,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide: const BorderSide(
-                                          color: AppColors.outline,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide: const BorderSide(
-                                          color: AppColors.lilacSelected,
-                                          width: 1.2,
-                                        ),
-                                      ),
+                                      borderRadius: BorderSize.l.radius,
                                     ),
                                   ),
                                   SizedBox(
@@ -298,7 +273,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       }
                                       return null;
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: AppTheme.createInputDecoration(
                                       prefixIcon: Icon(Icons.password),
                                       suffixIcon: IconButton(
                                         onPressed: () {
@@ -310,9 +285,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           Icons.remove_red_eye_outlined,
                                         ),
                                       ),
-                                      errorStyle: null,
                                       labelText: t.auth.password,
                                       labelStyle: AppTypography.editUser,
+                                      borderRadius: BorderSize.infinite.radius,
                                     ),
                                   ),
                                   SizedBox(
@@ -344,9 +319,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       }
                                       return null;
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: AppTheme.createInputDecoration(
                                       prefixIcon: Icon(Icons.password),
-
                                       suffixIcon: IconButton(
                                         onPressed: () {
                                           setState(() {
@@ -360,6 +334,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       ),
                                       labelText: t.auth.confirmPassword,
                                       labelStyle: AppTypography.editUser,
+                                      borderRadius: BorderSize.infinite.radius,
                                     ),
                                   ),
 
