@@ -4,11 +4,10 @@
     <img src="./media/2.jpg" alt="Project Screenshot" width="200" hspace="10"/>
     <img src="./media/3.jpg" alt="Project Screenshot" width="200" hspace="10"/>
     <img src="./media/4.jpg" alt="Project Screenshot" width="200" hspace="10"/>
-    <p></p>
-    <img src="./media/5.jpg" alt="Project Screenshot" width="200" hspace="10" vspace="10"/>
-    <img src="./media/6.jpg" alt="Project Screenshot" width="200" hspace="10" vspace="10"/>
-    <img src="./media/7.jpg" alt="Project Screenshot" width="200" hspace="10" vspace="10"/>
-    <img src="./media/8.jpg" alt="Project Screenshot" width="200" hspace="10" vspace="10"/>
+    <img src="./media/5.jpg" alt="Project Screenshot" width="200" hspace="10"/>
+    <img src="./media/6.jpg" alt="Project Screenshot" width="200" hspace="10" />
+    <img src="./media/7.jpg" alt="Project Screenshot" width="200" hspace="10" />
+    <img src="./media/8.jpg" alt="Project Screenshot" width="200" hspace="10" />
 </div>
 A modern, high-performance social media platform for game reviewing, built with Flutter and a clean, scalable architecture.
 
