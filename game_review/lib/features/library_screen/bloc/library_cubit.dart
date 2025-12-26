@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/models/game_model.dart';
 import 'package:game_review/common/utils/logger.dart';
 import 'package:game_review/core/services/game_service.dart';
+import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import 'library_state.dart';
@@ -22,6 +24,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         _gameService.getUserLibraryGames(),
         _gameService.getUserWishlistGames(),
       ]);
+      final user = await locator<UserService>().getCurrentUser();
 
       emit(
         LibraryState.success(
@@ -29,10 +32,11 @@ class LibraryCubit extends Cubit<LibraryState> {
           popularGames: results[1],
           userLibraryGames: results[2],
           userWishlistGames: results[3],
+          user: user,
         ),
       );
     } catch (e) {
-      Logger.error(t.errors.failedToFetchGames, e);
+      Logger.error(t.library.failedToFetchGames, e);
       emit(LibraryState.error(e.toString()));
     }
   }
@@ -56,7 +60,7 @@ class LibraryCubit extends Cubit<LibraryState> {
         ),
       );
     } catch (e) {
-      Logger.error(t.errors.failedToFetchGames, e);
+      Logger.error(t.library.failedToFetchGames, e);
       emit(LibraryState.error(e.toString()));
     }
   }
@@ -81,11 +85,11 @@ class LibraryCubit extends Cubit<LibraryState> {
           );
           return AddResult.added;
         } else {
-          Logger.warning(t.errors.failedToAddToWishlist);
+          Logger.warning(t.library.failedToAddToWishlist);
           return AddResult.failed;
         }
       } catch (e) {
-        Logger.error(t.errors.failedToAddToWishlist, e);
+        Logger.error(t.library.failedToAddToWishlist, e);
         return AddResult.failed;
       }
     }
@@ -98,11 +102,11 @@ class LibraryCubit extends Cubit<LibraryState> {
         // Alternative: await _fetchUserLists();   // if you want only user lists
         return AddResult.added;
       } else {
-        Logger.warning(t.errors.failedToAddToWishlist);
+        Logger.warning(t.library.failedToAddToWishlist);
         return AddResult.failed;
       }
     } catch (e) {
-      Logger.error(t.errors.failedToAddToWishlist, e);
+      Logger.error(t.library.failedToAddToWishlist, e);
       return AddResult.failed;
     }
   }
@@ -127,11 +131,11 @@ class LibraryCubit extends Cubit<LibraryState> {
           );
           return AddResult.added;
         } else {
-          Logger.warning(t.errors.failedToAddToLibrary);
+          Logger.warning(t.library.failedToAddToLibrary);
           return AddResult.failed;
         }
       } catch (e) {
-        Logger.error(t.errors.failedToAddToLibrary, e);
+        Logger.error(t.library.failedToAddToLibrary, e);
         return AddResult.failed;
       }
     }
@@ -144,11 +148,11 @@ class LibraryCubit extends Cubit<LibraryState> {
         // Alternative: await _fetchUserLists(); // if desired
         return AddResult.added;
       } else {
-        Logger.warning(t.errors.failedToAddToLibrary);
+        Logger.warning(t.library.failedToAddToLibrary);
         return AddResult.failed;
       }
     } catch (e) {
-      Logger.error(t.errors.failedToAddToLibrary, e);
+      Logger.error(t.library.failedToAddToLibrary, e);
       return AddResult.failed;
     }
   }

@@ -186,7 +186,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                         runSpacing: 6,
                         children: [
                           ReviewChip(
-                            '${widget.review.playtimeHours ?? 0} ${t.playingRecord}',
+                            '${widget.review.playtimeHours ?? 0} ${t.reviews.playingRecord}',
                             icon: Icons.schedule,
                           ),
                           ReviewChip(
@@ -195,12 +195,12 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                           ),
                           ReviewChip(
                             widget.review.recommended == true
-                                ? t.wouldRecommend
-                                : t.wouldNotRecommend,
+                                ? t.reviews.wouldRecommend
+                                : t.reviews.wouldNotRecommend,
                             icon: Icons.thumb_up,
                           ),
                           ReviewChip(
-                            '$likesCount ${t.likes}',
+                            '$likesCount ${t.reviews.likes}',
                             icon: Icons.favorite_outline,
                           ),
                           // Comments count in CommentsSection / CommentsChip inside that widget
@@ -212,7 +212,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                       child: Text(
-                        t.ratings,
+                        t.ratings.evaluation,
                         style:
                             Theme.of(
                               context,
@@ -226,27 +226,27 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                       child: Column(
                         children: [
                           RatingRow(
-                            label: t.overall,
+                            label: t.ratings.overall,
                             value: widget.review.overallRating,
                           ),
                           RatingRow(
-                            label: t.gameplay,
+                            label: t.ratings.gameplay,
                             value: widget.review.gameplayRating,
                           ),
                           RatingRow(
-                            label: t.graphics,
+                            label: t.ratings.graphics,
                             value: widget.review.graphicsRating,
                           ),
                           RatingRow(
-                            label: t.story,
+                            label: t.ratings.story,
                             value: widget.review.storyRating,
                           ),
                           RatingRow(
-                            label: t.sound,
+                            label: t.ratings.sound,
                             value: widget.review.soundRating,
                           ),
                           RatingRow(
-                            label: t.value,
+                            label: t.ratings.value,
                             value: widget.review.valueRating,
                           ),
                         ],
@@ -257,7 +257,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                       child: Text(
-                        t.evaluation,
+                        t.ratings.evaluation,
                         style:
                             Theme.of(
                               context,
@@ -278,7 +278,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                                 const Icon(Icons.check_circle_outline),
                                 const SizedBox(width: 8),
                                 Text(
-                                  t.pros,
+                                  t.ratings.pros,
                                   style: Theme.of(context).textTheme.titleSmall,
                                 ),
                               ],
@@ -303,7 +303,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                                 const Icon(Icons.block_outlined),
                                 const SizedBox(width: 8),
                                 Text(
-                                  t.cons,
+                                  t.ratings.cons,
                                   style: Theme.of(context).textTheme.titleSmall,
                                 ),
                               ],
@@ -321,7 +321,7 @@ class _ReviewDetailsPageState extends State<ReviewDetailsPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: Text(
-                        t.media,
+                        t.media.media,
                         style:
                             Theme.of(
                               context,

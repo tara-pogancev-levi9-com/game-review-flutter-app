@@ -14,7 +14,7 @@ class ShareService {
       await SharePlus.instance.share(
         ShareParams(
           text: message,
-          subject: t.shareSubject,
+          subject: t.actions.shareSubject,
           sharePositionOrigin: popupMenuKey != null
               ? _getSharePositionOrigin(popupMenuKey)
               : null,
@@ -26,7 +26,7 @@ class ShareService {
   }
 
   static String _createShareMessage(GameModel game) {
-    return t.shareMessage(gameTitle: game.title);
+    return t.actions.shareMessage(gameTitle: game.title);
   }
 
   static Rect _getSharePositionOrigin(GlobalKey key) {

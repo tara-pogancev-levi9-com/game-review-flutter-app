@@ -3,6 +3,7 @@ import 'package:game_review/common/models/review_model.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/home_screen/review_details.page.dart';
 import 'package:game_review/features/home_screen/utils/formatters.dart';
+import 'package:game_review/features/profile_screen/profile_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -121,7 +122,7 @@ class ReviewCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(999),
                     ),
                   ),
-                  child: Text(t.details),
+                  child: Text(t.gameDetails.details),
                 ),
               ],
             ),
@@ -132,8 +133,22 @@ class ReviewCard extends StatelessWidget {
               children: [
                 const Icon(Icons.person, size: 16),
                 const SizedBox(width: 8),
-                Expanded(
-                  child: Text(username, style: theme.textTheme.bodySmall),
+
+                InkWell(
+                  splashColor: AppColors.softWhite,
+                  radius: 14,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(
+                          currentUserId: review.userId,
+                          isStandalone: true,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(username, style: theme.textTheme.bodyMedium),
                 ),
               ],
             ),

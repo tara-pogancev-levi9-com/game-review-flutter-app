@@ -18,7 +18,7 @@ class GameService {
   Future<String> _getAuthenticatedUserId() async {
     final userId = await _authService.getCurrentUserId();
     if (userId == null) {
-      throw Exception(t.errors.userNotAuthenticated);
+      throw Exception(t.library.userNotAuthenticated);
     }
     return userId;
   }
@@ -34,7 +34,7 @@ class GameService {
       );
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
-          'HTTP ${response.statusCode}: ${t.errors.failedToFetchGame}',
+          'HTTP ${response.statusCode}: ${t.library.failedToFetchGame}',
         );
       }
 
@@ -45,7 +45,7 @@ class GameService {
       return GameModel.fromJson((response.data as List).first);
     } catch (e) {
       Logger.error('Failed to fetch game details', e);
-      throw Exception(t.errors.failedToFetchGame);
+      throw Exception(t.library.failedToFetchGame);
     }
   }
 
@@ -66,13 +66,13 @@ class GameService {
 
       if (response.statusCode != HttpStatus.ok) {
         throw Exception(
-          'HTTP ${response.statusCode}: ${t.errors.failedToFetchGames}',
+          'HTTP ${response.statusCode}: ${t.library.failedToFetchGames}',
         );
       }
 
       if (response.data is! List) {
         throw Exception(
-          'Invalid response format: ${t.errors.failedToFetchGames}',
+          'Invalid response format: ${t.library.failedToFetchGames}',
         );
       }
 
@@ -80,7 +80,7 @@ class GameService {
           .map((json) => GameModel.fromJson(json))
           .toList();
     } catch (e) {
-      throw Exception(t.errors.failedToFetchGames);
+      throw Exception(t.library.failedToFetchGames);
     }
   }
 
@@ -212,7 +212,7 @@ class GameService {
       return [];
     } catch (e) {
       Logger.error(t.gameService.failedToFetchLibraryGames, e);
-      throw Exception(t.errors.failedToFetchGames);
+      throw Exception(t.library.failedToFetchGames);
     }
   }
 
@@ -273,7 +273,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.created) {
-        throw Exception(t.errors.failedToAddToWishlist);
+        throw Exception(t.library.failedToAddToWishlist);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToAddToWishlist);
@@ -301,11 +301,11 @@ class GameService {
         Logger.info(t.gameService.gameAddedToWishlistSuccess);
         return true;
       } else {
-        Logger.warning(t.errors.failedToAddToWishlist);
+        Logger.warning(t.library.failedToAddToWishlist);
         return false;
       }
     } catch (e) {
-      Logger.error(t.errors.failedToAddToWishlist, e);
+      Logger.error(t.library.failedToAddToWishlist, e);
       return false;
     }
   }
@@ -323,7 +323,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.noContent) {
-        throw Exception(t.errors.failedToRemoveFromWishlist);
+        throw Exception(t.library.failedToRemoveFromWishlist);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToRemoveFromWishlist);
@@ -440,7 +440,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.created) {
-        throw Exception(t.errors.failedToAddToLibrary);
+        throw Exception(t.library.failedToAddToLibrary);
       }
     } catch (e) {
       Logger.error('Failed to add game to library', e);
@@ -448,9 +448,9 @@ class GameService {
       if (e.toString().contains('duplicate key value')) {
         throw Exception(t.gameDetails.alreadyInLibrary);
       } else if (e.toString().contains('Failed to add to library')) {
-        throw Exception(t.errors.failedToAddToLibrary);
+        throw Exception(t.library.failedToAddToLibrary);
       } else {
-        throw Exception(t.errors.failedToAddToLibrary);
+        throw Exception(t.library.failedToAddToLibrary);
       }
     }
   }
@@ -476,11 +476,11 @@ class GameService {
         Logger.info(t.gameService.gameAddedToLibrarySuccess);
         return true;
       } else {
-        Logger.warning(t.errors.failedToAddToLibrary);
+        Logger.warning(t.library.failedToAddToLibrary);
         return false;
       }
     } catch (e) {
-      Logger.error(t.errors.failedToAddToLibrary, e);
+      Logger.error(t.library.failedToAddToLibrary, e);
       return false;
     }
   }
@@ -507,10 +507,10 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.ok) {
-        throw Exception(t.errors.failedToUpdateGameProgress);
+        throw Exception(t.library.failedToUpdateGameProgress);
       }
     } catch (e) {
-      throw Exception(t.errors.failedToUpdateGameProgress);
+      throw Exception(t.library.failedToUpdateGameProgress);
     }
   }
 
@@ -527,7 +527,7 @@ class GameService {
       );
 
       if (response.statusCode != HttpStatus.noContent) {
-        throw Exception(t.errors.failedToRemoveFromLibrary);
+        throw Exception(t.library.failedToRemoveFromLibrary);
       }
     } catch (e) {
       throw Exception(t.gameDetails.failedToRemoveFromLibrary);

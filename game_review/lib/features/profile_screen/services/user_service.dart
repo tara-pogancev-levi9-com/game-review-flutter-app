@@ -77,7 +77,7 @@ class UserService {
     }
   }
 
-  Future<void> deleteAvatar(imagePath, userId) async {
+  Future<void> deleteAvatar(String imagePath, String userId) async {
     try {
       final Response response = await apiImageClient.delete(
         '${Endpoints.storageAvatarMedia}$imagePath',
@@ -140,7 +140,7 @@ class UserService {
     }
   }
 
-  Future<UserModel> getUser(userId) async {
+  Future<UserModel> getUser(String userId) async {
     try {
       final Response response = await apiClient.get(
         Endpoints.users,
@@ -166,7 +166,7 @@ class UserService {
     }
   }
 
-  Future<void> addFriend(requesterId, addresseeId) async {
+  Future<void> addFriend(String requesterId, String addresseeId) async {
     try {
       await apiClient.post(
         'rest/v1/friendships',
@@ -198,7 +198,11 @@ class UserService {
     }
   }
 
-  Future<void> uploadAvatar(imagePath, imageBytes, imageExtensions) async {
+  Future<void> uploadAvatar(
+    String imagePath,
+    imageBytes,
+    String imageExtensions,
+  ) async {
     try {
       final Response response = await locator<ApiImageClient>().put(
         '${Endpoints.storageAvatarMedia}$imagePath',

@@ -82,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: SectionHeader(
-                            title: t.gamesSection,
+                            title: t.home.gamesSection,
                             count: games.length,
                           ),
                         ),
@@ -96,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: SectionHeader(
-                            title: t.reviewsSection,
+                            title: t.home.reviewsSection,
                             count: reviews.length,
                           ),
                         ),

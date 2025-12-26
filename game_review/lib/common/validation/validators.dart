@@ -11,7 +11,7 @@ class Validators {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return t.errors.requiredField(field: t.email);
+        return t.errors.requiredField(field: t.auth.email);
       }
 
       if (!regex.hasMatch(text)) {
@@ -23,13 +23,13 @@ class Validators {
 
   static FormFieldValidator<String> password(
     BuildContext context, {
-    int minLength = 6,
+    int minLength = 8,
   }) {
     return (value) {
       final text = (value ?? '').trim();
 
       if (text.isEmpty) {
-        return t.errors.requiredField(field: t.password);
+        return t.errors.requiredField(field: t.auth.password);
       }
 
       if (text.length < minLength) {

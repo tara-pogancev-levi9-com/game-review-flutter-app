@@ -66,7 +66,7 @@ class ReviewsByUserCubit extends Cubit<ReviewState> {
           );
         } catch (e) {
           Logger.error('Failed to load more reviews', e);
-          emit(ReviewState.error(t.errorLoadingMoreGames));
+          emit(ReviewState.error(t.home.errorLoadingMoreGames));
         }
       },
       orElse: () {},

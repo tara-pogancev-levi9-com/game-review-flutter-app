@@ -29,7 +29,7 @@ class SearchBarWidget extends StatelessWidget {
         enableIMEPersonalizedLearning: false,
         autofillHints: const [],
         decoration: InputDecoration(
-          hintText: t.searchGames,
+          hintText: t.home.searchGames,
           hintStyle: const TextStyle(color: AppColors.textSecondary),
           prefixIcon: const Icon(
             Icons.search_rounded,

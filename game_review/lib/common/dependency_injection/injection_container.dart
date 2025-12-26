@@ -34,7 +34,7 @@ void setupDependencies() {
   );
   final apiUrl = ApiConstants.apiUrl;
   if (apiUrl.isEmpty) {
-    throw StateError(t.missingApiUrl);
+    throw StateError(t.errors.missingApiUrl);
   }
   locator.registerLazySingleton<ApiClient>(() => ApiClient(baseUrl: apiUrl));
 

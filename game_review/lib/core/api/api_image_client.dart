@@ -22,7 +22,7 @@ class ApiImageClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = await SecureStorage.getToken();
+          final token = SecureStorage.getToken();
 
           if (token != null) {
             options.headers['Authorization'] = 'Bearer $token';
@@ -50,7 +50,7 @@ class ApiImageClient {
 
   Future<Response> post(String path, String imageExtensions, {dynamic data}) {
     Options options = Options(
-      headers: {'Content-Type': 'image/${imageExtensions}'},
+      headers: {'Content-Type': 'image/$imageExtensions'},
     );
     return dio.post(path, data: data, options: options);
   }

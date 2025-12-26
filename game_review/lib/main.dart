@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      title: 'Game Review App',
+      title: t.app.title,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark,
       home: const AuthGate(),

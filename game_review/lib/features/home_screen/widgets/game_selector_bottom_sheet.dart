@@ -90,7 +90,7 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
               children: [
                 Expanded(
                   child: Text(
-                    t.selectAGameFromYourLibrary,
+                    t.reviews.selectAGameFromYourLibrary,
                     style: AppTypography.heading,
                   ),
                 ),
@@ -120,7 +120,7 @@ class _GameSelectorBottomSheetState extends State<GameSelectorBottomSheet> {
                       child: Padding(
                         padding: const EdgeInsets.all(24),
                         child: Text(
-                          t.NoGamesFound,
+                          t.home.NoGamesFound,
                           style: const TextStyle(color: AppColors.textPrimary),
                         ),
                       ),

@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
+import 'package:game_review/common/models/user_model.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
 import 'package:game_review/features/profile_screen/exceptions/password_same.dart';
-import 'package:game_review/features/profile_screen/models/profile_Info_model.dart';
+import 'package:game_review/features/profile_screen/models/profile_info_model.dart';
 import 'package:game_review/features/profile_screen/services/user_service.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
@@ -11,10 +12,9 @@ class UserCubit extends Cubit<UserProfileState> {
 
   UserCubit() : super(const UserProfileState.loading());
 
-  Future<void> initData() async {
+  Future<void> initData(String? userId) async {
     try {
-      final currentUserId = await getCurrentUserId();
-      await fetchUserProfile(currentUserId, null);
+      await fetchUserProfile(userId, null);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -63,29 +63,29 @@ class UserCubit extends Cubit<UserProfileState> {
     }
   }
 
-  Future<void> updateAvatar(userId, imageUrl) async {
+  Future<void> updateAvatar(String userId, String imageUrl) async {
     try {
       await _userService.updateUserProfile(userId, {'avatar_url': imageUrl});
-      await fetchUserProfile(null, t.avatarUpdated);
+      await fetchUserProfile(null, t.profile.avatarUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
   }
 
-  Future<void> updateProfileInfo(userId, ProfileInfoModel data) async {
+  Future<void> updateProfileInfo(String userId, ProfileInfoModel data) async {
     try {
       await _userService.updateUserProfile(userId, {
         'username': data.username,
         'display_name': data.displayName,
         'bio': data.bio,
       });
-      await fetchUserProfile(null, t.profileUpdated);
+      await fetchUserProfile(null, t.profile.profileUpdated);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }
   }
 
-  Future<void> changePassword(newPassword, user) async {
+  Future<void> changePassword(String newPassword, UserModel user) async {
     try {
       emit(UserProfileState.loading());
       await _userService.changePassword(newPassword);
@@ -94,7 +94,7 @@ class UserCubit extends Cubit<UserProfileState> {
           user: user,
           loggedUserId: null,
           alreadyFriends: null,
-          message: t.passwordChanged,
+          message: t.auth.passwordChanged,
         ),
       );
     } on PasswordSameAsOldException catch (e) {
@@ -109,16 +109,16 @@ class UserCubit extends Cubit<UserProfileState> {
     } catch (e) {
       emit(
         UserProfileState.error(
-          message: t.errorChangingPassword,
+          message: t.auth.errorChangingPassword,
         ),
       );
     }
   }
 
-  Future<void> deleteAvatar(userId, imagePath) async {
+  Future<void> deleteAvatar(String userId, String imagePath) async {
     try {
       await _userService.deleteAvatar(imagePath, userId);
-      await fetchUserProfile(null, t.avatarRemoved);
+      await fetchUserProfile(null, t.profile.avatarRemoved);
     } catch (e) {
       emit(UserProfileState.error(message: e.toString()));
     }

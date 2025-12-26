@@ -43,12 +43,12 @@ class AuthService {
     } on DioException catch (e) {
       if (e.response?.statusCode != null &&
           e.response?.statusCode == HttpStatus.unprocessableEntity) {
-        throw EmailAlreadyExistsException(t.registrationEmailExistsError);
+        throw EmailAlreadyExistsException(t.auth.registrationEmailExistsError);
       }
       if (e.response?.statusCode != null &&
           e.response?.statusCode == HttpStatus.unprocessableEntity) {
         throw EmailAlreadyExistsException(
-          t.errors.registrationEmailExistsError,
+          t.library.registrationEmailExistsError,
         );
       }
     } catch (e) {

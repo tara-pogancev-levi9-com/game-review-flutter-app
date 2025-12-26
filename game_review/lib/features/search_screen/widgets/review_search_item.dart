@@ -96,7 +96,7 @@ class ReviewSearchItem extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          t.recommended,
+                          t.home.recommended,
                           style: AppTypography.smallText,
                         ),
                       ],

@@ -65,7 +65,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
 
   // Optional state
   double _completionPercentage = 50.0;
-  String _completionStatus = t.inProgress;
+  String _completionStatus = t.gameStatus.inProgress;
 
   bool firstInput = true;
 
@@ -134,7 +134,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(t.youHaveAlreadyReviewedThisGame),
+              content: Text(t.reviews.youHaveAlreadyReviewedThisGame),
               backgroundColor: AppColors.warning,
             ),
           );
@@ -155,14 +155,14 @@ class _AddReviewPageState extends State<AddReviewPage> {
           : null;
 
       String formattedCompletionStatus = _completionStatus;
-      if (_completionStatus == t.completed) {
+      if (_completionStatus == t.gameStatus.completed) {
         formattedCompletionStatus = 'Completed (100%)';
-      } else if (_completionStatus == t.notStarted) {
+      } else if (_completionStatus == t.gameStatus.notStarted) {
         formattedCompletionStatus = 'Not Started (0%)';
-      } else if (_completionStatus == t.inProgress) {
+      } else if (_completionStatus == t.gameStatus.inProgress) {
         formattedCompletionStatus =
             'In Progress (${_completionPercentage.toInt()}%)';
-      } else if (_completionStatus == t.abandoned) {
+      } else if (_completionStatus == t.gameStatus.abandoned) {
         formattedCompletionStatus =
             'Abandoned (${_completionPercentage.toInt()}%)';
       }
@@ -192,7 +192,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
         await _reviewFormCubit.addReviewImages(response.id, _selectedImages!);
       }
     } catch (e) {
-      AppSnackbar.showError(context, t.failedToSaveReview, error: e);
+      AppSnackbar.showError(context, t.reviews.failedToSaveReview, error: e);
     }
   }
 
@@ -215,13 +215,13 @@ class _AddReviewPageState extends State<AddReviewPage> {
           listener: (context, state) {
             state.maybeWhen(
               success: (review) {
-                AppSnackbar.showSuccess(context, t.reviewAddedSuccessfully);
+                AppSnackbar.showSuccess(context, t.reviews.reviewAddedSuccessfully);
                 Navigator.of(context).pop(true);
               },
               error: (message) {
                 AppSnackbar.showError(
                   context,
-                  t.failedToSaveReview,
+                  t.reviews.failedToSaveReview,
                   error: message,
                 );
               },
@@ -267,11 +267,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     CustomTextFormField(
                       key: _titleKey,
                       controller: _titleController,
-                      label: t.reviewTitle,
+                      label: t.reviews.reviewTitle,
                       maxLines: 1,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return t.reviewTitleIsRequired;
+                          return t.reviews.reviewTitleIsRequired;
                         }
                         return null;
                       },
@@ -283,11 +283,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     CustomTextFormField(
                       key: _descriptionKey,
                       controller: _descriptionController,
-                      label: t.reviewDescription,
+                      label: t.reviews.reviewDescription,
                       maxLines: 5,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return t.reviewDescriptionIsRequired;
+                          return t.reviews.reviewDescriptionIsRequired;
                         }
                         return null;
                       },
@@ -296,26 +296,26 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 32),
 
                     // Pros & Cons Section (OPTIONAL)
-                    SectionTitleWidget(title: t.prosCons),
+                    SectionTitleWidget(title: t.reviews.prosCons),
                     const SizedBox(height: 16),
 
                     CustomTextFormField(
                       controller: _propsController,
-                      label: t.gamePros,
+                      label: t.reviews.gamePros,
                       maxLines: 2,
                     ),
                     const SizedBox(height: 16),
 
                     CustomTextFormField(
                       controller: _consController,
-                      label: t.gameCons,
+                      label: t.reviews.gameCons,
                       maxLines: 2,
                     ),
                     const SizedBox(height: 32),
 
                     // Overall Rating (REQUIRED)
                     RatingSectionWidget(
-                      title: t.overallRating,
+                      title: t.reviews.overallRating,
                       rating: _overallRating,
                       onChanged: (value) =>
                           setState(() => _overallRating = value),
@@ -323,11 +323,11 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 32),
 
                     // Other Ratings (OPTIONAL)
-                    SectionTitleWidget(title: t.individualRatings),
+                    SectionTitleWidget(title: t.reviews.individualRatings),
                     const SizedBox(height: 16),
 
                     RatingRowWidget(
-                      label: t.gameplay,
+                      label: t.ratings.gameplay,
                       rating: _gameplayRating,
                       onChanged: (value) =>
                           setState(() => _gameplayRating = value),
@@ -335,7 +335,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 12),
 
                     RatingRowWidget(
-                      label: t.graphics,
+                      label: t.ratings.graphics,
                       rating: _graphicsRating,
                       onChanged: (value) =>
                           setState(() => _graphicsRating = value),
@@ -343,7 +343,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 12),
 
                     RatingRowWidget(
-                      label: t.story,
+                      label: t.ratings.story,
                       rating: _storyRating,
                       onChanged: (value) =>
                           setState(() => _storyRating = value),
@@ -351,7 +351,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 12),
 
                     RatingRowWidget(
-                      label: t.sound,
+                      label: t.ratings.sound,
                       rating: _soundRating,
                       onChanged: (value) =>
                           setState(() => _soundRating = value),
@@ -359,7 +359,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 12),
 
                     RatingRowWidget(
-                      label: t.value,
+                      label: t.ratings.value,
                       rating: _valueRating,
                       onChanged: (value) =>
                           setState(() => _valueRating = value),
@@ -367,7 +367,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     const SizedBox(height: 32),
 
                     // Misc Section (OPTIONAL)
-                    SectionTitleWidget(title: t.miscellaneous),
+                    SectionTitleWidget(title: t.reviews.miscellaneous),
                     const SizedBox(height: 16),
 
                     // Completion Percentage Slider
@@ -378,7 +378,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              t.gameCompletion,
+                              t.reviews.gameCompletion,
                               style: AppTypography.labelSmall,
                             ),
                             Text(
@@ -404,13 +404,13 @@ class _AddReviewPageState extends State<AddReviewPage> {
 
                     // Completion Status Dropdown
                     ReviewDropdown(
-                      label: t.completionStatus,
+                      label: t.reviews.completionStatusLabel,
                       value: _completionStatus,
                       items: [
-                        t.notStarted,
-                        t.inProgress,
-                        t.completed,
-                        t.abandoned,
+                        t.gameStatus.notStarted,
+                        t.gameStatus.inProgress,
+                        t.gameStatus.completed,
+                        t.gameStatus.abandoned,
                       ],
                       onChanged: (value) {
                         if (value != null) {
@@ -418,9 +418,9 @@ class _AddReviewPageState extends State<AddReviewPage> {
                             _completionStatus = value;
 
                             // Auto-fill completion percentage based on status
-                            if (value == t.completed) {
+                            if (value == t.gameStatus.completed) {
                               _completionPercentage = 100.0;
-                            } else if (value == t.notStarted) {
+                            } else if (value == t.gameStatus.notStarted) {
                               _completionPercentage = 0.0;
                             }
                           });
@@ -432,13 +432,13 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     // In-game Hours Input (OPTIONAL)
                     CustomTextFormField(
                       controller: _playtimeController,
-                      label: t.inGameHours,
+                      label: t.reviews.inGameHours,
                       keyboardType: TextInputType.number,
                       maxLines: 1,
                       validator: (value) {
                         if (value != null && value.isNotEmpty) {
                           if (int.tryParse(value) == null) {
-                            return t.pleaseEnterAValidNumber;
+                            return t.reviews.pleaseEnterAValidNumber;
                           }
                         }
                         return null;
@@ -446,7 +446,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                       firstInput: firstInput,
                     ),
                     const SizedBox(height: 32),
-                    SectionTitleWidget(title: t.addImages),
+                    SectionTitleWidget(title: t.profile.addImages),
                     (_selectedImages != null && _selectedImages!.isNotEmpty)
                         ? Container(
                             decoration: BoxDecoration(
@@ -511,7 +511,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                             child: InkWell(
                               onTap: _pickMultiImages,
                               child: Center(
-                                child: Text(t.noImagesSelected),
+                                child: Text(t.profile.noImagesSelected),
                               ),
                             ),
                           ),
@@ -519,7 +519,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     ElevatedButton(
                       style: elevatedButtonSmallStyle,
                       onPressed: () => _pickMultiImages(),
-                      child: Text(t.chooseImages),
+                      child: Text(t.profile.chooseImages),
                     ),
                     const SizedBox(height: 32),
 
@@ -528,7 +528,7 @@ class _AddReviewPageState extends State<AddReviewPage> {
                       child: LoadingButton(
                         isLoading: isLoading,
                         onPressed: _onSave,
-                        text: t.save,
+                        text: t.common.save,
                       ),
                     ),
                     const SizedBox(height: 16),

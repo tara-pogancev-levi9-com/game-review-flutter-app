@@ -5,7 +5,6 @@ import 'package:game_review/features/home_screen/bloc/review_details_state.dart'
 
 class ReviewDetailsCubit extends Cubit<ReviewDetailsState> {
   final ReviewsService _reviewService;
-  final List<ReviewMediaModel> _reviews = [];
 
   ReviewDetailsCubit(this._reviewService)
     : super(const ReviewDetailsState.loading());
@@ -15,7 +14,7 @@ class ReviewDetailsCubit extends Cubit<ReviewDetailsState> {
       List<ReviewMediaModel> result = await _reviewService.getReviewMedia(
         reviewId,
       );
-      print("REVIEW MEDIA: " + result.toString() + " REVIEW ID: " + reviewId);
+      print("REVIEW MEDIA: $result.toString() REVIEW ID: $reviewId");
       emit(ReviewDetailsState.loaded(reviewMedia: result));
     } catch (e) {
       throw Exception(e.toString());

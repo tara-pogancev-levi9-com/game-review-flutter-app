@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_review/common/dependency_injection/injection_container.dart';
 import 'package:game_review/common/theme/app_colors.dart';
 import 'package:game_review/features/auth/bloc/auth_cubit.dart';
-import 'package:game_review/features/auth/login_page.dart';
+import 'package:game_review/features/main_screen/widgets/header_widget.dart';
 import 'package:game_review/features/profile_screen/bloc/user_cubit.dart';
 import 'package:game_review/features/profile_screen/bloc/user_state.dart';
+import 'package:game_review/features/welcome_screen/welcome_page.dart';
 import 'package:game_review/i18n/strings.g.dart';
 
 import '../main_screen/widgets/app_scaffold.dart';
@@ -16,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 
   const ProfilePage({
     super.key,
-    this.currentUserId = null,
+    this.currentUserId,
     this.isStandalone = false,
   });
 
@@ -28,8 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    locator<UserCubit>().initData();
-    //locator<UserCubit>().fetchUserProfile(widget.currentUserId, null);
+    locator<UserCubit>().initData(widget.currentUserId);
   }
 
   @override
@@ -41,7 +41,11 @@ class _ProfilePageState extends State<ProfilePage> {
           loaded: (user, loggedUserId, alreadyFriends, message) {
             if (message != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: AppColors.success,
+                  duration: Duration(seconds: 2),
+                ),
               );
             }
           },
@@ -59,13 +63,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   right: 30,
                   child: CircleAvatar(
                     radius: 100,
+                    backgroundColor: AppColors.textTertiary,
                     backgroundImage: (user.avatarUrl != null)
                         ? NetworkImage(user.avatarUrl!) as ImageProvider
                         : null,
-                    child: user.avatarUrl == null
-                        ? Center(
-                            child: Text(
-                              t.noImage,
+                    child: (user.avatarUrl == null)
+                        ? ClipOval(
+                            child: Image(
+                              fit: BoxFit.contain,
+                              image: (user.avatarUrl != null)
+                                  ? NetworkImage(user.avatarUrl!)
+                                        as ImageProvider
+                                  : const AssetImage(
+                                      'lib/common/assets/images/blankAvatarSmall.png',
+                                    ),
                             ),
                           )
                         : null,
@@ -86,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
+                                    builder: (context) => WelcomePage(),
                                   ),
                                   (Route<dynamic> route) => false,
                                 );
@@ -96,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 size: 30,
                               ),
                             ),
-                            Text(t.logout),
+                            Text(t.auth.logout),
                           ],
                         ),
                       )
@@ -167,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(
                           height: 50,
                         ),
-                        ?(widget.isStandalone)
+                        ?(widget.isStandalone && loggedUserId != user.id)
                             ? (alreadyFriends != null && !alreadyFriends)
                                   ? ElevatedButton(
                                       onPressed: () {
@@ -175,16 +186,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                           loggedUserId,
                                           widget.currentUserId,
                                         );
-                                        /*locator<UserCubit>().fetchUserProfile(
-                                          widget.currentUserId,
-                                          null,
-                                        );*/
                                       },
-                                      child: Text(t.addFriend),
+                                      child: Text(t.profile.addFriend),
                                     )
                                   : OutlinedButton(
                                       onPressed: () {},
-                                      child: Text(t.friends),
+                                      child: Text(t.profile.friends),
                                     )
                             : null,
                       ],
@@ -194,34 +201,46 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             );
             if (widget.isStandalone) {
-              return AppScaffold(
-                appBar: AppBar(
-                  backgroundColor: AppColors.primaryPurple,
-                  leadingWidth: 100,
-                  leading: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      Text(
-                        t.back,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+              return Container(
+                decoration: BoxDecoration(color: AppColors.primaryPurple),
+                child: AppScaffold(
+                  appBar: CustomHeader(
+                    isHome: false,
+                    onBack: () => Navigator.pop(context),
                   ),
+
+                  body: pageContent,
                 ),
-                body: pageContent,
               );
             } else {
               return pageContent;
             }
           },
           error: (message) {
-            return Center(child: Text(message));
+            return Center(
+              child: Column(
+                children: [
+                  Text(message),
+                  IconButton(
+                    onPressed: () async {
+                      await locator<AuthCubit>().logout();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WelcomePage(),
+                        ),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                    icon: Icon(
+                      Icons.logout,
+                      size: 30,
+                    ),
+                  ),
+                  Text(t.auth.logout),
+                ],
+              ),
+            );
           },
         );
       },

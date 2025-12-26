@@ -44,7 +44,7 @@ class HorizontalReviewsList extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  t.swipeToSeeMore,
+                  t.home.swipeToSeeMore,
                   style: AppTypography.searchItemSubtitle.copyWith(
                     fontSize: 12,
                     color: AppColors.textSecondary,
